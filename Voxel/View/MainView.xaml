@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Voxel.View"
         mc:Ignorable="d"
-        Title="MainView" Height="300" Width="300">
+        Title="{Binding WindowTitle}" Height="300" Width="300" WindowStartupLocation="CenterScreen">
     <Grid>
         
     </Grid>

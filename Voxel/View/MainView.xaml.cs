@@ -11,6 +11,7 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
+using Voxel.ViewModel;
 
 namespace Voxel.View
 {
@@ -22,6 +23,7 @@ namespace Voxel.View
         public MainView()
         {
             InitializeComponent();
+            DataContext = new MainViewModel();
         }
     }
 }
