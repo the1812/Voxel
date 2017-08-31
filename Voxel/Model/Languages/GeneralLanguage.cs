@@ -4,28 +4,27 @@ using System.Globalization;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using Ace;
 
 namespace Voxel.Model.Languages
 {
-    sealed class MainLanguage : Language
+    sealed class GeneralLanguage : Language
     {
-        public MainLanguage(CultureInfo cultureInfo) : base(cultureInfo) { }
-        public MainLanguage() : base() { }
+        public GeneralLanguage(CultureInfo cultureInfo) : base(cultureInfo) { }
+        public GeneralLanguage() : base() { }
 
         protected override void Load()
         {
             keys = new List<string>
             {
-                "WindowTitle"
+                nameof(TileTypeNotMatchException),
             };
             simplifiedChinese = new List<string>
             {
-                "Voxel"
+                "尝试读取的磁贴类型不匹配。",
             };
             americanEnglish = new List<string>
             {
-                "Voxel"
+                "The type of tile is not match."
             };
         }
     }

@@ -61,7 +61,18 @@
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="Extensions.cs" />
+    <Compile Include="Model\ImageTile.cs" />
+    <Compile Include="Model\ImageTileManager.cs" />
+    <Compile Include="Model\Languages\GeneralLanguage.cs" />
+    <Compile Include="Model\Languages\Language.cs" />
     <Compile Include="Model\Languages\MainLanguage.cs" />
+    <Compile Include="Model\NonscalableTile.cs" />
+    <Compile Include="Model\NonscalableTileManager.cs" />
+    <Compile Include="Model\ScalableTile.cs" />
+    <Compile Include="Model\Tile.cs" />
+    <Compile Include="Model\TileManager.cs" />
+    <Compile Include="TileTypeNotMatchException.cs" />
     <Compile Include="ViewModel\MainViewModel.cs" />
     <Compile Include="View\MainView.xaml.cs">
       <DependentUpon>MainView.xaml</DependentUpon>
