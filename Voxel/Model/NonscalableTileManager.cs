@@ -36,7 +36,7 @@ namespace Voxel.Model
             tile.TargetPath = data[nameof(tile.TargetPath)].StringValue;
             tile.XmlPath = data[nameof(tile.XmlPath)].StringValue;
             string themeString = data[nameof(tile.Theme)].StringValue;
-            tile.Theme = themeString == TileType.DarkThemeString ? TileType.TextTheme.Dark : TileType.TextTheme.Light;
+            tile.Theme = themeString == DarkThemeString ? TileType.TextTheme.Dark : TileType.TextTheme.Light;
         }
         public override void SaveData()
         {
@@ -49,7 +49,7 @@ namespace Voxel.Model
                 [nameof(tile.Background)] = tile.Background.ToInt32(),
                 [nameof(tile.TargetPath)] = tile.TargetPath,
                 [nameof(tile.XmlPath)] = tile.XmlPath,
-                [nameof(tile.Theme)] = tile.Theme == TileType.TextTheme.Dark ? TileType.DarkThemeString : TileType.LightThemeString,
+                [nameof(tile.Theme)] = tile.Theme == TileType.TextTheme.Dark ? DarkThemeString : LightThemeString,
             };
             base.SaveData();
         }

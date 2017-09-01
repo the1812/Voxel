@@ -25,7 +25,6 @@ namespace Voxel.Model
             Light,
             Dark
         }
-        public const string DarkThemeString = nameof(TextTheme.Dark), LightThemeString = nameof(TextTheme.Light);
 
         private Color background;
         public Color Background
