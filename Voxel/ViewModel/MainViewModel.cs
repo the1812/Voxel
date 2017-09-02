@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
@@ -18,5 +18,6 @@ namespace Voxel.ViewModel
         private Dictionary<string, string> language;
 
         public string WindowTitle => language[nameof(WindowTitle)];
+        public string ButtonNonScalableTile => language[nameof(ButtonNonScalableTile)];
     }
 }

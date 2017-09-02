@@ -4,12 +4,12 @@ using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Ace;
 
 namespace Voxel.Model
 {
     sealed class ScalableTile : Tile
     {
-        public string TargetPath { get; set; }
         public string SubFolderName { get; set; }
         public string ImageName { get; set; }
 
