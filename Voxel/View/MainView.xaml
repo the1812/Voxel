@@ -36,8 +36,8 @@
                 Height="1*" />
         </Grid.RowDefinitions>
         <Button
-            x:Name="buttonNonScalableTileNew"
-            Content="{Binding ButtonNonScalableTile}"
+            x:Name="buttonNonscalableTileNew"
+            Content="{Binding ButtonNonscalableTile}"
             VerticalAlignment="Bottom"
             Margin="30,0,0,9.5"
             Style="{StaticResource DarkButton}"

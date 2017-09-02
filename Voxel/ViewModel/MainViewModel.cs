@@ -9,15 +9,11 @@ using Voxel.Model.Languages;
 
 namespace Voxel.ViewModel
 {
-    sealed class MainViewModel
+    sealed class MainViewModel : ViewModel
     {
-        public MainViewModel()
-        {
-            language = new MainLanguage(CultureInfo.CurrentUICulture).Dictionary;
-        }
-        private Dictionary<string, string> language;
+        public MainViewModel() : base(new MainLanguage()) { }
 
         public string WindowTitle => language[nameof(WindowTitle)];
-        public string ButtonNonScalableTile => language[nameof(ButtonNonScalableTile)];
+        public string ButtonNonscalableTile => language[nameof(ButtonNonscalableTile)];
     }
 }

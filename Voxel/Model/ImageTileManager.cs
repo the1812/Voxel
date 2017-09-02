@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace Voxel.Model
 {
-    sealed class ImageTileManager : Model, IEnumerable<ImageTile>, ICollection<ImageTile>
+    sealed class ImageTileManager : NotificationObject, IEnumerable<ImageTile>, ICollection<ImageTile>
     {
         private List<ImageTile> list;
         public ImageTileManager(IEnumerable<ImageTile> imageTiles)

@@ -7,7 +7,7 @@ using Ace.Files.Json;
 
 namespace Voxel.Model
 {
-    abstract class TileManager : Model
+    abstract class TileManager : NotificationObject
     {
 
         private string path;
