@@ -8,7 +8,7 @@ using Ace;
 
 namespace Voxel.Model.Languages
 {
-    abstract class Language : Model
+    abstract class Language : NotificationObject
     {
         protected static List<string> DefaultLanguage => americanEnglish;
         protected static List<string> keys;

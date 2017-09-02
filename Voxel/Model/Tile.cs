@@ -9,7 +9,7 @@ using Ace;
 
 namespace Voxel.Model
 {
-    abstract class Tile : Model
+    abstract class Tile : NotificationObject
     {
         protected string StartMenu
         {

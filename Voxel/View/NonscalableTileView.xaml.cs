@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -11,6 +11,7 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
+using Voxel.ViewModel;
 
 namespace Voxel.View
 {
@@ -22,6 +23,7 @@ namespace Voxel.View
         public NonscalableTileView()
         {
             InitializeComponent();
+            DataContext = new NonscalableTileViewModel();
         }
     }
 }

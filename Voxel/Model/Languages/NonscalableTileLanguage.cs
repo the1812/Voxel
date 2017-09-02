@@ -15,15 +15,15 @@ namespace Voxel.Model.Languages
         {
             keys = new List<string>
             {
-                
+                "WindowTitle",
             };
             simplifiedChinese = new List<string>
             {
-                
+                "无缩放磁贴",
             };
             americanEnglish = new List<string>
             {
-                
+                "Non-scalable Tile",
             };
         }
     }

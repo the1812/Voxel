@@ -11,6 +11,6 @@ namespace Voxel.ViewModel
     {
         public NonscalableTileViewModel() : base(new NonscalableTileLanguage()) { }
 
-
+        public string WindowTitle => language[nameof(WindowTitle)];
     }
 }

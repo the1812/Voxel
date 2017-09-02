@@ -43,7 +43,8 @@
             Style="{StaticResource DarkButton}"
             Height="25"
             MinWidth="80"
-            HorizontalContentAlignment="Center" />
+            HorizontalContentAlignment="Center"
+            Command="{Binding ButtonNonscalableTileCommand}"/>
         <Button
             Content="Button"
             HorizontalAlignment="Left"
