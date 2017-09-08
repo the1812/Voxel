@@ -36,7 +36,7 @@ namespace Voxel.Model
             data = file.Content;
         }
         protected const string TypeKey = "Type";
-        protected const string DarkThemeString = nameof(Tile.TextTheme.Dark);
-        protected const string LightThemeString = nameof(Tile.TextTheme.Light);
+        protected const string DarkThemeString = nameof(TextTheme.Dark);
+        protected const string LightThemeString = nameof(TextTheme.Light);
     }
 }

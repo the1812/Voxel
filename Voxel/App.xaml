@@ -8,6 +8,8 @@
             <ResourceDictionary.MergedDictionaries>
                 <ResourceDictionary
                     Source="Styles/ToolButton.xaml" />
+                <ResourceDictionary
+                    Source="Styles/OptionButton.xaml" />
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>
     </Application.Resources>

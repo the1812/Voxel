@@ -9,6 +9,16 @@ using Ace;
 
 namespace Voxel.Model
 {
+    public enum TextTheme
+    {
+        Light,
+        Dark
+    }
+    public enum TargetType
+    {
+        File,
+        Folder
+    }
     abstract class Tile : NotificationObject
     {
         protected string StartMenu
@@ -20,12 +30,7 @@ namespace Voxel.Model
         }
         public bool IsOnStartMenu => File.Exists(StartMenu + StartMenuTargetPath.GetFileName());
         public abstract string StartMenuTargetPath { get; }
-        public enum TextTheme
-        {
-            Light,
-            Dark
-        }
-
+        
         private Color background;
         public Color Background
         {
@@ -80,5 +85,17 @@ namespace Voxel.Model
                 OnPropertyChanged(nameof(TargetPath));
             }
         }
+
+        private TargetType targetType;
+        public TargetType TargetType
+        {
+            get => targetType;
+            set
+            {
+                targetType = value;
+                OnPropertyChanged(nameof(TargetType));
+            }
+        }
+
     }
 }

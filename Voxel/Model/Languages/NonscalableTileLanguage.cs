@@ -16,14 +16,23 @@ namespace Voxel.Model.Languages
             keys = new List<string>
             {
                 "WindowTitle",
+                "ButtonTarget",
+                "OpenFileDialogTitle",
+                "OpenFileDialogFilter",
             };
             simplifiedChinese = new List<string>
             {
                 "无缩放磁贴",
+                "选择目标",
+                "选择文件（右键点击\"选择目标\"以选择文件夹）",
+                "程序文件 (*.exe)|*.exe",
             };
             americanEnglish = new List<string>
             {
                 "Non-scalable Tile",
+                "Select Target",
+                "Select File (Right click \"Select Target\" to select a folder)",
+                "Program File (*.exe)|*.exe",
             };
         }
     }
