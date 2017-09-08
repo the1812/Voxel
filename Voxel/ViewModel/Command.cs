@@ -10,11 +10,11 @@ namespace Voxel.ViewModel
     class Command : ICommand
     {
         public event EventHandler CanExecuteChanged;
-        private void onCanExecuteChanged()
+        internal void RaiseCanExecuteChanged()
         {
             CanExecuteChanged?.Invoke(this, EventArgs.Empty);
         }
-        public Func<object, bool> CanExecuteAction { get; set; }
+        public Func<object, bool> CanExecuteAction { get; set; } = (o) => true;
         public Action<object> ExcuteAction { get; set; }
         public bool CanExecute(object parameter)
         {

@@ -92,10 +92,9 @@ namespace Voxel.ViewModel
         #endregion
         #region Commands
 
-        public Command SelectTargetCommand
+        public Command SelectFileCommand
             => new Command
             {
-                CanExecuteAction = (o) => true,
                 ExcuteAction = (o) =>
                 {
                     var dialog = new OpenFileDialog
@@ -107,11 +106,42 @@ namespace Voxel.ViewModel
                         CheckFileExists = true,
                         Filter = language["OpenFileDialogFilter"],
                     };
+                    if (tileManager.Tile.TargetType == TargetType.File
+                    && TargetFileName != null)
+                    {
+                        dialog.FileName = tileManager.Tile.TargetPath;
+                    }
                     if (dialog.ShowDialog() ?? false)
                     {
                         string targetPath = dialog.FileName;
                         tileManager.Tile.TargetPath = targetPath;
                         tileManager.Tile.TargetType = TargetType.File;
+                        var image = Ace.Win32.Api.GetIcon(targetPath);
+                        Icon = image.ImageSource;
+                        OnPropertyChanged(nameof(TargetName));
+                    }
+                },
+            };
+        public Command SelectFolderCommand
+            => new Command
+            {
+                ExcuteAction = (o) =>
+                {
+                    var dialog = new System.Windows.Forms.FolderBrowserDialog
+                    {
+                        Description = language["OpenFolderDialogTitle"],
+                        ShowNewFolderButton = false,
+                    };
+                    if (tileManager.Tile.TargetType == TargetType.Folder
+                    && TargetFolderName != null)
+                    {
+                        dialog.SelectedPath = tileManager.Tile.TargetPath;
+                    }
+                    if (dialog.ShowDialog() == System.Windows.Forms.DialogResult.OK)
+                    {
+                        string targetPath = dialog.SelectedPath;
+                        tileManager.Tile.TargetPath = targetPath;
+                        tileManager.Tile.TargetType = TargetType.Folder;
                         var image = Ace.Win32.Api.GetIcon(targetPath);
                         Icon = image.ImageSource;
                         OnPropertyChanged(nameof(TargetName));

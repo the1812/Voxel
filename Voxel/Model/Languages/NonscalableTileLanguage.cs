@@ -20,6 +20,7 @@ namespace Voxel.Model.Languages
                 "OpenFileDialogTitle",
                 "OpenFileDialogFilter",
                 "ButtonBackColor",
+                "OpenFolderDialogTitle",
             };
             simplifiedChinese = new List<string>
             {
@@ -28,6 +29,7 @@ namespace Voxel.Model.Languages
                 "选择文件（右键点击\"选择目标\"以选择文件夹）",
                 "程序文件 (*.exe)|*.exe",
                 "选择背景色",
+                "选择文件夹",
             };
             americanEnglish = new List<string>
             {
@@ -36,7 +38,7 @@ namespace Voxel.Model.Languages
                 "Select File (Right click \"Select Target\" to select a folder)",
                 "Program File (*.exe)|*.exe",
                 "Set Back Color",
-
+                "Select Folder",
             };
         }
     }

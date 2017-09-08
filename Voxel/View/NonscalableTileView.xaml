@@ -125,7 +125,13 @@
         x:Name="buttonTarget"
         Content="{Binding ButtonTarget}"
         Grid.Row="0"
-        Command="{Binding SelectTargetCommand}"/>
+        Command="{Binding SelectFileCommand}">
+        <Button.InputBindings>
+          <MouseBinding
+            Gesture="RightClick"
+            Command="{Binding SelectFolderCommand}" />
+        </Button.InputBindings>
+      </Button>
       <Button
         Style="{StaticResource OptionButton}"
         x:Name="buttonBackColor"
