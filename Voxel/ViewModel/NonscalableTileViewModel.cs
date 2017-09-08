@@ -18,6 +18,7 @@ namespace Voxel.ViewModel
         #region Language
         public string WindowTitle => language[nameof(WindowTitle)];
         public string ButtonTarget => language[nameof(ButtonTarget)];
+        public string ButtonBackColor => language[nameof(ButtonBackColor)];
 
         #endregion
         #region Vars and properties
@@ -63,7 +64,7 @@ namespace Voxel.ViewModel
                 }
             }
         }
-
+        
 
         private Color backColor = Ace.Wpf.DwmEffect.ColorizationColor;
         public Brush BackColor
