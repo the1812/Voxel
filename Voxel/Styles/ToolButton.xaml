@@ -9,7 +9,7 @@
       Value="White" />
     <Setter
       Property="Background"
-      Value="{DynamicResource HighlightColor}" />
+      Value="{x:Null}" />
     <Setter
       Property="BorderBrush"
       Value="{x:Null}" />

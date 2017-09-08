@@ -31,7 +31,14 @@
       Grid.ColumnSpan="2"
       Margin="0"
       Grid.Row="1"
-      VerticalAlignment="Stretch">
+      VerticalAlignment="Stretch"
+      Background="{StaticResource HighlightColor}">
+      <Grid.Effect>
+        <DropShadowEffect
+          BlurRadius="20"
+          ShadowDepth="0"
+          Opacity="0.5" />
+      </Grid.Effect>
       <Grid.ColumnDefinitions>
         <ColumnDefinition
           Width="1*" />
@@ -97,7 +104,7 @@
     </Grid>
     <Grid
       x:Name="gridOptions"
-      Margin="0">
+      Margin="0" >
       <Grid.RowDefinitions>
         <RowDefinition
           Height="1*" />
