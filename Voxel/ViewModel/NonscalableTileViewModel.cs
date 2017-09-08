@@ -7,6 +7,7 @@ using Voxel.Model;
 using Voxel.Model.Languages;
 using Ace;
 using Microsoft.Win32;
+using System.Windows.Media;
 
 namespace Voxel.ViewModel
 {
@@ -14,12 +15,12 @@ namespace Voxel.ViewModel
     {
         public NonscalableTileViewModel() : base(new NonscalableTileLanguage()) { }
 
-#region Language
+        #region Language
         public string WindowTitle => language[nameof(WindowTitle)];
         public string ButtonTarget => language[nameof(ButtonTarget)];
 
         #endregion
-#region Vars and properties
+        #region Vars and properties
         private NonscalableTileManager tileManager = new NonscalableTileManager();
         //public NonscalableTileManager TileManager
         //{
@@ -62,6 +63,20 @@ namespace Voxel.ViewModel
                 }
             }
         }
+
+
+        private Color backColor = Ace.Wpf.DwmEffect.ColorizationColor;
+        public Brush BackColor
+        {
+            get => new SolidColorBrush(backColor);
+            set
+            {
+                backColor = (value as SolidColorBrush)?.Color ?? throw new ArgumentException();
+                OnPropertyChanged(nameof(BackColor));
+            }
+        }
+
+
         #endregion
         #region Commands
 

@@ -1,16 +1,20 @@
-<Application x:Class="Voxel.App"
-             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-             xmlns:local="clr-namespace:Voxel"
-             StartupUri="View/MainView.xaml">
-    <Application.Resources>
-        <ResourceDictionary>
-            <ResourceDictionary.MergedDictionaries>
-                <ResourceDictionary
-                    Source="Styles/ToolButton.xaml" />
-                <ResourceDictionary
-                    Source="Styles/OptionButton.xaml" />
-            </ResourceDictionary.MergedDictionaries>
-        </ResourceDictionary>
-    </Application.Resources>
+<Application
+  x:Class="Voxel.App"
+  xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+  xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+  xmlns:local="clr-namespace:Voxel"
+  StartupUri="View/MainView.xaml">
+  <Application.Resources>
+    <ResourceDictionary>
+      <ResourceDictionary.MergedDictionaries>
+        <ResourceDictionary
+          Source="Styles/ToolButton.xaml" />
+        <ResourceDictionary
+          Source="Styles/OptionButton.xaml" />
+      </ResourceDictionary.MergedDictionaries>
+      <SolidColorBrush
+        x:Key="HighlightColor"
+        Color="#46829D" />
+    </ResourceDictionary>
+  </Application.Resources>
 </Application>

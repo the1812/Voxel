@@ -21,7 +21,7 @@
       Value="#E1E1E1" />
     <Setter
       Property="BorderBrush"
-      Value="#3C81C9" />
+      Value="{DynamicResource HighlightColor}" />
     <!--<Setter
             Property="Height"
             Value="35" />-->
