@@ -77,6 +77,17 @@ namespace Voxel.ViewModel
             }
         }
 
+        private ImageSource icon;
+        public ImageSource Icon
+        {
+            get => icon;
+            set
+            {
+                icon = value;
+                OnPropertyChanged(nameof(Icon));
+            }
+        }
+
 
         #endregion
         #region Commands
@@ -98,8 +109,11 @@ namespace Voxel.ViewModel
                     };
                     if (dialog.ShowDialog() ?? false)
                     {
-                        tileManager.Tile.TargetPath = dialog.FileName;
+                        string targetPath = dialog.FileName;
+                        tileManager.Tile.TargetPath = targetPath;
                         tileManager.Tile.TargetType = TargetType.File;
+                        var image = Ace.Win32.Api.GetIcon(targetPath);
+                        Icon = image.ImageSource;
                         OnPropertyChanged(nameof(TargetName));
                     }
                 },

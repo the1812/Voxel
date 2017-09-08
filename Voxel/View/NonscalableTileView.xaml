@@ -14,7 +14,8 @@
   MinWidth="500"
   MinHeight="300">
   <Grid
-    x:Name="gridMain">
+    x:Name="gridMain"
+    Background="#FF323232">
     <Grid.ColumnDefinitions>
       <ColumnDefinition
         Width="2*" />
@@ -88,7 +89,9 @@
         VerticalAlignment="Center"
         Width="40">
         <Image
+          Stretch="Uniform"
           x:Name="imageIcon"
+          Source="{Binding Icon}"
           RenderTransformOrigin="0.5,0.5" />
 
       </Border>
