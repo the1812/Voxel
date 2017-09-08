@@ -19,6 +19,7 @@ namespace Voxel.ViewModel
         public string WindowTitle => language[nameof(WindowTitle)];
         public string ButtonTarget => language[nameof(ButtonTarget)];
         public string ButtonBackColor => language[nameof(ButtonBackColor)];
+        public string ButtonTargetTip => language[nameof(ButtonTargetTip)];
 
         #endregion
         #region Vars and properties

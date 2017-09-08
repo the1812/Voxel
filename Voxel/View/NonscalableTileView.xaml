@@ -125,7 +125,8 @@
         x:Name="buttonTarget"
         Content="{Binding ButtonTarget}"
         Grid.Row="0"
-        Command="{Binding SelectFileCommand}">
+        Command="{Binding SelectFileCommand}"
+        ToolTip="{Binding ButtonTargetTip}">
         <Button.InputBindings>
           <MouseBinding
             Gesture="RightClick"
