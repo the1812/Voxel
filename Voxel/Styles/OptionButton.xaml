@@ -50,7 +50,7 @@
             <Border
               BorderBrush="{TemplateBinding BorderBrush}"
               BorderThickness="0,0,4,0"
-              Grid.Column="1">
+              Grid.ColumnSpan="2">
 
               <Grid>
                 <Grid.RowDefinitions>
@@ -86,7 +86,7 @@
               <Setter
                 Property="Background"
                 TargetName="mask"
-                Value="#2000" />
+                Value="#1000" />
             </Trigger>
             <Trigger
               Property="IsPressed"
@@ -94,7 +94,7 @@
               <Setter
                 Property="Background"
                 TargetName="mask"
-                Value="#4000" />
+                Value="#2000" />
             </Trigger>
           </ControlTemplate.Triggers>
         </ControlTemplate>
