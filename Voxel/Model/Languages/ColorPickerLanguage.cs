@@ -27,13 +27,13 @@ namespace Voxel.Model.Languages
             };
             simplifiedChinese = new List<string>
             {
-                "颜色选择",
+                "颜色设定",
                 "确定",
                 "取消",
             };
             americanEnglish = new List<string>
             {
-                "Select Color",
+                "Set Color",
                 "OK",
                 "Cancel",
             };
