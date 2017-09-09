@@ -65,6 +65,7 @@
     <Compile Include="Extensions.cs" />
     <Compile Include="Model\ImageTile.cs" />
     <Compile Include="Model\ImageTileManager.cs" />
+    <Compile Include="Model\Languages\ColorPickerLanguage.cs" />
     <Compile Include="Model\Languages\GeneralLanguage.cs" />
     <Compile Include="Model\Languages\Language.cs" />
     <Compile Include="Model\Languages\MainLanguage.cs" />
@@ -77,10 +78,14 @@
     <Compile Include="Model\TileSize.cs" />
     <Compile Include="NotificationObject.cs" />
     <Compile Include="TileTypeNotMatchException.cs" />
+    <Compile Include="ViewModel\ColorPickerViewModel.cs" />
     <Compile Include="ViewModel\Command.cs" />
     <Compile Include="ViewModel\MainViewModel.cs" />
     <Compile Include="ViewModel\NonscalableTileViewModel.cs" />
     <Compile Include="ViewModel\ViewModel.cs" />
+    <Compile Include="View\ColorPickerView.xaml.cs">
+      <DependentUpon>ColorPickerView.xaml</DependentUpon>
+    </Compile>
     <Compile Include="View\MainView.xaml.cs">
       <DependentUpon>MainView.xaml</DependentUpon>
     </Compile>
@@ -121,6 +126,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Styles\ToolButton.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\ColorPickerView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

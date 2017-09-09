@@ -1,0 +1,91 @@
+<Window
+  x:Class="Voxel.View.ColorPickerView"
+  xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+  xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+  xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+  xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+  xmlns:local="clr-namespace:Voxel.View"
+  mc:Ignorable="d"
+  Title="{Binding WindowTitle}"
+  Height="300"
+  Width="500">
+  <Grid>
+    <Grid.RowDefinitions>
+      <RowDefinition
+        Height="1*" />
+      <RowDefinition
+        Height="1*" />
+      <RowDefinition
+        Height="1*" />
+    </Grid.RowDefinitions>
+    <Grid.ColumnDefinitions>
+      <ColumnDefinition
+        Width="1*" />
+      <ColumnDefinition
+        Width="1*" />
+    </Grid.ColumnDefinitions>
+    <Viewbox
+      Grid.Column="0"
+      HorizontalAlignment="Stretch"
+      VerticalAlignment="Stretch"
+      Margin="10,10,9.5,10.5"
+      Stretch="Uniform"
+      Grid.RowSpan="3">
+      <Grid
+        Height="30"
+        Width="30">
+        <Grid.RowDefinitions>
+          <RowDefinition
+            Height="1*" />
+          <RowDefinition
+            Height="1*" />
+        </Grid.RowDefinitions>
+        <Ellipse
+          Grid.RowSpan="2"
+          HorizontalAlignment="Stretch"
+          VerticalAlignment="Stretch"
+          Margin="0">
+          <Ellipse.Fill>
+            <SolidColorBrush
+              Color="{Binding SelectedColor}" />
+          </Ellipse.Fill>
+          <Ellipse.Effect>
+            <DropShadowEffect
+              BlurRadius="15"
+              Opacity="0.4"
+              ShadowDepth="0" />
+          </Ellipse.Effect>
+        </Ellipse>
+        <Viewbox
+          Grid.Row="0"
+          VerticalAlignment="Bottom"
+          Margin="5,5,5,2">
+          <TextBlock
+            Text="Abc"
+            Foreground="White"
+            Height="16"
+            Width="23" />
+        </Viewbox>
+        <Viewbox
+          Grid.Row="1"
+          VerticalAlignment="Top"
+          Margin="5,2,5,5">
+          <TextBlock
+            Text="Abc"
+            Foreground="Black"
+            Height="16"
+            Width="23" />
+        </Viewbox>
+      </Grid>
+    </Viewbox>
+    <Button
+      x:Name="buttonOK"
+      Content="OK"
+      HorizontalAlignment="Left"
+      VerticalAlignment="Top"
+      Width="75"
+      Grid.Column="1"
+      Margin="92.5,40.5,0,0"
+      Grid.Row="2" />
+  </Grid>
+</Window>

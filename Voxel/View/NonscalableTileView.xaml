@@ -79,7 +79,7 @@
       VerticalAlignment="Center"
       Width="124"
       Height="124"
-      Background="{Binding BackColor}">
+      Background="{Binding Background}">
       <Image
         x:Name="imageBackground"
         RenderTransformOrigin="0.5,0.5" />
@@ -137,7 +137,8 @@
         Style="{StaticResource OptionButton}"
         x:Name="buttonBackColor"
         Content="{Binding ButtonBackColor}"
-        Grid.Row="2" />
+        Grid.Row="2"
+        Command="{Binding SelectColorCommand}"/>
     </Grid>
 
   </Grid>

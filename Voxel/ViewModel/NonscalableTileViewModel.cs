@@ -8,6 +8,7 @@ using Voxel.Model.Languages;
 using Ace;
 using Microsoft.Win32;
 using System.Windows.Media;
+using Voxel.View;
 
 namespace Voxel.ViewModel
 {
@@ -68,13 +69,24 @@ namespace Voxel.ViewModel
         
 
         private Color backColor = Ace.Wpf.DwmEffect.ColorizationColor;
-        public Brush BackColor
+        public Brush Background
         {
             get => new SolidColorBrush(backColor);
             set
             {
                 backColor = (value as SolidColorBrush)?.Color ?? throw new ArgumentException();
                 OnPropertyChanged(nameof(BackColor));
+                OnPropertyChanged(nameof(Background));
+            }
+        }
+        public Color BackColor
+        {
+            get => backColor;
+            set
+            {
+                backColor = value;
+                OnPropertyChanged(nameof(BackColor));
+                OnPropertyChanged(nameof(Background));
             }
         }
 
@@ -149,7 +161,21 @@ namespace Voxel.ViewModel
                     }
                 },
             };
-
+        public Command SelectColorCommand
+            => new Command
+            {
+                ExcuteAction = (o) =>
+                {
+                    var colorPicker = new ColorPickerView
+                    {
+                        SelectedColor = BackColor
+                    };
+                    if (colorPicker.ShowDialog() ?? false)
+                    {
+                        BackColor = colorPicker.SelectedColor;
+                    }
+                },
+            };
 #endregion
 
     }
