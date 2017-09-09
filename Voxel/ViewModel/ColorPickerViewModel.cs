@@ -13,6 +13,8 @@ namespace Voxel.ViewModel
         public ColorPickerViewModel() : base(new ColorPickerLanguage()) { }
 
         public string WindowTitle => language[nameof(WindowTitle)];
+        public string ButtonOK => language[nameof(ButtonOK)];
+        public string ButtonCancel => language[nameof(ButtonCancel)];
 
 
 

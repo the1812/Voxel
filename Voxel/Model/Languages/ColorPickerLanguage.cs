@@ -22,14 +22,20 @@ namespace Voxel.Model.Languages
             keys = new List<string>
             {
                 "WindowTitle",
+                "ButtonOK",
+                "ButtonCancel",
             };
             simplifiedChinese = new List<string>
             {
-                "颜色选择器",
+                "颜色选择",
+                "确定",
+                "取消",
             };
             americanEnglish = new List<string>
             {
-                "Color Picker",
+                "Select Color",
+                "OK",
+                "Cancel",
             };
         }
     }

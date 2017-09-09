@@ -28,6 +28,10 @@ namespace Voxel.View
             {
                 DialogResult = true;
             };
+            buttonCancel.Click += (s, e) =>
+            {
+                DialogResult = false;
+            };
         }
         public Color SelectedColor
         {
