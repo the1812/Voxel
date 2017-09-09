@@ -15,6 +15,7 @@ namespace Voxel.ViewModel
         public string WindowTitle => language[nameof(WindowTitle)];
         public string ButtonOK => language[nameof(ButtonOK)];
         public string ButtonCancel => language[nameof(ButtonCancel)];
+        public string TextSample => language[nameof(TextSample)];
 
 
 

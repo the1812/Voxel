@@ -24,18 +24,21 @@ namespace Voxel.Model.Languages
                 "WindowTitle",
                 "ButtonOK",
                 "ButtonCancel",
+                "TextSample",
             };
             simplifiedChinese = new List<string>
             {
                 "颜色设定",
                 "确定",
                 "取消",
+                "示例",
             };
             americanEnglish = new List<string>
             {
                 "Set Color",
                 "OK",
                 "Cancel",
+                "Sample",
             };
         }
     }
