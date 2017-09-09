@@ -23,7 +23,7 @@ namespace Voxel.View
         public NonscalableTileView()
         {
             InitializeComponent();
-            DataContext = new NonscalableTileViewModel();
+            DataContext = new NonscalableTileViewModel(this);
         }
     }
 }

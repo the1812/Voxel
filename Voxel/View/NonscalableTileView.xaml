@@ -8,25 +8,97 @@
   xmlns:local="clr-namespace:Voxel.View"
   mc:Ignorable="d"
   Title="{Binding WindowTitle}"
-  Height="300"
+  Height="273"
   Width="500"
   WindowStartupLocation="CenterOwner"
   MinWidth="500"
-  MinHeight="300">
+  MinHeight="273">
   <Grid
     x:Name="gridMain"
     Background="#FF323232">
     <Grid.ColumnDefinitions>
       <ColumnDefinition
-        Width="2*" />
+        Width="330" />
       <ColumnDefinition />
     </Grid.ColumnDefinitions>
     <Grid.RowDefinitions>
       <RowDefinition
-        Height="5*" />
-      <RowDefinition
         Height="1*" />
+      <RowDefinition
+        Height="45" />
     </Grid.RowDefinitions>
+    <Grid
+      x:Name="gridPreview"
+      Grid.Column="1"
+      Margin="0"
+      HorizontalAlignment="Center"
+      VerticalAlignment="Center"
+      Width="124"
+      Height="124"
+      Background="{Binding Background}">
+      <Image
+        x:Name="imageBackground"
+        RenderTransformOrigin="0.5,0.5" />
+      <Border
+        HorizontalAlignment="Center"
+        Height="40"
+        VerticalAlignment="Center"
+        Width="40">
+        <Image
+          Stretch="Uniform"
+          x:Name="imageIcon"
+          Source="{Binding Icon}"
+          RenderTransformOrigin="0.5,0.5" />
+
+      </Border>
+      <TextBlock
+        HorizontalAlignment="Left"
+        TextWrapping="Wrap"
+        Text="{Binding TargetName}"
+        VerticalAlignment="Bottom"
+        Foreground="White"
+        Margin="8,0,40,5"
+        FontFamily="Segoe UI" />
+
+    </Grid>
+    <Grid
+      Background="{Binding ElementName=gridMain,Path=Background}"
+      x:Name="gridOptions"
+      Margin="0"
+      VerticalAlignment="Center"
+      Height="200">
+      <Grid.RowDefinitions>
+        <RowDefinition
+          Height="40" />
+        <RowDefinition
+          Height="40" />
+        <RowDefinition
+          Height="40" />
+        <RowDefinition
+          Height="40" />
+        <RowDefinition
+          Height="40" />
+      </Grid.RowDefinitions>
+      <Button
+        Style="{StaticResource OptionButton}"
+        x:Name="buttonTarget"
+        Content="{Binding ButtonTarget}"
+        Grid.Row="0"
+        Command="{Binding SelectFileCommand}"
+        ToolTip="{Binding ButtonTargetTip}">
+        <Button.InputBindings>
+          <MouseBinding
+            Gesture="RightClick"
+            Command="{Binding SelectFolderCommand}" />
+        </Button.InputBindings>
+      </Button>
+      <Button
+        Style="{StaticResource OptionButton}"
+        x:Name="buttonBackColor"
+        Content="{Binding ButtonBackColor}"
+        Grid.Row="2"
+        Command="{Binding SelectColorCommand}" />
+    </Grid>
     <Grid
       x:Name="gridBottom"
       Grid.ColumnSpan="2"
@@ -70,75 +142,6 @@
         Content="Button"
         Style="{StaticResource ToolButton}" />
 
-    </Grid>
-    <Grid
-      x:Name="gridPreview"
-      Grid.Column="1"
-      Margin="0"
-      HorizontalAlignment="Center"
-      VerticalAlignment="Center"
-      Width="124"
-      Height="124"
-      Background="{Binding Background}">
-      <Image
-        x:Name="imageBackground"
-        RenderTransformOrigin="0.5,0.5" />
-      <Border
-        HorizontalAlignment="Center"
-        Height="40"
-        VerticalAlignment="Center"
-        Width="40">
-        <Image
-          Stretch="Uniform"
-          x:Name="imageIcon"
-          Source="{Binding Icon}"
-          RenderTransformOrigin="0.5,0.5" />
-
-      </Border>
-      <TextBlock
-        HorizontalAlignment="Left"
-        TextWrapping="Wrap"
-        Text="{Binding TargetName}"
-        VerticalAlignment="Bottom"
-        Foreground="White"
-        Margin="8,0,40,5"
-        FontFamily="Segoe UI" />
-
-    </Grid>
-    <Grid
-      x:Name="gridOptions"
-      Margin="0" >
-      <Grid.RowDefinitions>
-        <RowDefinition
-          Height="1*" />
-        <RowDefinition
-          Height="1*" />
-        <RowDefinition
-          Height="1*" />
-        <RowDefinition
-          Height="1*" />
-        <RowDefinition
-          Height="1*" />
-      </Grid.RowDefinitions>
-      <Button
-        Style="{StaticResource OptionButton}"
-        x:Name="buttonTarget"
-        Content="{Binding ButtonTarget}"
-        Grid.Row="0"
-        Command="{Binding SelectFileCommand}"
-        ToolTip="{Binding ButtonTargetTip}">
-        <Button.InputBindings>
-          <MouseBinding
-            Gesture="RightClick"
-            Command="{Binding SelectFolderCommand}" />
-        </Button.InputBindings>
-      </Button>
-      <Button
-        Style="{StaticResource OptionButton}"
-        x:Name="buttonBackColor"
-        Content="{Binding ButtonBackColor}"
-        Grid.Row="2"
-        Command="{Binding SelectColorCommand}"/>
     </Grid>
 
   </Grid>

@@ -9,12 +9,16 @@ using Ace;
 using Microsoft.Win32;
 using System.Windows.Media;
 using Voxel.View;
+using System.Windows;
 
 namespace Voxel.ViewModel
 {
     sealed class NonscalableTileViewModel : ViewModel
     {
-        public NonscalableTileViewModel() : base(new NonscalableTileLanguage()) { }
+        public NonscalableTileViewModel(NonscalableTileView view) : base(new NonscalableTileLanguage())
+        {
+            View = view;
+        }
 
         #region Language
         public string WindowTitle => language[nameof(WindowTitle)];
@@ -34,6 +38,7 @@ namespace Voxel.ViewModel
         //        OnPropertyChanged(nameof(TileManager));
         //    }
         //}
+        public NonscalableTileView View { get; private set; }
 
         private string TargetFileName
         {
@@ -168,7 +173,8 @@ namespace Voxel.ViewModel
                 {
                     var colorPicker = new ColorPickerView
                     {
-                        SelectedColor = BackColor
+                        SelectedColor = BackColor,
+                        Owner = View,
                     };
                     if (colorPicker.ShowDialog() ?? false)
                     {

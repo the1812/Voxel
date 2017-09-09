@@ -8,7 +8,8 @@
   mc:Ignorable="d"
   Title="{Binding WindowTitle}"
   Height="300"
-  Width="500">
+  Width="500"
+  WindowStartupLocation="CenterOwner">
   <Grid>
     <Grid.RowDefinitions>
       <RowDefinition
