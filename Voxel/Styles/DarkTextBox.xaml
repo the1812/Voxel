@@ -6,6 +6,9 @@
     x:Key="DarkTextBox"
     TargetType="{x:Type TextBox}">
     <Setter
+      Property="SelectionBrush"
+      Value="#F111" />
+    <Setter
       Property="Padding"
       Value="4,0,0,0" />
     <Setter

@@ -64,6 +64,8 @@ namespace Voxel.ViewModel
                 OnPropertyChanged(nameof(SelectedColor));
                 OnPropertyChanged(nameof(HexColor));
                 OnPropertyChanged(nameof(RedColor));
+                OnPropertyChanged(nameof(GreenColor));
+                OnPropertyChanged(nameof(BlueColor));
             }
         }
         public string RedColor
@@ -82,6 +84,48 @@ namespace Voxel.ViewModel
                 OnPropertyChanged(nameof(SelectedColor));
                 OnPropertyChanged(nameof(HexColor));
                 OnPropertyChanged(nameof(RedColor));
+                OnPropertyChanged(nameof(GreenColor));
+                OnPropertyChanged(nameof(BlueColor));
+            }
+        }
+        public string BlueColor
+        {
+            get
+            {
+                return selectedColor.B.ToString();
+            }
+            set
+            {
+                if (value.IsMatch("[0-9]{1,3}")
+                    && Convert.ToInt32(value) <= 255)
+                {
+                    selectedColor.B = Convert.ToByte(value);
+                }
+                OnPropertyChanged(nameof(SelectedColor));
+                OnPropertyChanged(nameof(HexColor));
+                OnPropertyChanged(nameof(RedColor));
+                OnPropertyChanged(nameof(GreenColor));
+                OnPropertyChanged(nameof(BlueColor));
+            }
+        }
+        public string GreenColor
+        {
+            get
+            {
+                return selectedColor.G.ToString();
+            }
+            set
+            {
+                if (value.IsMatch("[0-9]{1,3}")
+                    && Convert.ToInt32(value) <= 255)
+                {
+                    selectedColor.G = Convert.ToByte(value);
+                }
+                OnPropertyChanged(nameof(SelectedColor));
+                OnPropertyChanged(nameof(HexColor));
+                OnPropertyChanged(nameof(RedColor));
+                OnPropertyChanged(nameof(GreenColor));
+                OnPropertyChanged(nameof(BlueColor));
             }
         }
         #endregion
@@ -97,7 +141,40 @@ namespace Voxel.ViewModel
                     }
                 },
             };
+        public Command RedEnterCommand
+            => new Command
+            {
+                ExcuteAction = (o) =>
+                {
+                    if (o is TextBox textBox)
+                    {
+                        RedColor = textBox.Text;
+                    }
+                },
+            };
+        public Command GreenEnterCommand
+            => new Command
+            {
+                ExcuteAction = (o) =>
+                {
+                    if (o is TextBox textBox)
+                    {
+                        GreenColor = textBox.Text;
+                    }
+                },
+            };
+        public Command BlueEnterCommand
+            => new Command
+            {
+                ExcuteAction = (o) =>
+                {
+                    if (o is TextBox textBox)
+                    {
+                        BlueColor = textBox.Text;
+                    }
+                },
+            };
         #endregion
-        
+
     }
 }

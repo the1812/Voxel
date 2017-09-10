@@ -132,7 +132,8 @@
       <TextBlock
         VerticalAlignment="Center"
         Margin="5"
-        Text="R" />
+        Text="R"
+        Foreground="#FFCA6868" />
       <TextBox
         Text="{Binding RedColor, UpdateSourceTrigger=LostFocus}"
         MaxLength="3"
@@ -140,29 +141,54 @@
         Height="30"
         Width="40"
         Style="{StaticResource DarkTextBox}"
-        TextWrapping="NoWrap" />
+        TextWrapping="NoWrap">
+        <TextBox.InputBindings>
+          <KeyBinding
+            Command="{Binding Path=RedEnterCommand}"
+            CommandParameter="{Binding ElementName=textR}"
+            Key="Enter" />
+        </TextBox.InputBindings>
+      </TextBox>
       <TextBlock
         VerticalAlignment="Center"
         Margin="5"
-        Text="G" />
+        Text="G"
+        Foreground="#FF6DA874" />
       <TextBox
+        Text="{Binding GreenColor, UpdateSourceTrigger=LostFocus}"
         MaxLength="3"
         x:Name="textG"
         Height="30"
         Width="40"
         Style="{StaticResource DarkTextBox}"
-        TextWrapping="NoWrap" />
+        TextWrapping="NoWrap">
+        <TextBox.InputBindings>
+          <KeyBinding
+            Command="{Binding Path=GreenEnterCommand}"
+            CommandParameter="{Binding ElementName=textG}"
+            Key="Enter" />
+        </TextBox.InputBindings>
+      </TextBox>
       <TextBlock
         VerticalAlignment="Center"
         Margin="5"
-        Text="B" />
+        Text="B"
+        Foreground="#FF6C9FEA" />
       <TextBox
+        Text="{Binding BlueColor, UpdateSourceTrigger=LostFocus}"
         MaxLength="3"
         x:Name="textB"
         Height="30"
         Width="40"
         Style="{StaticResource DarkTextBox}"
-        TextWrapping="NoWrap" />
+        TextWrapping="NoWrap">
+        <TextBox.InputBindings>
+          <KeyBinding
+            Command="{Binding Path=BlueEnterCommand}"
+            CommandParameter="{Binding ElementName=textB}"
+            Key="Enter" />
+        </TextBox.InputBindings>
+      </TextBox>
     </StackPanel>
     <TextBox
       MaxLength="6"
@@ -204,6 +230,7 @@
       Grid.Column="1"
       Margin="30,0"
       Grid.Row="1"
-      Height="40" />
+      Height="40"
+      IsChecked="True" />
   </Grid>
 </Window>
