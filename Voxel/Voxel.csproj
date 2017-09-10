@@ -73,6 +73,7 @@
     <Compile Include="Model\NonscalableTile.cs" />
     <Compile Include="Model\NonscalableTileManager.cs" />
     <Compile Include="Model\ScalableTile.cs" />
+    <Compile Include="Model\Settings.cs" />
     <Compile Include="Model\Tile.cs" />
     <Compile Include="Model\TileManager.cs" />
     <Compile Include="Model\TileSize.cs" />

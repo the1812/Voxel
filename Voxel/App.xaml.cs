@@ -8,6 +8,7 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
 using System.Windows.Media;
+using Voxel.Model;
 
 namespace Voxel
 {
@@ -18,6 +19,8 @@ namespace Voxel
     {
         protected override void OnStartup(StartupEventArgs e)
         {
+            Settings.Load();
+
             // Select the text in a TextBox when it receives focus.
             // See https://stackoverflow.com/questions/660554/how-to-automatically-select-all-text-on-focus-in-wpf-textbox
             EventManager.RegisterClassHandler(typeof(TextBox), UIElement.PreviewMouseLeftButtonDownEvent,

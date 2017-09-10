@@ -180,22 +180,35 @@ namespace Voxel.ViewModel
                             SelectedColor = BackColor,
                             Owner = View,
                         };
-                        var colorPickerViewModel = colorPicker.DataContext as ColorPickerViewModel;
-
-                        var originalColorBinding = gridPreview.GetBindingExpression(Control.BackgroundProperty).ParentBinding;
-                        var colorPickerBinding = new Binding
+                        void showDialog()
                         {
-                            Source = colorPickerViewModel,
-                            Path = new PropertyPath("SelectedBrush"),
-
-                        };
-
-                        gridPreview.SetBinding(Control.BackgroundProperty, colorPickerBinding);
-                        if (colorPicker.ShowDialog() ?? false)
-                        {
-                            BackColor = colorPicker.SelectedColor;
+                            if (colorPicker.ShowDialog() ?? false)
+                            {
+                                BackColor = colorPicker.SelectedColor;
+                            }
                         }
-                        gridPreview.SetBinding(Control.BackgroundProperty, originalColorBinding);
+
+                        bool previewOnTile = Settings.Json[nameof(NonscalableTile)].ObjectValue[nameof(ColorPickerView)].ObjectValue["PreviewOnTile"].BooleanValue ?? false;
+                        if (previewOnTile)
+                        {
+                            var colorPickerViewModel = colorPicker.DataContext as ColorPickerViewModel;
+
+                            var originalColorBinding = gridPreview.GetBindingExpression(Control.BackgroundProperty).ParentBinding;
+                            var colorPickerBinding = new Binding
+                            {
+                                Source = colorPickerViewModel,
+                                Path = new PropertyPath("SelectedBrush"),
+
+                            };
+
+                            gridPreview.SetBinding(Control.BackgroundProperty, colorPickerBinding);
+                            showDialog();
+                            gridPreview.SetBinding(Control.BackgroundProperty, originalColorBinding);
+                        }
+                        else
+                        {
+                            showDialog();
+                        }
                     }
                     
                 },
