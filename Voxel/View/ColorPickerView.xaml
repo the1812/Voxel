@@ -12,7 +12,8 @@
   Width="500"
   MinHeight="300"
   MinWidth="500"
-  WindowStartupLocation="CenterOwner">
+  WindowStartupLocation="CenterOwner"
+  ResizeMode="CanMinimize">
   <Grid
     x:Name="gridMain"
     Background="#323232">
@@ -89,6 +90,12 @@
       Grid.ColumnSpan="2"
       Margin="0"
       Grid.Row="2">
+      <Grid.ColumnDefinitions>
+        <ColumnDefinition
+          Width="1*" />
+        <ColumnDefinition
+          Width="1*" />
+      </Grid.ColumnDefinitions>
       <Grid.Effect>
         <DropShadowEffect
           BlurRadius="20"
@@ -98,26 +105,18 @@
       <Button
         Style="{StaticResource ToolButton}"
         x:Name="buttonCancel"
-        Content="{Binding ButtonCancel}"
-        HorizontalAlignment="Left"
-        VerticalAlignment="Bottom"
-        Width="120"
-        Height="45" />
+        Content="{Binding ButtonCancel}" />
       <Button
         Style="{StaticResource ToolButton}"
         x:Name="buttonOK"
         Content="{Binding ButtonOK}"
-        HorizontalAlignment="Right"
-        VerticalAlignment="Bottom"
-        Width="120"
-        Height="45"
-        Margin="0,0,-1,0" />
+        Grid.Column="1" />
     </Grid>
     <TextBox
       x:Name="textHexColor"
       TextWrapping="Wrap"
       Text="{Binding HexColor, UpdateSourceTrigger=LostFocus}"
-      Margin="40,0,20,0"
+      Margin="50,0,30,0"
       Grid.Column="1"
       Grid.Row="1"
       VerticalContentAlignment="Center"
@@ -130,7 +129,7 @@
       TextWrapping="Wrap"
       VerticalAlignment="Center"
       Grid.Column="1"
-      Margin="20,0,0,0"
+      Margin="30,0,0,0"
       Grid.Row="1"
       Foreground="White"
       Text="#"
