@@ -1,9 +1,11 @@
 using Ace;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Controls;
 using System.Windows.Media;
 using Voxel.Model.Languages;
 
@@ -31,6 +33,7 @@ namespace Voxel.ViewModel
                 selectedColor = value;
                 OnPropertyChanged(nameof(SelectedColor));
                 OnPropertyChanged(nameof(HexColor));
+                OnPropertyChanged(nameof(RedColor));
             }
         }
 
@@ -57,15 +60,28 @@ namespace Voxel.ViewModel
                         Convert.ToByte(hex.Substring(4, 2), 16)
                         );
                     selectedColor = color;
-                    OnPropertyChanged(nameof(SelectedColor));
-                    OnPropertyChanged(nameof(HexColor));
                 }
-                else
+                OnPropertyChanged(nameof(SelectedColor));
+                OnPropertyChanged(nameof(HexColor));
+                OnPropertyChanged(nameof(RedColor));
+            }
+        }
+        public string RedColor
+        {
+            get
+            {
+                return selectedColor.R.ToString();
+            }
+            set
+            {
+                if (value.IsMatch("[0-9]{1,3}")
+                    && Convert.ToInt32(value) <= 255)
                 {
-                    selectedColor = dwmColor;
-                    OnPropertyChanged(nameof(SelectedColor));
-                    OnPropertyChanged(nameof(HexColor));
+                    selectedColor.R = Convert.ToByte(value);
                 }
+                OnPropertyChanged(nameof(SelectedColor));
+                OnPropertyChanged(nameof(HexColor));
+                OnPropertyChanged(nameof(RedColor));
             }
         }
         #endregion
@@ -73,14 +89,15 @@ namespace Voxel.ViewModel
         public Command HexEnterCommand
             => new Command
             {
-
+                ExcuteAction = (o) =>
+                {
+                    if (o is TextBox textBox)
+                    {
+                        HexColor = textBox.Text;
+                    }
+                },
             };
         #endregion
-
-
-
-
-
-
+        
     }
 }
