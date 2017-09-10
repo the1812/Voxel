@@ -49,6 +49,14 @@
       <Setter.Value>
         <ControlTemplate
           TargetType="{x:Type TextBox}">
+          <ControlTemplate.Resources>
+            <Color
+              x:Key="SelectedColor"
+              A="255"
+              R="100"
+              G="178"
+              B="214"/>
+          </ControlTemplate.Resources>
           <Border
             x:Name="border"
             BorderBrush="{TemplateBinding BorderBrush}"
@@ -57,6 +65,7 @@
             SnapsToDevicePixels="True">
             <Border.Effect>
               <DropShadowEffect
+                Color="Black"
                 BlurRadius="10"
                 ShadowDepth="0"
                 Opacity="0.2" />
@@ -71,17 +80,39 @@
             <Trigger
               Property="IsEnabled"
               Value="false">
-              
+              <Setter
+                Property="Opacity"
+                Value="0.3" />
             </Trigger>
             <Trigger
               Property="IsMouseOver"
               Value="true">
-              
+              <Setter
+                Property="Effect"
+                TargetName="border">
+                <Setter.Value>
+                  <DropShadowEffect
+                    Color="{StaticResource SelectedColor}"
+                    BlurRadius="10"
+                    ShadowDepth="0"
+                    Opacity="0.4" />
+                </Setter.Value>
+              </Setter>
             </Trigger>
             <Trigger
               Property="IsKeyboardFocused"
               Value="true">
-              
+              <Setter
+                Property="Effect"
+                TargetName="border">
+                <Setter.Value>
+                  <DropShadowEffect
+                    Color="{StaticResource SelectedColor}"
+                    BlurRadius="10"
+                    ShadowDepth="0"
+                    Opacity="1" />
+                </Setter.Value>
+              </Setter>
             </Trigger>
           </ControlTemplate.Triggers>
         </ControlTemplate>
