@@ -10,6 +10,8 @@ using Microsoft.Win32;
 using System.Windows.Media;
 using Voxel.View;
 using System.Windows;
+using System.Windows.Controls;
+using System.Windows.Data;
 
 namespace Voxel.ViewModel
 {
@@ -171,15 +173,31 @@ namespace Voxel.ViewModel
             {
                 ExcuteAction = (o) =>
                 {
-                    var colorPicker = new ColorPickerView
+                    if (o is Grid gridPreview)
                     {
-                        SelectedColor = BackColor,
-                        Owner = View,
-                    };
-                    if (colorPicker.ShowDialog() ?? false)
-                    {
-                        BackColor = colorPicker.SelectedColor;
+                        var colorPicker = new ColorPickerView(BackColor)
+                        {
+                            SelectedColor = BackColor,
+                            Owner = View,
+                        };
+                        var colorPickerViewModel = colorPicker.DataContext as ColorPickerViewModel;
+
+                        var originalColorBinding = gridPreview.GetBindingExpression(Control.BackgroundProperty).ParentBinding;
+                        var colorPickerBinding = new Binding
+                        {
+                            Source = colorPickerViewModel,
+                            Path = new PropertyPath("SelectedBrush"),
+
+                        };
+
+                        gridPreview.SetBinding(Control.BackgroundProperty, colorPickerBinding);
+                        if (colorPicker.ShowDialog() ?? false)
+                        {
+                            BackColor = colorPicker.SelectedColor;
+                        }
+                        gridPreview.SetBinding(Control.BackgroundProperty, originalColorBinding);
                     }
+                    
                 },
             };
 #endregion

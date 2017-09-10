@@ -19,6 +19,7 @@ namespace Voxel
         protected override void OnStartup(StartupEventArgs e)
         {
             // Select the text in a TextBox when it receives focus.
+            // See https://stackoverflow.com/questions/660554/how-to-automatically-select-all-text-on-focus-in-wpf-textbox
             EventManager.RegisterClassHandler(typeof(TextBox), UIElement.PreviewMouseLeftButtonDownEvent,
                 new MouseButtonEventHandler(selectivelyIgnoreMouseButton));
             EventManager.RegisterClassHandler(typeof(TextBox), UIElement.GotKeyboardFocusEvent,

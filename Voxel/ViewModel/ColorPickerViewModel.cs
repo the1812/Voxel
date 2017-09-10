@@ -34,9 +34,15 @@ namespace Voxel.ViewModel
                 OnPropertyChanged(nameof(SelectedColor));
                 OnPropertyChanged(nameof(HexColor));
                 OnPropertyChanged(nameof(RedColor));
+                OnPropertyChanged(nameof(GreenColor));
+                OnPropertyChanged(nameof(BlueColor));
+                OnPropertyChanged(nameof(SelectedBrush));
             }
         }
-
+        public Brush SelectedBrush
+        {
+            get => new SolidColorBrush(SelectedColor);
+        }
         public string HexColor
         {
             get
@@ -66,6 +72,7 @@ namespace Voxel.ViewModel
                 OnPropertyChanged(nameof(RedColor));
                 OnPropertyChanged(nameof(GreenColor));
                 OnPropertyChanged(nameof(BlueColor));
+                OnPropertyChanged(nameof(SelectedBrush));
             }
         }
         public string RedColor
@@ -86,6 +93,7 @@ namespace Voxel.ViewModel
                 OnPropertyChanged(nameof(RedColor));
                 OnPropertyChanged(nameof(GreenColor));
                 OnPropertyChanged(nameof(BlueColor));
+                OnPropertyChanged(nameof(SelectedBrush));
             }
         }
         public string BlueColor
@@ -106,6 +114,7 @@ namespace Voxel.ViewModel
                 OnPropertyChanged(nameof(RedColor));
                 OnPropertyChanged(nameof(GreenColor));
                 OnPropertyChanged(nameof(BlueColor));
+                OnPropertyChanged(nameof(SelectedBrush));
             }
         }
         public string GreenColor
@@ -126,6 +135,7 @@ namespace Voxel.ViewModel
                 OnPropertyChanged(nameof(RedColor));
                 OnPropertyChanged(nameof(GreenColor));
                 OnPropertyChanged(nameof(BlueColor));
+                OnPropertyChanged(nameof(SelectedBrush));
             }
         }
         #endregion

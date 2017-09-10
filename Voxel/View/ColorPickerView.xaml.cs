@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -20,9 +21,10 @@ namespace Voxel.View
     /// </summary>
     public partial class ColorPickerView : Window
     {
-        public ColorPickerView()
+        public ColorPickerView(Color oldColor)
         {
             InitializeComponent();
+            this.oldColor = oldColor;
             DataContext = new ColorPickerViewModel();
             buttonOK.Click += (s, e) =>
             {
@@ -33,6 +35,15 @@ namespace Voxel.View
                 DialogResult = false;
             };
         }
+        protected override void OnClosing(CancelEventArgs e)
+        {
+            if (DialogResult == false)
+            {
+                SelectedColor = oldColor;
+            }
+            base.OnClosing(e);
+        }
+        private Color oldColor;
         public Color SelectedColor
         {
             get => (DataContext as ColorPickerViewModel).SelectedColor;

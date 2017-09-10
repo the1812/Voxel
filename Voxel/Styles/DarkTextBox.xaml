@@ -7,7 +7,7 @@
     TargetType="{x:Type TextBox}">
     <Setter
       Property="SelectionBrush"
-      Value="#F111" />
+      Value="{DynamicResource HighlightColor}" />
     <Setter
       Property="Padding"
       Value="4,0,0,0" />

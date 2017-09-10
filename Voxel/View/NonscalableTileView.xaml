@@ -104,7 +104,8 @@
         x:Name="buttonBackColor"
         Content="{Binding ButtonBackColor}"
         Grid.Row="2"
-        Command="{Binding SelectColorCommand}" />
+        Command="{Binding SelectColorCommand}"
+        CommandParameter="{Binding ElementName=gridPreview}"/>
     </Grid>
     <Grid
       x:Name="gridBottom"
