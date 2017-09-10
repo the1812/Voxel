@@ -11,6 +11,8 @@
           Source="Styles/ToolButton.xaml" />
         <ResourceDictionary
           Source="Styles/OptionButton.xaml" />
+        <ResourceDictionary
+          Source="Styles/DarkTextBox.xaml" />
       </ResourceDictionary.MergedDictionaries>
       <SolidColorBrush
         x:Key="HighlightColor"
