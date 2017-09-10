@@ -1,4 +1,5 @@
 using Ace;
+using Ace.Files.Json;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -7,7 +8,9 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Controls;
 using System.Windows.Media;
+using Voxel.Model;
 using Voxel.Model.Languages;
+using Voxel.View;
 
 namespace Voxel.ViewModel
 {
@@ -136,6 +139,18 @@ namespace Voxel.ViewModel
                 OnPropertyChanged(nameof(GreenColor));
                 OnPropertyChanged(nameof(BlueColor));
                 OnPropertyChanged(nameof(SelectedBrush));
+            }
+        }
+        private static JsonProperty showSampleTextValue = Settings.Json[nameof(NonscalableTile)].ObjectValue[nameof(ColorPickerView)].ObjectValue.Where(p => p.Name == "ShowSampleText").FirstOrDefault();
+        private bool showSampleText = showSampleTextValue.Value.BooleanValue ?? false;
+        public bool ShowSampleText
+        {
+            get => showSampleText;
+            set
+            {
+                showSampleText = value;
+                showSampleTextValue.Value = value;
+                OnPropertyChanged(nameof(ShowSampleText));
             }
         }
         #endregion

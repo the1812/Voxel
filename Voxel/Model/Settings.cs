@@ -43,6 +43,7 @@ namespace Voxel.Model
                     new JsonProperty(nameof(ColorPickerView), new JsonObject
                     {
                         new JsonProperty("PreviewOnTile", true),
+                        new JsonProperty("ShowSampleText", true),
                     }),
                 }),
             };

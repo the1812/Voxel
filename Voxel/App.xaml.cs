@@ -17,6 +17,11 @@ namespace Voxel
     /// </summary>
     public partial class App : Application
     {
+        protected override void OnExit(ExitEventArgs e)
+        {
+            Settings.Save();
+            base.OnExit(e);
+        }
         protected override void OnStartup(StartupEventArgs e)
         {
             Settings.Load();

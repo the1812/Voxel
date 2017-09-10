@@ -262,12 +262,14 @@ namespace Voxel.ViewModel
                                 BackColor = colorPicker.SelectedColor;
                             }
                         }
+                        
+
+                        //bool showSampleText = Settings.Json[nameof(NonscalableTile)].ObjectValue[nameof(ColorPickerView)].ObjectValue["ShowSampleText"].BooleanValue ?? false;
 
                         bool previewOnTile = Settings.Json[nameof(NonscalableTile)].ObjectValue[nameof(ColorPickerView)].ObjectValue["PreviewOnTile"].BooleanValue ?? false;
                         if (previewOnTile)
                         {
                             var colorPickerViewModel = colorPicker.DataContext as ColorPickerViewModel;
-
                             var originalColorBinding = gridPreview.GetBindingExpression(Control.BackgroundProperty).ParentBinding;
                             var colorPickerBinding = new Binding
                             {

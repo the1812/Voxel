@@ -233,6 +233,6 @@
       Width="220"
       Grid.Row="1"
       Height="40"
-      IsChecked="True" />
+      IsChecked="{Binding ShowSampleText, Mode=TwoWay}" />
   </Grid>
 </Window>
