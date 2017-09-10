@@ -22,6 +22,7 @@ namespace Voxel.Model.Languages
                 "ButtonBackColor",
                 "OpenFolderDialogTitle",
                 "ButtonTargetTip",
+                "ButtonBackColorTip",
             };
             simplifiedChinese = new List<string>
             {
@@ -32,6 +33,7 @@ namespace Voxel.Model.Languages
                 "设定背景色",
                 "选择文件夹",
                 "单击以选择文件，右击以选择文件夹",
+                "单击以设定背景色，右击以恢复默认",
             };
             americanEnglish = new List<string>
             {
@@ -42,6 +44,7 @@ namespace Voxel.Model.Languages
                 "Set Back Color",
                 "Select Folder",
                 "Click to select file, right-click to select folder",
+                "Click to set back color, right-click to restore default color",
             };
         }
     }

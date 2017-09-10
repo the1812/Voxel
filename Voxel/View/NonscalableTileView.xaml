@@ -104,8 +104,15 @@
         x:Name="buttonBackColor"
         Content="{Binding ButtonBackColor}"
         Grid.Row="2"
+        ToolTip="{Binding ButtonBackColorTip}"
         Command="{Binding SelectColorCommand}"
-        CommandParameter="{Binding ElementName=gridPreview}"/>
+        CommandParameter="{Binding ElementName=gridPreview}">
+        <Button.InputBindings>
+          <MouseBinding
+            Gesture="RightClick"
+            Command="{Binding DefaultColorCommand}" />
+        </Button.InputBindings>
+      </Button>
     </Grid>
     <Grid
       x:Name="gridBottom"

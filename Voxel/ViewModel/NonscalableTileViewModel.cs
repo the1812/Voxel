@@ -27,6 +27,7 @@ namespace Voxel.ViewModel
         public string ButtonTarget => language[nameof(ButtonTarget)];
         public string ButtonBackColor => language[nameof(ButtonBackColor)];
         public string ButtonTargetTip => language[nameof(ButtonTargetTip)];
+        public string ButtonBackColorTip => language[nameof(ButtonBackColorTip)];
 
         #endregion
         #region Vars and properties
@@ -73,9 +74,9 @@ namespace Voxel.ViewModel
                 }
             }
         }
-        
 
-        private Color backColor = Ace.Wpf.DwmEffect.ColorizationColor;
+        private static Color dwmColor = Ace.Wpf.DwmEffect.ColorizationColor;
+        private Color backColor = dwmColor;
         public Brush Background
         {
             get => new SolidColorBrush(backColor);
@@ -197,7 +198,7 @@ namespace Voxel.ViewModel
                             var colorPickerBinding = new Binding
                             {
                                 Source = colorPickerViewModel,
-                                Path = new PropertyPath("SelectedBrush"),
+                                Path = new PropertyPath(nameof(colorPickerViewModel.SelectedBrush)),
 
                             };
 
@@ -211,6 +212,14 @@ namespace Voxel.ViewModel
                         }
                     }
                     
+                },
+            };
+        public Command DefaultColorCommand
+            => new Command
+            {
+                ExcuteAction = (o) =>
+                {
+                    BackColor = dwmColor;
                 },
             };
 #endregion
