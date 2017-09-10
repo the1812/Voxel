@@ -10,7 +10,7 @@
   ResizeMode="CanMinimize"
   Title="{Binding WindowTitle}"
   Height="320"
-  Width="500"
+  Width="600"
   WindowStartupLocation="CenterOwner"
   MinWidth="500"
   MinHeight="273">
@@ -176,17 +176,17 @@
       </Grid.ColumnDefinitions>
       <Button
         x:Name="buttonExport"
-        Content="Button"
+        Content="{Binding ButtonExport}"
         Grid.Column="3"
         Style="{StaticResource ToolButton}" />
       <Button
         x:Name="buttonImport"
-        Content="Button"
+        Content="{Binding ButtonImport}"
         Grid.Column="2"
         Style="{StaticResource ToolButton}" />
       <Button
-        x:Name="buttonPin"
-        Content="Button"
+        x:Name="buttonAddToStart"
+        Content="{Binding ButtonAddToStart}"
         Grid.Column="1"
         Style="{StaticResource ToolButton}" />
       <Button

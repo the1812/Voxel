@@ -34,6 +34,9 @@ namespace Voxel.ViewModel
         public string CheckBoxDarkTheme => language[nameof(CheckBoxDarkTheme)];
         public string CheckBoxShowName => language[nameof(CheckBoxShowName)];
         public string ButtonGenerate => language[nameof(ButtonGenerate)];
+        public string ButtonAddToStart => language[nameof(ButtonAddToStart)];
+        public string ButtonImport => language[nameof(ButtonImport)];
+        public string ButtonExport => language[nameof(ButtonExport)];
 
         #endregion
         #region Vars and properties

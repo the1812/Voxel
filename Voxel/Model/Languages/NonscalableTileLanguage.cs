@@ -30,6 +30,9 @@ namespace Voxel.Model.Languages
                 "CheckBoxDarkTheme",
                 "CheckBoxShowName",
                 "ButtonGenerate",
+                "ButtonAddToStart",
+                "ButtonImport",
+                "ButtonExport",
             };
             simplifiedChinese = new List<string>
             {
@@ -48,6 +51,9 @@ namespace Voxel.Model.Languages
                 "使用暗色主题",
                 "显示名称",
                 "生成",
+                "添加到开始",
+                "导入",
+                "导出",
             };
             americanEnglish = new List<string>
             {
@@ -66,6 +72,9 @@ namespace Voxel.Model.Languages
                 "Use Dark Theme",
                 "Show Name",
                 "Generate",
+                "Add to Start",
+                "Import",
+                "Export",
             };
         }
     }
