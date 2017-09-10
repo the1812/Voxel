@@ -25,6 +25,7 @@ namespace Voxel.Model.Languages
                 "ButtonOK",
                 "ButtonCancel",
                 "TextSample",
+                "CheckBoxShowSample"
             };
             simplifiedChinese = new List<string>
             {
@@ -32,6 +33,7 @@ namespace Voxel.Model.Languages
                 "确定",
                 "取消",
                 "示例",
+                "显示示例文字",
             };
             americanEnglish = new List<string>
             {
@@ -39,6 +41,7 @@ namespace Voxel.Model.Languages
                 "OK",
                 "Cancel",
                 "Sample",
+                "Show Sample Text",
             };
         }
     }

@@ -13,11 +13,12 @@ namespace Voxel.ViewModel
     {
         public ColorPickerViewModel() : base(new ColorPickerLanguage()) { }
 
-#region Lanugage
+        #region Lanugage
         public string WindowTitle => language[nameof(WindowTitle)];
         public string ButtonOK => language[nameof(ButtonOK)];
         public string ButtonCancel => language[nameof(ButtonCancel)];
         public string TextSample => language[nameof(TextSample)];
+        public string CheckBoxShowSample => language[nameof(CheckBoxShowSample)];
         #endregion
         #region Vars and properties
         private static Color dwmColor = Ace.Wpf.DwmEffect.ColorizationColor;
@@ -69,7 +70,11 @@ namespace Voxel.ViewModel
         }
         #endregion
         #region Commands
+        public Command HexEnterCommand
+            => new Command
+            {
 
+            };
         #endregion
 
 

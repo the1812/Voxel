@@ -10,7 +10,8 @@
     Title="{Binding WindowTitle}"
     Height="500"
     Width="500"
-    WindowStartupLocation="CenterScreen">
+    WindowStartupLocation="CenterScreen"
+  ResizeMode="CanMinimize">
     <Window.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
@@ -20,7 +21,8 @@
         </ResourceDictionary>
     </Window.Resources>
     <Grid
-        x:Name="gridMain">
+        x:Name="gridMain"
+    Background="#FF323232">
         <Grid.ColumnDefinitions>
             <ColumnDefinition
                 Width="3*" />
@@ -41,9 +43,9 @@
             x:Name="buttonNonscalableTileNew"
             Content="{Binding ButtonNonscalableTile}"
             VerticalAlignment="Bottom"
-            Margin="30,0,0,9.5"
+            Margin="30,0,0,10"
             Style="{StaticResource DarkButton}"
-            Height="25"
+            Height="40"
             MinWidth="80"
             HorizontalContentAlignment="Center"
             Command="{Binding ButtonNonscalableTileCommand}" />
