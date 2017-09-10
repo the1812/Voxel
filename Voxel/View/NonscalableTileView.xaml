@@ -9,11 +9,15 @@
   mc:Ignorable="d"
   ResizeMode="CanMinimize"
   Title="{Binding WindowTitle}"
-  Height="273"
+  Height="320"
   Width="500"
   WindowStartupLocation="CenterOwner"
   MinWidth="500"
   MinHeight="273">
+  <Window.Resources>
+    <BooleanToVisibilityConverter
+      x:Key="converter" />
+  </Window.Resources>
   <Grid
     x:Name="gridMain"
     Background="#FF323232">
@@ -63,6 +67,7 @@
       </Border>
       <TextBlock
         x:Name="textName"
+        Visibility="{Binding ShowName, Converter={StaticResource converter}}"
         HorizontalAlignment="Left"
         TextWrapping="Wrap"
         Text="{Binding TargetName}"
@@ -136,7 +141,15 @@
         x:Name="checkBoxDarkTheme"
         Content="{Binding CheckBoxDarkTheme}"
         Grid.Row="3" 
+        IsEnabled="{Binding ShowName}"
         IsChecked="{Binding IsDarkTheme, Mode=TwoWay}"/>
+      <CheckBox
+        Style="{StaticResource OptionCheckBox}"
+        BorderThickness="0,0,4,0"
+        x:Name="checkBoxShowName"
+        Content="{Binding CheckBoxShowName}"
+        Grid.Row="4"
+        IsChecked="{Binding ShowName, Mode=TwoWay}" />
     </Grid>
     <Grid
       x:Name="gridBottom"

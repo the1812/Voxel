@@ -32,6 +32,7 @@ namespace Voxel.ViewModel
         public string ButtonBackImage => language[nameof(ButtonBackImage)];
         public string ButtonBackImageTip => language[nameof(ButtonBackImageTip)];
         public string CheckBoxDarkTheme => language[nameof(CheckBoxDarkTheme)];
+        public string CheckBoxShowName => language[nameof(CheckBoxShowName)];
 
         #endregion
         #region Vars and properties
@@ -165,6 +166,19 @@ namespace Voxel.ViewModel
                 }
             }
         }
+
+        private bool showName = true;
+        public bool ShowName
+        {
+            get => showName;
+            set
+            {
+                showName = value;
+                tileManager.Tile.ShowName = value;
+                OnPropertyChanged(nameof(ShowName));
+            }
+        }
+
 
         #endregion
         #region Commands
