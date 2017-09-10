@@ -44,7 +44,9 @@
           Opacity="0.4" />
       </Grid.Effect>
       <Image
+        Stretch="Fill"
         x:Name="imageBackground"
+        Source="{Binding BackImage}"
         RenderTransformOrigin="0.5,0.5" />
       <Border
         HorizontalAlignment="Center"
@@ -55,6 +57,7 @@
           Stretch="Uniform"
           x:Name="imageIcon"
           Source="{Binding Icon}"
+          Visibility="{Binding IconVisibility}"
           RenderTransformOrigin="0.5,0.5" />
 
       </Border>
@@ -111,6 +114,19 @@
           <MouseBinding
             Gesture="RightClick"
             Command="{Binding DefaultColorCommand}" />
+        </Button.InputBindings>
+      </Button>
+      <Button
+        Style="{StaticResource OptionButton}"
+        x:Name="buttonBackImage"
+        Content="{Binding ButtonBackImage}"
+        Grid.Row="1"
+        ToolTip="{Binding ButtonBackImageTip}"
+        Command="{Binding SelectBackImageCommand}">
+        <Button.InputBindings>
+          <MouseBinding
+            Gesture="RightClick"
+            Command="{Binding ClearBackImageCommand}" />
         </Button.InputBindings>
       </Button>
     </Grid>

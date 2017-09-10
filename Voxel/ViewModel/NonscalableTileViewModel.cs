@@ -12,6 +12,7 @@ using Voxel.View;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Data;
+using System.Windows.Media.Imaging;
 
 namespace Voxel.ViewModel
 {
@@ -28,6 +29,8 @@ namespace Voxel.ViewModel
         public string ButtonBackColor => language[nameof(ButtonBackColor)];
         public string ButtonTargetTip => language[nameof(ButtonTargetTip)];
         public string ButtonBackColorTip => language[nameof(ButtonBackColorTip)];
+        public string ButtonBackImage => language[nameof(ButtonBackImage)];
+        public string ButtonBackImageTip => language[nameof(ButtonBackImageTip)];
 
         #endregion
         #region Vars and properties
@@ -110,6 +113,29 @@ namespace Voxel.ViewModel
         }
 
 
+        private ImageSource backImage = null;
+        public ImageSource BackImage
+        {
+            get => backImage;
+            set
+            {
+                backImage = value;
+                OnPropertyChanged(nameof(BackImage));
+                OnPropertyChanged(nameof(IconVisibility));
+            }
+        }
+        public Visibility IconVisibility
+        {
+            get
+            {
+                if (BackImage == null)
+                {
+                    return Visibility.Visible;
+                }
+                return Visibility.Collapsed;
+            }
+        }
+
         #endregion
         #region Commands
 
@@ -186,6 +212,7 @@ namespace Voxel.ViewModel
                             if (colorPicker.ShowDialog() ?? false)
                             {
                                 BackColor = colorPicker.SelectedColor;
+                                tileManager.Tile.Background = BackColor;
                             }
                         }
 
@@ -222,7 +249,40 @@ namespace Voxel.ViewModel
                     BackColor = dwmColor;
                 },
             };
-#endregion
+        public Command SelectBackImageCommand
+            => new Command
+            {
+                ExcuteAction = (o) =>
+                {
+                    var dialog = new OpenFileDialog
+                    {
+                        Title = language["OpenImageDialogTitle"],
+                        Multiselect = false,
+                        AddExtension = false,
+                        CheckFileExists = true,
+                        Filter = language["OpenImageDialogFilter"],
+                    };
+                    if (tileManager.Tile.LargeImagePath != null)
+                    {
+                        dialog.FileName = tileManager.Tile.LargeImagePath;
+                    }
+                    if (dialog.ShowDialog() ?? false)
+                    {
+                        string imagePath = dialog.FileName;
+                        tileManager.Tile.LargeImagePath = imagePath;
+                        BackImage = new BitmapImage(new Uri(imagePath));
+                    }
+                },
+            };
+        public Command ClearBackImageCommand
+            => new Command
+            {
+                ExcuteAction = (o) =>
+                {
+                    BackImage = null;
+                },
+            };
+        #endregion
 
     }
 }
