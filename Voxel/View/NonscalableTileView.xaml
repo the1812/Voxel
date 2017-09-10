@@ -37,6 +37,12 @@
       Width="124"
       Height="124"
       Background="{Binding Background}">
+      <Grid.Effect>
+        <DropShadowEffect
+          ShadowDepth="0"
+          BlurRadius="15"
+          Opacity="0.4" />
+      </Grid.Effect>
       <Image
         x:Name="imageBackground"
         RenderTransformOrigin="0.5,0.5" />

@@ -23,7 +23,7 @@ namespace Voxel.Model.Languages
             simplifiedChinese = new List<string>
             {
                 "Voxel",
-                "无缩放的磁贴",
+                "无缩放磁贴",
             };
             americanEnglish = new List<string>
             {
