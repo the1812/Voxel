@@ -82,7 +82,8 @@
       Height="40"
       Margin="0"
       Grid.Row="3"
-      Background="#7753A0"/>
+      Background="#7753A0"
+      Command="{Binding ButtonAboutCommand}"/>
 
   </Grid>
 </Window>

@@ -27,10 +27,20 @@ namespace Voxel.ViewModel
 
         public Command ButtonNonscalableTileCommand => new Command
         {
-            CanExecuteAction = (o) => true,
             ExcuteAction = (o) =>
             {
                 var window = new NonscalableTileView
+                {
+                    Owner = Window
+                };
+                window.ShowDialog();
+            },
+        };
+        public Command ButtonAboutCommand => new Command
+        {
+            ExcuteAction = (o) =>
+            {
+                var window = new AboutView
                 {
                     Owner = Window
                 };

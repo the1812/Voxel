@@ -117,12 +117,12 @@
       <Button
         Style="{StaticResource ToolButton}"
         x:Name="buttonCancel"
-        Content="{Binding ButtonCancel}" />
+        Content="{Binding ButtonCancel}" 
+        Grid.Column="1"/>
       <Button
         Style="{StaticResource ToolButton}"
         x:Name="buttonOK"
-        Content="{Binding ButtonOK}"
-        Grid.Column="1" />
+        Content="{Binding ButtonOK}" />
     </Grid>
     <StackPanel
       Grid.Row="0"
