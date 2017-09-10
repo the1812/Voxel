@@ -27,6 +27,7 @@ namespace Voxel.Model.Languages
                 "ButtonBackImageTip",
                 "OpenImageDialogTitle",
                 "OpenImageDialogFilter",
+                "CheckBoxDarkTheme",
             };
             simplifiedChinese = new List<string>
             {
@@ -42,6 +43,8 @@ namespace Voxel.Model.Languages
                 "单击以选择图片，右击以清除图片",
                 "选择图片",
                 "图片文件 (*.jpg;*.png;*.bmp;*.tif;*.jpeg;*.tiff)|*.jpg;*.png;*.bmp;*.tif;*.jpeg;*.tiff",
+                "使用暗色主题",
+
             };
             americanEnglish = new List<string>
             {
@@ -57,6 +60,7 @@ namespace Voxel.Model.Languages
                 "Click to select image, right-click to clear image",
                 "Select Image",
                 "Image File (*.jpg;*.png;*.bmp;*.tif;*.jpeg;*.tiff)|*.jpg;*.png;*.bmp;*.tif;*.jpeg;*.tiff",
+                "Use Dark Theme",
             };
         }
     }

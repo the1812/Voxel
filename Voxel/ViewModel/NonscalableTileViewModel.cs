@@ -31,6 +31,7 @@ namespace Voxel.ViewModel
         public string ButtonBackColorTip => language[nameof(ButtonBackColorTip)];
         public string ButtonBackImage => language[nameof(ButtonBackImage)];
         public string ButtonBackImageTip => language[nameof(ButtonBackImageTip)];
+        public string CheckBoxDarkTheme => language[nameof(CheckBoxDarkTheme)];
 
         #endregion
         #region Vars and properties
@@ -96,6 +97,7 @@ namespace Voxel.ViewModel
             set
             {
                 backColor = value;
+                tileManager.Tile.Background = value;
                 OnPropertyChanged(nameof(BackColor));
                 OnPropertyChanged(nameof(Background));
             }
@@ -133,6 +135,34 @@ namespace Voxel.ViewModel
                     return Visibility.Visible;
                 }
                 return Visibility.Collapsed;
+            }
+        }
+
+
+        private bool isDarkTheme = Ace.Wpf.DwmEffect.ForegroundColor == Colors.Black;
+        public bool IsDarkTheme
+        {
+            get => isDarkTheme;
+            set
+            {
+                isDarkTheme = value;
+                tileManager.Tile.Theme = value ? TextTheme.Dark : TextTheme.Light;
+                OnPropertyChanged(nameof(IsDarkTheme));
+                OnPropertyChanged(nameof(NameForeground));
+            }
+        }
+        public Brush NameForeground
+        {
+            get
+            {
+                if (IsDarkTheme)
+                {
+                    return new SolidColorBrush(Colors.Black);
+                }
+                else
+                {
+                    return new SolidColorBrush(Colors.White);
+                }
             }
         }
 
@@ -212,7 +242,6 @@ namespace Voxel.ViewModel
                             if (colorPicker.ShowDialog() ?? false)
                             {
                                 BackColor = colorPicker.SelectedColor;
-                                tileManager.Tile.Background = BackColor;
                             }
                         }
 

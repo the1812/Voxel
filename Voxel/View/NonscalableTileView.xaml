@@ -62,11 +62,12 @@
 
       </Border>
       <TextBlock
+        x:Name="textName"
         HorizontalAlignment="Left"
         TextWrapping="Wrap"
         Text="{Binding TargetName}"
         VerticalAlignment="Bottom"
-        Foreground="White"
+        Foreground="{Binding NameForeground}"
         Margin="8,0,40,5"
         FontFamily="Segoe UI" />
 
@@ -104,6 +105,19 @@
       </Button>
       <Button
         Style="{StaticResource OptionButton}"
+        x:Name="buttonBackImage"
+        Content="{Binding ButtonBackImage}"
+        Grid.Row="1"
+        ToolTip="{Binding ButtonBackImageTip}"
+        Command="{Binding SelectBackImageCommand}">
+        <Button.InputBindings>
+          <MouseBinding
+            Gesture="RightClick"
+            Command="{Binding ClearBackImageCommand}" />
+        </Button.InputBindings>
+      </Button>
+      <Button
+        Style="{StaticResource OptionButton}"
         x:Name="buttonBackColor"
         Content="{Binding ButtonBackColor}"
         Grid.Row="2"
@@ -116,19 +130,13 @@
             Command="{Binding DefaultColorCommand}" />
         </Button.InputBindings>
       </Button>
-      <Button
-        Style="{StaticResource OptionButton}"
-        x:Name="buttonBackImage"
-        Content="{Binding ButtonBackImage}"
-        Grid.Row="1"
-        ToolTip="{Binding ButtonBackImageTip}"
-        Command="{Binding SelectBackImageCommand}">
-        <Button.InputBindings>
-          <MouseBinding
-            Gesture="RightClick"
-            Command="{Binding ClearBackImageCommand}" />
-        </Button.InputBindings>
-      </Button>
+      <CheckBox
+        Style="{StaticResource OptionCheckBox}"
+        BorderThickness="0,0,4,0"
+        x:Name="checkBoxDarkTheme"
+        Content="{Binding CheckBoxDarkTheme}"
+        Grid.Row="3" 
+        IsChecked="{Binding IsDarkTheme, Mode=TwoWay}"/>
     </Grid>
     <Grid
       x:Name="gridBottom"
