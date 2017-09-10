@@ -33,6 +33,7 @@ namespace Voxel.ViewModel
         public string ButtonBackImageTip => language[nameof(ButtonBackImageTip)];
         public string CheckBoxDarkTheme => language[nameof(CheckBoxDarkTheme)];
         public string CheckBoxShowName => language[nameof(CheckBoxShowName)];
+        public string ButtonGenerate => language[nameof(ButtonGenerate)];
 
         #endregion
         #region Vars and properties

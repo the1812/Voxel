@@ -29,6 +29,7 @@ namespace Voxel.Model.Languages
                 "OpenImageDialogFilter",
                 "CheckBoxDarkTheme",
                 "CheckBoxShowName",
+                "ButtonGenerate",
             };
             simplifiedChinese = new List<string>
             {
@@ -46,6 +47,7 @@ namespace Voxel.Model.Languages
                 "图片文件 (*.jpg;*.png;*.bmp;*.tif;*.jpeg;*.tiff)|*.jpg;*.png;*.bmp;*.tif;*.jpeg;*.tiff",
                 "使用暗色主题",
                 "显示名称",
+                "生成",
             };
             americanEnglish = new List<string>
             {
@@ -63,6 +65,7 @@ namespace Voxel.Model.Languages
                 "Image File (*.jpg;*.png;*.bmp;*.tif;*.jpeg;*.tiff)|*.jpg;*.png;*.bmp;*.tif;*.jpeg;*.tiff",
                 "Use Dark Theme",
                 "Show Name",
+                "Generate",
             };
         }
     }
