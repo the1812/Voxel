@@ -19,16 +19,25 @@ namespace Voxel.Model.Languages
             {
                 "WindowTitle",
                 "ButtonNonscalableTile",
+                "ButtonScalableTile",
+                "ButtonImageTile",
+                "ButtonAbout",
             };
             simplifiedChinese = new List<string>
             {
                 "Voxel",
                 "无缩放磁贴",
+                "可缩放磁贴(未完成)",
+                "图像磁贴(未完成)",
+                "关于(未完成)",
             };
             americanEnglish = new List<string>
             {
                 "Voxel",
                 "Non-scalable Tile",
+                "Scalable Tile (Coming Soon)",
+                "Image Tile (Coming Soon)",
+                "About (Coming Soon)",
             };
         }
     }

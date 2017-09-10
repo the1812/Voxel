@@ -1,75 +1,88 @@
 <Window
-    x:Name="window"
-    x:Class="Voxel.View.MainView"
-    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-    xmlns:local="clr-namespace:Voxel.View"
-    mc:Ignorable="d"
-    Title="{Binding WindowTitle}"
-    Height="500"
-    Width="500"
-    WindowStartupLocation="CenterScreen"
+  x:Name="window"
+  x:Class="Voxel.View.MainView"
+  xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+  xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+  xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+  xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+  xmlns:local="clr-namespace:Voxel.View"
+  mc:Ignorable="d"
+  Title="{Binding WindowTitle}"
+  FontSize="16"
+  Height="500"
+  Width="500"
+  WindowStartupLocation="CenterScreen"
   ResizeMode="CanMinimize">
-    <Window.Resources>
-        <ResourceDictionary>
-            <ResourceDictionary.MergedDictionaries>
-                <ResourceDictionary
-                    Source="/Ace;component/Wpf/Styles/ButtonBase/DarkButton.xaml" />
-            </ResourceDictionary.MergedDictionaries>
-        </ResourceDictionary>
-    </Window.Resources>
-    <Grid
-        x:Name="gridMain"
+  <Grid
+    x:Name="gridMain"
     Background="#FF323232">
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition
-                Width="3*" />
-            <ColumnDefinition
-                Width="1*" />
-        </Grid.ColumnDefinitions>
-        <Grid.RowDefinitions>
-            <RowDefinition
-                Height="1*" />
-            <RowDefinition
-                Height="1*" />
-            <RowDefinition
-                Height="1*" />
-            <RowDefinition
-                Height="1*" />
-        </Grid.RowDefinitions>
-        <Button
-            x:Name="buttonNonscalableTileNew"
-            Content="{Binding ButtonNonscalableTile}"
-            VerticalAlignment="Bottom"
-            Margin="30,0,0,10"
-            Style="{StaticResource DarkButton}"
-            Height="40"
-            MinWidth="80"
-            HorizontalContentAlignment="Center"
-            Command="{Binding ButtonNonscalableTileCommand}" />
-        <Button
-            Content="Button"
-            HorizontalAlignment="Left"
-            VerticalAlignment="Top"
-            Width="75"
-            Margin="195,45,0,0"
-            Grid.Row="1" />
-        <Button
-            Content="Button"
-            HorizontalAlignment="Left"
-            VerticalAlignment="Top"
-            Width="75"
-            Margin="195,36,0,0"
-            Grid.Row="2" />
-        <Button
-            Content="Button"
-            HorizontalAlignment="Right"
-            VerticalAlignment="Bottom"
-            Width="75"
-            Margin="0,0,101,48.5"
-            Grid.Row="3" />
+    <Grid.Effect>
+      <DropShadowEffect
+        BlurRadius="15"
+        ShadowDepth="0"
+        Opacity="0.4" />
+    </Grid.Effect>
+    <!--<Grid.ColumnDefinitions>
+      <ColumnDefinition
+        Width="3*" />
+      <ColumnDefinition
+        Width="1*" />
+    </Grid.ColumnDefinitions>-->
+    <Grid.RowDefinitions>
+      <RowDefinition
+        Height="1*" />
+      <RowDefinition
+        Height="1*" />
+      <RowDefinition
+        Height="1*" />
+      <RowDefinition
+        Height="1*" />
+    </Grid.RowDefinitions>
+    <Button
+      x:Name="buttonNonscalableTileNew"
+      Content="{Binding ButtonNonscalableTile}"
+      VerticalAlignment="Center"
+      HorizontalAlignment="Center"
+      Margin="0"
+      Style="{StaticResource DarkButton}"
+      Height="40"
+      Width="200"
+      HorizontalContentAlignment="Center"
+      Command="{Binding ButtonNonscalableTileCommand}"
+      Background="SteelBlue" />
+    <Button
+      x:Name="buttonScalableTile"
+      Content="{Binding ButtonScalableTile}"
+      Style="{StaticResource DarkButton}"
+      HorizontalAlignment="Center"
+      VerticalAlignment="Center"
+      Width="200"
+      Height="40"
+      Margin="0"
+      Grid.Row="1" 
+      Background="#448D54"/>
+    <Button
+      x:Name="buttonImageTile"
+      Content="{Binding ButtonImageTile}"
+      Style="{StaticResource DarkButton}"
+      HorizontalAlignment="Center"
+      VerticalAlignment="Center"
+      Width="200"
+      Height="40"
+      Margin="0"
+      Grid.Row="2"
+      Background="#AE6055"/>
+    <Button
+      x:Name="buttonAbout"
+      Content="{Binding ButtonAbout}"
+      Style="{StaticResource DarkButton}"
+      HorizontalAlignment="Center"
+      VerticalAlignment="Center"
+      Width="200"
+      Height="40"
+      Margin="0"
+      Grid.Row="3"
+      Background="#7753A0"/>
 
-    </Grid>
+  </Grid>
 </Window>

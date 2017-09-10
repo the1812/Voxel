@@ -17,8 +17,14 @@ namespace Voxel.ViewModel
         }
 
         public MainView Window { get; private set; }
+
+
         public string WindowTitle => language[nameof(WindowTitle)];
         public string ButtonNonscalableTile => language[nameof(ButtonNonscalableTile)];
+        public string ButtonScalableTile => language[nameof(ButtonScalableTile)];
+        public string ButtonImageTile => language[nameof(ButtonImageTile)];
+        public string ButtonAbout => language[nameof(ButtonAbout)];
+
         public Command ButtonNonscalableTileCommand => new Command
         {
             CanExecuteAction = (o) => true,
