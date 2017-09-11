@@ -14,7 +14,12 @@ namespace Voxel.Model
     sealed class NonscalableTileManager : TileManager
     {
 
-        private NonscalableTile tile = new NonscalableTile();
+        private NonscalableTile tile = new NonscalableTile()
+        {
+            Background = Ace.Wpf.DwmEffect.ColorizationColor,
+            Theme = Ace.Wpf.DwmEffect.ForegroundColor == Colors.Black ? TextTheme.Dark : TextTheme.Light,
+            ShowName = true,
+        };
         public NonscalableTile Tile
         {
             get => tile;
@@ -27,8 +32,13 @@ namespace Voxel.Model
 
         public override void Generate()
         {
+            if (!File.Exists(tile.TargetPath))
+            {
+                return;
+            }
+
             XElement root = new XElement("Application",
-                new XAttribute("xmlns:xsi", @"http://www.w3.org/2001/XMLSchema-instance")
+                new XAttribute(XNamespace.Xmlns + "xsi", @"http://www.w3.org/2001/XMLSchema-instance")
             );
             XElement visualElements = new XElement("VisualElements",
                 new XAttribute("ForegroundText", tile.Theme == TextTheme.Dark ? "dark" : "light"),
@@ -39,7 +49,7 @@ namespace Voxel.Model
             if (File.Exists(tile.LargeImagePath))
             {
                 visualElements.Add(new XAttribute("Square150x150Logo", tile.LargeImagePath.GetFileName()));
-                if (tile.SmallImagePath == null || !File.Exists(tile.SmallImagePath))
+                if (/*tile.SmallImagePath == null || */!File.Exists(tile.SmallImagePath))
                 {
                     tile.SmallImagePath = tile.LargeImagePath;
                 }

@@ -7,7 +7,8 @@
   xmlns:local="clr-namespace:Voxel.View"
   mc:Ignorable="d"
   x:Name="window"
-  ResizeMode="CanMinimize"
+  WindowStartupLocation="CenterOwner"
+  ResizeMode="NoResize"
   Title="{Binding WindowTitle}"
   Height="300"
   Width="320"
@@ -31,8 +32,8 @@
       x:Name="textTitle"
       Text="{Binding Title}"
       FontSize="36"
-      Margin="20,0,0,0" 
-      HorizontalAlignment="Left"
+      Margin="0" 
+      HorizontalAlignment="Center"
       VerticalAlignment="Bottom"/>
     <TextBlock
       x:Name="textContent"

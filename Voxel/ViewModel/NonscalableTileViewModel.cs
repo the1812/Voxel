@@ -13,6 +13,7 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Data;
 using System.Windows.Media.Imaging;
+using System.IO;
 
 namespace Voxel.ViewModel
 {
@@ -41,15 +42,6 @@ namespace Voxel.ViewModel
         #endregion
         #region Vars and properties
         private NonscalableTileManager tileManager = new NonscalableTileManager();
-        //public NonscalableTileManager TileManager
-        //{
-        //    get => tileManager;
-        //    set
-        //    {
-        //        tileManager = value;
-        //        OnPropertyChanged(nameof(TileManager));
-        //    }
-        //}
         public NonscalableTileView View { get; private set; }
 
         private string TargetFileName
@@ -108,7 +100,7 @@ namespace Voxel.ViewModel
             }
         }
 
-        private ImageSource icon;
+        private ImageSource icon = null;
         public ImageSource Icon
         {
             get => icon;
@@ -336,20 +328,27 @@ namespace Voxel.ViewModel
             {
                 ExcuteAction = (o) =>
                 {
-                    tileManager.Path = tileManager.Tile.TargetPath.RemoveFileName();
                     try
                     {
-                        tileManager.Generate();
-
+                        if (!File.Exists(tileManager.Tile.TargetPath))
+                        {
+                            View.ShowMessage(language["TargetMissing"], language["TargetMissingTitle"], false);
+                        }
+                        else
+                        {
+                            tileManager.Path = tileManager.Tile.TargetPath.RemoveFileName();
+                            tileManager.Generate();
+                            View.ShowMessage("", language["GenerateSuccessTitle"], false);
+                        }
                     }
                     catch (UnauthorizedAccessException)
                     {
-
+                        View.ShowMessage(language["AdminTip"], language["GenerateFailedTitle"], false);
                     }
-#if DEBUG
+#if !DEBUG
                     catch (Exception ex)
                     {
-
+                        View.ShowMessage(ex.Message, language["GenerateFailedTitle"], false);
                     }
 #endif
                 },

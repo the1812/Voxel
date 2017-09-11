@@ -1,3 +1,4 @@
+using Ace.Win32;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -34,15 +35,20 @@ namespace Voxel.View
                 DialogResult = false;
             };
         }
-
-        public static bool ShowDialog(string content, string title, bool showCancelButton)
+        protected override void OnSourceInitialized(EventArgs e)
         {
-            var dialog = new MessageView();
-            var viewModel = dialog.DataContext as MessageViewModel;
-            viewModel.Content = content;
-            viewModel.Title = title;
-            viewModel.ShowCancelButton = showCancelButton;
-            return dialog.ShowDialog() ?? false;
+            this.RemoveTitleIcon();
+            base.OnSourceInitialized(e);
         }
+        //public static bool ShowDialog(string content, string title, bool showCancelButton)
+        //{
+        //    var dialog = new MessageView();
+        //    var viewModel = dialog.DataContext as MessageViewModel;
+        //    viewModel.Content = content;
+        //    viewModel.Title = title;
+        //    viewModel.ShowCancelButton = showCancelButton;
+        //    return dialog.ShowDialog() ?? false;
+        //}
+
     }
 }

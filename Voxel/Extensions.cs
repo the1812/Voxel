@@ -3,7 +3,10 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
 using System.Windows.Media;
+using Voxel.View;
+using Voxel.ViewModel;
 
 namespace Voxel
 {
@@ -25,6 +28,18 @@ namespace Voxel
             result += color.G.ToString("X2");
             result += color.B.ToString("X2");
             return result;
+        }
+        public static bool ShowMessage(this Window parent, string content, string title, bool showCancelButton)
+        {
+            var dialog = new MessageView()
+            {
+                Owner = parent
+            };
+            var viewModel = dialog.DataContext as MessageViewModel;
+            viewModel.Content = content;
+            viewModel.Title = title;
+            viewModel.ShowCancelButton = showCancelButton;
+            return dialog.ShowDialog() ?? false;
         }
     }
 }

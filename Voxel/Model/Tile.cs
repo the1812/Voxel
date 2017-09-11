@@ -64,7 +64,7 @@ namespace Voxel.Model
             }
         }
 
-        private string xmlPath;
+        //private string xmlPath;
         public string XmlPath
         {
             get

@@ -33,6 +33,11 @@ namespace Voxel.Model.Languages
                 "ButtonAddToStart",
                 "ButtonImport",
                 "ButtonExport",
+                "GenerateSuccessTitle",
+                "GenerateFailedTitle",
+                "AdminTip",
+                "TargetMissing",
+                "TargetMissingTitle",
             };
             simplifiedChinese = new List<string>
             {
@@ -54,6 +59,11 @@ namespace Voxel.Model.Languages
                 "添加到开始",
                 "导入",
                 "导出",
+                "生成成功",
+                "生成失败",
+                "权限不足，请以管理员身份运行。",
+                "目标文件/文件夹未选择或不存在。",
+                "目标无效",
             };
             americanEnglish = new List<string>
             {
@@ -75,6 +85,11 @@ namespace Voxel.Model.Languages
                 "Add to Start",
                 "Import",
                 "Export",
+                "Generate Success",
+                "Failed to Generate",
+                "Access denied. Please run as admin.",
+                "The target file/folder is not selected or doesn't exist.",
+                "Target Missing",
             };
         }
     }
