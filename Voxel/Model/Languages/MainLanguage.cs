@@ -21,7 +21,7 @@ namespace Voxel.Model.Languages
                 "ButtonNonscalableTile",
                 "ButtonScalableTile",
                 "ButtonImageTile",
-                "ButtonAbout",
+                "ButtonClearTileCache",
             };
             simplifiedChinese = new List<string>
             {
@@ -29,7 +29,7 @@ namespace Voxel.Model.Languages
                 "无缩放磁贴",
                 "可缩放磁贴(未完成)",
                 "图像磁贴(未完成)",
-                "关于(未完成)",
+                "清除磁贴缓存(未完成)",
             };
             americanEnglish = new List<string>
             {
@@ -37,7 +37,7 @@ namespace Voxel.Model.Languages
                 "Non-scalable Tile",
                 "Scalable Tile (Coming Soon)",
                 "Image Tile (Coming Soon)",
-                "About (Coming Soon)",
+                "Clear Tile Cache (Coming Soon)",
             };
         }
     }

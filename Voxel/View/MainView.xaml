@@ -48,7 +48,7 @@
       Height="40"
       Width="220"
       HorizontalContentAlignment="Center"
-      Command="{Binding ButtonNonscalableTileCommand}"
+      Command="{Binding NonscalableTileCommand}"
       Background="SteelBlue" />
     <Button
       x:Name="buttonScalableTile"
@@ -73,8 +73,8 @@
       Grid.Row="2"
       Background="#AE6055"/>
     <Button
-      x:Name="buttonAbout"
-      Content="{Binding ButtonAbout}"
+      x:Name="buttonClearTileCache"
+      Content="{Binding ButtonClearTileCache}"
       Style="{StaticResource DarkButton}"
       HorizontalAlignment="Center"
       VerticalAlignment="Center"
@@ -83,7 +83,13 @@
       Margin="0"
       Grid.Row="3"
       Background="#7753A0"
-      Command="{Binding ButtonAboutCommand}"/>
+      Command="{Binding ClearTileCacheCommand}">
+      <Button.InputBindings>
+        <MouseBinding
+          Gesture="RightClick"
+          Command="{Binding AboutCommand}" />
+      </Button.InputBindings>
+    </Button>
 
   </Grid>
 </Window>

@@ -23,9 +23,16 @@ namespace Voxel.ViewModel
         public string ButtonNonscalableTile => language[nameof(ButtonNonscalableTile)];
         public string ButtonScalableTile => language[nameof(ButtonScalableTile)];
         public string ButtonImageTile => language[nameof(ButtonImageTile)];
-        public string ButtonAbout => language[nameof(ButtonAbout)];
+        public string ButtonClearTileCache => language[nameof(ButtonClearTileCache)];
 
-        public Command ButtonNonscalableTileCommand => new Command
+        
+        public static void ClearTileCache()
+        {
+#warning "ClearTileCache incomplete"
+        }
+
+
+        public Command NonscalableTileCommand => new Command
         {
             ExcuteAction = (o) =>
             {
@@ -36,7 +43,15 @@ namespace Voxel.ViewModel
                 window.ShowDialog();
             },
         };
-        public Command ButtonAboutCommand => new Command
+        public Command ClearTileCacheCommand => new Command
+        {
+            ExcuteAction = (o) =>
+            {
+                ClearTileCache();
+            },
+        };
+
+        public Command AboutCommand => new Command
         {
             ExcuteAction = (o) =>
             {
