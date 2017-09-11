@@ -70,6 +70,7 @@
     <Compile Include="Model\Languages\GeneralLanguage.cs" />
     <Compile Include="Model\Languages\Language.cs" />
     <Compile Include="Model\Languages\MainLanguage.cs" />
+    <Compile Include="Model\Languages\MessageLanguage.cs" />
     <Compile Include="Model\Languages\NonscalableTileLanguage.cs" />
     <Compile Include="Model\NonscalableTile.cs" />
     <Compile Include="Model\NonscalableTileManager.cs" />
@@ -84,6 +85,7 @@
     <Compile Include="ViewModel\ColorPickerViewModel.cs" />
     <Compile Include="ViewModel\Command.cs" />
     <Compile Include="ViewModel\MainViewModel.cs" />
+    <Compile Include="ViewModel\MessageViewModel.cs" />
     <Compile Include="ViewModel\NonscalableTileViewModel.cs" />
     <Compile Include="ViewModel\ViewModel.cs" />
     <Compile Include="View\AboutView.xaml.cs">
@@ -94,6 +96,9 @@
     </Compile>
     <Compile Include="View\MainView.xaml.cs">
       <DependentUpon>MainView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\MessageView.xaml.cs">
+      <DependentUpon>MessageView.xaml</DependentUpon>
     </Compile>
     <Compile Include="View\NonscalableTileView.xaml.cs">
       <DependentUpon>NonscalableTileView.xaml</DependentUpon>
@@ -156,6 +161,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="View\MainView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\MessageView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

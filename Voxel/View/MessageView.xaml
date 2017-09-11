@@ -1,0 +1,82 @@
+<Window
+  x:Class="Voxel.View.MessageView"
+  xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+  xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+  xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+  xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+  xmlns:local="clr-namespace:Voxel.View"
+  mc:Ignorable="d"
+  x:Name="window"
+  ResizeMode="CanMinimize"
+  Title="{Binding WindowTitle}"
+  Height="300"
+  Width="320"
+  Foreground="White">
+  <Window.Resources>
+    <BooleanToVisibilityConverter
+      x:Key="converter" />
+  </Window.Resources>
+  <Grid
+    x:Name="gridMain"
+    Background="#323232">
+    <Grid.RowDefinitions>
+      <RowDefinition
+        Height="60" />
+      <RowDefinition
+        Height="1*" />
+      <RowDefinition
+        Height="45" />
+    </Grid.RowDefinitions>
+    <TextBlock
+      x:Name="textTitle"
+      Text="{Binding Title}"
+      FontSize="36"
+      Margin="20,0,0,0" 
+      HorizontalAlignment="Left"
+      VerticalAlignment="Bottom"/>
+    <TextBlock
+      x:Name="textContent"
+      Text="{Binding Content}"
+      Margin="20"
+      HorizontalAlignment="Stretch"
+      VerticalAlignment="Stretch"
+      TextWrapping="Wrap"
+      Grid.Row="1" />
+    <StackPanel
+      Orientation="Horizontal"
+      Grid.Row="2"
+      HorizontalAlignment="Center"
+      VerticalAlignment="Stretch"
+      Margin="0">
+      <Button
+        x:Name="buttonOK"
+        Style="{StaticResource ToolButton}"
+        VerticalAlignment="Stretch"
+        Width="120"
+        Background="{StaticResource HighlightColor}">
+        <Path
+          Data="M -2,0 L 0,2 L 4,-2"
+          Height="20"
+          Width="20"
+          Stretch="Uniform"
+          Stroke="White"
+          StrokeThickness="2" />
+      </Button>
+      <Button
+        Visibility="{Binding ShowCancelButton,Converter={StaticResource converter}}"
+        x:Name="buttonCancel"
+        Style="{StaticResource ToolButton}"
+        VerticalAlignment="Stretch"
+        Width="120"
+        Background="Transparent">
+        <Path
+          Data="M -2,-2 L 2,2 M 2,-2 L -2,2"
+          Height="20"
+          Width="20"
+          Stretch="Uniform"
+          Stroke="White"
+          StrokeThickness="2" />
+      </Button>
+    </StackPanel>
+  </Grid>
+</Window>
