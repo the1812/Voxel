@@ -17,6 +17,8 @@
           Source="Styles/OptionCheckBox.xaml" />
         <ResourceDictionary
           Source="Styles/DarkButton.xaml" />
+        <ResourceDictionary
+          Source="Styles/TileSizeToggle.xaml" />
       </ResourceDictionary.MergedDictionaries>
       <SolidColorBrush
         x:Key="HighlightColor"

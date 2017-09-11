@@ -32,6 +32,16 @@
       <RowDefinition
         Height="45" />
     </Grid.RowDefinitions>
+    <ToggleButton
+      x:Name="toggleTileSize"
+      Style="{StaticResource TileSizeToggle}"
+      Grid.Column="1"
+      Height="30"
+      Content="{Binding ToggleTileSizeLeft}"
+      Tag="{Binding ToggleTileSizeRight}"
+      Margin="0,0,0,10"
+      HorizontalAlignment="Center"
+      VerticalAlignment="Bottom"/>
     <Grid
       x:Name="gridPreview"
       Grid.Column="1"

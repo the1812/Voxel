@@ -38,6 +38,8 @@ namespace Voxel.ViewModel
         public string ButtonAddToStart => language[nameof(ButtonAddToStart)];
         public string ButtonImport => language[nameof(ButtonImport)];
         public string ButtonExport => language[nameof(ButtonExport)];
+        public string ToggleTileSizeLeft => language[nameof(ToggleTileSizeLeft)];
+        public string ToggleTileSizeRight => language[nameof(ToggleTileSizeRight)];
 
         #endregion
         #region Vars and properties

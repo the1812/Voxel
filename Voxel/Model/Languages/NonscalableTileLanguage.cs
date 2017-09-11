@@ -38,6 +38,8 @@ namespace Voxel.Model.Languages
                 "AdminTip",
                 "TargetMissing",
                 "TargetMissingTitle",
+                "ToggleTileSizeLeft",
+                "ToggleTileSizeRight",
             };
             simplifiedChinese = new List<string>
             {
@@ -64,6 +66,8 @@ namespace Voxel.Model.Languages
                 "权限不足，请以管理员身份运行。",
                 "目标文件/文件夹未选择或不存在。",
                 "目标无效",
+                "中等",
+                "小",
             };
             americanEnglish = new List<string>
             {
@@ -90,6 +94,8 @@ namespace Voxel.Model.Languages
                 "Access denied. Please run as admin.",
                 "The target file/folder is not selected or doesn't exist.",
                 "Target Missing",
+                "Medium",
+                "Small",
             };
         }
     }
