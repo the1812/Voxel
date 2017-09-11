@@ -1,9 +1,13 @@
+using Ace;
 using Ace.Files.Json;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Media;
+using System.Xml.Linq;
 
 namespace Voxel.Model
 {
@@ -21,6 +25,42 @@ namespace Voxel.Model
             //}
         }
 
+        public override void Generate()
+        {
+            XElement root = new XElement("Application",
+                new XAttribute("xmlns:xsi", @"http://www.w3.org/2001/XMLSchema-instance")
+            );
+            XElement visualElements = new XElement("VisualElements",
+                new XAttribute("ForegroundText", tile.Theme == TextTheme.Dark ? "dark" : "light"),
+                new XAttribute("BackgroundColor", tile.Background.ToHexString()),
+                new XAttribute("ShowNameOnSquare150x150Logo", tile.ShowName ? "on" : "off")
+            );
+            
+            if (File.Exists(tile.LargeImagePath))
+            {
+                visualElements.Add(new XAttribute("Square150x150Logo", tile.LargeImagePath.GetFileName()));
+                if (tile.SmallImagePath == null || !File.Exists(tile.SmallImagePath))
+                {
+                    tile.SmallImagePath = tile.LargeImagePath;
+                }
+                visualElements.Add(new XAttribute("Square70x70Logo", tile.SmallImagePath.GetFileName()));
+
+                string targetFolder = tile.TargetPath.RemoveFileName().ToLower();
+                if (targetFolder != tile.LargeImagePath.RemoveFileName().ToLower())
+                {
+                    File.Copy(tile.LargeImagePath, targetFolder.Backslash() + tile.LargeImagePath.GetFileName(), true);
+                }
+                if (tile.SmallImagePath != tile.LargeImagePath &&
+                    targetFolder != tile.SmallImagePath.RemoveFileName().ToLower())
+                {
+                    File.Copy(tile.SmallImagePath, targetFolder.Backslash() + tile.SmallImagePath.GetFileName(), true);
+                }
+            }
+
+            root.Add(visualElements);
+            root.Save(tile.XmlPath);
+        }
+
         public override void LoadData()
         {
             base.LoadData();
@@ -33,7 +73,7 @@ namespace Voxel.Model
             tile.ShowName = data[nameof(tile.ShowName)].BooleanValue.Value;
             tile.Background = ((int) data[nameof(tile.Background)].NumberValue).ToColor();
             tile.TargetPath = data[nameof(tile.TargetPath)].StringValue;
-            tile.XmlPath = data[nameof(tile.XmlPath)].StringValue;
+            //tile.XmlPath = data[nameof(tile.XmlPath)].StringValue;
             string themeString = data[nameof(tile.Theme)].StringValue;
             tile.Theme = themeString == DarkThemeString ? TextTheme.Dark : TextTheme.Light;
         }
@@ -47,7 +87,7 @@ namespace Voxel.Model
                 [nameof(tile.ShowName)] = tile.ShowName,
                 [nameof(tile.Background)] = tile.Background.ToInt32(),
                 [nameof(tile.TargetPath)] = tile.TargetPath,
-                [nameof(tile.XmlPath)] = tile.XmlPath,
+                //[nameof(tile.XmlPath)] = tile.XmlPath,
                 [nameof(tile.Theme)] = tile.Theme == TextTheme.Dark ? DarkThemeString : LightThemeString,
             };
             base.SaveData();

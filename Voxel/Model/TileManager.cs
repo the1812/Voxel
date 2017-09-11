@@ -35,6 +35,8 @@ namespace Voxel.Model
             file.Read();
             data = file.Content;
         }
+        public abstract void Generate();
+
         protected const string TypeKey = "Type";
         protected const string DarkThemeString = nameof(TextTheme.Dark);
         protected const string LightThemeString = nameof(TextTheme.Light);

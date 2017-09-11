@@ -18,5 +18,13 @@ namespace Voxel
         {
             return (color.A << 24) | (color.R << 16) | (color.G << 8) | color.B;
         }
+        public static string ToHexString(this Color color)
+        {
+            string result = "#";
+            result += color.R.ToString("X2");
+            result += color.G.ToString("X2");
+            result += color.B.ToString("X2");
+            return result;
+        }
     }
 }

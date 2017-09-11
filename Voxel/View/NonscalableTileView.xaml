@@ -192,7 +192,8 @@
       <Button
         x:Name="buttonGenrate"
         Content="{Binding ButtonGenerate}"
-        Style="{StaticResource ToolButton}" />
+        Style="{StaticResource ToolButton}"
+        Command="{Binding GenerateCommand}"/>
 
     </Grid>
 

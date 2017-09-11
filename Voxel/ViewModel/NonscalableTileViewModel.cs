@@ -331,7 +331,31 @@ namespace Voxel.ViewModel
                     BackImage = null;
                 },
             };
-        #endregion
+        public Command GenerateCommand
+            => new Command
+            {
+                ExcuteAction = (o) =>
+                {
+                    tileManager.Path = tileManager.Tile.TargetPath.RemoveFileName();
+                    try
+                    {
+                        tileManager.Generate();
+
+                    }
+                    catch (UnauthorizedAccessException)
+                    {
+
+                    }
+#if DEBUG
+                    catch (Exception ex)
+                    {
+
+                    }
+#endif
+                },
+            };
+
+#endregion
 
     }
 }

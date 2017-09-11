@@ -67,11 +67,9 @@ namespace Voxel.Model
         private string xmlPath;
         public string XmlPath
         {
-            get => xmlPath;
-            set
+            get
             {
-                xmlPath = value;
-                OnPropertyChanged(nameof(XmlPath));
+                return TargetPath + ".VisualElementsManifest.xml";
             }
         }
 
@@ -83,6 +81,8 @@ namespace Voxel.Model
             {
                 targetPath = value;
                 OnPropertyChanged(nameof(TargetPath));
+                OnPropertyChanged(nameof(XmlPath));
+                OnPropertyChanged(nameof(StartMenuTargetPath));
             }
         }
 
