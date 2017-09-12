@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Ace.Files.Json;
+using Ace.Files;
 
 namespace Voxel.Model
 {
@@ -35,6 +36,7 @@ namespace Voxel.Model
             file.Read();
             data = file.Content;
         }
+        public abstract void AddToStart();
         public abstract void Generate();
 
         protected const string TypeKey = "Type";

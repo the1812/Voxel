@@ -198,7 +198,8 @@
         x:Name="buttonAddToStart"
         Content="{Binding ButtonAddToStart}"
         Grid.Column="1"
-        Style="{StaticResource ToolButton}" />
+        Style="{StaticResource ToolButton}"
+        Command="{Binding AddToStartCommand}"/>
       <Button
         x:Name="buttonGenrate"
         Content="{Binding ButtonGenerate}"

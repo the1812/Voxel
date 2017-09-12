@@ -40,6 +40,10 @@ namespace Voxel.Model.Languages
                 "TargetMissingTitle",
                 "ToggleTileSizeLeft",
                 "ToggleTileSizeRight",
+                "OverwriteStartTitle",
+                "OverwriteStartContent",
+                "AddToStartFailedTitle",
+                "AddToStartSuccessTitle",
             };
             simplifiedChinese = new List<string>
             {
@@ -68,6 +72,10 @@ namespace Voxel.Model.Languages
                 "目标无效",
                 "中等",
                 "小",
+                "是否覆盖",
+                "开始里已经存在快捷方式，是否要覆盖？",
+                "添加失败",
+                "添加成功",
             };
             americanEnglish = new List<string>
             {
@@ -96,6 +104,10 @@ namespace Voxel.Model.Languages
                 "Target Missing",
                 "Medium",
                 "Small",
+                "Overwrite?",
+                "Shortcut already exists, do you want to overwrite?",
+                "Failed to Add",
+                "Add Success",
             };
         }
     }

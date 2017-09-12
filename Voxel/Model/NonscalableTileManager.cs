@@ -1,4 +1,5 @@
 using Ace;
+using Ace.Files;
 using Ace.Files.Json;
 using System;
 using System.Collections.Generic;
@@ -28,6 +29,15 @@ namespace Voxel.Model
             //    tile = value;
             //    OnPropertyChanged(nameof(Tile));
             //}
+        }
+
+        public override void AddToStart()
+        {
+            ShortcutFile file = new ShortcutFile(Tile.StartMenuTargetPath)
+            {
+                TargetPath = tile.TargetPath,
+            };
+            file.Flush();
         }
 
         public override void Generate()

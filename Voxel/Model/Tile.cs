@@ -25,7 +25,7 @@ namespace Voxel.Model
         {
             get
             {
-                return Environment.GetFolderPath(Environment.SpecialFolder.StartMenu).Backslash();
+                return Environment.GetFolderPath(Environment.SpecialFolder.StartMenu).Backslash() + "Programs".Backslash();
             }
         }
         public bool IsOnStartMenu => File.Exists(StartMenu + StartMenuTargetPath.GetFileName());

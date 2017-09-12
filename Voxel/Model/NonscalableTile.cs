@@ -34,6 +34,6 @@ namespace Voxel.Model
         }
 
 
-        public override string StartMenuTargetPath => StartMenu + TargetPath.GetFileName() + ".lnk";
+        public override string StartMenuTargetPath => StartMenu + TargetPath.GetFileName().RemoveExtension() + ".lnk";
     }
 }

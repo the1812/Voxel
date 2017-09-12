@@ -355,6 +355,42 @@ namespace Voxel.ViewModel
 #endif
                 },
             };
+        public Command AddToStartCommand
+            => new Command
+            {
+                ExcuteAction = (o) =>
+                {
+                    try
+                    {
+                        if (!File.Exists(tileManager.Tile.TargetPath))
+                        {
+                            View.ShowMessage(language["TargetMissing"], language["TargetMissingTitle"], false);
+                            return;
+                        }
+
+                        if (tileManager.Tile.IsOnStartMenu
+                        && !View.ShowMessage(language["OverwriteStartContent"], language["OverwriteStartTitle"], true))
+                        {
+                            return;
+                        }
+                        else
+                        {
+                            tileManager.AddToStart();
+                            View.ShowMessage("", language["AddToStartSuccessTitle"], false);
+                        }
+                    }
+                    catch (UnauthorizedAccessException)
+                    {
+                        View.ShowMessage(language["AdminTip"], language["AddToStartFailedTitle"], false);
+                    }
+#if !DEBUG
+                        catch (Exception ex)
+                        {
+                            View.ShowMessage(ex.Message, language["AddToStartFailedTitle"], false);
+                        }
+#endif
+                },
+            };
 
 #endregion
 
