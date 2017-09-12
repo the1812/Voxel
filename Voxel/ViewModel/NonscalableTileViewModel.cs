@@ -117,11 +117,12 @@ namespace Voxel.ViewModel
         private ImageSource backImage = null;
         public ImageSource BackImage
         {
-            get => backImage;
+            get => backImage ?? backImageSmall;
             set
             {
                 backImage = value;
                 OnPropertyChanged(nameof(BackImage));
+                OnPropertyChanged(nameof(BackImageSmall));
                 OnPropertyChanged(nameof(IconVisibility));
             }
         }
@@ -129,7 +130,7 @@ namespace Voxel.ViewModel
         {
             get
             {
-                if (BackImage == null)
+                if (backImage == null && backImageSmall == null)
                 {
                     return Visibility.Visible;
                 }
@@ -177,6 +178,49 @@ namespace Voxel.ViewModel
             }
         }
 
+        private ImageSource backImageSmall;
+        public ImageSource BackImageSmall
+        {
+            get
+            {
+                return backImageSmall ?? backImage;
+            }
+            set
+            {
+                backImageSmall = value;
+                OnPropertyChanged(nameof(BackImage));
+                OnPropertyChanged(nameof(BackImageSmall));
+                OnPropertyChanged(nameof(IconVisibility));
+            }
+        }
+
+        private bool isTileSizeToggleChecked;
+        public bool IsTileSizeToggleChecked
+        {
+            get => isTileSizeToggleChecked;
+            set
+            {
+                isTileSizeToggleChecked = value;
+                OnPropertyChanged(nameof(IsTileSizeToggleChecked));
+                OnPropertyChanged(nameof(LargePreviewVisibility));
+                OnPropertyChanged(nameof(SmallPreviewVisibility));
+            }
+        }
+
+        public Visibility LargePreviewVisibility
+        {
+            get
+            {
+                return IsTileSizeToggleChecked ? Visibility.Collapsed : Visibility.Visible;
+            }
+        }
+        public Visibility SmallPreviewVisibility
+        {
+            get
+            {
+                return IsTileSizeToggleChecked ? Visibility.Visible : Visibility.Collapsed;
+            }
+        }
 
         #endregion
         #region Commands
@@ -305,15 +349,31 @@ namespace Voxel.ViewModel
                         CheckFileExists = true,
                         Filter = language["OpenImageDialogFilter"],
                     };
-                    if (tileManager.Tile.LargeImagePath != null)
+                    if (!IsTileSizeToggleChecked)
                     {
-                        dialog.FileName = tileManager.Tile.LargeImagePath;
+                        if (tileManager.Tile.LargeImagePath != null)
+                        {
+                            dialog.FileName = tileManager.Tile.LargeImagePath;
+                        }
+                        if (dialog.ShowDialog() ?? false)
+                        {
+                            string imagePath = dialog.FileName;
+                            tileManager.Tile.LargeImagePath = imagePath;
+                            BackImage = new BitmapImage(new Uri(imagePath));
+                        }
                     }
-                    if (dialog.ShowDialog() ?? false)
+                    else
                     {
-                        string imagePath = dialog.FileName;
-                        tileManager.Tile.LargeImagePath = imagePath;
-                        BackImage = new BitmapImage(new Uri(imagePath));
+                        if (tileManager.Tile.SmallImagePath != null)
+                        {
+                            dialog.FileName = tileManager.Tile.SmallImagePath;
+                        }
+                        if (dialog.ShowDialog() ?? false)
+                        {
+                            string imagePath = dialog.FileName;
+                            tileManager.Tile.SmallImagePath = imagePath;
+                            BackImageSmall = new BitmapImage(new Uri(imagePath));
+                        }
                     }
                 },
             };
@@ -322,7 +382,14 @@ namespace Voxel.ViewModel
             {
                 ExcuteAction = (o) =>
                 {
-                    BackImage = null;
+                    if (IsTileSizeToggleChecked)
+                    {
+                        BackImageSmall = null;
+                    }
+                    else
+                    {
+                        BackImage = null;
+                    }
                 },
             };
         public Command GenerateCommand

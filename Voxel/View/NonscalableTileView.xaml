@@ -33,6 +33,7 @@
         Height="45" />
     </Grid.RowDefinitions>
     <ToggleButton
+      IsChecked="{Binding IsTileSizeToggleChecked, Mode=TwoWay}"
       x:Name="toggleTileSize"
       Style="{StaticResource TileSizeToggle}"
       Grid.Column="1"
@@ -43,6 +44,41 @@
       HorizontalAlignment="Center"
       VerticalAlignment="Bottom"/>
     <Grid
+      Visibility="{Binding SmallPreviewVisibility}"
+      x:Name="gridPreviewSmall"
+      Grid.Column="1"
+      Margin="0"
+      HorizontalAlignment="Center"
+      VerticalAlignment="Center"
+      Width="60"
+      Height="60"
+      Background="{Binding Background}">
+      <Grid.Effect>
+        <DropShadowEffect
+          ShadowDepth="0"
+          BlurRadius="15"
+          Opacity="0.4" />
+      </Grid.Effect>
+      <Image
+        Stretch="Fill"
+        x:Name="imageBackgroundSmall"
+        Source="{Binding BackImageSmall}"
+        RenderTransformOrigin="0.5,0.5" />
+      <Border
+        HorizontalAlignment="Center"
+        Height="32"
+        VerticalAlignment="Center"
+        Width="32">
+        <Image
+          Stretch="Uniform"
+          x:Name="imageIconSmall"
+          Source="{Binding Icon}"
+          Visibility="{Binding IconVisibility}"
+          RenderTransformOrigin="0.5,0.5" />
+      </Border>
+    </Grid>
+    <Grid
+      Visibility="{Binding LargePreviewVisibility}"
       x:Name="gridPreview"
       Grid.Column="1"
       Margin="0"
@@ -73,7 +109,6 @@
           Source="{Binding Icon}"
           Visibility="{Binding IconVisibility}"
           RenderTransformOrigin="0.5,0.5" />
-
       </Border>
       <TextBlock
         x:Name="textName"
