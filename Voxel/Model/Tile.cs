@@ -69,7 +69,7 @@ namespace Voxel.Model
         {
             get
             {
-                return TargetPath + ".VisualElementsManifest.xml";
+                return TargetPath.RemoveExtension() + ".VisualElementsManifest.xml";
             }
         }
 
