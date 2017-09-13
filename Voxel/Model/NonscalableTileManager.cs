@@ -88,12 +88,11 @@ namespace Voxel.Model
             {
                 throw new TileTypeNotMatchException();
             }
-            tile.SmallImagePath = data[nameof(tile.SmallImagePath)].StringValue;
-            tile.LargeImagePath = data[nameof(tile.LargeImagePath)].StringValue;
+            tile.SmallImagePath = data[nameof(tile.SmallImagePath)].StringValue.FromJsonPath();
+            tile.LargeImagePath = data[nameof(tile.LargeImagePath)].StringValue.FromJsonPath();
             tile.ShowName = data[nameof(tile.ShowName)].BooleanValue.Value;
             tile.Background = ((int) data[nameof(tile.Background)].NumberValue).ToColor();
-            tile.TargetPath = data[nameof(tile.TargetPath)].StringValue;
-            //tile.XmlPath = data[nameof(tile.XmlPath)].StringValue;
+            tile.TargetPath = data[nameof(tile.TargetPath)].StringValue.FromJsonPath();
             string themeString = data[nameof(tile.Theme)].StringValue;
             tile.Theme = themeString == DarkThemeString ? TextTheme.Dark : TextTheme.Light;
         }
@@ -102,12 +101,11 @@ namespace Voxel.Model
             data = new JsonObject
             {
                 [TypeKey] = nameof(NonscalableTile),
-                [nameof(tile.SmallImagePath)] = tile.SmallImagePath,
-                [nameof(tile.LargeImagePath)] = tile.LargeImagePath,
+                [nameof(tile.SmallImagePath)] = tile.SmallImagePath.ToJsonPath(),
+                [nameof(tile.LargeImagePath)] = tile.LargeImagePath.ToJsonPath(),
                 [nameof(tile.ShowName)] = tile.ShowName,
                 [nameof(tile.Background)] = tile.Background.ToInt32(),
-                [nameof(tile.TargetPath)] = tile.TargetPath,
-                //[nameof(tile.XmlPath)] = tile.XmlPath,
+                [nameof(tile.TargetPath)] = tile.TargetPath.ToJsonPath(),
                 [nameof(tile.Theme)] = tile.Theme == TextTheme.Dark ? DarkThemeString : LightThemeString,
             };
             base.SaveData();

@@ -223,7 +223,8 @@
         x:Name="buttonExport"
         Content="{Binding ButtonExport}"
         Grid.Column="3"
-        Style="{StaticResource ToolButton}" />
+        Style="{StaticResource ToolButton}"
+        Command="{Binding ExportCommand}"/>
       <Button
         x:Name="buttonImport"
         Content="{Binding ButtonImport}"

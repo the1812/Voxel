@@ -20,11 +20,11 @@ namespace Voxel.Model.Languages
             };
             simplifiedChinese = new List<string>
             {
-                "尝试读取的磁贴类型不匹配。",
+                "文件中的磁贴类型与当前编辑器不匹配。",
             };
             americanEnglish = new List<string>
             {
-                "The type of tile is not match."
+                "The tile type in file doesn't match the current editor."
             };
         }
     }

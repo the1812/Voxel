@@ -405,7 +405,6 @@ namespace Voxel.ViewModel
                         }
                         else
                         {
-                            tileManager.Path = tileManager.Tile.TargetPath.RemoveFileName();
                             tileManager.Generate();
                             View.ShowMessage("", language["GenerateSuccessTitle"], false);
                         }
@@ -458,7 +457,59 @@ namespace Voxel.ViewModel
 #endif
                 },
             };
+        public Command ExportCommand
+            => new Command
+            {
+                ExcuteAction = (o) =>
+                {
+                    if (!File.Exists(tileManager.Tile.TargetPath))
+                    {
+                        View.ShowMessage(language["TargetMissing"], language["TargetMissingTitle"], false);
+                        return;
+                    }
 
+                    if (tileManager.Path == null)
+                    {
+                        tileManager.Path = tileManager.Tile.TargetPath.GetFileName().RemoveExtension() + ".voxel";
+                    }
+                    var dialog = new SaveFileDialog
+                    {
+                        Title = language["ExportDialogTitle"],
+                        Filter = language["VoxelDialogFilter"],
+                        InitialDirectory = tileManager.Path.RemoveFileName(),
+                        FileName = tileManager.Path,
+                        OverwritePrompt = true,
+                        AddExtension = true,
+                        DefaultExt = ".voxel",
+                    };
+                    if (dialog.ShowDialog() ?? false)
+                    {
+                        tileManager.Path = dialog.FileName;
+                        try
+                        {
+                            tileManager.SaveData();
+                        }
+                        catch (TileTypeNotMatchException ex)
+                        {
+                            View.ShowMessage(ex.Message, language["TileTypeNotMatchTitle"], false);
+                        }
+                        catch (UnauthorizedAccessException)
+                        {
+                            View.ShowMessage(language["AdminTip"], language["ExportFailedTitle"], false);
+                        }
+                        catch (IOException ex)
+                        {
+                            View.ShowMessage(ex.Message, language["ExportFailedTitle"], false);
+                        }
+#if !DEBUG
+                        catch (Exception ex)
+                        {
+                            View.ShowMessage(ex.Message, language["ExportFailedTitle"], false);
+                        }
+#endif
+                    }
+                },
+            };
 #endregion
 
     }

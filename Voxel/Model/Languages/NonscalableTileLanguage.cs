@@ -44,6 +44,12 @@ namespace Voxel.Model.Languages
                 "OverwriteStartContent",
                 "AddToStartFailedTitle",
                 "AddToStartSuccessTitle",
+                "ExportDialogTitle",
+                "VoxelDialogFilter",
+                "ImportDialogTitle",
+                "ExportFailedTitle",
+                "ImportFailedTitle",
+                "TileTypeNotMatchTitle",
             };
             simplifiedChinese = new List<string>
             {
@@ -76,6 +82,12 @@ namespace Voxel.Model.Languages
                 "开始里已经存在快捷方式，是否要覆盖？",
                 "添加失败",
                 "添加成功",
+                "导出",
+                "Voxel磁贴数据(*.voxel)|*.voxel",
+                "导入",
+                "导出失败",
+                "导入失败",
+                "类型不匹配",
             };
             americanEnglish = new List<string>
             {
@@ -108,6 +120,12 @@ namespace Voxel.Model.Languages
                 "Shortcut already exists, do you want to overwrite?",
                 "Failed to Add",
                 "Add Success",
+                "Export",
+                "Voxel Tile Data (*.voxel)|*.voxel",
+                "Import",
+                "Failed to Export",
+                "Failed to Import",
+                "Type Not Match",
             };
         }
     }
