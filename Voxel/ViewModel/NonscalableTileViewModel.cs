@@ -413,7 +413,7 @@ namespace Voxel.ViewModel
                     }
                     catch (UnauthorizedAccessException)
                     {
-                        View.ShowMessage(language["AdminTip"], language["GenerateFailedTitle"], false);
+                        View.ShowMessage(App.GeneralLanguage["AdminTip"], language["GenerateFailedTitle"], false);
                     }
 #if !DEBUG
                     catch (Exception ex)
@@ -449,7 +449,7 @@ namespace Voxel.ViewModel
                     }
                     catch (UnauthorizedAccessException)
                     {
-                        View.ShowMessage(language["AdminTip"], language["AddToStartFailedTitle"], false);
+                        View.ShowMessage(App.GeneralLanguage["AdminTip"], language["AddToStartFailedTitle"], false);
                     }
 #if !DEBUG
                         catch (Exception ex)
@@ -477,7 +477,7 @@ namespace Voxel.ViewModel
                     var dialog = new SaveFileDialog
                     {
                         Title = language["ExportDialogTitle"],
-                        Filter = language["VoxelDialogFilter"],
+                        Filter = App.GeneralLanguage["VoxelDialogFilter"],
                         InitialDirectory = tileManager.Path.RemoveFileName(),
                         FileName = tileManager.Path.GetFileName(),
                         OverwritePrompt = true,
@@ -493,7 +493,7 @@ namespace Voxel.ViewModel
                         }
                         catch (UnauthorizedAccessException)
                         {
-                            View.ShowMessage(language["AdminTip"], language["ExportFailedTitle"], false);
+                            View.ShowMessage(App.GeneralLanguage["AdminTip"], language["ExportFailedTitle"], false);
                         }
                         catch (IOException ex)
                         {
@@ -517,7 +517,7 @@ namespace Voxel.ViewModel
                     var dialog = new OpenFileDialog
                     {
                         Title = language["ImportDialogTitle"],
-                        Filter = language["VoxelDialogFilter"],
+                        Filter = App.GeneralLanguage["VoxelDialogFilter"],
                         Multiselect = false,
                         DereferenceLinks = true,
                         CheckFileExists = true,
@@ -557,7 +557,7 @@ namespace Voxel.ViewModel
                         }
                         catch (UnauthorizedAccessException)
                         {
-                            View.ShowMessage(language["AdminTip"], language["ImportFailedTitle"], false);
+                            View.ShowMessage(App.GeneralLanguage["AdminTip"], language["ImportFailedTitle"], false);
                         }
                         catch (IOException ex)
                         {

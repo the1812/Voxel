@@ -6,6 +6,8 @@ using System.Text;
 using System.Threading.Tasks;
 using Voxel.View;
 using Voxel.Model.Languages;
+using System.IO;
+using System.Diagnostics;
 
 namespace Voxel.ViewModel
 {
@@ -13,10 +15,10 @@ namespace Voxel.ViewModel
     {
         public MainViewModel(MainView mainView) : base(new MainLanguage())
         {
-            Window = mainView;
+            View = mainView;
         }
 
-        public MainView Window { get; private set; }
+        public MainView View { get; private set; }
 
 
         public string WindowTitle => language[nameof(WindowTitle)];
@@ -26,9 +28,44 @@ namespace Voxel.ViewModel
         public string ButtonClearTileCache => language[nameof(ButtonClearTileCache)];
 
         
-        public static void ClearTileCache()
+        public static Task ClearTileCacheAsync()
         {
-#warning "ClearTileCache incomplete"
+            void clearTileCacheInFolder(DirectoryInfo directoryInfo, ProcessStartInfo info)
+            {
+                var subDirs = directoryInfo.EnumerateDirectories();
+                if (subDirs.Count() != 0)
+                {
+                    foreach (var subDir in subDirs)
+                    {
+#if DEBUG
+                        Debug.WriteLine(subDir.FullName);
+#endif
+                        clearTileCacheInFolder(subDir, info);
+                    }
+                }
+
+                info.WorkingDirectory = directoryInfo.FullName;
+                Process.Start(info).WaitForExit();
+            }
+
+            string command = @"for %f in (*.*) do copy /b ""%f"" +,,";
+            ProcessStartInfo startInfo = new ProcessStartInfo()
+            {
+                FileName = "cmd.exe",
+                RedirectStandardInput = false,
+                RedirectStandardOutput = true,
+                UseShellExecute = false,
+                CreateNoWindow = true,
+                Arguments = @"/c " + command
+            };
+            DirectoryInfo commonStart = new DirectoryInfo(Environment.GetEnvironmentVariable("ProgramData") + @"\Microsoft\Windows\Start Menu\Programs");
+            DirectoryInfo userStart = new DirectoryInfo(Environment.GetEnvironmentVariable("UserProfile") + @"\AppData\Roaming\Microsoft\Windows\Start Menu\Programs");
+
+            return Task.Run(() =>
+            {
+                clearTileCacheInFolder(commonStart, startInfo);
+                clearTileCacheInFolder(userStart, startInfo);
+            });
         }
 
         private bool isBusy = false;
@@ -50,16 +87,29 @@ namespace Voxel.ViewModel
             {
                 var window = new NonscalableTileView
                 {
-                    Owner = Window
+                    Owner = View
                 };
                 window.ShowDialog();
             },
         };
         public Command ClearTileCacheCommand => new Command
         {
-            ExcuteAction = (o) =>
+            ExcuteAction = async (o) =>
             {
-                ClearTileCache();
+                IsBusy = true;
+                try
+                {
+                    await ClearTileCacheAsync();
+                    View.ShowMessage("", language["ClearSuccessTitle"], false);
+                }
+                catch (UnauthorizedAccessException)
+                {
+                    View.ShowMessage(App.GeneralLanguage["AdminTip"], language["ClearFailedTitle"], false);
+                }
+                finally
+                {
+                    IsBusy = false;
+                }
             },
         };
 
@@ -69,7 +119,7 @@ namespace Voxel.ViewModel
             {
                 var window = new AboutView
                 {
-                    Owner = Window
+                    Owner = View
                 };
                 window.ShowDialog();
             },

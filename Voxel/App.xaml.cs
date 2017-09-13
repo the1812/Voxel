@@ -9,6 +9,7 @@ using System.Windows.Controls;
 using System.Windows.Input;
 using System.Windows.Media;
 using Voxel.Model;
+using Voxel.Model.Languages;
 
 namespace Voxel
 {
@@ -17,6 +18,12 @@ namespace Voxel
     /// </summary>
     public partial class App : Application
     {
+        public static Dictionary<string, string> GeneralLanguage { get; private set; }
+        static App()
+        {
+            GeneralLanguage = new GeneralLanguage().Dictionary;
+        }
+
         protected override void OnExit(ExitEventArgs e)
         {
             Settings.Save();
