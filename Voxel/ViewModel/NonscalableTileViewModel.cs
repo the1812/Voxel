@@ -442,6 +442,25 @@ namespace Voxel.ViewModel
             {
                 ExcuteAction = (o) =>
                 {
+                    bool verifyImage(string imagePath)
+                    {
+                        FileInfo info = new FileInfo(imagePath);
+                        if (info.Length > Tile.MaxImageSize)
+                        {
+                            View.ShowMessage(language["ImageSizeTooBigContent"], language["ImageSizeTooBigTitle"], false);
+                            return false;
+                        }
+
+                        var image = new BitmapImage(new Uri(imagePath));
+                        if (image.PixelWidth > Tile.MaxImageDimensions ||
+                            image.PixelHeight > Tile.MaxImageDimensions)
+                        {
+                            View.ShowMessage(language["ImageDimensionTooBigContent"], language["ImageDimensionTooBigTitle"], false);
+                            return false;
+                        }
+
+                        return true;
+                    }
                     var dialog = new OpenFileDialog
                     {
                         Title = language["OpenImageDialogTitle"],
@@ -460,6 +479,12 @@ namespace Voxel.ViewModel
                         if (dialog.ShowDialog() ?? false)
                         {
                             string imagePath = dialog.FileName;
+
+                            if (!verifyImage(imagePath))
+                            {
+                                return;
+                            }
+
                             tileManager.Tile.LargeImagePath = imagePath;
                             BackImage = new BitmapImage(new Uri(imagePath));
                         }
@@ -473,6 +498,12 @@ namespace Voxel.ViewModel
                         if (dialog.ShowDialog() ?? false)
                         {
                             string imagePath = dialog.FileName;
+
+                            if (!verifyImage(imagePath))
+                            {
+                                return;
+                            }
+
                             tileManager.Tile.SmallImagePath = imagePath;
                             BackImageSmall = new BitmapImage(new Uri(imagePath));
                         }
@@ -608,7 +639,6 @@ namespace Voxel.ViewModel
                     }
                 },
             };
-
         public Command ImportCommand
             => new Command
             {

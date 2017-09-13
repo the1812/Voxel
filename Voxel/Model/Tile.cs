@@ -97,5 +97,7 @@ namespace Voxel.Model
             }
         }
 
+        public const long MaxImageSize = 200 * 1024;
+        public const int MaxImageDimensions = 1024;
     }
 }

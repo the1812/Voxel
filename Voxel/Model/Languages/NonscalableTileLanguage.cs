@@ -48,6 +48,10 @@ namespace Voxel.Model.Languages
                 "ExportFailedTitle",
                 "ImportFailedTitle",
                 "TileTypeNotMatchTitle",
+                "ImageDimensionTooBigTitle",
+                "ImageDimensionTooBigContent",
+                "ImageSizeTooBigTitle",
+                "ImageSizeTooBigContent",
             };
             simplifiedChinese = new List<string>
             {
@@ -84,6 +88,10 @@ namespace Voxel.Model.Languages
                 "导出失败",
                 "导入失败",
                 "类型不匹配",
+                "图片过大",
+                "图片的尺寸必须小于等于1024x1024像素。",
+                "图片过大",
+                "图片的大小必须小于等于200KB。",
             };
             americanEnglish = new List<string>
             {
@@ -120,6 +128,10 @@ namespace Voxel.Model.Languages
                 "Failed to Export",
                 "Failed to Import",
                 "Type Not Match",
+                "Image Too Big",
+                "The dimensions of image must less than or equal to 1024x1024 pixels.",
+                "Image Too Big",
+                "The size of image must less than or equal to 200 KB.",
             };
         }
     }
