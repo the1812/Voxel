@@ -222,6 +222,52 @@ namespace Voxel.ViewModel
             }
         }
 
+        private void updateFromTileManager()
+        {
+            try
+            {
+                tileManager.LoadData();
+
+                if (File.Exists(tileManager.Tile.TargetPath))
+                {
+                    var image = Ace.Win32.Api.GetIcon(tileManager.Tile.TargetPath);
+                    Icon = image.ImageSource;
+                }
+                OnPropertyChanged(nameof(TargetName));
+
+                if (File.Exists(tileManager.Tile.LargeImagePath))
+                {
+                    BackImage = new BitmapImage(new Uri(tileManager.Tile.LargeImagePath));
+                }
+                if (File.Exists(tileManager.Tile.SmallImagePath))
+                {
+                    BackImageSmall = new BitmapImage(new Uri(tileManager.Tile.SmallImagePath));
+                }
+
+                BackColor = tileManager.Tile.Background;
+                IsDarkTheme = tileManager.Tile.Theme == TextTheme.Dark ? true : false;
+                ShowName = tileManager.Tile.ShowName;
+            }
+            catch (TileTypeNotMatchException ex)
+            {
+                View.ShowMessage(ex.Message, language["TileTypeNotMatchTitle"], false);
+            }
+            catch (UnauthorizedAccessException)
+            {
+                View.ShowMessage(App.GeneralLanguage["AdminTip"], language["ImportFailedTitle"], false);
+            }
+            catch (IOException ex)
+            {
+                View.ShowMessage(ex.Message, language["ImportFailedTitle"], false);
+            }
+#if !DEBUG
+            catch (Exception ex)
+            {
+                View.ShowMessage(ex.Message, language["ImportFailedTitle"], false);
+            }
+#endif
+        }
+
         #endregion
         #region Commands
 
@@ -250,8 +296,22 @@ namespace Voxel.ViewModel
                         string targetPath = dialog.FileName;
                         tileManager.Tile.TargetPath = targetPath;
                         tileManager.Tile.TargetType = TargetType.File;
+
+                        bool loadVoxel = Settings.Json[nameof(NonscalableTile)].ObjectValue["AutoLoadVoxelFile"].BooleanValue ?? false;
+                        if (loadVoxel)
+                        {
+                            string voxelFileName = targetPath.RemoveExtension() + ".voxel";
+                            if (File.Exists(voxelFileName))
+                            {
+                                tileManager.Path = voxelFileName;
+                                updateFromTileManager();
+                                return;
+                            }
+                        }
+
                         var image = Ace.Win32.Api.GetIcon(targetPath);
                         Icon = image.ImageSource;
+
                         OnPropertyChanged(nameof(TargetName));
                     }
                 },
@@ -527,52 +587,13 @@ namespace Voxel.ViewModel
                     if (dialog.ShowDialog() ?? false)
                     {
                         tileManager.Path = dialog.FileName;
-                        try
-                        {
-                            tileManager.LoadData();
-
-                            if (File.Exists(tileManager.Tile.TargetPath))
-                            {
-                                var image = Ace.Win32.Api.GetIcon(tileManager.Tile.TargetPath);
-                                Icon = image.ImageSource;
-                            }
-                            OnPropertyChanged(nameof(TargetName));
-
-                            if (File.Exists(tileManager.Tile.LargeImagePath))
-                            {
-                                BackImage = new BitmapImage(new Uri(tileManager.Tile.LargeImagePath));
-                            }
-                            if (File.Exists(tileManager.Tile.SmallImagePath))
-                            {
-                                BackImageSmall = new BitmapImage(new Uri(tileManager.Tile.SmallImagePath));
-                            }
-
-                            BackColor = tileManager.Tile.Background;
-                            IsDarkTheme = tileManager.Tile.Theme == TextTheme.Dark ? true : false;
-                            ShowName = tileManager.Tile.ShowName;
-                        }
-                        catch (TileTypeNotMatchException ex)
-                        {
-                            View.ShowMessage(ex.Message, language["TileTypeNotMatchTitle"], false);
-                        }
-                        catch (UnauthorizedAccessException)
-                        {
-                            View.ShowMessage(App.GeneralLanguage["AdminTip"], language["ImportFailedTitle"], false);
-                        }
-                        catch (IOException ex)
-                        {
-                            View.ShowMessage(ex.Message, language["ImportFailedTitle"], false);
-                        }
-#if !DEBUG
-                        catch (Exception ex)
-                        {
-                            View.ShowMessage(ex.Message, language["ImportFailedTitle"], false);
-                        }
-#endif
+                        updateFromTileManager();
                     }
                 },
             };
-#endregion
+
+        
+        #endregion
 
     }
 }
