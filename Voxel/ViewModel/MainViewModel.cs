@@ -31,6 +31,18 @@ namespace Voxel.ViewModel
 #warning "ClearTileCache incomplete"
         }
 
+        private bool isBusy = false;
+        public bool IsBusy
+        {
+            get => isBusy;
+            set
+            {
+                isBusy = value;
+                OnPropertyChanged(nameof(IsBusy));
+            }
+        }
+
+
 
         public Command NonscalableTileCommand => new Command
         {

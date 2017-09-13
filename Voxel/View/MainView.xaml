@@ -6,6 +6,7 @@
   xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
   xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
   xmlns:local="clr-namespace:Voxel.View"
+  xmlns:g="clr-namespace:Voxel"
   mc:Ignorable="d"
   Title="{Binding WindowTitle}"
   FontSize="16"
@@ -14,6 +15,10 @@
   WindowStartupLocation="CenterScreen"
   ResizeMode="CanMinimize"
   Icon="/Voxel;component/Voxel.ico">
+  <Window.Resources>
+    <g:BooleanNotConverter
+      x:Key="boolConverter" />
+  </Window.Resources>
   <Window.Background>
     <ImageBrush
       ImageSource="/Voxel;component/Voxel Background.png" />
@@ -65,6 +70,7 @@
       Style="{StaticResource DarkButton}"
       Height="40"
       Width="220"
+      IsEnabled="{Binding IsBusy, Converter={StaticResource boolConverter}}"
       HorizontalContentAlignment="Center"
       Command="{Binding NonscalableTileCommand}"
       Background="SteelBlue" />
@@ -78,6 +84,7 @@
       Height="40"
       Margin="0"
       Grid.Row="1"
+      IsEnabled="{Binding IsBusy, Converter={StaticResource boolConverter}}"
       Background="#448D54" />
     <Button
       x:Name="buttonImageTile"
@@ -89,6 +96,7 @@
       Height="40"
       Margin="0"
       Grid.Row="2"
+      IsEnabled="{Binding IsBusy, Converter={StaticResource boolConverter}}"
       Background="#AE6055" />
     <Button
       x:Name="buttonClearTileCache"
@@ -100,6 +108,7 @@
       Height="40"
       Margin="0"
       Grid.Row="3"
+      IsEnabled="{Binding IsBusy, Converter={StaticResource boolConverter}}"
       Background="#7753A0"
       Command="{Binding ClearTileCacheCommand}">
       <Button.InputBindings>
