@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -48,6 +49,22 @@ namespace Voxel
         public static string FromJsonPath(this string path)
         {
             return path.Replace("\\\\", "\\");
+        }
+        public static Size MeasureString(this string str)
+        {
+            if (str == null) return new Size(0, 0);
+#pragma warning disable CS0618 // 类型或成员已过时
+            var formattedText = new FormattedText(
+                str,
+                CultureInfo.CurrentUICulture,
+                FlowDirection.LeftToRight,
+                new Typeface(new FontFamily("Segoe UI"), FontStyles.Normal, FontWeights.Normal, FontStretches.Normal),
+                12.0,
+                Brushes.Black
+            );
+#pragma warning restore CS0618 // 类型或成员已过时
+
+            return new Size(formattedText.Width, formattedText.Height);
         }
     }
 }

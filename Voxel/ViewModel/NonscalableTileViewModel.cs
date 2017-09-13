@@ -67,16 +67,45 @@ namespace Voxel.ViewModel
         {
             get
             {
+                string result;
                 if (tileManager.Tile.TargetType == TargetType.File)
                 {
-                    return TargetFileName;
+                    result = TargetFileName;
                 }
                 else
                 {
-                    return TargetFolderName;
+                    result = TargetFolderName;
                 }
+
+                var size = result.MeasureString();
+                if (size.Width >= 100 && result.IndexOf(" ") == -1)
+                {
+                    while (size.Width >= 100)
+                    {
+                        result = result.Substring(0, result.Length - 1);
+                        size = result.MeasureString();
+                    }
+                    ShowLongNameMark = true;
+                }
+                else
+                {
+                    ShowLongNameMark = false;
+                }
+                return result;
             }
         }
+
+        private bool showLongNameMark;
+        public bool ShowLongNameMark
+        {
+            get => showLongNameMark;
+            set
+            {
+                showLongNameMark = value;
+                OnPropertyChanged(nameof(ShowLongNameMark));
+            }
+        }
+
 
         private static Color dwmColor = Ace.Wpf.DwmEffect.ColorizationColor;
         private Color backColor = dwmColor;
@@ -336,8 +365,22 @@ namespace Voxel.ViewModel
                         string targetPath = dialog.SelectedPath;
                         tileManager.Tile.TargetPath = targetPath;
                         tileManager.Tile.TargetType = TargetType.Folder;
+
+                        bool loadVoxel = Settings.Json[nameof(NonscalableTile)].ObjectValue["AutoLoadVoxelFile"].BooleanValue ?? false;
+                        if (loadVoxel)
+                        {
+                            string voxelFileName = targetPath.NoBackslash() + ".voxel";
+                            if (File.Exists(voxelFileName))
+                            {
+                                tileManager.Path = voxelFileName;
+                                updateFromTileManager();
+                                return;
+                            }
+                        }
+
                         var image = Ace.Win32.Api.GetIcon(targetPath);
                         Icon = image.ImageSource;
+
                         OnPropertyChanged(nameof(TargetName));
                     }
                 },
@@ -361,9 +404,6 @@ namespace Voxel.ViewModel
                                 BackColor = colorPicker.SelectedColor;
                             }
                         }
-                        
-
-                        //bool showSampleText = Settings.Json[nameof(NonscalableTile)].ObjectValue[nameof(ColorPickerView)].ObjectValue["ShowSampleText"].BooleanValue ?? false;
 
                         bool previewOnTile = Settings.Json[nameof(NonscalableTile)].ObjectValue[nameof(ColorPickerView)].ObjectValue["PreviewOnTile"].BooleanValue ?? false;
                         if (previewOnTile)

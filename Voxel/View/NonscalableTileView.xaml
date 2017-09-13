@@ -119,9 +119,17 @@
         Text="{Binding TargetName}"
         VerticalAlignment="Bottom"
         Foreground="{Binding NameForeground}"
-        Margin="8,0,40,5"
+        Margin="8,0,16,5"
         FontFamily="Segoe UI" />
-
+      <TextBlock
+        Foreground="{Binding NameForeground}"
+        x:Name="textLongNameMark"
+        Text="..."
+        Visibility="{Binding ShowLongNameMark, Converter={StaticResource converter}}"
+        HorizontalAlignment="Right"
+        VerticalAlignment="Bottom"
+        Margin="0,0,10,5"
+        FontFamily="Segoe UI" />
     </Grid>
     <Grid
       Background="{Binding ElementName=gridMain,Path=Background}"
