@@ -8,6 +8,7 @@ using Voxel.View;
 using Voxel.Model.Languages;
 using System.IO;
 using System.Diagnostics;
+using System.Windows.Input;
 
 namespace Voxel.ViewModel
 {
@@ -28,44 +29,37 @@ namespace Voxel.ViewModel
         public string ButtonClearTileCache => language[nameof(ButtonClearTileCache)];
 
         
-        public static Task ClearTileCacheAsync()
+        public static void ClearTileCacheAsync()
         {
-            void clearTileCacheInFolder(DirectoryInfo directoryInfo, ProcessStartInfo info)
+            void clearTileCacheInFolder(DirectoryInfo directoryInfo)
             {
                 var subDirs = directoryInfo.EnumerateDirectories();
                 if (subDirs.Count() != 0)
                 {
                     foreach (var subDir in subDirs)
                     {
-#if DEBUG
-                        Debug.WriteLine(subDir.FullName);
-#endif
-                        clearTileCacheInFolder(subDir, info);
+                        clearTileCacheInFolder(subDir);
                     }
                 }
 
-                info.WorkingDirectory = directoryInfo.FullName;
-                Process.Start(info).WaitForExit();
+                foreach (var file in directoryInfo.EnumerateFiles())
+                {
+                    try
+                    {
+                        file.LastWriteTime = DateTime.Now;
+                    }
+                    catch (UnauthorizedAccessException)
+                    {
+                        continue;
+                    }
+                }
             }
 
-            string command = @"for %f in (*.*) do copy /b ""%f"" +,,";
-            ProcessStartInfo startInfo = new ProcessStartInfo()
-            {
-                FileName = "cmd.exe",
-                RedirectStandardInput = false,
-                RedirectStandardOutput = true,
-                UseShellExecute = false,
-                CreateNoWindow = true,
-                Arguments = @"/c " + command
-            };
             DirectoryInfo commonStart = new DirectoryInfo(Environment.GetEnvironmentVariable("ProgramData") + @"\Microsoft\Windows\Start Menu\Programs");
             DirectoryInfo userStart = new DirectoryInfo(Environment.GetEnvironmentVariable("UserProfile") + @"\AppData\Roaming\Microsoft\Windows\Start Menu\Programs");
-
-            return Task.Run(() =>
-            {
-                clearTileCacheInFolder(commonStart, startInfo);
-                clearTileCacheInFolder(userStart, startInfo);
-            });
+            
+            clearTileCacheInFolder(commonStart);
+            clearTileCacheInFolder(userStart);
         }
 
         private bool isBusy = false;
@@ -75,6 +69,7 @@ namespace Voxel.ViewModel
             set
             {
                 isBusy = value;
+                View.Cursor = value ? Cursors.Wait : Cursors.Arrow;
                 OnPropertyChanged(nameof(IsBusy));
             }
         }
@@ -96,20 +91,21 @@ namespace Voxel.ViewModel
         {
             ExcuteAction = async (o) =>
             {
-                IsBusy = true;
-                try
-                {
-                    await ClearTileCacheAsync();
-                    View.ShowMessage("", language["ClearSuccessTitle"], false);
-                }
-                catch (UnauthorizedAccessException)
+                if (!Ace.Utils.IsAdministratorProcess)
                 {
                     View.ShowMessage(App.GeneralLanguage["AdminTip"], language["ClearFailedTitle"], false);
+                    return;
                 }
-                finally
+                IsBusy = true;
+                await Task.Run(() =>
                 {
-                    IsBusy = false;
-                }
+                    ClearTileCacheAsync();
+                    View.Dispatcher.Invoke(() =>
+                    {
+                        View.ShowMessage("", language["ClearSuccessTitle"], false);
+                    });
+                });
+                IsBusy = false;
             },
         };
 
