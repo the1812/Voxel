@@ -183,5 +183,11 @@
   <ItemGroup>
     <Resource Include="TestTile.png" />
   </ItemGroup>
+  <ItemGroup>
+    <SplashScreen Include="Voxel Background%400,25x.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Voxel Background.png" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

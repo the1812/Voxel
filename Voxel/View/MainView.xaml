@@ -9,13 +9,28 @@
   mc:Ignorable="d"
   Title="{Binding WindowTitle}"
   FontSize="16"
-  Height="500"
+  Height="524"
   Width="600"
   WindowStartupLocation="CenterScreen"
   ResizeMode="CanMinimize">
+  <Window.Background>
+    <ImageBrush
+      ImageSource="/Voxel;component/Voxel Background.png" />
+  </Window.Background>
   <Grid
-    x:Name="gridMain"
-    Background="#FF323232">
+    x:Name="gridMain">
+    <Grid.Background>
+      <LinearGradientBrush
+        EndPoint="0.5,1"
+        StartPoint="0.5,0">
+        <GradientStop
+          Color="#7F323232"
+          Offset="0.4" />
+        <GradientStop
+          Offset="1"
+          Color="#33323232" />
+      </LinearGradientBrush>
+    </Grid.Background>
     <Grid.Effect>
       <DropShadowEffect
         BlurRadius="15"
@@ -37,6 +52,8 @@
         Height="1*" />
       <RowDefinition
         Height="1*" />
+      <RowDefinition
+        Height="128" />
     </Grid.RowDefinitions>
     <Button
       x:Name="buttonNonscalableTileNew"
@@ -59,8 +76,8 @@
       Width="220"
       Height="40"
       Margin="0"
-      Grid.Row="1" 
-      Background="#448D54"/>
+      Grid.Row="1"
+      Background="#448D54" />
     <Button
       x:Name="buttonImageTile"
       Content="{Binding ButtonImageTile}"
@@ -71,7 +88,7 @@
       Height="40"
       Margin="0"
       Grid.Row="2"
-      Background="#AE6055"/>
+      Background="#AE6055" />
     <Button
       x:Name="buttonClearTileCache"
       Content="{Binding ButtonClearTileCache}"
