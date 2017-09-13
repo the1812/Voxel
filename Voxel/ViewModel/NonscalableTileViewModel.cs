@@ -472,14 +472,14 @@ namespace Voxel.ViewModel
 
                     if (tileManager.Path == null)
                     {
-                        tileManager.Path = tileManager.Tile.TargetPath.GetFileName().RemoveExtension() + ".voxel";
+                        tileManager.Path = tileManager.Tile.TargetPath.RemoveExtension() + ".voxel";
                     }
                     var dialog = new SaveFileDialog
                     {
                         Title = language["ExportDialogTitle"],
                         Filter = language["VoxelDialogFilter"],
                         InitialDirectory = tileManager.Path.RemoveFileName(),
-                        FileName = tileManager.Path,
+                        FileName = tileManager.Path.GetFileName(),
                         OverwritePrompt = true,
                         AddExtension = true,
                         DefaultExt = ".voxel",
