@@ -37,7 +37,7 @@ namespace Voxel.Model
         {
             Json = new JsonObject
             {
-                new JsonProperty("ShowSplashScreen", true),
+                new JsonProperty("ShowSplashScreen", false),
                 new JsonProperty(nameof(NonscalableTile), new JsonObject
                 {
                     new JsonProperty("AutoLoadVoxelFile", true),

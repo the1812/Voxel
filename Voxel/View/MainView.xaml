@@ -12,7 +12,8 @@
   Height="524"
   Width="600"
   WindowStartupLocation="CenterScreen"
-  ResizeMode="CanMinimize">
+  ResizeMode="CanMinimize"
+  Icon="/Voxel;component/Voxel.ico">
   <Window.Background>
     <ImageBrush
       ImageSource="/Voxel;component/Voxel Background.png" />

@@ -37,6 +37,9 @@
   <PropertyGroup>
     <StartupObject>Voxel.App</StartupObject>
   </PropertyGroup>
+  <PropertyGroup>
+    <ApplicationIcon>Voxel.ico</ApplicationIcon>
+  </PropertyGroup>
   <ItemGroup>
     <Reference Include="Ace">
       <HintPath>..\..\Ace\Ace\bin\Release\Ace.dll</HintPath>
@@ -195,6 +198,9 @@
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Voxel Background%400,375x.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Voxel.ico" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

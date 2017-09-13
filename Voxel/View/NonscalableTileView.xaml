@@ -13,7 +13,8 @@
   Width="600"
   WindowStartupLocation="CenterOwner"
   MinWidth="500"
-  MinHeight="273">
+  MinHeight="273"
+  Icon="/Voxel;component/Voxel.ico">
   <Window.Resources>
     <BooleanToVisibilityConverter
       x:Key="converter" />
