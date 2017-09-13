@@ -229,7 +229,8 @@
         x:Name="buttonImport"
         Content="{Binding ButtonImport}"
         Grid.Column="2"
-        Style="{StaticResource ToolButton}" />
+        Style="{StaticResource ToolButton}"
+        Command="{Binding ImportCommand}"/>
       <Button
         x:Name="buttonAddToStart"
         Content="{Binding ButtonAddToStart}"

@@ -234,6 +234,7 @@ namespace Voxel.ViewModel
                     {
                         Title = language["OpenFileDialogTitle"],
                         Multiselect = false,
+                        DereferenceLinks = true,
                         AddExtension = true,
                         DefaultExt = ".exe",
                         CheckFileExists = true,
@@ -344,6 +345,7 @@ namespace Voxel.ViewModel
                     var dialog = new OpenFileDialog
                     {
                         Title = language["OpenImageDialogTitle"],
+                        DereferenceLinks = true,
                         Multiselect = false,
                         AddExtension = false,
                         CheckFileExists = true,
@@ -489,10 +491,6 @@ namespace Voxel.ViewModel
                         {
                             tileManager.SaveData();
                         }
-                        catch (TileTypeNotMatchException ex)
-                        {
-                            View.ShowMessage(ex.Message, language["TileTypeNotMatchTitle"], false);
-                        }
                         catch (UnauthorizedAccessException)
                         {
                             View.ShowMessage(language["AdminTip"], language["ExportFailedTitle"], false);
@@ -505,6 +503,70 @@ namespace Voxel.ViewModel
                         catch (Exception ex)
                         {
                             View.ShowMessage(ex.Message, language["ExportFailedTitle"], false);
+                        }
+#endif
+                    }
+                },
+            };
+
+        public Command ImportCommand
+            => new Command
+            {
+                ExcuteAction = (o) =>
+                {
+                    var dialog = new OpenFileDialog
+                    {
+                        Title = language["ImportDialogTitle"],
+                        Filter = language["VoxelDialogFilter"],
+                        Multiselect = false,
+                        DereferenceLinks = true,
+                        CheckFileExists = true,
+                        AddExtension = true,
+                        DefaultExt = ".voxel",
+                    };
+                    if (dialog.ShowDialog() ?? false)
+                    {
+                        tileManager.Path = dialog.FileName;
+                        try
+                        {
+                            tileManager.LoadData();
+
+                            if (File.Exists(tileManager.Tile.TargetPath))
+                            {
+                                var image = Ace.Win32.Api.GetIcon(tileManager.Tile.TargetPath);
+                                Icon = image.ImageSource;
+                            }
+                            OnPropertyChanged(nameof(TargetName));
+
+                            if (File.Exists(tileManager.Tile.LargeImagePath))
+                            {
+                                BackImage = new BitmapImage(new Uri(tileManager.Tile.LargeImagePath));
+                            }
+                            if (File.Exists(tileManager.Tile.SmallImagePath))
+                            {
+                                BackImageSmall = new BitmapImage(new Uri(tileManager.Tile.SmallImagePath));
+                            }
+
+                            BackColor = tileManager.Tile.Background;
+                            IsDarkTheme = tileManager.Tile.Theme == TextTheme.Dark ? true : false;
+                            ShowName = tileManager.Tile.ShowName;
+                        }
+                        catch (TileTypeNotMatchException ex)
+                        {
+                            View.ShowMessage(ex.Message, language["TileTypeNotMatchTitle"], false);
+                        }
+                        catch (UnauthorizedAccessException)
+                        {
+                            View.ShowMessage(language["AdminTip"], language["ImportFailedTitle"], false);
+                        }
+                        catch (IOException ex)
+                        {
+                            View.ShowMessage(ex.Message, language["ImportFailedTitle"], false);
+                        }
+#if !DEBUG
+                        catch (Exception ex)
+                        {
+                            View.ShowMessage(ex.Message, language["ImportFailedTitle"], false);
                         }
 #endif
                     }
