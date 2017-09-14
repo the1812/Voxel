@@ -17,6 +17,8 @@ namespace Voxel.Model
 
         private NonscalableTile tile = new NonscalableTile()
         {
+            LargeImagePath = null,
+            SmallImagePath = null,
             Background = Ace.Wpf.DwmEffect.ColorizationColor,
             Theme = Ace.Wpf.DwmEffect.ForegroundColor == Colors.Black ? TextTheme.Dark : TextTheme.Light,
             ShowName = true,
@@ -59,7 +61,7 @@ namespace Voxel.Model
             if (File.Exists(tile.LargeImagePath))
             {
                 visualElements.Add(new XAttribute("Square150x150Logo", tile.LargeImagePath.GetFileName()));
-                if (/*tile.SmallImagePath == null || */!File.Exists(tile.SmallImagePath))
+                if (!File.Exists(tile.SmallImagePath))
                 {
                     tile.SmallImagePath = tile.LargeImagePath;
                 }
@@ -88,8 +90,8 @@ namespace Voxel.Model
             {
                 throw new TileTypeNotMatchException();
             }
-            tile.SmallImagePath = data[nameof(tile.SmallImagePath)].StringValue.FromJsonPath();
-            tile.LargeImagePath = data[nameof(tile.LargeImagePath)].StringValue.FromJsonPath();
+            tile.SmallImagePath = data[nameof(tile.SmallImagePath)].StringValue?.FromJsonPath();
+            tile.LargeImagePath = data[nameof(tile.LargeImagePath)].StringValue?.FromJsonPath();
             tile.ShowName = data[nameof(tile.ShowName)].BooleanValue.Value;
             tile.Background = ((int) data[nameof(tile.Background)].NumberValue).ToColor();
             tile.TargetPath = data[nameof(tile.TargetPath)].StringValue.FromJsonPath();
@@ -144,8 +146,8 @@ namespace Voxel.Model
             data = new JsonObject
             {
                 [TypeKey] = nameof(NonscalableTile),
-                [nameof(tile.SmallImagePath)] = tile.SmallImagePath.ToJsonPath(),
-                [nameof(tile.LargeImagePath)] = tile.LargeImagePath.ToJsonPath(),
+                [nameof(tile.SmallImagePath)] = tile.SmallImagePath?.ToJsonPath() ?? new JsonValue(),
+                [nameof(tile.LargeImagePath)] = tile.LargeImagePath?.ToJsonPath() ?? new JsonValue(),
                 [nameof(tile.ShowName)] = tile.ShowName,
                 [nameof(tile.Background)] = tile.Background.ToInt32(),
                 [nameof(tile.TargetPath)] = tile.TargetPath.ToJsonPath(),

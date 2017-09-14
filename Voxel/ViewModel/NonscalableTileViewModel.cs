@@ -207,7 +207,7 @@ namespace Voxel.ViewModel
             }
         }
 
-        private ImageSource backImageSmall;
+        private ImageSource backImageSmall = null;
         public ImageSource BackImageSmall
         {
             get
@@ -255,7 +255,7 @@ namespace Voxel.ViewModel
         {
             try
             {
-                if (File.Exists(tileManager.Tile.TargetPath))
+                if (tileManager.Tile.TargetExists)
                 {
                     var image = Ace.Win32.Api.GetIcon(tileManager.Tile.TargetPath);
                     Icon = image.ImageSource;
@@ -294,7 +294,27 @@ namespace Voxel.ViewModel
             }
 #endif
         }
-
+        private void fillImagePath()
+        {
+            if (tileManager.Tile.LargeImagePath == null)
+            {
+                if (tileManager.Tile.SmallImagePath == null)
+                {
+                    return;
+                }
+                else
+                {
+                    tileManager.Tile.LargeImagePath = tileManager.Tile.SmallImagePath;
+                }
+            }
+            else
+            {
+                if (tileManager.Tile.SmallImagePath == null)
+                {
+                    tileManager.Tile.SmallImagePath = tileManager.Tile.LargeImagePath;
+                }
+            }
+        }
         #endregion
         #region Commands
 
@@ -553,6 +573,7 @@ namespace Voxel.ViewModel
                         }
                         else
                         {
+                            fillImagePath();
                             tileManager.Generate();
                             View.ShowMessage("", language["GenerateSuccessTitle"], false);
                         }
@@ -635,6 +656,7 @@ namespace Voxel.ViewModel
                         tileManager.Path = dialog.FileName;
                         try
                         {
+                            fillImagePath();
                             tileManager.SaveData();
                         }
                         catch (UnauthorizedAccessException)
