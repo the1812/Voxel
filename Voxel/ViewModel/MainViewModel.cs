@@ -9,6 +9,7 @@ using Voxel.Model.Languages;
 using System.IO;
 using System.Diagnostics;
 using System.Windows.Input;
+using System.Windows.Controls;
 
 namespace Voxel.ViewModel
 {
@@ -62,15 +63,28 @@ namespace Voxel.ViewModel
             clearTileCacheInFolder(userStart);
         }
 
-        private bool isBusy = false;
-        public bool IsBusy
+        private bool isClearTileCacheBusy = false;
+        public bool IsClearTileCacheBusy
         {
-            get => isBusy;
+            get => isClearTileCacheBusy;
             set
             {
-                isBusy = value;
-                View.Cursor = value ? Cursors.Wait : Cursors.Arrow;
-                OnPropertyChanged(nameof(IsBusy));
+                isClearTileCacheBusy = value;
+                View.Cursor = value ? Cursors.AppStarting : Cursors.Arrow;
+                OnPropertyChanged(nameof(IsClearTileCacheBusy));
+            }
+        }
+
+
+        private bool isNonscalableTileBusy;
+        public bool IsNonscalableTileBusy
+        {
+            get => isNonscalableTileBusy;
+            set
+            {
+                isNonscalableTileBusy = value;
+                View.Cursor = value ? Cursors.AppStarting : Cursors.Arrow;
+                OnPropertyChanged(nameof(IsNonscalableTileBusy));
             }
         }
 
@@ -80,10 +94,13 @@ namespace Voxel.ViewModel
         {
             ExcuteAction = (o) =>
             {
-                var window = new NonscalableTileView
+                IsNonscalableTileBusy = true;
+                NonscalableTileView window = null;
+                window = new NonscalableTileView
                 {
                     Owner = View
                 };
+                IsNonscalableTileBusy = false;
                 window.ShowDialog();
             },
         };
@@ -96,7 +113,7 @@ namespace Voxel.ViewModel
                     View.ShowMessage(App.GeneralLanguage["AdminTip"], language["ClearFailedTitle"], false);
                     return;
                 }
-                IsBusy = true;
+                IsClearTileCacheBusy = true;
                 await Task.Run(() =>
                 {
                     ClearTileCacheAsync();
@@ -105,7 +122,7 @@ namespace Voxel.ViewModel
                         View.ShowMessage("", language["ClearSuccessTitle"], false);
                     });
                 });
-                IsBusy = false;
+                IsClearTileCacheBusy = false;
             },
         };
 

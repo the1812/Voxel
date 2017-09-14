@@ -22,22 +22,36 @@
         <ControlTemplate
           TargetType="ButtonBase">
 
-          <Border
-            x:Name="border"
-            BorderThickness="0"
-            Background="{TemplateBinding Background}"
-            Margin="0">
+          <Grid>
             <Border
-              x:Name="mask"
+              x:Name="border"
               BorderThickness="0"
-              Background="#0000">
-              <ContentPresenter
-                x:Name="content"
-                Margin="0"
-                HorizontalAlignment="Center"
-                VerticalAlignment="Center" />
+              Background="{TemplateBinding Background}"
+              Margin="0">
+              <Border
+                x:Name="mask"
+                BorderThickness="0"
+                Background="#0000">
+                <ContentPresenter
+                  x:Name="content"
+                  Margin="0"
+                  HorizontalAlignment="Center"
+                  VerticalAlignment="Center" />
+              </Border>
             </Border>
-          </Border>
+            <ProgressBar
+              x:Name="progress"
+              Height="4"
+              Margin="0,0"
+              HorizontalAlignment="Stretch"
+              VerticalAlignment="Bottom"
+              Foreground="#5FFF"
+              BorderThickness="0" 
+              IsIndeterminate="False"
+              Value="0"
+              Background="Transparent"
+              Visibility="Collapsed"/>
+          </Grid>
 
           <ControlTemplate.Triggers>
 
@@ -47,7 +61,7 @@
               <Setter
                 Property="Background"
                 TargetName="mask"
-                Value="#2000" />
+                Value="#1000" />
             </Trigger>
 
             <Trigger
@@ -56,15 +70,20 @@
               <Setter
                 Property="Background"
                 TargetName="mask"
-                Value="#4000" />
+                Value="#2000" />
             </Trigger>
 
             <Trigger
               Property="IsEnabled"
               Value="False">
               <Setter
-                Property="Opacity"
-                Value="0.3" />
+                Property="Visibility"
+                TargetName="progress"
+                Value="Visible" />
+              <Setter
+                Property="IsIndeterminate"
+                TargetName="progress"
+                Value="true" />
             </Trigger>
 
           </ControlTemplate.Triggers>
