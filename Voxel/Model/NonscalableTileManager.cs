@@ -96,6 +96,49 @@ namespace Voxel.Model
             string themeString = data[nameof(tile.Theme)].StringValue;
             tile.Theme = themeString == DarkThemeString ? TextTheme.Dark : TextTheme.Light;
         }
+        public void LoadFromXml()
+        {
+            bool relativeExists(string relativePath)
+            {
+                return File.Exists(getAbsolutePath(relativePath));
+            }
+            string getAbsolutePath(string relativePath)
+            {
+                if (relativePath.StartsWith("\\"))
+                {
+                    relativePath = relativePath.Remove(0, 1);
+                }
+                string absolutePath = tile.TargetPath.RemoveFileName().Backslash() + relativePath;
+                return absolutePath;
+            }
+
+            var root = XElement.Load(Tile.XmlPath);
+            var visualElements = root.Element("VisualElements");
+            tile.Theme = visualElements.Attribute("ForegroundText")?.Value == "dark" ? TextTheme.Dark : TextTheme.Light;
+            tile.Background = visualElements.Attribute("BackgroundColor")?.Value.FromHexString()
+                ?? Ace.Wpf.DwmEffect.ColorizationColor;
+            tile.ShowName = visualElements.Attribute("ShowNameOnSquare150x150Logo")?.Value == "off" ? false : true;
+
+            string largeImagePath = visualElements.Attribute("Square150x150Logo")?.Value;
+            if (File.Exists(largeImagePath))
+            {
+                tile.LargeImagePath = largeImagePath;
+            }
+            else if (relativeExists(largeImagePath))
+            {
+                tile.LargeImagePath = getAbsolutePath(largeImagePath);
+            }
+
+            string smallImagePath = visualElements.Attribute("Square70x70Logo")?.Value;
+            if (File.Exists(smallImagePath))
+            {
+                tile.SmallImagePath = smallImagePath;
+            }
+            else if (relativeExists(smallImagePath))
+            {
+                tile.SmallImagePath = getAbsolutePath(smallImagePath);
+            }
+        }
         public override void SaveData()
         {
             data = new JsonObject

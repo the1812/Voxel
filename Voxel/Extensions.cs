@@ -1,3 +1,4 @@
+using Ace;
 using System;
 using System.Collections.Generic;
 using System.Globalization;
@@ -29,6 +30,21 @@ namespace Voxel
             result += color.G.ToString("X2");
             result += color.B.ToString("X2");
             return result;
+        }
+        public static Color FromHexString(this string str)
+        {
+            if (str.StartsWith("#"))
+            {
+                str = str.Remove(0, 1);
+            }
+            if (!(str.Length == 6 && str.IsMatch("[a-fA-F0-9]*")))
+            {
+                return Ace.Wpf.DwmEffect.ColorizationColor;
+            }
+            byte r = Convert.ToByte(str.Substring(0, 2), 16);
+            byte g = Convert.ToByte(str.Substring(2, 2), 16);
+            byte b = Convert.ToByte(str.Substring(4, 2), 16);
+            return Color.FromRgb(r, g, b);
         }
         public static bool ShowMessage(this Window parent, string content, string title, bool showCancelButton)
         {

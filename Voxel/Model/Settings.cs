@@ -40,6 +40,7 @@ namespace Voxel.Model
                 new JsonProperty("ShowSplashScreen", false),
                 new JsonProperty(nameof(NonscalableTile), new JsonObject
                 {
+                    new JsonProperty("AutoLoadXml", false),
                     new JsonProperty("AutoLoadVoxelFile", true),
                     new JsonProperty(nameof(ColorPickerView), new JsonObject
                     {

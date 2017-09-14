@@ -255,8 +255,6 @@ namespace Voxel.ViewModel
         {
             try
             {
-                tileManager.LoadData();
-
                 if (File.Exists(tileManager.Tile.TargetPath))
                 {
                     var image = Ace.Win32.Api.GetIcon(tileManager.Tile.TargetPath);
@@ -333,9 +331,17 @@ namespace Voxel.ViewModel
                             if (File.Exists(voxelFileName))
                             {
                                 tileManager.Path = voxelFileName;
+                                tileManager.LoadData();
                                 updateFromTileManager();
                                 return;
                             }
+                        }
+                        bool loadXml = Settings.Json[nameof(NonscalableTile)].ObjectValue["AutoLoadXml"].BooleanValue ?? false;
+                        if (loadXml)
+                        {
+                            tileManager.LoadFromXml();
+                            updateFromTileManager();
+                            return;
                         }
 
                         var image = Ace.Win32.Api.GetIcon(targetPath);
@@ -373,6 +379,7 @@ namespace Voxel.ViewModel
                             if (File.Exists(voxelFileName))
                             {
                                 tileManager.Path = voxelFileName;
+                                tileManager.LoadData();
                                 updateFromTileManager();
                                 return;
                             }
