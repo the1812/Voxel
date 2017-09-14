@@ -41,11 +41,10 @@
     <ApplicationIcon>Voxel.ico</ApplicationIcon>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="Ace">
-      <HintPath>..\..\Ace\Ace\bin\Release\Ace.dll</HintPath>
-    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Management" />
     <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xml" />
     <Reference Include="Microsoft.CSharp" />
@@ -71,6 +70,50 @@
     </Compile>
     <Compile Include="BooleanNotConverter.cs" />
     <Compile Include="Extensions.cs" />
+    <Compile Include="ImportedCode\CollectionExtensions.cs" />
+    <Compile Include="ImportedCode\Command.cs" />
+    <Compile Include="ImportedCode\DataSize.cs" />
+    <Compile Include="ImportedCode\Files\CertificateFile.cs" />
+    <Compile Include="ImportedCode\Files\FileBase.cs" />
+    <Compile Include="ImportedCode\Files\ShortcutFile.cs" />
+    <Compile Include="ImportedCode\Files\TextFile.cs" />
+    <Compile Include="ImportedCode\Files\UsiFile.cs" />
+    <Compile Include="ImportedCode\Files\XmlFile.cs" />
+    <Compile Include="ImportedCode\ImageConverter.cs" />
+    <Compile Include="ImportedCode\Files\Json\JsonArray.cs" />
+    <Compile Include="ImportedCode\Files\Json\JsonFile.cs" />
+    <Compile Include="ImportedCode\Files\Json\JsonObject.cs" />
+    <Compile Include="ImportedCode\Files\Json\JsonParseException.cs" />
+    <Compile Include="ImportedCode\Files\Json\JsonProperty.cs" />
+    <Compile Include="ImportedCode\Files\Json\JsonValue.cs" />
+    <Compile Include="ImportedCode\PathOptimizer.cs" />
+    <Compile Include="ImportedCode\RandomExtensions.cs" />
+    <Compile Include="ImportedCode\RandomFactory.cs" />
+    <Compile Include="ImportedCode\SplitToDictionary.cs" />
+    <Compile Include="ImportedCode\StringExtensions.cs" />
+    <Compile Include="ImportedCode\UniversalImage.cs" />
+    <Compile Include="ImportedCode\Utils.cs" />
+    <Compile Include="ImportedCode\Win32\Api.cs" />
+    <Compile Include="ImportedCode\Win32\Enumerations\IconSize.cs" />
+    <Compile Include="ImportedCode\Win32\Enumerations\ImageListDrawItem.cs" />
+    <Compile Include="ImportedCode\Win32\Enumerations\ShellFileAttributes.cs" />
+    <Compile Include="ImportedCode\Win32\Enumerations\ShellGetFileInfoContants.cs" />
+    <Compile Include="ImportedCode\Win32\Enumerations\ShellIconState.cs" />
+    <Compile Include="ImportedCode\Win32\Enumerations\SystemCommand.cs" />
+    <Compile Include="ImportedCode\Win32\Enumerations\WindowsMessage.cs" />
+    <Compile Include="ImportedCode\Win32\GetIcon.cs" />
+    <Compile Include="ImportedCode\Win32\IImageList.cs" />
+    <Compile Include="ImportedCode\Win32\ImageList.cs" />
+    <Compile Include="ImportedCode\Win32\Structures\ImageInfo.cs" />
+    <Compile Include="ImportedCode\Win32\Structures\ImageListDrawParams.cs" />
+    <Compile Include="ImportedCode\Win32\Structures\Point.cs" />
+    <Compile Include="ImportedCode\Win32\Structures\Rectangle.cs" />
+    <Compile Include="ImportedCode\Win32\Structures\ShellFileInfo.cs" />
+    <Compile Include="ImportedCode\WindowsVersion.cs" />
+    <Compile Include="ImportedCode\Wpf\DwmEffect.cs" />
+    <Compile Include="ImportedCode\Wpf\Win32\Margins.cs" />
+    <Compile Include="ImportedCode\Wpf\Win32\WpfApi.cs" />
+    <Compile Include="ImportedCode\Wpf\WpfUtils.cs" />
     <Compile Include="Model\ImageTile.cs" />
     <Compile Include="Model\ImageTileManager.cs" />
     <Compile Include="Model\Languages\AboutLanguage.cs" />
@@ -202,6 +245,17 @@
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Voxel.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <COMReference Include="IWshRuntimeLibrary">
+      <Guid>{F935DC20-1CF0-11D0-ADB9-00C04FD58A0B}</Guid>
+      <VersionMajor>1</VersionMajor>
+      <VersionMinor>0</VersionMinor>
+      <Lcid>0</Lcid>
+      <WrapperTool>tlbimp</WrapperTool>
+      <Isolated>False</Isolated>
+      <EmbedInteropTypes>True</EmbedInteropTypes>
+    </COMReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
