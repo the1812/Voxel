@@ -30,7 +30,7 @@ namespace Voxel.ViewModel
         public string ButtonClearTileCache => language[nameof(ButtonClearTileCache)];
 
         
-        public static void ClearTileCacheAsync()
+        public static void ClearTileCache()
         {
             void clearTileCacheInFolder(DirectoryInfo directoryInfo)
             {
@@ -116,7 +116,7 @@ namespace Voxel.ViewModel
                 IsClearTileCacheBusy = true;
                 await Task.Run(() =>
                 {
-                    ClearTileCacheAsync();
+                    ClearTileCache();
                     View.Dispatcher.Invoke(() =>
                     {
                         View.ShowMessage("", language["ClearSuccessTitle"], false);

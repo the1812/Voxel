@@ -10,6 +10,8 @@ using System.Windows.Input;
 using System.Windows.Media;
 using Voxel.Model;
 using Voxel.Model.Languages;
+using Voxel.View;
+using Voxel.ViewModel;
 
 namespace Voxel
 {
@@ -42,6 +44,29 @@ namespace Voxel
             EventManager.RegisterClassHandler(typeof(TextBox), Control.MouseDoubleClickEvent,
                 new RoutedEventHandler(selectAllText));
             base.OnStartup(e);
+
+            if (e.Args != null && e.Args.Length > 0)
+            {
+                if (e.Args[0].ToLower() == "--clear")
+                {
+                    MainViewModel.ClearTileCache();
+                    var language = new MainLanguage().Dictionary;
+                    var dialog = new MessageView()
+                    {
+                        WindowStartupLocation = WindowStartupLocation.CenterScreen,
+                    };
+                    var viewModel = dialog.DataContext as MessageViewModel;
+                    viewModel.Content = "";
+                    viewModel.Title = language["ClearSuccessTitle"];
+                    viewModel.ShowCancelButton = false;
+                    dialog.ShowDialog();
+                }
+            }
+            else
+            {
+                new MainView().ShowDialog();
+            }
+            Shutdown();
         }
 
         void selectivelyIgnoreMouseButton(object sender, MouseButtonEventArgs e)
