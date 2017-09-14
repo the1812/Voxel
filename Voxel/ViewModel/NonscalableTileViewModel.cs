@@ -337,7 +337,7 @@ namespace Voxel.ViewModel
                             }
                         }
                         bool loadXml = Settings.Json[nameof(NonscalableTile)].ObjectValue["AutoLoadXml"].BooleanValue ?? false;
-                        if (loadXml)
+                        if (loadXml && File.Exists(tileManager.Tile.XmlPath))
                         {
                             tileManager.LoadFromXml();
                             updateFromTileManager();
@@ -384,6 +384,14 @@ namespace Voxel.ViewModel
                                 return;
                             }
                         }
+                        bool loadXml = Settings.Json[nameof(NonscalableTile)].ObjectValue["AutoLoadXml"].BooleanValue ?? false;
+                        if (loadXml && File.Exists(tileManager.Tile.XmlPath))
+                        {
+                            tileManager.LoadFromXml();
+                            updateFromTileManager();
+                            return;
+                        }
+
 
                         var image = Ace.Win32.Api.GetIcon(targetPath);
                         Icon = image.ImageSource;
@@ -539,7 +547,7 @@ namespace Voxel.ViewModel
                 {
                     try
                     {
-                        if (!File.Exists(tileManager.Tile.TargetPath))
+                        if (!tileManager.Tile.TargetExists)
                         {
                             View.ShowMessage(language["TargetMissing"], language["TargetMissingTitle"], false);
                         }
@@ -568,7 +576,7 @@ namespace Voxel.ViewModel
                 {
                     try
                     {
-                        if (!File.Exists(tileManager.Tile.TargetPath))
+                        if (!tileManager.Tile.TargetExists)
                         {
                             View.ShowMessage(language["TargetMissing"], language["TargetMissingTitle"], false);
                             return;
@@ -602,7 +610,7 @@ namespace Voxel.ViewModel
             {
                 ExcuteAction = (o) =>
                 {
-                    if (!File.Exists(tileManager.Tile.TargetPath))
+                    if (!tileManager.Tile.TargetExists)
                     {
                         View.ShowMessage(language["TargetMissing"], language["TargetMissingTitle"], false);
                         return;
@@ -664,6 +672,7 @@ namespace Voxel.ViewModel
                     if (dialog.ShowDialog() ?? false)
                     {
                         tileManager.Path = dialog.FileName;
+                        tileManager.LoadData();
                         updateFromTileManager();
                     }
                 },

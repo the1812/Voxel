@@ -42,7 +42,7 @@ namespace Voxel.Model
 
         public override void Generate()
         {
-            if (!File.Exists(tile.TargetPath))
+            if (!tile.TargetExists)
             {
                 return;
             }

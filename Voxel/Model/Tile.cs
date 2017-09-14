@@ -85,6 +85,21 @@ namespace Voxel.Model
                 OnPropertyChanged(nameof(StartMenuTargetPath));
             }
         }
+        public bool TargetExists
+        {
+            get
+            {
+                if (TargetType == TargetType.File)
+                {
+                    return File.Exists(TargetPath);
+                }
+                else
+                {
+                    return Directory.Exists(TargetPath);
+                }
+            }
+        }
+
 
         private TargetType targetType;
         public TargetType TargetType
