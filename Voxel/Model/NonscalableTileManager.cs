@@ -67,7 +67,9 @@ namespace Voxel.Model
                 }
                 visualElements.Add(new XAttribute("Square70x70Logo", tile.SmallImagePath.GetFileName()));
 
-                string targetFolder = tile.TargetPath.RemoveFileName().ToLower();
+                string targetFolder = tile.TargetType == TargetType.File ?
+                    tile.TargetPath.RemoveFileName().ToLower() :
+                    tile.TargetPath.GetParentFolder().ToLower();
                 if (targetFolder != tile.LargeImagePath.RemoveFileName().ToLower())
                 {
                     File.Copy(tile.LargeImagePath, targetFolder.Backslash() + tile.LargeImagePath.GetFileName(), true);
@@ -90,13 +92,22 @@ namespace Voxel.Model
             {
                 throw new TileTypeNotMatchException();
             }
-            tile.SmallImagePath = data[nameof(tile.SmallImagePath)].StringValue?.FromJsonPath();
-            tile.LargeImagePath = data[nameof(tile.LargeImagePath)].StringValue?.FromJsonPath();
-            tile.ShowName = data[nameof(tile.ShowName)].BooleanValue.Value;
-            tile.Background = ((int) data[nameof(tile.Background)].NumberValue).ToColor();
-            tile.TargetPath = data[nameof(tile.TargetPath)].StringValue.FromJsonPath();
-            string themeString = data[nameof(tile.Theme)].StringValue;
-            tile.Theme = themeString == DarkThemeString ? TextTheme.Dark : TextTheme.Light;
+            try
+            {
+                tile.SmallImagePath = data[nameof(tile.SmallImagePath)].StringValue?.FromJsonPath();
+                tile.LargeImagePath = data[nameof(tile.LargeImagePath)].StringValue?.FromJsonPath();
+                tile.ShowName = data[nameof(tile.ShowName)].BooleanValue.Value;
+                tile.Background = ((int) data[nameof(tile.Background)].NumberValue).ToColor();
+                tile.TargetPath = data[nameof(tile.TargetPath)].StringValue.FromJsonPath();
+                string themeString = data[nameof(tile.Theme)].StringValue;
+                tile.Theme = themeString == DarkThemeString ? TextTheme.Dark : TextTheme.Light;
+                string targetTypeString = data[nameof(tile.TargetType)].StringValue;
+                tile.TargetType = targetTypeString == FolderTargetString ? TargetType.Folder : TargetType.File;
+            }
+            catch (KeyNotFoundException)
+            {
+                throw new BadVoxelFileException();
+            }
         }
         public void LoadFromXml()
         {
@@ -152,6 +163,7 @@ namespace Voxel.Model
                 [nameof(tile.Background)] = tile.Background.ToInt32(),
                 [nameof(tile.TargetPath)] = tile.TargetPath.ToJsonPath(),
                 [nameof(tile.Theme)] = tile.Theme == TextTheme.Dark ? DarkThemeString : LightThemeString,
+                [nameof(tile.TargetType)] = tile.TargetType == TargetType.File ? FileTargetString : FolderTargetString,
             };
             base.SaveData();
         }

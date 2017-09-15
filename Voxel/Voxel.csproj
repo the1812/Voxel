@@ -69,6 +69,7 @@
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="BadVoxelFileException.cs" />
     <Compile Include="BooleanNotConverter.cs" />
     <Compile Include="Extensions.cs" />
     <Compile Include="Model\ImageTile.cs" />

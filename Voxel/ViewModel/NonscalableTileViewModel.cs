@@ -315,6 +315,45 @@ namespace Voxel.ViewModel
                 }
             }
         }
+        private string getVoxelFileName(string targetPath)
+        {
+            string voxelFileName = tileManager.Tile.TargetType == TargetType.File ?
+                                targetPath.RemoveExtension() + ".voxel" :
+                                targetPath.NoBackslash() + ".voxel";
+            return voxelFileName;
+        }
+        private bool tryLoadXml()
+        {
+            bool loadXml = Settings.Json[nameof(NonscalableTile)].ObjectValue["AutoLoadXml"].BooleanValue ?? false;
+            if (loadXml && File.Exists(tileManager.Tile.XmlPath))
+            {
+                tileManager.LoadFromXml();
+                updateFromTileManager();
+                return true;
+            }
+            return false;
+        }
+        private bool tryLoadVoxel(string targetPath)
+        {
+            bool loadVoxel = Settings.Json[nameof(NonscalableTile)].ObjectValue["AutoLoadVoxelFile"].BooleanValue ?? false;
+            if (loadVoxel)
+            {
+                string voxelFileName = getVoxelFileName(targetPath);
+                if (File.Exists(voxelFileName))
+                {
+                    tileManager.Path = voxelFileName;
+                    tileManager.LoadData();
+                    updateFromTileManager();
+                    return true;
+                }
+            }
+            return false;
+        }
+        private void loadIcon(string targetPath)
+        {
+            var image = Ace.Win32.Api.GetIcon(targetPath);
+            Icon = image.ImageSource;
+        }
         #endregion
         #region Commands
 
@@ -344,29 +383,13 @@ namespace Voxel.ViewModel
                         tileManager.Tile.TargetPath = targetPath;
                         tileManager.Tile.TargetType = TargetType.File;
 
-                        bool loadVoxel = Settings.Json[nameof(NonscalableTile)].ObjectValue["AutoLoadVoxelFile"].BooleanValue ?? false;
-                        if (loadVoxel)
+                        if (tryLoadVoxel(targetPath) || tryLoadXml())
                         {
-                            string voxelFileName = targetPath.RemoveExtension() + ".voxel";
-                            if (File.Exists(voxelFileName))
-                            {
-                                tileManager.Path = voxelFileName;
-                                tileManager.LoadData();
-                                updateFromTileManager();
-                                return;
-                            }
-                        }
-                        bool loadXml = Settings.Json[nameof(NonscalableTile)].ObjectValue["AutoLoadXml"].BooleanValue ?? false;
-                        if (loadXml && File.Exists(tileManager.Tile.XmlPath))
-                        {
-                            tileManager.LoadFromXml();
-                            updateFromTileManager();
                             return;
                         }
 
-                        var image = Ace.Win32.Api.GetIcon(targetPath);
-                        Icon = image.ImageSource;
-
+                        loadIcon(targetPath);
+                        
                         OnPropertyChanged(nameof(TargetName));
                     }
                 },
@@ -392,29 +415,12 @@ namespace Voxel.ViewModel
                         tileManager.Tile.TargetPath = targetPath;
                         tileManager.Tile.TargetType = TargetType.Folder;
 
-                        bool loadVoxel = Settings.Json[nameof(NonscalableTile)].ObjectValue["AutoLoadVoxelFile"].BooleanValue ?? false;
-                        if (loadVoxel)
+                        if (tryLoadVoxel(targetPath) || tryLoadXml())
                         {
-                            string voxelFileName = targetPath.NoBackslash() + ".voxel";
-                            if (File.Exists(voxelFileName))
-                            {
-                                tileManager.Path = voxelFileName;
-                                tileManager.LoadData();
-                                updateFromTileManager();
-                                return;
-                            }
-                        }
-                        bool loadXml = Settings.Json[nameof(NonscalableTile)].ObjectValue["AutoLoadXml"].BooleanValue ?? false;
-                        if (loadXml && File.Exists(tileManager.Tile.XmlPath))
-                        {
-                            tileManager.LoadFromXml();
-                            updateFromTileManager();
                             return;
                         }
 
-
-                        var image = Ace.Win32.Api.GetIcon(targetPath);
-                        Icon = image.ImageSource;
+                        loadIcon(targetPath);
 
                         OnPropertyChanged(nameof(TargetName));
                     }
@@ -639,7 +645,7 @@ namespace Voxel.ViewModel
 
                     if (tileManager.Path == null)
                     {
-                        tileManager.Path = tileManager.Tile.TargetPath.RemoveExtension() + ".voxel";
+                        tileManager.Path = getVoxelFileName(tileManager.Tile.TargetPath);
                     }
                     var dialog = new SaveFileDialog
                     {
@@ -694,14 +700,28 @@ namespace Voxel.ViewModel
                     if (dialog.ShowDialog() ?? false)
                     {
                         tileManager.Path = dialog.FileName;
-                        tileManager.LoadData();
-                        updateFromTileManager();
+
+                        try
+                        {
+                            tileManager.LoadData();
+                            updateFromTileManager();
+                        }
+                        catch (BadVoxelFileException ex)
+                        {
+                            View.ShowMessage(ex.Message, language["ImportFailedTitle"], false);
+                        }
+#if !DEBUG
+                        catch (Exception ex)
+                        {
+                            View.ShowMessage(ex.Message, language["ImportFailedTitle"], false);
+                        }
+#endif
                     }
                 },
             };
 
         
-        #endregion
+#endregion
 
     }
 }
