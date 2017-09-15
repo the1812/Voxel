@@ -1,17 +1,17 @@
-﻿using System.Reflection;
+using System.Reflection;
 using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices;
 
 // 有关程序集的一般信息由以下
 // 控制。更改这些特性值可修改
 // 与程序集关联的信息。
-[assembly: AssemblyTitle("VoxelActionExecutor")]
-[assembly: AssemblyDescription("")]
+[assembly: AssemblyTitle("Voxel Action Executor")]
+[assembly: AssemblyDescription("Voxel Action Executor")]
 [assembly: AssemblyConfiguration("")]
-[assembly: AssemblyCompany("")]
-[assembly: AssemblyProduct("VoxelActionExecutor")]
-[assembly: AssemblyCopyright("Copyright ©  2017")]
-[assembly: AssemblyTrademark("")]
+[assembly: AssemblyCompany("Ace Studio")]
+[assembly: AssemblyProduct("Voxel Action Executor")]
+[assembly: AssemblyCopyright("Copyright © Ace Studio 2017")]
+[assembly: AssemblyTrademark("Ace Studio")]
 [assembly: AssemblyCulture("")]
 
 // 将 ComVisible 设置为 false 会使此程序集中的类型

@@ -5,9 +5,9 @@
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
     <ProjectGuid>{AB7A62DB-DAD7-4D98-8105-ADCB3EC4DBD4}</ProjectGuid>
-    <OutputType>Exe</OutputType>
-    <RootNamespace>VoxelActionExecutor</RootNamespace>
-    <AssemblyName>VoxelActionExecutor</AssemblyName>
+    <OutputType>WinExe</OutputType>
+    <RootNamespace>Voxel.ActionExecutor</RootNamespace>
+    <AssemblyName>action</AssemblyName>
     <TargetFrameworkVersion>v4.7</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
@@ -36,6 +36,9 @@
   <PropertyGroup>
     <ApplicationIcon>Voxel.ico</ApplicationIcon>
   </PropertyGroup>
+  <PropertyGroup>
+    <StartupObject>Voxel.ActionExecutor.Program</StartupObject>
+  </PropertyGroup>
   <ItemGroup>
     <Reference Include="Ace">
       <HintPath>..\..\Ace\Ace\bin\Release\Ace.dll</HintPath>
@@ -52,6 +55,7 @@
   <ItemGroup>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Settings.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
