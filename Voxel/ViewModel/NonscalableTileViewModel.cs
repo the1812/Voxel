@@ -344,10 +344,17 @@ namespace Voxel.ViewModel
                 string voxelFileName = getVoxelFileName(targetPath);
                 if (File.Exists(voxelFileName))
                 {
-                    tileManager.Path = voxelFileName;
-                    tileManager.LoadData();
-                    updateFromTileManager();
-                    return true;
+                    try
+                    {
+                        tileManager.Path = voxelFileName;
+                        tileManager.LoadData();
+                        updateFromTileManager();
+                        return true;
+                    }
+                    catch (BadVoxelFileException)
+                    {
+                        return false;
+                    }
                 }
             }
             return false;
