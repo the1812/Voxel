@@ -76,7 +76,10 @@ namespace Voxel.ViewModel
                 {
                     result = TargetFolderName;
                 }
-
+                if (result == null)
+                {
+                    return null;
+                }
                 var size = result.MeasureString();
                 if (size.Width >= 100 && result.IndexOf(" ") == -1)
                 {
@@ -353,6 +356,20 @@ namespace Voxel.ViewModel
         {
             var image = Ace.Win32.Api.GetIcon(targetPath);
             Icon = image.ImageSource;
+        }
+        public void ClearData()
+        {
+            tileManager = new NonscalableTileManager();
+            BackImage = null;
+            BackImageSmall = null;
+            BackColor = dwmColor;
+            IsDarkTheme = false;
+            ShowName = true;
+            IsTileSizeToggleChecked = false;
+            Icon = null;
+            OnPropertyChanged(nameof(TargetName));
+            OnPropertyChanged(nameof(TargetFileName));
+            OnPropertyChanged(nameof(TargetFolderName));
         }
         #endregion
         #region Commands

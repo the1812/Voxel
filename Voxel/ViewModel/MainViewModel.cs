@@ -94,14 +94,16 @@ namespace Voxel.ViewModel
         {
             ExcuteAction = (o) =>
             {
-                IsNonscalableTileBusy = true;
-                NonscalableTileView window = null;
-                window = new NonscalableTileView
-                {
-                    Owner = View
-                };
-                IsNonscalableTileBusy = false;
-                window.ShowDialog();
+                //IsNonscalableTileBusy = true;
+                //NonscalableTileView window = null;
+                //window = new NonscalableTileView
+                //{
+                //    Owner = View
+                //};
+                //IsNonscalableTileBusy = false;
+                //window.ShowDialog();
+                View.NonscalableTileView.Owner = View;
+                View.NonscalableTileView.ShowDialog();
             },
         };
         public Command ClearTileCacheCommand => new Command

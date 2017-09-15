@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -24,6 +25,13 @@ namespace Voxel.View
         {
             InitializeComponent();
             DataContext = new NonscalableTileViewModel(this);
+        }
+        protected override void OnClosing(CancelEventArgs e)
+        {
+            Hide();
+            (DataContext as NonscalableTileViewModel).ClearData();
+            e.Cancel = true;
+            base.OnClosing(e);
         }
     }
 }

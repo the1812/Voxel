@@ -33,12 +33,22 @@ namespace Voxel.View
             DataContext = new MainViewModel(this);
         }
 
+        public NonscalableTileView NonscalableTileView
+        {
+            get; private set;
+        }
+
         private void showSplashScreen()
         {
             SplashScreen splash = getSplashScreen();
             splash.Show(false);
+            loadAllView();
             Thread.Sleep(500);
             splash.Close(TimeSpan.FromMilliseconds(200));
+        }
+        private void loadAllView()
+        {
+            NonscalableTileView = new NonscalableTileView();
         }
 
         private SplashScreen getSplashScreen()
