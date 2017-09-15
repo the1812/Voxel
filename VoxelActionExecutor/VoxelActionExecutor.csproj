@@ -40,9 +40,6 @@
     <StartupObject>Voxel.ActionExecutor.Program</StartupObject>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="Ace">
-      <HintPath>..\..\Ace\Ace\bin\Release\Ace.dll</HintPath>
-    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
@@ -53,9 +50,20 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ImportedCode\CollectionExtensions.cs" />
+    <Compile Include="ImportedCode\Command.cs" />
+    <Compile Include="ImportedCode\Files\FileBase.cs" />
+    <Compile Include="ImportedCode\Files\Json\JsonArray.cs" />
+    <Compile Include="ImportedCode\Files\Json\JsonFile.cs" />
+    <Compile Include="ImportedCode\Files\Json\JsonObject.cs" />
+    <Compile Include="ImportedCode\Files\Json\JsonParseException.cs" />
+    <Compile Include="ImportedCode\Files\Json\JsonProperty.cs" />
+    <Compile Include="ImportedCode\Files\Json\JsonValue.cs" />
+    <Compile Include="ImportedCode\StringExtensions.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Settings.cs" />
+    <Compile Include="ImportedCode\Files\TextFile.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />

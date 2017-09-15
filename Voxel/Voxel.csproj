@@ -202,5 +202,8 @@
   <ItemGroup>
     <Resource Include="Voxel.ico" />
   </ItemGroup>
+  <ItemGroup>
+    <Resource Include="action.exe" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
