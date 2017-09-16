@@ -40,9 +40,9 @@ namespace Voxel.Model
         public abstract void Generate();
 
         protected const string TypeKey = "Type";
-        protected const string DarkThemeString = nameof(TextTheme.Dark);
-        protected const string LightThemeString = nameof(TextTheme.Light);
-        protected const string FileTargetString = nameof(TargetType.File);
-        protected const string FolderTargetString = nameof(TargetType.Folder);
+        public const string DarkThemeString = nameof(TextTheme.Dark);
+        public const string LightThemeString = nameof(TextTheme.Light);
+        public const string FileTargetString = nameof(TargetType.File);
+        public const string FolderTargetString = nameof(TargetType.Folder);
     }
 }

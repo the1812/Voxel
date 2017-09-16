@@ -47,6 +47,7 @@
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
+    <Reference Include="System.Drawing" />
     <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xml" />
     <Reference Include="Microsoft.CSharp" />
@@ -89,6 +90,7 @@
     <Compile Include="Model\Tile.cs" />
     <Compile Include="Model\TileManager.cs" />
     <Compile Include="Model\TileSize.cs" />
+    <Compile Include="Model\XmlManager.cs" />
     <Compile Include="NotificationObject.cs" />
     <Compile Include="TileTypeNotMatchException.cs" />
     <Compile Include="ViewModel\AboutViewModel.cs" />
