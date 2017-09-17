@@ -76,17 +76,17 @@ namespace Voxel.ViewModel
         }
 
 
-        private bool isNonscalableTileBusy;
-        public bool IsNonscalableTileBusy
-        {
-            get => isNonscalableTileBusy;
-            set
-            {
-                isNonscalableTileBusy = value;
-                View.Cursor = value ? Cursors.AppStarting : Cursors.Arrow;
-                OnPropertyChanged(nameof(IsNonscalableTileBusy));
-            }
-        }
+        //private bool isNonscalableTileBusy;
+        //public bool IsNonscalableTileBusy
+        //{
+        //    get => isNonscalableTileBusy;
+        //    set
+        //    {
+        //        isNonscalableTileBusy = value;
+        //        View.Cursor = value ? Cursors.AppStarting : Cursors.Arrow;
+        //        OnPropertyChanged(nameof(IsNonscalableTileBusy));
+        //    }
+        //}
 
 
 
@@ -94,16 +94,16 @@ namespace Voxel.ViewModel
         {
             ExcuteAction = (o) =>
             {
-                //IsNonscalableTileBusy = true;
-                //NonscalableTileView window = null;
-                //window = new NonscalableTileView
-                //{
-                //    Owner = View
-                //};
-                //IsNonscalableTileBusy = false;
-                //window.ShowDialog();
                 View.NonscalableTileView.Owner = View;
                 View.NonscalableTileView.ShowDialog();
+            },
+        };
+        public Command ImageTileCommand => new Command
+        {
+            ExcuteAction = (o) =>
+            {
+                View.ImageTileView.Owner = View;
+                View.ImageTileView.ShowDialog();
             },
         };
         public Command ClearTileCacheCommand => new Command

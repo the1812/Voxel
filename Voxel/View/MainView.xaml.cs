@@ -33,10 +33,14 @@ namespace Voxel.View
             DataContext = new MainViewModel(this);
         }
 
-        public NonscalableTileView NonscalableTileView
+        public NonscalableTileView NonscalableTileView { get; private set; }
+        public ImageTileView ImageTileView { get; private set; }
+        private void loadAllView()
         {
-            get; private set;
+            NonscalableTileView = new NonscalableTileView();
+            ImageTileView = new ImageTileView();
         }
+
 
         private void showSplashScreen()
         {
@@ -46,11 +50,6 @@ namespace Voxel.View
             Thread.Sleep(500);
             splash.Close(TimeSpan.FromMilliseconds(200));
         }
-        private void loadAllView()
-        {
-            NonscalableTileView = new NonscalableTileView();
-        }
-
         private SplashScreen getSplashScreen()
         {
             var dpi = VisualTreeHelper.GetDpi(this);

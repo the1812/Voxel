@@ -79,6 +79,7 @@
     <Compile Include="Model\Languages\AboutLanguage.cs" />
     <Compile Include="Model\Languages\ColorPickerLanguage.cs" />
     <Compile Include="Model\Languages\GeneralLanguage.cs" />
+    <Compile Include="Model\Languages\ImageTileLanguage.cs" />
     <Compile Include="Model\Languages\Language.cs" />
     <Compile Include="Model\Languages\MainLanguage.cs" />
     <Compile Include="Model\Languages\MessageLanguage.cs" />
@@ -96,6 +97,7 @@
     <Compile Include="ViewModel\AboutViewModel.cs" />
     <Compile Include="ViewModel\ColorPickerViewModel.cs" />
     <Compile Include="ViewModel\Command.cs" />
+    <Compile Include="ViewModel\ImageTileViewModel.cs" />
     <Compile Include="ViewModel\MainViewModel.cs" />
     <Compile Include="ViewModel\MessageViewModel.cs" />
     <Compile Include="ViewModel\NonscalableTileViewModel.cs" />
@@ -105,6 +107,9 @@
     </Compile>
     <Compile Include="View\ColorPickerView.xaml.cs">
       <DependentUpon>ColorPickerView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\ImageTileView.xaml.cs">
+      <DependentUpon>ImageTileView.xaml</DependentUpon>
     </Compile>
     <Compile Include="View\MainView.xaml.cs">
       <DependentUpon>MainView.xaml</DependentUpon>
@@ -173,6 +178,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="View\ColorPickerView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\ImageTileView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

@@ -70,10 +70,8 @@
       Style="{StaticResource DarkButton}"
       Height="40"
       Width="220"
-      IsEnabled="{Binding IsNonscalableTileBusy, Converter={StaticResource boolConverter}}"
       HorizontalContentAlignment="Center"
       Command="{Binding NonscalableTileCommand}"
-      CommandParameter="{Binding ElementName=buttonNonscalableTileNew}"
       Background="SteelBlue" />
     <Button
       x:Name="buttonScalableTile"
@@ -96,7 +94,8 @@
       Height="40"
       Margin="0"
       Grid.Row="2"
-      Background="#AE6055" />
+      Background="#AE6055"
+      Command="{Binding ImageTileCommand}"/>
     <Button
       x:Name="buttonClearTileCache"
       Content="{Binding ButtonClearTileCache}"
