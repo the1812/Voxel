@@ -36,7 +36,7 @@ namespace Voxel.Model
         {
             root.Save(fileName);
         }
-        public void Fill(Tile tile)
+        public void FillFrom(Tile tile)
         {
             ForegroundText = tile.Theme;
             BackgroundColor = tile.Background;
@@ -49,6 +49,46 @@ namespace Voxel.Model
                     tile.SmallImagePath = tile.LargeImagePath;
                 }
                 Square70x70Logo = tile.SmallImagePath.GetFileName();
+            }
+        }
+        public void FillTo<T>(ref T tile) where T : Tile
+        {
+            bool relativeExists(string relativePath, Tile sourceTile)
+            {
+                return File.Exists(getAbsolutePath(relativePath, sourceTile));
+            }
+            string getAbsolutePath(string relativePath, Tile sourceTile)
+            {
+                if (relativePath.StartsWith("\\"))
+                {
+                    relativePath = relativePath.Remove(0, 1);
+                }
+                string absolutePath = sourceTile.TargetPath.RemoveFileName().Backslash() + relativePath;
+                return absolutePath;
+            }
+
+            tile.Theme = ForegroundText;
+            tile.Background = BackgroundColor;
+            tile.ShowName = ShowNameOnSquare150x150Logo;
+
+            string largeImagePath = Square150x150Logo;
+            if (File.Exists(largeImagePath))
+            {
+                tile.LargeImagePath = largeImagePath;
+            }
+            else if (relativeExists(largeImagePath, tile))
+            {
+                tile.LargeImagePath = getAbsolutePath(largeImagePath, tile);
+            }
+
+            string smallImagePath = Square70x70Logo;
+            if (File.Exists(smallImagePath))
+            {
+                tile.SmallImagePath = smallImagePath;
+            }
+            else if (relativeExists(smallImagePath, tile))
+            {
+                tile.SmallImagePath = getAbsolutePath(smallImagePath, tile);
             }
         }
 

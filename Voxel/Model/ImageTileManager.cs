@@ -36,7 +36,7 @@ namespace Voxel.Model
                 OnPropertyChanged(nameof(GroupName));
             }
         }
-        private void copyExecutorTo(string path)
+        private void copyExecutorTo(string path, string action)
         {
             var uri = new Uri(ImageTile.ActionExecutorName, UriKind.Relative);
             var reader = new BinaryReader(Application.GetResourceStream(uri).Stream);
@@ -45,6 +45,14 @@ namespace Voxel.Model
             {
                 writer.Write(bytesData);
             }
+            JsonFile settings = new JsonFile(path)
+            {
+                Content = new JsonObject
+                {
+                    new JsonProperty(nameof(ImageTile.Action), action),
+                }
+            };
+            settings.Flush();
         }
 
         public override void Generate()
@@ -54,19 +62,15 @@ namespace Voxel.Model
                 string subFolder = GroupPath + tile.Name.Backslash();
 
                 string executorPath = subFolder + ImageTile.ActionExecutorName;
-                copyExecutorTo(executorPath);
+                copyExecutorTo(executorPath, tile.Action);
 
                 string imagePath = subFolder + tile.Name + ".png";
                 var image = new UniversalImage(tile.Image);
                 image.SaveImageSource(imagePath);
 
-                XmlManager xml = new XmlManager
-                {
-                    ForegroundText = tile.Theme,
-                    BackgroundColor = tile.Background,
-                    ShowNameOnSquare150x150Logo = tile.ShowName,
-                };
-
+                XmlManager xml = new XmlManager();
+                xml.FillFrom(tile);
+                xml.Save(tile.XmlPath);
             }
         }
 

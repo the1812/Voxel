@@ -48,21 +48,10 @@ namespace Voxel.Model
             {
                 return;
             }
-            XmlManager xml = new XmlManager
-            {
-                ForegroundText = tile.Theme,
-                BackgroundColor = tile.Background,
-                ShowNameOnSquare150x150Logo = tile.ShowName
-            };
+            XmlManager xml = new XmlManager();
+            xml.FillFrom(tile);
             if (File.Exists(tile.LargeImagePath))
             {
-                xml.Square150x150Logo = tile.LargeImagePath.GetFileName();
-                if (!File.Exists(tile.SmallImagePath))
-                {
-                    tile.SmallImagePath = tile.LargeImagePath;
-                }
-                xml.Square70x70Logo = tile.SmallImagePath.GetFileName();
-
                 string targetFolder = tile.TargetType == TargetType.File ?
                     tile.TargetPath.RemoveFileName().ToLower() :
                     tile.TargetPath.GetParentFolder().ToLower();
@@ -105,45 +94,9 @@ namespace Voxel.Model
         }
         public void LoadFromXml()
         {
-            bool relativeExists(string relativePath)
-            {
-                return File.Exists(getAbsolutePath(relativePath));
-            }
-            string getAbsolutePath(string relativePath)
-            {
-                if (relativePath.StartsWith("\\"))
-                {
-                    relativePath = relativePath.Remove(0, 1);
-                }
-                string absolutePath = tile.TargetPath.RemoveFileName().Backslash() + relativePath;
-                return absolutePath;
-            }
-
             XmlManager xml = new XmlManager();
             xml.Load(tile.XmlPath);
-            tile.Theme = xml.ForegroundText;
-            tile.Background = xml.BackgroundColor;
-            tile.ShowName = xml.ShowNameOnSquare150x150Logo;
-
-            string largeImagePath = xml.Square150x150Logo;
-            if (File.Exists(largeImagePath))
-            {
-                tile.LargeImagePath = largeImagePath;
-            }
-            else if (relativeExists(largeImagePath))
-            {
-                tile.LargeImagePath = getAbsolutePath(largeImagePath);
-            }
-
-            string smallImagePath = xml.Square70x70Logo;
-            if (File.Exists(smallImagePath))
-            {
-                tile.SmallImagePath = smallImagePath;
-            }
-            else if (relativeExists(smallImagePath))
-            {
-                tile.SmallImagePath = getAbsolutePath(smallImagePath);
-            }
+            xml.FillTo(ref tile);
         }
         public override void SaveData()
         {
