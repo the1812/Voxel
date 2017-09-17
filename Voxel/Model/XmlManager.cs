@@ -6,6 +6,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Xml.Linq;
 using Ace;
+using System.IO;
 
 namespace Voxel.Model
 {
@@ -26,7 +27,7 @@ namespace Voxel.Model
             );
             root.Add(visualElements);
         }
-        public void Read(string fileName)
+        public void Load(string fileName)
         {
             root = XElement.Load(fileName);
             visualElements = root.Element("VisualElements");
@@ -35,6 +36,22 @@ namespace Voxel.Model
         {
             root.Save(fileName);
         }
+        public void Fill(Tile tile)
+        {
+            ForegroundText = tile.Theme;
+            BackgroundColor = tile.Background;
+            ShowNameOnSquare150x150Logo = tile.ShowName;
+            if (File.Exists(tile.LargeImagePath))
+            {
+                Square150x150Logo = tile.LargeImagePath.GetFileName();
+                if (!File.Exists(tile.SmallImagePath))
+                {
+                    tile.SmallImagePath = tile.LargeImagePath;
+                }
+                Square70x70Logo = tile.SmallImagePath.GetFileName();
+            }
+        }
+
         public TextTheme ForegroundText
         {
             get
@@ -51,7 +68,6 @@ namespace Voxel.Model
                 );
             }
         }
-
         public Color BackgroundColor
         {
             get
@@ -63,7 +79,6 @@ namespace Voxel.Model
                 visualElements.SetAttributeValue(nameof(BackgroundColor), value.ToInt32());
             }
         }
-
         public bool ShowNameOnSquare150x150Logo
         {
             get
@@ -75,7 +90,6 @@ namespace Voxel.Model
                 visualElements.SetAttributeValue(nameof(ShowNameOnSquare150x150Logo), value ? "on" : "off");
             }
         }
-
         public string Square150x150Logo
         {
             get

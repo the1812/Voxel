@@ -60,14 +60,13 @@ namespace Voxel.Model
                 var image = new UniversalImage(tile.Image);
                 image.SaveImageSource(imagePath);
 
-                XElement root = new XElement("Application",
-                    new XAttribute(XNamespace.Xmlns + "xsi", @"http://www.w3.org/2001/XMLSchema-instance")
-                );
-                XElement visualElements = new XElement("VisualElements",
-                    new XAttribute("ForegroundText", tile.Theme == TextTheme.Dark ? "dark" : "light"),
-                    new XAttribute("BackgroundColor", tile.Background.ToHexString()),
-                    new XAttribute("ShowNameOnSquare150x150Logo", tile.ShowName ? "on" : "off")
-                );
+                XmlManager xml = new XmlManager
+                {
+                    ForegroundText = tile.Theme,
+                    BackgroundColor = tile.Background,
+                    ShowNameOnSquare150x150Logo = tile.ShowName,
+                };
+
             }
         }
 

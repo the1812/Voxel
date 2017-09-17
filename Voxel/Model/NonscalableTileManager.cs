@@ -48,24 +48,20 @@ namespace Voxel.Model
             {
                 return;
             }
-
-            XElement root = new XElement("Application",
-                new XAttribute(XNamespace.Xmlns + "xsi", @"http://www.w3.org/2001/XMLSchema-instance")
-            );
-            XElement visualElements = new XElement("VisualElements",
-                new XAttribute("ForegroundText", tile.Theme == TextTheme.Dark ? "dark" : "light"),
-                new XAttribute("BackgroundColor", tile.Background.ToHexString()),
-                new XAttribute("ShowNameOnSquare150x150Logo", tile.ShowName ? "on" : "off")
-            );
-            
+            XmlManager xml = new XmlManager
+            {
+                ForegroundText = tile.Theme,
+                BackgroundColor = tile.Background,
+                ShowNameOnSquare150x150Logo = tile.ShowName
+            };
             if (File.Exists(tile.LargeImagePath))
             {
-                visualElements.Add(new XAttribute("Square150x150Logo", tile.LargeImagePath.GetFileName()));
+                xml.Square150x150Logo = tile.LargeImagePath.GetFileName();
                 if (!File.Exists(tile.SmallImagePath))
                 {
                     tile.SmallImagePath = tile.LargeImagePath;
                 }
-                visualElements.Add(new XAttribute("Square70x70Logo", tile.SmallImagePath.GetFileName()));
+                xml.Square70x70Logo = tile.SmallImagePath.GetFileName();
 
                 string targetFolder = tile.TargetType == TargetType.File ?
                     tile.TargetPath.RemoveFileName().ToLower() :
@@ -80,9 +76,7 @@ namespace Voxel.Model
                     File.Copy(tile.SmallImagePath, targetFolder.Backslash() + tile.SmallImagePath.GetFileName(), true);
                 }
             }
-
-            root.Add(visualElements);
-            root.Save(tile.XmlPath);
+            xml.Save(tile.XmlPath);
         }
 
         public override void LoadData()
@@ -125,14 +119,13 @@ namespace Voxel.Model
                 return absolutePath;
             }
 
-            var root = XElement.Load(Tile.XmlPath);
-            var visualElements = root.Element("VisualElements");
-            tile.Theme = visualElements.Attribute("ForegroundText")?.Value == "dark" ? TextTheme.Dark : TextTheme.Light;
-            tile.Background = visualElements.Attribute("BackgroundColor")?.Value.FromHexString()
-                ?? Ace.Wpf.DwmEffect.ColorizationColor;
-            tile.ShowName = visualElements.Attribute("ShowNameOnSquare150x150Logo")?.Value == "off" ? false : true;
+            XmlManager xml = new XmlManager();
+            xml.Load(tile.XmlPath);
+            tile.Theme = xml.ForegroundText;
+            tile.Background = xml.BackgroundColor;
+            tile.ShowName = xml.ShowNameOnSquare150x150Logo;
 
-            string largeImagePath = visualElements.Attribute("Square150x150Logo")?.Value;
+            string largeImagePath = xml.Square150x150Logo;
             if (File.Exists(largeImagePath))
             {
                 tile.LargeImagePath = largeImagePath;
@@ -142,7 +135,7 @@ namespace Voxel.Model
                 tile.LargeImagePath = getAbsolutePath(largeImagePath);
             }
 
-            string smallImagePath = visualElements.Attribute("Square70x70Logo")?.Value;
+            string smallImagePath = xml.Square70x70Logo;
             if (File.Exists(smallImagePath))
             {
                 tile.SmallImagePath = smallImagePath;
