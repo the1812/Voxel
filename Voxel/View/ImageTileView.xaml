@@ -8,12 +8,85 @@
   mc:Ignorable="d"
   Title="{Binding WindowTitle}"
   WindowStartupLocation="CenterOwner"
-  Height="300"
-  Width="320"
+  Height="524"
+  Width="1000"
   MinWidth="320"
   MinHeight="300"
   Icon="/Voxel;component/Voxel.ico">
-  <Grid>
-        
+  <Grid
+    x:Name="gridMain"
+    Background="#323232">
+    <Grid.ColumnDefinitions>
+      <ColumnDefinition
+        Width="330" />
+      <ColumnDefinition />
+    </Grid.ColumnDefinitions>
+    <Grid.RowDefinitions>
+      <RowDefinition
+        Height="1*" />
+      <RowDefinition
+        Height="45" />
+    </Grid.RowDefinitions>
+
+    <Grid
+      VerticalAlignment="Center"
+      HorizontalAlignment="Stretch"
+      x:Name="gridOptions"
+      Background="{Binding ElementName=gridMain, Path=Background}">
+      <Grid.RowDefinitions>
+        <RowDefinition
+          Height="40" />
+      </Grid.RowDefinitions>
+      <Button
+        Style="{StaticResource OptionButton}"
+        x:Name="buttonTarget"
+        Content="{Binding ButtonSelectImage}"
+        Grid.Row="0" />
     </Grid>
+
+    <Grid
+      x:Name="gridBottom"
+      Grid.ColumnSpan="2"
+      Margin="0"
+      Grid.Row="1"
+      VerticalAlignment="Stretch"
+      Background="{StaticResource HighlightColor}">
+      <Grid.Effect>
+        <DropShadowEffect
+          BlurRadius="20"
+          ShadowDepth="0"
+          Opacity="0.5" />
+      </Grid.Effect>
+      <Grid.ColumnDefinitions>
+        <ColumnDefinition
+          Width="1*" />
+        <ColumnDefinition
+          Width="1*" />
+        <ColumnDefinition
+          Width="1*" />
+        <ColumnDefinition
+          Width="1*" />
+      </Grid.ColumnDefinitions>
+      <Button
+        x:Name="buttonExport"
+        Content="{Binding ButtonExport}"
+        Grid.Column="3"
+        Style="{StaticResource ToolButton}" />
+      <Button
+        x:Name="buttonImport"
+        Content="{Binding ButtonImport}"
+        Grid.Column="2"
+        Style="{StaticResource ToolButton}" />
+      <Button
+        x:Name="buttonAddToStart"
+        Content="{Binding ButtonAddToStart}"
+        Grid.Column="1"
+        Style="{StaticResource ToolButton}" />
+      <Button
+        x:Name="buttonGenrate"
+        Content="{Binding ButtonGenerate}"
+        Style="{StaticResource ToolButton}"/>
+
+    </Grid>
+  </Grid>
 </Window>

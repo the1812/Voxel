@@ -17,14 +17,31 @@ namespace Voxel.Model.Languages
             keys = new List<string>
             {
                 "WindowTitle",
+                "ButtonGenerate",
+                "ButtonAddToStart",
+                "ButtonExport",
+                "ButtonImport",
+                "ButtonSelectImage",
+
             };
             simplifiedChinese = new List<string>
             {
                 "图像磁贴",
+                "生成",
+                "添加到开始",
+                "导出",
+                "导入",
+                "选择图片"
             };
             americanEnglish = new List<string>
             {
                 "ImageTile",
+                "Generate",
+                "Add to Start",
+                "Export",
+                "Import",
+                "Select Image",
+
             };
         }
     }

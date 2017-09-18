@@ -43,7 +43,7 @@
       Tag="{Binding ToggleTileSizeRight}"
       Margin="0,0,0,10"
       HorizontalAlignment="Center"
-      VerticalAlignment="Bottom"/>
+      VerticalAlignment="Bottom" />
     <Grid
       Visibility="{Binding SmallPreviewVisibility}"
       x:Name="gridPreviewSmall"
@@ -194,9 +194,9 @@
         BorderThickness="0,0,4,0"
         x:Name="checkBoxDarkTheme"
         Content="{Binding CheckBoxDarkTheme}"
-        Grid.Row="3" 
+        Grid.Row="3"
         IsEnabled="{Binding ShowName}"
-        IsChecked="{Binding IsDarkTheme, Mode=TwoWay}"/>
+        IsChecked="{Binding IsDarkTheme, Mode=TwoWay}" />
       <CheckBox
         Style="{StaticResource OptionCheckBox}"
         BorderThickness="0,0,4,0"
@@ -233,24 +233,24 @@
         Content="{Binding ButtonExport}"
         Grid.Column="3"
         Style="{StaticResource ToolButton}"
-        Command="{Binding ExportCommand}"/>
+        Command="{Binding ExportCommand}" />
       <Button
         x:Name="buttonImport"
         Content="{Binding ButtonImport}"
         Grid.Column="2"
         Style="{StaticResource ToolButton}"
-        Command="{Binding ImportCommand}"/>
+        Command="{Binding ImportCommand}" />
       <Button
         x:Name="buttonAddToStart"
         Content="{Binding ButtonAddToStart}"
         Grid.Column="1"
         Style="{StaticResource ToolButton}"
-        Command="{Binding AddToStartCommand}"/>
+        Command="{Binding AddToStartCommand}" />
       <Button
         x:Name="buttonGenrate"
         Content="{Binding ButtonGenerate}"
         Style="{StaticResource ToolButton}"
-        Command="{Binding GenerateCommand}"/>
+        Command="{Binding GenerateCommand}" />
 
     </Grid>
 
