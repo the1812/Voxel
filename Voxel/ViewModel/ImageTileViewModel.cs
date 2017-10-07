@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Media;
 using Voxel.Model.Languages;
 
 namespace Voxel.ViewModel
@@ -25,9 +26,35 @@ namespace Voxel.ViewModel
         {
             
         }
+        public Stretch ImageStretch
+        {
+            get
+            {
+                if (KeepAspectRadio)
+                {
+                    return Stretch.Fill;
+                }
+                else
+                {
+                    return Stretch.Uniform;
+                }
+            }
+        }
+
+        private bool keepAspectRatio;
+        public bool KeepAspectRadio
+        {
+            get => keepAspectRatio;
+            set
+            {
+                keepAspectRatio = value;
+                OnPropertyChanged(nameof(KeepAspectRadio));
+            }
+        }
+
         #endregion
         #region Commands
 
-#endregion
+        #endregion
     }
 }

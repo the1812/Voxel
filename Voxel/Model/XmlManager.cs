@@ -112,11 +112,11 @@ namespace Voxel.Model
         {
             get
             {
-                return visualElements.Attribute(nameof(BackgroundColor)).Value.ToInt32().ToColor();
+                return visualElements.Attribute(nameof(BackgroundColor)).Value.FromHexString();
             }
             set
             {
-                visualElements.SetAttributeValue(nameof(BackgroundColor), value.ToInt32());
+                visualElements.SetAttributeValue(nameof(BackgroundColor), value.ToHexString());
             }
         }
         public bool ShowNameOnSquare150x150Logo

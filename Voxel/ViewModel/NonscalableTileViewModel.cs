@@ -743,7 +743,14 @@ namespace Voxel.ViewModel
                     }
                 },
             };
-
+        public Command ResetCommand
+            => new Command
+            {
+                ExcuteAction = (o) =>
+                {
+                    
+                },
+            };
         
 #endregion
 
