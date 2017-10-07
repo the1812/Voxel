@@ -44,6 +44,19 @@
       Margin="0,0,0,10"
       HorizontalAlignment="Center"
       VerticalAlignment="Bottom" />
+    <Button
+      x:Name="buttonReset"
+      Background="Transparent"
+      Foreground="White"
+      Style="{StaticResource DarkButton}"
+      Content="{Binding ButtonReset}"
+      Command="{Binding ResetCommand}"
+      Grid.Column="1"
+      Width="70"
+      Height="25"
+      HorizontalAlignment="Center"
+      VerticalAlignment="Top"
+      Margin="0,20,0,0" />
     <Grid
       Visibility="{Binding SmallPreviewVisibility}"
       x:Name="gridPreviewSmall"

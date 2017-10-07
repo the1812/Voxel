@@ -40,7 +40,7 @@ namespace Voxel.ViewModel
         public string ButtonExport => language[nameof(ButtonExport)];
         public string ToggleTileSizeLeft => language[nameof(ToggleTileSizeLeft)];
         public string ToggleTileSizeRight => language[nameof(ToggleTileSizeRight)];
-
+        public string ButtonReset => language[nameof(ButtonReset)];
         #endregion
         #region Vars and properties
         private NonscalableTileManager tileManager = new NonscalableTileManager();
@@ -364,7 +364,8 @@ namespace Voxel.ViewModel
             var image = Ace.Win32.Api.GetIcon(targetPath);
             Icon = image.ImageSource;
         }
-        public void ClearData()
+
+        private void reset()
         {
             tileManager = new NonscalableTileManager();
             BackImage = null;
@@ -373,10 +374,14 @@ namespace Voxel.ViewModel
             IsDarkTheme = false;
             ShowName = true;
             IsTileSizeToggleChecked = false;
-            Icon = null;
             OnPropertyChanged(nameof(TargetName));
             OnPropertyChanged(nameof(TargetFileName));
             OnPropertyChanged(nameof(TargetFolderName));
+        }
+        public void ClearData()
+        {
+            Icon = null;
+            reset();
         }
         #endregion
         #region Commands
@@ -748,11 +753,20 @@ namespace Voxel.ViewModel
             {
                 ExcuteAction = (o) =>
                 {
-                    
+                    var targetPath = tileManager.Tile.TargetPath;
+                    var targetType = tileManager.Tile.TargetType;
+                    reset();
+                    tileManager.Tile.TargetPath = targetPath;
+                    tileManager.Tile.TargetType = targetType;
+                    OnPropertyChanged(nameof(TargetName));
+                    OnPropertyChanged(nameof(TargetFileName));
+                    OnPropertyChanged(nameof(TargetFolderName));
                 },
             };
+
         
-#endregion
+
+        #endregion
 
     }
 }

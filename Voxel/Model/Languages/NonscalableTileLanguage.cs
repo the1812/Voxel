@@ -52,6 +52,7 @@ namespace Voxel.Model.Languages
                 "ImageDimensionTooBigContent",
                 "ImageSizeTooBigTitle",
                 "ImageSizeTooBigContent",
+                "ButtonReset",
             };
             simplifiedChinese = new List<string>
             {
@@ -92,6 +93,7 @@ namespace Voxel.Model.Languages
                 "图片的尺寸必须小于等于1024x1024像素。",
                 "图片过大",
                 "图片的大小必须小于等于200KB。",
+                "重置",
             };
             americanEnglish = new List<string>
             {
@@ -132,6 +134,7 @@ namespace Voxel.Model.Languages
                 "The dimensions of image must less than or equal to 1024x1024 pixels.",
                 "Image Too Big",
                 "The size of image must less than or equal to 200 KB.",
+                "Reset",
             };
         }
     }
