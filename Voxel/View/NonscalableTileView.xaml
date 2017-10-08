@@ -6,6 +6,7 @@
   xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
   xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
   xmlns:local="clr-namespace:Voxel.View"
+  xmlns:m="clr-namespace:Voxel.Model"
   mc:Ignorable="d"
   ResizeMode="CanMinimize"
   Title="{Binding WindowTitle}"
@@ -64,8 +65,8 @@
       Margin="0"
       HorizontalAlignment="Center"
       VerticalAlignment="Center"
-      Width="60"
-      Height="60"
+      Width="{x:Static m:TileSize.SmallWidthAndHeight}"
+      Height="{x:Static m:TileSize.SmallWidthAndHeight}"
       Background="{Binding Background}">
       <Grid.Effect>
         <DropShadowEffect
@@ -98,8 +99,8 @@
       Margin="0"
       HorizontalAlignment="Center"
       VerticalAlignment="Center"
-      Width="124"
-      Height="124"
+      Width="{x:Static m:TileSize.LargeWidthAndHeight}"
+      Height="{x:Static m:TileSize.LargeWidthAndHeight}"
       Background="{Binding Background}">
       <Grid.Effect>
         <DropShadowEffect

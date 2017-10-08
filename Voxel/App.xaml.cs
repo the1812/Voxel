@@ -64,6 +64,11 @@ namespace Voxel
             }
             else
             {
+                bool fullScreen = Settings.Json["StartMenu"].ObjectValue[nameof(TileSize.Fullscreen)].BooleanValue ?? false;
+                TileSize.Fullscreen = fullScreen;
+                bool showMoreTiles = Settings.Json["StartMenu"].ObjectValue[nameof(TileSize.ShowMoreTiles)].BooleanValue ?? false;
+                TileSize.ShowMoreTiles = showMoreTiles;
+
                 new MainView().ShowDialog();
             }
             Shutdown();

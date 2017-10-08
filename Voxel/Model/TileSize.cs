@@ -17,7 +17,8 @@ namespace Voxel.Model
             {
                 if (ShowMoreTiles)
                 {
-
+                    largeSize = new Size(124.0, 124.0);
+                    smallSize = new Size(60.0, 60.0);
                 }
                 else
                 {
@@ -29,11 +30,13 @@ namespace Voxel.Model
             {
                 if (ShowMoreTiles)
                 {
-
+                    largeSize = new Size(100.0, 100.0);
+                    smallSize = new Size(48.0, 48.0);
                 }
                 else
                 {
-
+                    largeSize = new Size(100.0, 100.0);
+                    smallSize = new Size(48.0, 48.0);
                 }
             }
         }
@@ -56,6 +59,8 @@ namespace Voxel.Model
             }
         }
         public static Size LargeSize => largeSize;
+        public static double LargeWidthAndHeight => largeSize.Width;
         public static Size SmallSize => smallSize;
+        public static double SmallWidthAndHeight => smallSize.Width;
     }
 }
