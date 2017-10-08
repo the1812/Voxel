@@ -22,7 +22,7 @@ namespace Voxel.Model.Languages
                 "ButtonExport",
                 "ButtonImport",
                 "ButtonSelectImage",
-
+                "CheckBoxKeepRatio",
             };
             simplifiedChinese = new List<string>
             {
@@ -31,7 +31,8 @@ namespace Voxel.Model.Languages
                 "添加到开始",
                 "导出",
                 "导入",
-                "选择图片"
+                "选择图片",
+                "保持宽高比",
             };
             americanEnglish = new List<string>
             {
@@ -41,7 +42,7 @@ namespace Voxel.Model.Languages
                 "Export",
                 "Import",
                 "Select Image",
-
+                "Keep Aspect Radio",
             };
         }
     }

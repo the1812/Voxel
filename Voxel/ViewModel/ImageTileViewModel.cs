@@ -20,6 +20,7 @@ namespace Voxel.ViewModel
         public string ButtonExport => language[nameof(ButtonExport)];
         public string ButtonImport => language[nameof(ButtonImport)];
         public string ButtonSelectImage => language[nameof(ButtonSelectImage)];
+        public string CheckBoxKeepRatio => language[nameof(CheckBoxKeepRatio)];
         #endregion
         #region Vars and properties
         public void ClearData()

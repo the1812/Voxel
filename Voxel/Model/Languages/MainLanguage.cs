@@ -27,7 +27,7 @@ namespace Voxel.Model.Languages
             };
             simplifiedChinese = new List<string>
             {
-                "Voxel",
+                "VOXEL",
                 "无缩放磁贴",
                 "可缩放磁贴(未完成)",
                 "图像磁贴(未完成)",
@@ -37,7 +37,7 @@ namespace Voxel.Model.Languages
             };
             americanEnglish = new List<string>
             {
-                "Voxel",
+                "VOXEL",
                 "Non-scalable Tile",
                 "Scalable Tile (Coming Soon)",
                 "Image Tile (Coming Soon)",

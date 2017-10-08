@@ -48,6 +48,12 @@
         x:Name="buttonTarget"
         Content="{Binding ButtonSelectImage}"
         Grid.Row="0" />
+      <CheckBox
+        Style="{StaticResource OptionCheckBox}"
+        x:Name="checkBoxKeepRatio"
+        Content="{Binding CheckBoxKeepRatio}"
+        BorderThickness="0,0,4,0"
+        Grid.Row="1" />
     </Grid>
 
     <Grid
