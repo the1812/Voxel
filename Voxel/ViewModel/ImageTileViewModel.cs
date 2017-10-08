@@ -31,7 +31,7 @@ namespace Voxel.ViewModel
         {
             get
             {
-                if (KeepAspectRadio)
+                if (KeepAspectRatio)
                 {
                     return Stretch.Fill;
                 }
@@ -42,14 +42,14 @@ namespace Voxel.ViewModel
             }
         }
 
-        private bool keepAspectRatio;
-        public bool KeepAspectRadio
+        private bool keepAspectRatio = true;
+        public bool KeepAspectRatio
         {
             get => keepAspectRatio;
             set
             {
                 keepAspectRatio = value;
-                OnPropertyChanged(nameof(KeepAspectRadio));
+                OnPropertyChanged(nameof(KeepAspectRatio));
             }
         }
 
