@@ -43,47 +43,43 @@
 
             <Border
               Background="#0000"
-              x:Name="mask"
-              Grid.ColumnSpan="2">
+              x:Name="mask">
             </Border>
-            
+
             <Border
               x:Name="border"
               BorderBrush="{TemplateBinding BorderBrush}"
-              BorderThickness="0"
-              Grid.ColumnSpan="2">
+              BorderThickness="0" />
+            
+            <Grid>
+              <Grid.RowDefinitions>
+                <RowDefinition
+                  Height="1*" />
+                <RowDefinition
+                  Height="2*" />
+                <RowDefinition
+                  Height="1*" />
+              </Grid.RowDefinitions>
 
-              <Grid>
-                <Grid.RowDefinitions>
-                  <RowDefinition
-                    Height="1*" />
-                  <RowDefinition
-                    Height="2*" />
-                  <RowDefinition
-                    Height="1*" />
-                </Grid.RowDefinitions>
+              <Viewbox
+                Grid.Row="1"
+                Stretch="Uniform"
+                VerticalAlignment="Stretch"
+                HorizontalAlignment="Stretch"
+                MaxHeight="80">
+                <ContentPresenter
+                  HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
+                  VerticalAlignment="{TemplateBinding VerticalContentAlignment}">
+                  <ContentPresenter.Effect>
+                    <DropShadowEffect
+                      ShadowDepth="0"
+                      BlurRadius="10"
+                      Opacity="0.5" />
+                  </ContentPresenter.Effect>
+                </ContentPresenter>
+              </Viewbox>
 
-                <Viewbox
-                  Grid.Row="1"
-                  Stretch="Uniform"
-                  VerticalAlignment="Stretch"
-                  HorizontalAlignment="Stretch"
-                  MaxHeight="80">
-                  <ContentPresenter
-                    HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
-                    VerticalAlignment="{TemplateBinding VerticalContentAlignment}">
-                    <ContentPresenter.Effect>
-                      <DropShadowEffect
-                        ShadowDepth="0"
-                        BlurRadius="10"
-                        Opacity="0.5" />
-                    </ContentPresenter.Effect>
-                  </ContentPresenter>
-                </Viewbox>
-
-              </Grid>
-
-            </Border>
+            </Grid>
 
           </Grid>
 

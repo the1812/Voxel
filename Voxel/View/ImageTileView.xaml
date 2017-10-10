@@ -80,21 +80,25 @@
           x:Name="radioButtonNone"
           IsChecked="True"
           GroupName="RadioAction"
+          Content="{Binding RadioButtonActionNone}"
           Style="{StaticResource OptionRadioButton}"
           Grid.Column="0" />
         <RadioButton
           x:Name="radioButtonFile"
           GroupName="RadioAction"
+          Content="{Binding RadioButtonActionFile}"
           Style="{StaticResource OptionRadioButton}"
           Grid.Column="1" />
         <RadioButton
           x:Name="raidoButtonFolder"
           GroupName="RadioAction"
+          Content="{Binding RadioButtonActionFolder}"
           Style="{StaticResource OptionRadioButton}"
           Grid.Column="2" />
         <RadioButton
           x:Name="radioButtonUrl"
           GroupName="RadioAction"
+          Content="{Binding RadioButtonActionUrl}"
           Style="{StaticResource OptionRadioButton}"
           Grid.Column="3" />
       </Grid>

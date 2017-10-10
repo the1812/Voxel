@@ -24,6 +24,10 @@ namespace Voxel.Model.Languages
                 "ButtonSelectImage",
                 "CheckBoxKeepRatio",
                 "ButtonSetAction",
+                "RadioButtonActionNone",
+                "RadioButtonActionFile",
+                "RadioButtonActionFolder",
+                "RadioButtonActionUrl",
             };
             simplifiedChinese = new List<string>
             {
@@ -35,6 +39,10 @@ namespace Voxel.Model.Languages
                 "选择图片",
                 "保持宽高比",
                 "设置动作",
+                "无",
+                "文件",
+                "文件夹",
+                "链接",
             };
             americanEnglish = new List<string>
             {
@@ -46,6 +54,10 @@ namespace Voxel.Model.Languages
                 "Select Image",
                 "Keep Aspect Radio",
                 "Set Action",
+                "None",
+                "File",
+                "Folder",
+                "Url",
             };
         }
     }

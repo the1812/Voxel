@@ -24,6 +24,11 @@ namespace Voxel.ViewModel
         public string ButtonSelectImage => language[nameof(ButtonSelectImage)];
         public string CheckBoxKeepRatio => language[nameof(CheckBoxKeepRatio)];
         public string ButtonSetAction => language[nameof(ButtonSetAction)];
+        public string RadioButtonActionNone => language[nameof(RadioButtonActionNone)];
+        public string RadioButtonActionFile => language[nameof(RadioButtonActionFile)];
+        public string RadioButtonActionFolder => language[nameof(RadioButtonActionFolder)];
+        public string RadioButtonActionUrl => language[nameof(RadioButtonActionUrl)];
+
         #endregion
         #region Vars and properties
 
