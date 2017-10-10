@@ -19,6 +19,8 @@
           Source="Styles/DarkButton.xaml" />
         <ResourceDictionary
           Source="Styles/TileSizeToggle.xaml" />
+        <ResourceDictionary
+          Source="Styles/OptionRadioButton.xaml" />
       </ResourceDictionary.MergedDictionaries>
       <SolidColorBrush
         x:Key="HighlightColor"
