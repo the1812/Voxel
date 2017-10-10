@@ -28,7 +28,7 @@ namespace Voxel.ViewModel
         public string RadioButtonActionFile => language[nameof(RadioButtonActionFile)];
         public string RadioButtonActionFolder => language[nameof(RadioButtonActionFolder)];
         public string RadioButtonActionUrl => language[nameof(RadioButtonActionUrl)];
-
+        public string ButtonBackColor => language[nameof(ButtonBackColor)];
         #endregion
         #region Vars and properties
 

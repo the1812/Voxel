@@ -28,6 +28,7 @@ namespace Voxel.Model.Languages
                 "RadioButtonActionFile",
                 "RadioButtonActionFolder",
                 "RadioButtonActionUrl",
+                "ButtonBackColor",
             };
             simplifiedChinese = new List<string>
             {
@@ -43,6 +44,7 @@ namespace Voxel.Model.Languages
                 "文件",
                 "文件夹",
                 "链接",
+                "设定背景色",
             };
             americanEnglish = new List<string>
             {
@@ -58,6 +60,7 @@ namespace Voxel.Model.Languages
                 "File",
                 "Folder",
                 "Url",
+                "Set Back Color",
             };
         }
     }

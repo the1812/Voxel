@@ -45,6 +45,8 @@
         <RowDefinition
           Height="40" />
         <RowDefinition
+          Height="40" />
+        <RowDefinition
           Height="30" />
       </Grid.RowDefinitions>
       <Button
@@ -61,11 +63,16 @@
         Grid.Row="1" />
       <Button
         Style="{StaticResource OptionButton}"
+        x:Name="buttonBackColor"
+        Content="{Binding ButtonBackColor}"
+        Grid.Row="2" />
+      <Button
+        Style="{StaticResource OptionButton}"
         x:Name="buttonSetAction"
         Content="{Binding ButtonSetAction}"
-        Grid.Row="2" />
+        Grid.Row="3" />
       <Grid
-        Grid.Row="3">
+        Grid.Row="4">
         <Grid.ColumnDefinitions>
           <ColumnDefinition
             Width="1*" />
@@ -110,6 +117,7 @@
           Style="{StaticResource OptionRadioButton}"
           Grid.Column="3" />
       </Grid>
+      
     </Grid>
 
     <Grid
