@@ -3,7 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Controls;
 using System.Windows.Media;
+using Voxel.Model;
 using Voxel.Model.Languages;
 
 namespace Voxel.ViewModel
@@ -21,8 +23,12 @@ namespace Voxel.ViewModel
         public string ButtonImport => language[nameof(ButtonImport)];
         public string ButtonSelectImage => language[nameof(ButtonSelectImage)];
         public string CheckBoxKeepRatio => language[nameof(CheckBoxKeepRatio)];
+        public string ButtonSetAction => language[nameof(ButtonSetAction)];
         #endregion
         #region Vars and properties
+
+        private ImageTileAction action = new ImageTileAction(ActionType.None);
+
         public void ClearData()
         {
             
@@ -55,6 +61,33 @@ namespace Voxel.ViewModel
 
         #endregion
         #region Commands
+
+        public Command ChangeAcitonCommand => new Command
+        {
+            ExcuteAction = (o) =>
+            {
+                if (o is RadioButton radioButton)
+                {
+                    switch (radioButton.Content as string)
+                    {
+                        case nameof(ActionType.None):
+                            action.Type = ActionType.None;
+                            break;
+                        case nameof(ActionType.File):
+                            action.Type = ActionType.File;
+                            break;
+                        case nameof(ActionType.Folder):
+                            action.Type = ActionType.Folder;
+                            break;
+                        case nameof(ActionType.Url):
+                            action.Type = ActionType.Url;
+                            break;
+                        default:
+                            break;
+                    }
+                }
+            },
+        };
 
         #endregion
     }

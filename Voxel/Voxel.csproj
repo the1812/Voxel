@@ -75,6 +75,7 @@
     <Compile Include="BadVoxelFileException.cs" />
     <Compile Include="BooleanNotConverter.cs" />
     <Compile Include="Extensions.cs" />
+    <Compile Include="Model\Action.cs" />
     <Compile Include="Model\ImageTile.cs" />
     <Compile Include="Model\ImageTileManager.cs" />
     <Compile Include="Model\Languages\AboutLanguage.cs" />

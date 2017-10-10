@@ -42,6 +42,8 @@
           Height="40" />
         <RowDefinition
           Height="40" />
+        <RowDefinition
+          Height="40" />
       </Grid.RowDefinitions>
       <Button
         Style="{StaticResource OptionButton}"
@@ -55,6 +57,11 @@
         BorderThickness="0,0,4,0"
         IsChecked="{Binding KeepAspectRatio,Mode=TwoWay}"
         Grid.Row="1" />
+      <Button
+        Style="{StaticResource OptionButton}"
+        x:Name="buttonSetAction"
+        Content="{Binding ButtonSetAction}"
+        Grid.Row="2" />
     </Grid>
 
     <Grid
