@@ -122,6 +122,9 @@
     <Compile Include="View\NonscalableTileView.xaml.cs">
       <DependentUpon>NonscalableTileView.xaml</DependentUpon>
     </Compile>
+    <Compile Include="View\SetActionView.xaml.cs">
+      <DependentUpon>SetActionView.xaml</DependentUpon>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.cs">
@@ -200,6 +203,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="View\NonscalableTileView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\SetActionView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

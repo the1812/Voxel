@@ -67,7 +67,7 @@ namespace Voxel.ViewModel
         #endregion
         #region Commands
 
-        public Command ChangeAcitonCommand => new Command
+        public Command ChangeActionCommand => new Command
         {
             ExcuteAction = (o) =>
             {
