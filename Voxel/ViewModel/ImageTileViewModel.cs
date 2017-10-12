@@ -1,3 +1,4 @@
+using Microsoft.Win32;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -5,6 +6,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Controls;
 using System.Windows.Media;
+using System.Windows.Media.Imaging;
 using Voxel.Model;
 using Voxel.Model.Languages;
 
@@ -33,6 +35,7 @@ namespace Voxel.ViewModel
         #region Vars and properties
 
         private ImageTileAction action = new ImageTileAction(ActionType.None);
+        private ImageTileManager manager = new ImageTileManager();
 
         public void ClearData()
         {
@@ -64,6 +67,20 @@ namespace Voxel.ViewModel
             }
         }
 
+
+        private BitmapSource backImage;
+        public BitmapSource BackImage
+        {
+            get => backImage;
+            set
+            {
+                backImage = value;
+                OnPropertyChanged(nameof(BackImage));
+            }
+        }
+
+
+
         #endregion
         #region Commands
 
@@ -91,6 +108,21 @@ namespace Voxel.ViewModel
                             break;
                     }
                 }
+            },
+        };
+        public Command SelectImageCommand => new Command
+        {
+            ExcuteAction = (o) =>
+            {
+                var dialog = new OpenFileDialog
+                {
+                    Title = language["OpenImageDialogTitle"],
+                    Multiselect = false,
+                    DereferenceLinks = true,
+                    CheckFileExists = true,
+                    Filter = language["OpenImageDialogFilter"],
+                };
+
             },
         };
 

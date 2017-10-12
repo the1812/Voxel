@@ -29,6 +29,8 @@ namespace Voxel.Model.Languages
                 "RadioButtonActionFolder",
                 "RadioButtonActionUrl",
                 "ButtonBackColor",
+                "OpenImageDialogTitle",
+                "OpenImageDialogFilter",
             };
             simplifiedChinese = new List<string>
             {
@@ -45,6 +47,8 @@ namespace Voxel.Model.Languages
                 "文件夹",
                 "链接",
                 "设定背景色",
+                "选择图片",
+                "图片文件 (*.jpg;*.png;*.bmp;*.tif;*.jpeg;*.tiff)|*.jpg;*.png;*.bmp;*.tif;*.jpeg;*.tiff"，
             };
             americanEnglish = new List<string>
             {
@@ -61,6 +65,8 @@ namespace Voxel.Model.Languages
                 "Folder",
                 "Url",
                 "Set Back Color",
+                "Select Image",
+                "Image File (*.jpg;*.png;*.bmp;*.tif;*.jpeg;*.tiff)|*.jpg;*.png;*.bmp;*.tif;*.jpeg;*.tiff",
             };
         }
     }

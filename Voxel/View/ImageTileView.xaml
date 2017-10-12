@@ -5,6 +5,8 @@
   xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
   xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
   xmlns:local="clr-namespace:Voxel.View"
+  xmlns:m="clr-namespace:Voxel.Model"
+  xmlns:ctl="clr-namespace:Voxel.Controls"
   xmlns:sys="clr-namespace:System;assembly=mscorlib"
   mc:Ignorable="d"
   Title="{Binding WindowTitle}"
@@ -35,7 +37,13 @@
     <Grid
       Grid.Column="1"
       x:Name="gridPreview">
-      
+
+      <ctl:ImageSpliter
+        HorizontalAlignment="Center"
+        VerticalAlignment="Center"
+        Width="{x:Static m:TileSize.LargeWidthAndHeight}"
+        Height="{x:Static m:TileSize.LargeWidthAndHeight}" />
+
     </Grid>
     
     <Grid

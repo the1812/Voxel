@@ -52,11 +52,27 @@ namespace Voxel.Controls
             DefaultStyleKeyProperty.OverrideMetadata(typeof(ImageSpliter), new FrameworkPropertyMetadata(typeof(ImageSpliter)));
         }
 
-        public static readonly DependencyProperty IsSplitProperty = DependencyProperty.Register(nameof(IsSplit), typeof(bool), typeof(ImageSpliter), new PropertyMetadata(false));
-        public static readonly DependencyProperty BitmapSourceProperty = DependencyProperty.Register(nameof(BitmapSource), typeof(BitmapSource), typeof(ImageSpliter), new PropertyMetadata(null));
-        private static readonly DependencyPropertyKey TopRightPropertyKey = DependencyProperty.RegisterReadOnly(nameof(TopRight), typeof(BitmapSource), typeof(ImageSpliter), new PropertyMetadata(null));
+        public static readonly DependencyProperty IsSplitProperty = DependencyProperty.Register(
+            nameof(IsSplit),
+            typeof(bool),
+            typeof(ImageSpliter), 
+            new PropertyMetadata(false));
+        public static readonly DependencyProperty BitmapSourceProperty = DependencyProperty.Register(
+            nameof(BitmapSource), 
+            typeof(BitmapSource), 
+            typeof(ImageSpliter), 
+            new PropertyMetadata(null));
+        private static readonly DependencyPropertyKey TopRightPropertyKey = DependencyProperty.RegisterReadOnly(
+            nameof(TopRight), 
+            typeof(BitmapSource), 
+            typeof(ImageSpliter), 
+            new PropertyMetadata(null));
         public static readonly DependencyProperty TopRightProperty = TopRightPropertyKey.DependencyProperty;
-        private static readonly DependencyPropertyKey TopLeftPropertyKey = DependencyProperty.RegisterReadOnly("s", typeof(BitmapSource), typeof(ImageSpliter), new PropertyMetadata(null));
+        private static readonly DependencyPropertyKey TopLeftPropertyKey = DependencyProperty.RegisterReadOnly(
+            nameof(TopLeft),
+            typeof(BitmapSource),
+            typeof(ImageSpliter),
+            new PropertyMetadata(null));
         public static readonly DependencyProperty TopLeftProperty = TopLeftPropertyKey.DependencyProperty;
 
         public bool IsSplit
