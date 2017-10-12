@@ -74,6 +74,8 @@
     </Compile>
     <Compile Include="BadVoxelFileException.cs" />
     <Compile Include="BooleanNotConverter.cs" />
+    <Compile Include="BrushToBitmapConverter.cs" />
+    <Compile Include="Controls\ImageSpliter.cs" />
     <Compile Include="Extensions.cs" />
     <Compile Include="Model\Action.cs" />
     <Compile Include="Model\ImageTile.cs" />
@@ -174,13 +176,25 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="Styles\TileRadioButton.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Styles\TileSizeToggle.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Styles\TileToggleButton.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Styles\ToolButton.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Styles\ImageSpliter.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
     </Page>
     <Page Include="View\AboutView.xaml">
       <SubType>Designer</SubType>

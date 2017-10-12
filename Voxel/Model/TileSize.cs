@@ -40,6 +40,13 @@ namespace Voxel.Model
                 }
             }
         }
+        public static double Gap
+        {
+            get
+            {
+                return 4.0;
+            }
+        }
         public static bool Fullscreen
         {
             get => fullScreen;

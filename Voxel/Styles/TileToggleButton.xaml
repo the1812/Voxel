@@ -1,0 +1,53 @@
+<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:root="clr-namespace:Voxel">
+  <Style
+    x:Key="TileToggleButton"
+    TargetType="ToggleButton">
+    
+    <Setter
+      Property="Template">
+      <Setter.Value>
+        <ControlTemplate
+          TargetType="ToggleButton">
+
+          <ControlTemplate.Resources>
+            <root:BrushToBitmapConverter
+              x:Key="converter" />
+            <CroppedBitmap
+              x:Key="cropUpLeft"
+              Source="{TemplateBinding Converter={StaticResource converter},Property=Background}" />
+            
+          </ControlTemplate.Resources>
+
+          <Grid
+            x:Name="gridMain">
+
+            <Grid
+              x:Name="gridSplitView">
+              <Grid.ColumnDefinitions>
+                <ColumnDefinition
+                  Width="1*" />
+                <ColumnDefinition
+                  Width="1*" />
+              </Grid.ColumnDefinitions>
+              <Grid.RowDefinitions>
+                <RowDefinition
+                  Height="1*" />
+                <RowDefinition
+                  Height="1*" />
+              </Grid.RowDefinitions>
+              
+              
+            </Grid>
+
+            <Image
+              Source="{TemplateBinding Converter={StaticResource converter}, Property=Background}" />
+
+          </Grid>
+          
+        </ControlTemplate>
+      </Setter.Value>
+    </Setter>
+  </Style>
+</ResourceDictionary>

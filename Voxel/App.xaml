@@ -21,6 +21,8 @@
           Source="Styles/TileSizeToggle.xaml" />
         <ResourceDictionary
           Source="Styles/OptionRadioButton.xaml" />
+        <ResourceDictionary
+          Source="Styles/ImageSpliter.xaml" />
       </ResourceDictionary.MergedDictionaries>
       <SolidColorBrush
         x:Key="HighlightColor"

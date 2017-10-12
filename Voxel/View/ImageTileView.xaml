@@ -33,6 +33,12 @@
     </Grid.RowDefinitions>
 
     <Grid
+      Grid.Column="1"
+      x:Name="gridPreview">
+      
+    </Grid>
+    
+    <Grid
       VerticalAlignment="Center"
       HorizontalAlignment="Stretch"
       x:Name="gridOptions"
