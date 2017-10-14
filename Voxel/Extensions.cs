@@ -7,6 +7,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Media;
+using System.Windows.Media.Imaging;
 using Voxel.View;
 using Voxel.ViewModel;
 
@@ -81,6 +82,30 @@ namespace Voxel
 #pragma warning restore CS0618 // 类型或成员已过时
 
             return new Size(formattedText.Width, formattedText.Height);
+        }
+        public static BitmapSource Resize(this BitmapSource source, Size size, Point dpi)
+        {
+            return source.Resize(size.Width, size.Height, dpi);
+        }
+        public static BitmapSource Resize(this BitmapSource source, double width, double height, Point dpi)
+        {
+            var bitmap = new TransformedBitmap(source,
+                new ScaleTransform(
+                    dpi.X * width / source.PixelWidth,
+                    dpi.Y * height / source.PixelHeight));
+            return bitmap;
+        }
+        public static Point GetDpi(this Visual visual)
+        {
+            PresentationSource source = PresentationSource.FromVisual(visual);
+
+            double dpiX = 0.0, dpiY = 0.0;
+            if (source != null)
+            {
+                dpiX = /*96.0 * */source.CompositionTarget.TransformToDevice.M11;
+                dpiY = /*96.0 * */source.CompositionTarget.TransformToDevice.M22;
+            }
+            return new Point(dpiX, dpiY);
         }
     }
 }

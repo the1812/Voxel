@@ -24,7 +24,7 @@ namespace Voxel.View
         public ImageTileView()
         {
             InitializeComponent();
-            DataContext = new ImageTileViewModel();
+            DataContext = new ImageTileViewModel(this);
         }
         protected override void OnClosing(CancelEventArgs e)
         {

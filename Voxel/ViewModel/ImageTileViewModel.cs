@@ -1,6 +1,7 @@
 using Microsoft.Win32;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -9,13 +10,15 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using Voxel.Model;
 using Voxel.Model.Languages;
+using Voxel.View;
 
 namespace Voxel.ViewModel
 {
     sealed class ImageTileViewModel : ViewModel
     {
-        public ImageTileViewModel() : base(new ImageTileLanguage())
+        public ImageTileViewModel(ImageTileView view) : base(new ImageTileLanguage())
         {
+            View = view;
         }
 #region Language
         public string WindowTitle => language[nameof(WindowTitle)];
@@ -37,6 +40,8 @@ namespace Voxel.ViewModel
         private ImageTileAction action = new ImageTileAction(ActionType.None);
         private ImageTileManager manager = new ImageTileManager();
 
+
+        public ImageTileView View { get; private set; }
         public void ClearData()
         {
             
@@ -67,8 +72,8 @@ namespace Voxel.ViewModel
             }
         }
 
-
-        private BitmapSource backImage;
+        private string backImagePath = null;
+        private BitmapSource backImage = null;
         public BitmapSource BackImage
         {
             get => backImage;
@@ -122,7 +127,17 @@ namespace Voxel.ViewModel
                     CheckFileExists = true,
                     Filter = language["OpenImageDialogFilter"],
                 };
-
+                if (File.Exists(backImagePath))
+                {
+                    dialog.FileName = backImagePath;
+                }
+                if (dialog.ShowDialog() ?? false)
+                {
+                    backImagePath = dialog.FileName;
+                    BitmapSource image = new BitmapImage(new Uri(backImagePath));
+                    image = image.Resize(TileSize.LargeSize, View.GetDpi());
+                    BackImage = image;
+                }
             },
         };
 

@@ -48,7 +48,7 @@ namespace Voxel.Model.Languages
                 "链接",
                 "设定背景色",
                 "选择图片",
-                "图片文件 (*.jpg;*.png;*.bmp;*.tif;*.jpeg;*.tiff)|*.jpg;*.png;*.bmp;*.tif;*.jpeg;*.tiff"，
+                "图片文件 (*.jpg;*.png;*.bmp;*.tif;*.jpeg;*.tiff)|*.jpg;*.png;*.bmp;*.tif;*.jpeg;*.tiff",
             };
             americanEnglish = new List<string>
             {

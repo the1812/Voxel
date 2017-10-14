@@ -38,11 +38,13 @@
       Grid.Column="1"
       x:Name="gridPreview">
 
-      <ctl:ImageSpliter
+      <ctl:ImageSpliter 
+        IsSplit="True"
+        BitmapSource="{Binding BackImage}"
         HorizontalAlignment="Center"
         VerticalAlignment="Center"
         Width="{x:Static m:TileSize.LargeWidthAndHeight}"
-        Height="{x:Static m:TileSize.LargeWidthAndHeight}" />
+        Height="{x:Static m:TileSize.LargeWidthAndHeight}"/>
 
     </Grid>
     
@@ -67,6 +69,7 @@
         Style="{StaticResource OptionButton}"
         x:Name="buttonTarget"
         Content="{Binding ButtonSelectImage}"
+        Command="{Binding SelectImageCommand}"
         Grid.Row="0" />
       <CheckBox
         Style="{StaticResource OptionCheckBox}"
