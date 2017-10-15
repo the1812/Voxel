@@ -135,7 +135,7 @@ namespace Voxel.ViewModel
                 {
                     backImagePath = dialog.FileName;
                     BitmapSource image = new BitmapImage(new Uri(backImagePath));
-                    image = image.Resize(TileSize.LargeSize, View.GetDpi());
+                    image = image.Resize(TileSize.LargeSize, MainView.Dpi);
                     BackImage = image;
                 }
             },

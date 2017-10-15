@@ -31,6 +31,7 @@ namespace Voxel.View
             }
             InitializeComponent();
             DataContext = new MainViewModel(this);
+            Loaded += (s, e) => { dpi = this.GetDpi(); };
         }
 
         public NonscalableTileView NonscalableTileView { get; private set; }
@@ -69,5 +70,8 @@ namespace Voxel.View
             resourcePath += ".png";
             return new SplashScreen(resourcePath);
         }
+
+        private static Point dpi;
+        public static Point Dpi => dpi;
     }
 }

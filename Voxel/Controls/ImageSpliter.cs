@@ -14,6 +14,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using Voxel.Model;
+using Voxel.View;
 
 namespace Voxel.Controls
 {
@@ -28,8 +29,6 @@ namespace Voxel.Controls
             base.OnMouseDoubleClick(e);
             IsSplit = !IsSplit;
         }
-#warning "DPI not set"
-        private static double dpi = 0.0;
 
         public static readonly DependencyProperty IsSplitProperty = DependencyProperty.Register(
             nameof(IsSplit),
@@ -44,16 +43,17 @@ namespace Voxel.Controls
             {
                 if (s is ImageSpliter spliter)
                 {
+                    var dpi = MainView.Dpi;
                     spliter.TopLeft = new CroppedBitmap(e.NewValue as BitmapSource, new Int32Rect(
                         0, 
                         0,
-                        (int)(dpi * TileSize.SmallWidthAndHeight),
-                        (int)(dpi * TileSize.SmallWidthAndHeight)));
+                        (int)(dpi.X * TileSize.SmallWidthAndHeight),
+                        (int)(dpi.Y * TileSize.SmallWidthAndHeight)));
                     spliter.TopRight = new CroppedBitmap(e.NewValue as BitmapSource, new Int32Rect(
-                        (int)(dpi * TileSize.SmallWidthAndHeight + TileSize.Gap),
+                        (int)(dpi.X * (TileSize.SmallWidthAndHeight + TileSize.Gap)),
                         0,
-                        (int)(dpi * TileSize.SmallWidthAndHeight),
-                        (int)(dpi * TileSize.SmallWidthAndHeight)));
+                        (int)(dpi.X * TileSize.SmallWidthAndHeight),
+                        (int)(dpi.Y * TileSize.SmallWidthAndHeight)));
                     //bottomLeft = new CroppedBitmap(value, new Int32Rect(
                     //    0,
                     //    (int) (TileSize.SmallWidthAndHeight + TileSize.Gap),
