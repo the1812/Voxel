@@ -47,26 +47,28 @@ namespace Voxel.Controls
                     spliter.TopLeft = new CroppedBitmap(e.NewValue as BitmapSource, new Int32Rect(
                         0, 
                         0,
-                        (int)(dpi.X * TileSize.SmallWidthAndHeight),
-                        (int)(dpi.Y * TileSize.SmallWidthAndHeight)));
+                        (int) (dpi.X * TileSize.SmallWidthAndHeight),
+                        (int) (dpi.Y * TileSize.SmallWidthAndHeight)));
                     spliter.TopRight = new CroppedBitmap(e.NewValue as BitmapSource, new Int32Rect(
-                        (int)(dpi.X * (TileSize.SmallWidthAndHeight + TileSize.Gap)),
+                        (int) (dpi.X * (TileSize.SmallWidthAndHeight + TileSize.Gap)),
                         0,
-                        (int)(dpi.X * TileSize.SmallWidthAndHeight),
-                        (int)(dpi.Y * TileSize.SmallWidthAndHeight)));
-                    //bottomLeft = new CroppedBitmap(value, new Int32Rect(
-                    //    0,
-                    //    (int) (TileSize.SmallWidthAndHeight + TileSize.Gap),
-                    //    (int) TileSize.SmallWidthAndHeight,
-                    //    (int) TileSize.SmallWidthAndHeight));
-                    //bottomRight = new CroppedBitmap(value, new Int32Rect(
-                    //    (int) (TileSize.SmallWidthAndHeight + TileSize.Gap),
-                    //    (int) (TileSize.SmallWidthAndHeight + TileSize.Gap),
-                    //    (int) TileSize.SmallWidthAndHeight,
-                    //    (int) TileSize.SmallWidthAndHeight));
+                        (int) (dpi.X * TileSize.SmallWidthAndHeight),
+                        (int) (dpi.Y * TileSize.SmallWidthAndHeight)));
+                    spliter.BottomLeft = new CroppedBitmap(e.NewValue as BitmapSource, new Int32Rect(
+                        0,
+                        (int) (dpi.Y * (TileSize.SmallWidthAndHeight + TileSize.Gap)),
+                        (int) (dpi.X * TileSize.SmallWidthAndHeight),
+                        (int) (dpi.Y * TileSize.SmallWidthAndHeight)));
+                    spliter.BottomRight = new CroppedBitmap(e.NewValue as BitmapSource, new Int32Rect(
+                        (int) (dpi.X * (TileSize.SmallWidthAndHeight + TileSize.Gap)),
+                        (int) (dpi.Y * (TileSize.SmallWidthAndHeight + TileSize.Gap)),
+                        (int) (dpi.X * TileSize.SmallWidthAndHeight),
+                        (int) (dpi.Y * TileSize.SmallWidthAndHeight)));
                     spliter.OnPropertyChanged(nameof(BitmapSource));
                     spliter.OnPropertyChanged(nameof(TopLeft));
                     spliter.OnPropertyChanged(nameof(TopRight));
+                    spliter.OnPropertyChanged(nameof(BottomLeft));
+                    spliter.OnPropertyChanged(nameof(BottomRight));
                 }
             }));
 
@@ -74,13 +76,7 @@ namespace Voxel.Controls
             nameof(TopRight), 
             typeof(BitmapSource), 
             typeof(ImageSpliter), 
-            new PropertyMetadata(null/*, (s, e) => 
-            {
-                if (s is ImageSpliter spliter)
-                {
-                    //spliter.OnPropertyChanged(e);
-                }
-            }*/));
+            new PropertyMetadata(null));
         public static readonly DependencyProperty TopRightProperty = TopRightPropertyKey.DependencyProperty;
 
         private static readonly DependencyPropertyKey TopLeftPropertyKey = DependencyProperty.RegisterReadOnly(
@@ -89,6 +85,20 @@ namespace Voxel.Controls
             typeof(ImageSpliter),
             new PropertyMetadata(null));
         public static readonly DependencyProperty TopLeftProperty = TopLeftPropertyKey.DependencyProperty;
+
+        private static readonly DependencyPropertyKey BottomLeftPropertyKey = DependencyProperty.RegisterReadOnly(
+            nameof(BottomLeft),
+            typeof(BitmapSource),
+            typeof(ImageSpliter),
+            new PropertyMetadata(null));
+        public static readonly DependencyProperty BottomLeftProperty = BottomLeftPropertyKey.DependencyProperty;
+
+        private static readonly DependencyPropertyKey BottomRightPropertyKey = DependencyProperty.RegisterReadOnly(
+            nameof(BottomRight),
+            typeof(BitmapSource),
+            typeof(ImageSpliter),
+            new PropertyMetadata(null));
+        public static readonly DependencyProperty BottomRightProperty = BottomRightPropertyKey.DependencyProperty;
 
         public event PropertyChangedEventHandler PropertyChanged;
         protected void OnPropertyChanged(string propertyName)
@@ -131,16 +141,24 @@ namespace Voxel.Controls
         }
         public BitmapSource TopRight
         {
-            get
-            {
-                return GetValue(TopRightProperty) as BitmapSource;
-            }
+            get { return GetValue(TopRightProperty) as BitmapSource; }
             protected set
             {
                 SetValue(TopRightPropertyKey, value);
             }
         }
 
-        //private CroppedBitmap upLeft, bottomLeft, bottomRight;
+
+        public BitmapSource BottomLeft
+        {
+            get { return (BitmapSource) GetValue(BottomLeftProperty); }
+            protected set { SetValue(BottomLeftPropertyKey, value); }
+        }
+        public BitmapSource BottomRight
+        {
+            get { return (BitmapSource) GetValue(BottomRightProperty); }
+            protected set { SetValue(BottomRightPropertyKey, value); }
+        }
+
     }
 }

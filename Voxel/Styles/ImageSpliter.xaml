@@ -58,8 +58,24 @@
                 <Image
                   Source="{TemplateBinding TopRight}" />
               </RadioButton>
-              
 
+              <RadioButton
+                Style="{StaticResource TileRadioButton}"
+                x:Name="bottomLeft"
+                Grid.Column="0"
+                Grid.Row="2">
+                <Image
+                  Source="{TemplateBinding BottomLeft}" />
+              </RadioButton>
+              
+              <RadioButton
+                Style="{StaticResource TileRadioButton}"
+                x:Name="bottomRight"
+                Grid.Column="2"
+                Grid.Row="2">
+                <Image
+                  Source="{TemplateBinding BottomRight}" />
+              </RadioButton>
             </Grid>
 
             <RadioButton
