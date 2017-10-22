@@ -5,7 +5,7 @@
     x:Key="TileRadioButton" TargetType="RadioButton">
     <Setter
       Property="BorderBrush"
-      Value="#80FFFFFF" />
+      Value="White" />
     <Setter
       Property="BorderThickness"
       Value="2" />
@@ -19,9 +19,8 @@
         <ControlTemplate TargetType="RadioButton">
           
           <Grid>
-            <Border
-              x:Name="content"
-              Background="{TemplateBinding Background}" />
+            <ContentPresenter
+              x:Name="content" />
             <Border
               x:Name="border"
               BorderBrush="{TemplateBinding BorderBrush}"
@@ -36,7 +35,43 @@
               <Setter
                 Property="Opacity"
                 TargetName="border"
+                Value="0.5" />
+            </Trigger>
+            <!--<MultiTrigger>
+              <MultiTrigger.Conditions>
+                <Condition
+                  Property="IsChecked"
+                  Value="false" />
+                <Condition
+                  Property="IsMouseOver"
+                  Value="true" />
+              </MultiTrigger.Conditions>
+              <Setter
+                Property="Opacity"
+                TargetName="border"
+                Value="0.5" />
+            </MultiTrigger>
+            <MultiTrigger>
+              <MultiTrigger.Conditions>
+                <Condition
+                  Property="IsChecked"
+                  Value="true" />
+                <Condition
+                  Property="IsMouseOver"
+                  Value="true" />
+              </MultiTrigger.Conditions>
+              <Setter
+                Property="Opacity"
+                TargetName="border"
                 Value="1" />
+            </MultiTrigger>-->
+            <Trigger
+              Property="IsChecked"
+              Value="true">
+              <Setter
+                Property="Opacity"
+                TargetName="border"
+                Value="0.5" />
             </Trigger>
           </ControlTemplate.Triggers>
 

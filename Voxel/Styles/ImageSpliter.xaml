@@ -4,7 +4,11 @@
   xmlns:local="clr-namespace:Voxel.Controls"
   xmlns:model="clr-namespace:Voxel.Model">
 
-
+  <ResourceDictionary.MergedDictionaries>
+    <ResourceDictionary
+      Source="TileRadioButton.xaml" />
+  </ResourceDictionary.MergedDictionaries>
+  
   <Style
     TargetType="{x:Type local:ImageSpliter}">
 
@@ -16,11 +20,13 @@
           TargetType="{x:Type local:ImageSpliter}">
 
           <Grid
+            Background="Transparent"
             x:Name="gridMain">
 
             <Grid
+              Background="Transparent"
               x:Name="gridSplitView"
-              Opacity="0">
+              Visibility="Collapsed">
               <Grid.ColumnDefinitions>
                 <ColumnDefinition
                   Width="1*" />
@@ -38,19 +44,30 @@
                   Height="1*" />
               </Grid.RowDefinitions>
 
-              <Image
-                x:Name="topLeft"
-                Source="{TemplateBinding TopLeft}" />
-              <Image
-                Grid.Column="2"
+              <RadioButton
+                Style="{StaticResource TileRadioButton}"
+                x:Name="topLeft">
+                <Image
+                  Source="{TemplateBinding TopLeft}" />
+              </RadioButton>
+
+              <RadioButton
+                Style="{StaticResource TileRadioButton}"
                 x:Name="topRight"
-                Source="{TemplateBinding TopRight}" />
+                Grid.Column="2">
+                <Image
+                  Source="{TemplateBinding TopRight}" />
+              </RadioButton>
+              
 
             </Grid>
 
-            <Image
+            <RadioButton
               x:Name="fullImage"
-              Source="{TemplateBinding BitmapSource}" />
+              Style="{StaticResource TileRadioButton}">
+              <Image
+                Source="{TemplateBinding BitmapSource}" />
+            </RadioButton>
 
           </Grid>
           <ControlTemplate.Triggers>
@@ -58,13 +75,13 @@
               Property="IsSplit"
               Value="true">
               <Setter
-                Property="Opacity"
+                Property="Visibility"
                 TargetName="fullImage"
-                Value="0" />
+                Value="Collapsed" />
               <Setter
-                Property="Opacity"
+                Property="Visibility"
                 TargetName="gridSplitView"
-                Value="1" />
+                Value="Visible" />
             </Trigger>
           </ControlTemplate.Triggers>
           

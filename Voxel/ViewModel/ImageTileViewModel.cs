@@ -20,7 +20,7 @@ namespace Voxel.ViewModel
         {
             View = view;
         }
-#region Language
+        #region Language
         public string WindowTitle => language[nameof(WindowTitle)];
         public string ButtonGenerate => language[nameof(ButtonGenerate)];
         public string ButtonAddToStart => language[nameof(ButtonAddToStart)];
