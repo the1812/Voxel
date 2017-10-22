@@ -100,12 +100,6 @@ namespace Voxel.Controls
             new PropertyMetadata(null));
         public static readonly DependencyProperty BottomRightProperty = BottomRightPropertyKey.DependencyProperty;
 
-        public event PropertyChangedEventHandler PropertyChanged;
-        protected void OnPropertyChanged(string propertyName)
-        {
-            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
-        }
-
         public bool IsSplit
         {
             get
@@ -159,6 +153,26 @@ namespace Voxel.Controls
             get { return (BitmapSource) GetValue(BottomRightProperty); }
             protected set { SetValue(BottomRightPropertyKey, value); }
         }
+
+
+        public event PropertyChangedEventHandler PropertyChanged;
+        protected void OnPropertyChanged(string propertyName)
+        {
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+        }
+
+
+
+
+        public Stretch Stretch
+        {
+            get { return (Stretch) GetValue(StretchProperty); }
+            set { SetValue(StretchProperty, value); }
+        }
+        public static readonly DependencyProperty StretchProperty =
+            DependencyProperty.Register("Stretch", typeof(Stretch), typeof(ImageSpliter), new PropertyMetadata(Stretch.Fill));
+
+
 
     }
 }

@@ -74,6 +74,7 @@
     </Compile>
     <Compile Include="BadVoxelFileException.cs" />
     <Compile Include="BooleanNotConverter.cs" />
+    <Compile Include="BooleanStretchConverter.cs" />
     <Compile Include="BrushToBitmapConverter.cs" />
     <Compile Include="Controls\ImageSpliter.cs" />
     <Compile Include="Extensions.cs" />

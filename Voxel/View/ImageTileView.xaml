@@ -4,7 +4,7 @@
   xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
   xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
   xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-  xmlns:local="clr-namespace:Voxel.View"
+  xmlns:root="clr-namespace:Voxel"
   xmlns:m="clr-namespace:Voxel.Model"
   xmlns:ctl="clr-namespace:Voxel.Controls"
   xmlns:sys="clr-namespace:System;assembly=mscorlib"
@@ -17,7 +17,8 @@
   MinHeight="300"
   Icon="/Voxel;component/Voxel.ico">
   <Window.Resources>
-    
+    <root:BooleanStretchConverter
+      x:Key="bsConverter" />
   </Window.Resources>
   <Grid
     x:Name="gridMain"
@@ -38,7 +39,8 @@
       Grid.Column="1"
       x:Name="gridPreview">
 
-      <ctl:ImageSpliter 
+      <ctl:ImageSpliter
+        Stretch="{Binding KeepAspectRatio, Converter={StaticResource bsConverter}, Mode=TwoWay}"
         IsSplit="True"
         BitmapSource="{Binding BackImage}"
         HorizontalAlignment="Center"
