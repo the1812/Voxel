@@ -29,6 +29,10 @@ namespace Voxel.View
             {
                 this.showSplashScreen();
             }
+            else
+            {
+                loadAllView();
+            }
             InitializeComponent();
             DataContext = new MainViewModel(this);
             Loaded += (s, e) => { dpi = this.GetDpi(); };
@@ -48,7 +52,7 @@ namespace Voxel.View
             SplashScreen splash = getSplashScreen();
             splash.Show(false);
             loadAllView();
-            Thread.Sleep(500);
+            //Thread.Sleep(500);
             splash.Close(TimeSpan.FromMilliseconds(200));
         }
         private SplashScreen getSplashScreen()

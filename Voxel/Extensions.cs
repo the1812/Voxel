@@ -10,6 +10,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using Voxel.View;
 using Voxel.ViewModel;
+using GdiPlus = System.Drawing;
 
 namespace Voxel
 {
@@ -107,5 +108,34 @@ namespace Voxel
             }
             return new Point(dpiX, dpiY);
         }
+
+        public static BitmapSource Resize(this BitmapSource source, Size imageSize, Size totalSize)
+        {
+            UniversalImage image = new UniversalImage(source);
+            GdiPlus.Image result = new GdiPlus.Bitmap((int) totalSize.Width, (int) totalSize.Height);
+            using (var graphics = GdiPlus.Graphics.FromImage(image.Image))
+            {
+                graphics.SmoothingMode = GdiPlus.Drawing2D.SmoothingMode.HighQuality;
+                graphics.InterpolationMode = GdiPlus.Drawing2D.InterpolationMode.HighQualityBicubic;
+                graphics.PixelOffsetMode = GdiPlus.Drawing2D.PixelOffsetMode.HighQuality;
+                graphics.Clear(GdiPlus.Color.Transparent);
+
+                var startPoint = new GdiPlus.PointF(0F, 0F);
+                var imageRatio = imageSize.Width / imageSize.Height;
+                var totalRatio = totalSize.Width / totalSize.Height;
+                if (imageRatio >= totalRatio)
+                {
+                    startPoint.Y = (float) totalSize.Height / 2F - (float) imageSize.Height / 2F;
+                }
+                else
+                {
+                    startPoint.X = (float) totalSize.Width / 2F - (float) imageSize.Width / 2F;
+                }
+
+                graphics.DrawImage(result, startPoint.X, startPoint.Y, (float) imageSize.Width, (float) imageSize.Height);
+            }
+            return new UniversalImage(result).ImageSource as BitmapSource;
+        }
+        
     }
 }

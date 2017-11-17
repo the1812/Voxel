@@ -8,6 +8,7 @@ using System.Threading.Tasks;
 using System.Windows.Controls;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
+using Voxel.Controls;
 using Voxel.Model;
 using Voxel.Model.Languages;
 using Voxel.View;
@@ -84,6 +85,17 @@ namespace Voxel.ViewModel
             }
         }
 
+        private UIElementCollection spliters;
+        public UIElementCollection Spliters
+        {
+            get => spliters;
+            set
+            {
+                spliters = value;
+                OnPropertyChanged(nameof(Spliters));
+            }
+        }
+
 
 
         #endregion
@@ -135,7 +147,10 @@ namespace Voxel.ViewModel
                 {
                     backImagePath = dialog.FileName;
                     BitmapSource image = new BitmapImage(new Uri(backImagePath));
-                    image = image.Resize(TileSize.LargeSize, MainView.Dpi);
+#warning "Test data: Size(3,3)"
+                    var size = new System.Windows.Size(3, 3);
+                    var images = ImageSpliter.Split(image, size);
+                    var point = new System.Windows.Point(0, 0);
                     BackImage = image;
                 }
             },

@@ -29,6 +29,45 @@ namespace Voxel.Controls
             base.OnMouseDoubleClick(e);
             IsSplit = !IsSplit;
         }
+        public static Dictionary<Point, CroppedBitmap> Split(BitmapSource bitmap, Size gridSize)
+        {
+            var maxWidth = gridSize.Width * (TileSize.LargeWidthAndHeight + TileSize.Gap) - TileSize.Gap;
+            var maxHeight = gridSize.Height * (TileSize.LargeWidthAndHeight + TileSize.Gap) - TileSize.Gap;
+            var sourceRatio = bitmap.Width / bitmap.Height;
+            var gridRatio = gridSize.Width / gridSize.Height;
+            if (sourceRatio >= gridRatio)
+            {
+                bitmap = bitmap.Resize(new Size(maxWidth, maxWidth / sourceRatio), new Size(maxWidth, maxHeight));
+            }
+            else
+            {
+                bitmap = bitmap.Resize(new Size(maxHeight * sourceRatio, maxHeight), new Size(maxWidth, maxHeight));
+            }
+
+            var dpiX = MainView.Dpi.X;
+            var dpiY = MainView.Dpi.Y;
+            var width = Math.Truncate(bitmap.PixelWidth / (dpiX * (TileSize.LargeWidthAndHeight + TileSize.Gap)));
+            var height = Math.Truncate(bitmap.PixelHeight / (dpiY * (TileSize.LargeWidthAndHeight + TileSize.Gap)));
+
+            var dict = new Dictionary<Point, CroppedBitmap>();
+            var dpi = MainView.Dpi;
+            for (int column = 0; column < width; column++)
+            {
+                for (int row = 0; row < height; row++)
+                {
+                    dict.Add(new Point(column, row), new CroppedBitmap(
+                        bitmap, new Int32Rect
+                        {
+                            Width = (int) (TileSize.LargeWidthAndHeight * dpi.X),
+                            Height = (int) (TileSize.LargeWidthAndHeight * dpi.Y),
+                            X = column * (int) ((TileSize.LargeWidthAndHeight + TileSize.Gap) * dpi.X),
+                            Y = row * (int) ((TileSize.LargeWidthAndHeight + TileSize.Gap) * dpi.Y)
+                        }
+                        ));
+                }
+            }
+            return dict;
+        }
 
         public static readonly DependencyProperty IsSplitProperty = DependencyProperty.Register(
             nameof(IsSplit),
