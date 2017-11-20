@@ -27,6 +27,8 @@
           Source="Styles/Icons.xaml" />
         <ResourceDictionary
           Source="Styles/ToolTextBlock.xaml" />
+        <ResourceDictionary
+          Source="Styles/MainViewButton.xaml" />
       </ResourceDictionary.MergedDictionaries>
       <SolidColorBrush
         x:Key="HighlightColor"

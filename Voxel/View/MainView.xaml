@@ -37,12 +37,12 @@
           Color="#33323232" />
       </LinearGradientBrush>
     </Grid.Background>
-    <Grid.Effect>
+    <!--<Grid.Effect>
       <DropShadowEffect
         BlurRadius="15"
         ShadowDepth="0"
         Opacity="0.4" />
-    </Grid.Effect>
+    </Grid.Effect>-->
     <!--<Grid.ColumnDefinitions>
       <ColumnDefinition
         Width="3*" />
@@ -65,33 +65,30 @@
       x:Name="buttonNonscalableTileNew"
       Content="{Binding ButtonNonscalableTile}"
       VerticalAlignment="Center"
-      HorizontalAlignment="Center"
+      HorizontalAlignment="Stretch"
       Margin="0"
-      Style="{StaticResource DarkButton}"
-      Height="40"
-      Width="220"
+      Style="{StaticResource MainViewButton}"
+      Height="50"
       HorizontalContentAlignment="Center"
       Command="{Binding NonscalableTileCommand}"
       Background="SteelBlue" />
     <Button
       x:Name="buttonScalableTile"
       Content="{Binding ButtonScalableTile}"
-      Style="{StaticResource DarkButton}"
-      HorizontalAlignment="Center"
+      Style="{StaticResource MainViewButton}"
+      HorizontalAlignment="Stretch"
       VerticalAlignment="Center"
-      Width="220"
-      Height="40"
+      Height="50"
       Margin="0"
       Grid.Row="1"
       Background="#448D54" />
     <Button
       x:Name="buttonImageTile"
       Content="{Binding ButtonImageTile}"
-      Style="{StaticResource DarkButton}"
-      HorizontalAlignment="Center"
+      Style="{StaticResource MainViewButton}"
+      HorizontalAlignment="Stretch"
       VerticalAlignment="Center"
-      Width="220"
-      Height="40"
+      Height="50"
       Margin="0"
       Grid.Row="2"
       Background="#AE6055"
@@ -99,11 +96,10 @@
     <Button
       x:Name="buttonClearTileCache"
       Content="{Binding ButtonClearTileCache}"
-      Style="{StaticResource DarkButton}"
-      HorizontalAlignment="Center"
+      Style="{StaticResource MainViewButton}"
+      HorizontalAlignment="Stretch"
       VerticalAlignment="Center"
-      Width="220"
-      Height="40"
+      Height="50"
       Margin="0"
       Grid.Row="3"
       IsEnabled="{Binding IsClearTileCacheBusy, Converter={StaticResource boolConverter}}"

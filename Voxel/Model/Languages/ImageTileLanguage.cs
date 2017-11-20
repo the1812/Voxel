@@ -58,7 +58,7 @@ namespace Voxel.Model.Languages
                 "Export",
                 "Import",
                 "Select Image",
-                "Keep Aspect Radio",
+                "Keep Aspect Ratio",
                 "Set Action",
                 "None",
                 "File",
