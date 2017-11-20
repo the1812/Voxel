@@ -10,8 +10,8 @@
   WindowStartupLocation="CenterOwner"
   ResizeMode="NoResize"
   Title="{Binding WindowTitle}"
-  Height="300"
-  Width="320"
+  Height="320"
+  Width="518"
   Foreground="White">
   <Window.Resources>
     <BooleanToVisibilityConverter
