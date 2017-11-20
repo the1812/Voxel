@@ -101,7 +101,7 @@ namespace Voxel.ViewModel
         #endregion
         #region Commands
 
-        public Command ChangeActionCommand => new Command
+        public BindingCommand ChangeActionCommand => new BindingCommand
         {
             ExcuteAction = (o) =>
             {
@@ -127,7 +127,7 @@ namespace Voxel.ViewModel
                 }
             },
         };
-        public Command SelectImageCommand => new Command
+        public BindingCommand SelectImageCommand => new BindingCommand
         {
             ExcuteAction = (o) =>
             {

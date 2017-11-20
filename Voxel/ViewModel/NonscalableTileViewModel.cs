@@ -400,8 +400,8 @@ namespace Voxel.ViewModel
         #endregion
         #region Commands
 
-        public Command SelectFileCommand
-            => new Command
+        public BindingCommand SelectFileCommand
+            => new BindingCommand
             {
                 ExcuteAction = (o) =>
                 {
@@ -440,8 +440,8 @@ namespace Voxel.ViewModel
                     IsBusy = false;
                 },
             };
-        public Command SelectFolderCommand
-            => new Command
+        public BindingCommand SelectFolderCommand
+            => new BindingCommand
             {
                 ExcuteAction = (o) =>
                 {
@@ -475,8 +475,8 @@ namespace Voxel.ViewModel
                     IsBusy = false;
                 },
             };
-        public Command SelectColorCommand
-            => new Command
+        public BindingCommand SelectColorCommand
+            => new BindingCommand
             {
                 ExcuteAction = (o) =>
                 {
@@ -519,16 +519,16 @@ namespace Voxel.ViewModel
                     
                 },
             };
-        public Command DefaultColorCommand
-            => new Command
+        public BindingCommand DefaultColorCommand
+            => new BindingCommand
             {
                 ExcuteAction = (o) =>
                 {
                     BackColor = dwmColor;
                 },
             };
-        public Command SelectBackImageCommand
-            => new Command
+        public BindingCommand SelectBackImageCommand
+            => new BindingCommand
             {
                 ExcuteAction = (o) =>
                 {
@@ -602,8 +602,8 @@ namespace Voxel.ViewModel
                     IsBusy = false;
                 },
             };
-        public Command ClearBackImageCommand
-            => new Command
+        public BindingCommand ClearBackImageCommand
+            => new BindingCommand
             {
                 ExcuteAction = (o) =>
                 {
@@ -617,8 +617,8 @@ namespace Voxel.ViewModel
                     }
                 },
             };
-        public Command GenerateCommand
-            => new Command
+        public BindingCommand GenerateCommand
+            => new BindingCommand
             {
                 ExcuteAction = (o) =>
                 {
@@ -652,8 +652,8 @@ namespace Voxel.ViewModel
                     }
                 },
             };
-        public Command AddToStartCommand
-            => new Command
+        public BindingCommand AddToStartCommand
+            => new BindingCommand
             {
                 ExcuteAction = (o) =>
                 {
@@ -693,8 +693,8 @@ namespace Voxel.ViewModel
                     }
                 },
             };
-        public Command ExportCommand
-            => new Command
+        public BindingCommand ExportCommand
+            => new BindingCommand
             {
                 ExcuteAction = (o) =>
                 {
@@ -702,6 +702,7 @@ namespace Voxel.ViewModel
                     if (!tileManager.Tile.TargetExists)
                     {
                         View.ShowMessage(language["TargetMissing"], language["TargetMissingTitle"], false);
+                        IsBusy = false;
                         return;
                     }
 
@@ -752,8 +753,8 @@ namespace Voxel.ViewModel
                     }
                 },
             };
-        public Command ImportCommand
-            => new Command
+        public BindingCommand ImportCommand
+            => new BindingCommand
             {
                 ExcuteAction = (o) =>
                 {
@@ -798,8 +799,8 @@ namespace Voxel.ViewModel
                     }
                 },
             };
-        public Command ResetCommand
-            => new Command
+        public BindingCommand ResetCommand
+            => new BindingCommand
             {
                 ExcuteAction = (o) =>
                 {
@@ -813,9 +814,6 @@ namespace Voxel.ViewModel
                     OnPropertyChanged(nameof(TargetFolderName));
                 },
             };
-
-        
-
         #endregion
 
     }

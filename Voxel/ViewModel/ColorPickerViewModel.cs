@@ -155,8 +155,8 @@ namespace Voxel.ViewModel
         }
         #endregion
         #region Commands
-        public Command HexEnterCommand
-            => new Command
+        public BindingCommand HexEnterCommand
+            => new BindingCommand
             {
                 ExcuteAction = (o) =>
                 {
@@ -166,8 +166,8 @@ namespace Voxel.ViewModel
                     }
                 },
             };
-        public Command RedEnterCommand
-            => new Command
+        public BindingCommand RedEnterCommand
+            => new BindingCommand
             {
                 ExcuteAction = (o) =>
                 {
@@ -177,8 +177,8 @@ namespace Voxel.ViewModel
                     }
                 },
             };
-        public Command GreenEnterCommand
-            => new Command
+        public BindingCommand GreenEnterCommand
+            => new BindingCommand
             {
                 ExcuteAction = (o) =>
                 {
@@ -188,8 +188,8 @@ namespace Voxel.ViewModel
                     }
                 },
             };
-        public Command BlueEnterCommand
-            => new Command
+        public BindingCommand BlueEnterCommand
+            => new BindingCommand
             {
                 ExcuteAction = (o) =>
                 {

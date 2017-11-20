@@ -101,7 +101,7 @@
     <Compile Include="TileTypeNotMatchException.cs" />
     <Compile Include="ViewModel\AboutViewModel.cs" />
     <Compile Include="ViewModel\ColorPickerViewModel.cs" />
-    <Compile Include="ViewModel\Command.cs" />
+    <Compile Include="ViewModel\BindingCommand.cs" />
     <Compile Include="ViewModel\ImageTileViewModel.cs" />
     <Compile Include="ViewModel\MainViewModel.cs" />
     <Compile Include="ViewModel\MessageViewModel.cs" />

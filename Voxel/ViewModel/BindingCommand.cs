@@ -7,7 +7,7 @@ using System.Windows.Input;
 
 namespace Voxel.ViewModel
 {
-    class Command : ICommand
+    class BindingCommand : ICommand
     {
         public event EventHandler CanExecuteChanged;
         internal void RaiseCanExecuteChanged()

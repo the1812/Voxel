@@ -97,7 +97,7 @@ namespace Voxel.ViewModel
 
 
 
-        public Command NonscalableTileCommand => new Command
+        public BindingCommand NonscalableTileCommand => new BindingCommand
         {
             ExcuteAction = (o) =>
             {
@@ -105,7 +105,7 @@ namespace Voxel.ViewModel
                 View.NonscalableTileView.ShowDialog();
             },
         };
-        public Command ImageTileCommand => new Command
+        public BindingCommand ImageTileCommand => new BindingCommand
         {
             ExcuteAction = (o) =>
             {
@@ -113,7 +113,7 @@ namespace Voxel.ViewModel
                 View.ImageTileView.ShowDialog();
             },
         };
-        public Command ClearTileCacheCommand => new Command
+        public BindingCommand ClearTileCacheCommand => new BindingCommand
         {
             ExcuteAction = async (o) =>
             {
@@ -135,7 +135,7 @@ namespace Voxel.ViewModel
             },
         };
 
-        public Command AboutCommand => new Command
+        public BindingCommand AboutCommand => new BindingCommand
         {
             ExcuteAction = (o) =>
             {
