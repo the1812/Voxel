@@ -70,12 +70,12 @@
                 <ContentPresenter
                   HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
                   VerticalAlignment="{TemplateBinding VerticalContentAlignment}">
-                  <ContentPresenter.Effect>
+                  <!--<ContentPresenter.Effect>
                     <DropShadowEffect
                       ShadowDepth="0"
                       BlurRadius="10"
                       Opacity="0.5" />
-                  </ContentPresenter.Effect>
+                  </ContentPresenter.Effect>-->
                 </ContentPresenter>
               </Viewbox>
 
