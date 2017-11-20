@@ -43,7 +43,7 @@ namespace Voxel.Model
         public abstract void Generate();
         public void RefreshShortcut()
         {
-            var filter = new Func<FileInfo, bool>((file) =>
+            var filter = new Func<FileInfo, bool>(file =>
             {
                 if (file.Extension != ".lnk")
                 {

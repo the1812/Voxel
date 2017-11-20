@@ -17,7 +17,7 @@ using System.IO;
 
 namespace Voxel.ViewModel
 {
-    sealed class NonscalableTileViewModel : ViewModel
+    sealed class NonscalableTileViewModel : ViewModel, IBusyState
     {
         public NonscalableTileViewModel(NonscalableTileView view) : base(new NonscalableTileLanguage())
         {
@@ -405,39 +405,39 @@ namespace Voxel.ViewModel
             {
                 ExcuteAction = (o) =>
                 {
-                    IsBusy = true;
-                    var dialog = new OpenFileDialog
+                    using (var busyController = new BusyStateController(this))
                     {
-                        Title = language["OpenFileDialogTitle"],
-                        Multiselect = false,
-                        DereferenceLinks = true,
-                        AddExtension = true,
-                        DefaultExt = ".exe",
-                        CheckFileExists = true,
-                        Filter = language["OpenFileDialogFilter"],
-                    };
-                    if (tileManager.Tile.TargetType == TargetType.File
-                    && TargetFileName != null)
-                    {
-                        dialog.FileName = tileManager.Tile.TargetPath;
-                    }
-                    if (dialog.ShowDialog() ?? false)
-                    {
-                        string targetPath = dialog.FileName;
-                        tileManager.Tile.TargetPath = targetPath;
-                        tileManager.Tile.TargetType = TargetType.File;
-
-                        if (tryLoadVoxel(targetPath) || tryLoadXml())
+                        var dialog = new OpenFileDialog
                         {
-                            IsBusy = false;
-                            return;
+                            Title = language["OpenFileDialogTitle"],
+                            Multiselect = false,
+                            DereferenceLinks = true,
+                            AddExtension = true,
+                            DefaultExt = ".exe",
+                            CheckFileExists = true,
+                            Filter = language["OpenFileDialogFilter"],
+                        };
+                        if (tileManager.Tile.TargetType == TargetType.File
+                        && TargetFileName != null)
+                        {
+                            dialog.FileName = tileManager.Tile.TargetPath;
                         }
+                        if (dialog.ShowDialog() ?? false)
+                        {
+                            string targetPath = dialog.FileName;
+                            tileManager.Tile.TargetPath = targetPath;
+                            tileManager.Tile.TargetType = TargetType.File;
 
-                        loadIcon(targetPath);
-                        
-                        OnPropertyChanged(nameof(TargetName));
+                            if (tryLoadVoxel(targetPath) || tryLoadXml())
+                            {
+                                return;
+                            }
+
+                            loadIcon(targetPath);
+
+                            OnPropertyChanged(nameof(TargetName));
+                        }
                     }
-                    IsBusy = false;
                 },
             };
         public BindingCommand SelectFolderCommand
@@ -445,34 +445,34 @@ namespace Voxel.ViewModel
             {
                 ExcuteAction = (o) =>
                 {
-                    IsBusy = true;
-                    var dialog = new System.Windows.Forms.FolderBrowserDialog
+                    using (var busyController = new BusyStateController(this))
                     {
-                        Description = language["OpenFolderDialogTitle"],
-                        ShowNewFolderButton = false,
-                    };
-                    if (tileManager.Tile.TargetType == TargetType.Folder
-                    && TargetFolderName != null)
-                    {
-                        dialog.SelectedPath = tileManager.Tile.TargetPath;
-                    }
-                    if (dialog.ShowDialog() == System.Windows.Forms.DialogResult.OK)
-                    {
-                        string targetPath = dialog.SelectedPath;
-                        tileManager.Tile.TargetPath = targetPath;
-                        tileManager.Tile.TargetType = TargetType.Folder;
-
-                        if (tryLoadVoxel(targetPath) || tryLoadXml())
+                        var dialog = new System.Windows.Forms.FolderBrowserDialog
                         {
-                            IsBusy = false;
-                            return;
+                            Description = language["OpenFolderDialogTitle"],
+                            ShowNewFolderButton = false,
+                        };
+                        if (tileManager.Tile.TargetType == TargetType.Folder
+                        && TargetFolderName != null)
+                        {
+                            dialog.SelectedPath = tileManager.Tile.TargetPath;
                         }
+                        if (dialog.ShowDialog() == System.Windows.Forms.DialogResult.OK)
+                        {
+                            string targetPath = dialog.SelectedPath;
+                            tileManager.Tile.TargetPath = targetPath;
+                            tileManager.Tile.TargetType = TargetType.Folder;
 
-                        loadIcon(targetPath);
+                            if (tryLoadVoxel(targetPath) || tryLoadXml())
+                            {
+                                return;
+                            }
 
-                        OnPropertyChanged(nameof(TargetName));
+                            loadIcon(targetPath);
+
+                            OnPropertyChanged(nameof(TargetName));
+                        }
                     }
-                    IsBusy = false;
                 },
             };
         public BindingCommand SelectColorCommand
@@ -532,74 +532,75 @@ namespace Voxel.ViewModel
             {
                 ExcuteAction = (o) =>
                 {
-                    IsBusy = true;
-                    bool verifyImage(string imagePath)
+                    using (var busyController = new BusyStateController(this))
                     {
-                        FileInfo info = new FileInfo(imagePath);
-                        if (info.Length > Tile.MaxImageSize)
+                        bool verifyImage(string imagePath)
                         {
-                            View.ShowMessage(language["ImageSizeTooBigContent"], language["ImageSizeTooBigTitle"], false);
-                            return false;
-                        }
-
-                        var image = new BitmapImage(new Uri(imagePath));
-                        if (image.PixelWidth > Tile.MaxImageDimensions ||
-                            image.PixelHeight > Tile.MaxImageDimensions)
-                        {
-                            View.ShowMessage(language["ImageDimensionTooBigContent"], language["ImageDimensionTooBigTitle"], false);
-                            return false;
-                        }
-
-                        return true;
-                    }
-                    var dialog = new OpenFileDialog
-                    {
-                        Title = language["OpenImageDialogTitle"],
-                        DereferenceLinks = true,
-                        Multiselect = false,
-                        AddExtension = false,
-                        CheckFileExists = true,
-                        Filter = language["OpenImageDialogFilter"],
-                    };
-                    if (!IsTileSizeToggleChecked)
-                    {
-                        if (tileManager.Tile.LargeImagePath != null)
-                        {
-                            dialog.FileName = tileManager.Tile.LargeImagePath;
-                        }
-                        if (dialog.ShowDialog() ?? false)
-                        {
-                            string imagePath = dialog.FileName;
-
-                            if (!verifyImage(imagePath))
+                            FileInfo info = new FileInfo(imagePath);
+                            if (info.Length > Tile.MaxImageSize)
                             {
-                                return;
+                                View.ShowMessage(language["ImageSizeTooBigContent"], language["ImageSizeTooBigTitle"], false);
+                                return false;
                             }
 
-                            tileManager.Tile.LargeImagePath = imagePath;
-                            BackImage = new BitmapImage(new Uri(imagePath));
-                        }
-                    }
-                    else
-                    {
-                        if (tileManager.Tile.SmallImagePath != null)
-                        {
-                            dialog.FileName = tileManager.Tile.SmallImagePath;
-                        }
-                        if (dialog.ShowDialog() ?? false)
-                        {
-                            string imagePath = dialog.FileName;
-
-                            if (!verifyImage(imagePath))
+                            var image = new BitmapImage(new Uri(imagePath));
+                            if (image.PixelWidth > Tile.MaxImageDimensions ||
+                                image.PixelHeight > Tile.MaxImageDimensions)
                             {
-                                return;
+                                View.ShowMessage(language["ImageDimensionTooBigContent"], language["ImageDimensionTooBigTitle"], false);
+                                return false;
                             }
 
-                            tileManager.Tile.SmallImagePath = imagePath;
-                            BackImageSmall = new BitmapImage(new Uri(imagePath));
+                            return true;
+                        }
+                        var dialog = new OpenFileDialog
+                        {
+                            Title = language["OpenImageDialogTitle"],
+                            DereferenceLinks = true,
+                            Multiselect = false,
+                            AddExtension = false,
+                            CheckFileExists = true,
+                            Filter = language["OpenImageDialogFilter"],
+                        };
+                        if (!IsTileSizeToggleChecked)
+                        {
+                            if (tileManager.Tile.LargeImagePath != null)
+                            {
+                                dialog.FileName = tileManager.Tile.LargeImagePath;
+                            }
+                            if (dialog.ShowDialog() ?? false)
+                            {
+                                string imagePath = dialog.FileName;
+
+                                if (!verifyImage(imagePath))
+                                {
+                                    return;
+                                }
+
+                                tileManager.Tile.LargeImagePath = imagePath;
+                                BackImage = new BitmapImage(new Uri(imagePath));
+                            }
+                        }
+                        else
+                        {
+                            if (tileManager.Tile.SmallImagePath != null)
+                            {
+                                dialog.FileName = tileManager.Tile.SmallImagePath;
+                            }
+                            if (dialog.ShowDialog() ?? false)
+                            {
+                                string imagePath = dialog.FileName;
+
+                                if (!verifyImage(imagePath))
+                                {
+                                    return;
+                                }
+
+                                tileManager.Tile.SmallImagePath = imagePath;
+                                BackImageSmall = new BitmapImage(new Uri(imagePath));
+                            }
                         }
                     }
-                    IsBusy = false;
                 },
             };
         public BindingCommand ClearBackImageCommand
@@ -622,33 +623,31 @@ namespace Voxel.ViewModel
             {
                 ExcuteAction = (o) =>
                 {
-                    IsBusy = true;
-                    try
+                    using (var busyController = new BusyStateController(this))
                     {
-                        if (!tileManager.Tile.TargetExists)
+                        try
                         {
-                            View.ShowMessage(language["TargetMissing"], language["TargetMissingTitle"], false);
+                            if (!tileManager.Tile.TargetExists)
+                            {
+                                View.ShowMessage(language["TargetMissing"], language["TargetMissingTitle"], false);
+                            }
+                            else
+                            {
+                                fillImagePath();
+                                tileManager.Generate();
+                                View.ShowMessage("", language["GenerateSuccessTitle"], false);
+                            }
                         }
-                        else
+                        catch (UnauthorizedAccessException)
                         {
-                            fillImagePath();
-                            tileManager.Generate();
-                            View.ShowMessage("", language["GenerateSuccessTitle"], false);
+                            View.ShowMessage(App.GeneralLanguage["AdminTip"], language["GenerateFailedTitle"], false);
                         }
-                    }
-                    catch (UnauthorizedAccessException)
-                    {
-                        View.ShowMessage(App.GeneralLanguage["AdminTip"], language["GenerateFailedTitle"], false);
-                    }
 #if !DEBUG
                     catch (Exception ex)
                     {
                         View.ShowMessage(ex.Message, language["GenerateFailedTitle"], false);
                     }
 #endif
-                    finally
-                    {
-                        IsBusy = false;
                     }
                 },
             };
@@ -657,39 +656,37 @@ namespace Voxel.ViewModel
             {
                 ExcuteAction = (o) =>
                 {
-                    IsBusy = true;
-                    try
+                    using (var busyController = new BusyStateController(this))
                     {
-                        if (!tileManager.Tile.TargetExists)
+                        try
                         {
-                            View.ShowMessage(language["TargetMissing"], language["TargetMissingTitle"], false);
-                            return;
-                        }
+                            if (!tileManager.Tile.TargetExists)
+                            {
+                                View.ShowMessage(language["TargetMissing"], language["TargetMissingTitle"], false);
+                                return;
+                            }
 
-                        if (tileManager.Tile.IsOnStartMenu
-                        && !View.ShowMessage(language["OverwriteStartContent"], language["OverwriteStartTitle"], true))
-                        {
-                            return;
+                            if (tileManager.Tile.IsOnStartMenu
+                            && !View.ShowMessage(language["OverwriteStartContent"], language["OverwriteStartTitle"], true))
+                            {
+                                return;
+                            }
+                            else
+                            {
+                                tileManager.AddToStart();
+                                View.ShowMessage("", language["AddToStartSuccessTitle"], false);
+                            }
                         }
-                        else
+                        catch (UnauthorizedAccessException)
                         {
-                            tileManager.AddToStart();
-                            View.ShowMessage("", language["AddToStartSuccessTitle"], false);
+                            View.ShowMessage(App.GeneralLanguage["AdminTip"], language["AddToStartFailedTitle"], false);
                         }
-                    }
-                    catch (UnauthorizedAccessException)
-                    {
-                        View.ShowMessage(App.GeneralLanguage["AdminTip"], language["AddToStartFailedTitle"], false);
-                    }
 #if !DEBUG
                         catch (Exception ex)
                         {
                             View.ShowMessage(ex.Message, language["AddToStartFailedTitle"], false);
                         }
 #endif
-                    finally
-                    {
-                        IsBusy = false;
                     }
                 },
             };
@@ -698,58 +695,51 @@ namespace Voxel.ViewModel
             {
                 ExcuteAction = (o) =>
                 {
-                    IsBusy = true;
-                    if (!tileManager.Tile.TargetExists)
+                    using (var busyController = new BusyStateController(this))
                     {
-                        View.ShowMessage(language["TargetMissing"], language["TargetMissingTitle"], false);
-                        IsBusy = false;
-                        return;
-                    }
+                        if (!tileManager.Tile.TargetExists)
+                        {
+                            View.ShowMessage(language["TargetMissing"], language["TargetMissingTitle"], false);
+                            return;
+                        }
 
-                    if (tileManager.Path == null)
-                    {
-                        tileManager.Path = getVoxelFileName(tileManager.Tile.TargetPath);
-                    }
-                    var dialog = new SaveFileDialog
-                    {
-                        Title = language["ExportDialogTitle"],
-                        Filter = App.GeneralLanguage["VoxelDialogFilter"],
-                        InitialDirectory = tileManager.Path.RemoveFileName(),
-                        FileName = tileManager.Path.GetFileName(),
-                        OverwritePrompt = true,
-                        AddExtension = true,
-                        DefaultExt = ".voxel",
-                    };
-                    if (dialog.ShowDialog() ?? false)
-                    {
-                        tileManager.Path = dialog.FileName;
-                        try
+                        if (tileManager.Path == null)
                         {
-                            fillImagePath();
-                            tileManager.SaveData();
+                            tileManager.Path = getVoxelFileName(tileManager.Tile.TargetPath);
                         }
-                        catch (UnauthorizedAccessException)
+                        var dialog = new SaveFileDialog
                         {
-                            View.ShowMessage(App.GeneralLanguage["AdminTip"], language["ExportFailedTitle"], false);
-                        }
-                        catch (IOException ex)
+                            Title = language["ExportDialogTitle"],
+                            Filter = App.GeneralLanguage["VoxelDialogFilter"],
+                            InitialDirectory = tileManager.Path.RemoveFileName(),
+                            FileName = tileManager.Path.GetFileName(),
+                            OverwritePrompt = true,
+                            AddExtension = true,
+                            DefaultExt = ".voxel",
+                        };
+                        if (dialog.ShowDialog() ?? false)
                         {
-                            View.ShowMessage(ex.Message, language["ExportFailedTitle"], false);
-                        }
+                            tileManager.Path = dialog.FileName;
+                            try
+                            {
+                                fillImagePath();
+                                tileManager.SaveData();
+                            }
+                            catch (UnauthorizedAccessException)
+                            {
+                                View.ShowMessage(App.GeneralLanguage["AdminTip"], language["ExportFailedTitle"], false);
+                            }
+                            catch (IOException ex)
+                            {
+                                View.ShowMessage(ex.Message, language["ExportFailedTitle"], false);
+                            }
 #if !DEBUG
                         catch (Exception ex)
                         {
                             View.ShowMessage(ex.Message, language["ExportFailedTitle"], false);
                         }
 #endif
-                        finally
-                        {
-                            IsBusy = false;
                         }
-                    }
-                    else
-                    {
-                        IsBusy = false;
                     }
                 },
             };
@@ -758,44 +748,38 @@ namespace Voxel.ViewModel
             {
                 ExcuteAction = (o) =>
                 {
-                    IsBusy = true;
-                    var dialog = new OpenFileDialog
+                    using (var busyController = new BusyStateController(this))
                     {
-                        Title = language["ImportDialogTitle"],
-                        Filter = App.GeneralLanguage["VoxelDialogFilter"],
-                        Multiselect = false,
-                        DereferenceLinks = true,
-                        CheckFileExists = true,
-                        AddExtension = true,
-                        DefaultExt = ".voxel",
-                    };
-                    if (dialog.ShowDialog() ?? false)
-                    {
-                        tileManager.Path = dialog.FileName;
+                        var dialog = new OpenFileDialog
+                        {
+                            Title = language["ImportDialogTitle"],
+                            Filter = App.GeneralLanguage["VoxelDialogFilter"],
+                            Multiselect = false,
+                            DereferenceLinks = true,
+                            CheckFileExists = true,
+                            AddExtension = true,
+                            DefaultExt = ".voxel",
+                        };
+                        if (dialog.ShowDialog() ?? false)
+                        {
+                            tileManager.Path = dialog.FileName;
 
-                        try
-                        {
-                            tileManager.LoadData();
-                            updateFromTileManager();
-                        }
-                        catch (BadVoxelFileException ex)
-                        {
-                            View.ShowMessage(ex.Message, language["ImportFailedTitle"], false);
-                        }
+                            try
+                            {
+                                tileManager.LoadData();
+                                updateFromTileManager();
+                            }
+                            catch (BadVoxelFileException ex)
+                            {
+                                View.ShowMessage(ex.Message, language["ImportFailedTitle"], false);
+                            }
 #if !DEBUG
                         catch (Exception ex)
                         {
                             View.ShowMessage(ex.Message, language["ImportFailedTitle"], false);
                         }
 #endif
-                        finally
-                        {
-                            IsBusy = false;
                         }
-                    }
-                    else
-                    {
-                        IsBusy = false;
                     }
                 },
             };

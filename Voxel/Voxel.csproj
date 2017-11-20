@@ -79,6 +79,7 @@
     <Compile Include="Controls\ImageSpliter.cs" />
     <Compile Include="Extensions.cs" />
     <Compile Include="Model\Action.cs" />
+    <Compile Include="Model\BusyStateController.cs" />
     <Compile Include="Model\ImageTile.cs" />
     <Compile Include="Model\ImageTileManager.cs" />
     <Compile Include="Model\Languages\AboutLanguage.cs" />
@@ -102,6 +103,7 @@
     <Compile Include="ViewModel\AboutViewModel.cs" />
     <Compile Include="ViewModel\ColorPickerViewModel.cs" />
     <Compile Include="ViewModel\BindingCommand.cs" />
+    <Compile Include="ViewModel\IBusyState.cs" />
     <Compile Include="ViewModel\ImageTileViewModel.cs" />
     <Compile Include="ViewModel\MainViewModel.cs" />
     <Compile Include="ViewModel\MessageViewModel.cs" />
