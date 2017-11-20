@@ -789,7 +789,7 @@ namespace Voxel.ViewModel
 #endif
                         finally
                         {
-                            IsBusy = true;
+                            IsBusy = false;
                         }
                     }
                     else

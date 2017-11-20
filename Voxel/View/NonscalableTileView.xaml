@@ -252,18 +252,48 @@
       </Grid.ColumnDefinitions>
       <Button
         x:Name="buttonExport"
-        Content="{Binding ButtonExport}"
         Grid.Column="3"
         IsEnabled="{Binding IsBusy, Converter={StaticResource notConverter}}"
         Style="{StaticResource ToolButton}"
-        Command="{Binding ExportCommand}" />
+        Command="{Binding ExportCommand}">
+        <StackPanel
+          Orientation="Horizontal">
+          <Viewbox
+            Margin="0,0,15,0"
+            Height="26"
+            Width="26"
+            Child="{StaticResource Export}" />
+          <Viewbox
+            Margin="0,0,15,0"
+            Height="20">
+            <TextBlock
+              Style="{StaticResource ToolTextBlock}"
+              Text="{Binding ButtonExport}" />
+          </Viewbox>
+        </StackPanel>
+      </Button>
       <Button
         x:Name="buttonImport"
-        Content="{Binding ButtonImport}"
         Grid.Column="2"
         IsEnabled="{Binding IsBusy, Converter={StaticResource notConverter}}"
         Style="{StaticResource ToolButton}"
-        Command="{Binding ImportCommand}" />
+        Command="{Binding ImportCommand}">
+        <StackPanel
+          Orientation="Horizontal">
+          <Viewbox
+            Margin="0,0,15,0"
+            Height="26"
+            Width="26"
+            Child="{StaticResource Import}" />
+          <Viewbox
+            Margin="0,0,15,0"
+            Height="20">
+            <TextBlock
+              Style="{StaticResource ToolTextBlock}"
+              Text="{Binding ButtonImport}" />
+          </Viewbox>
+        </StackPanel>
+      </Button>
       <Button
         x:Name="buttonAddToStart"
         Grid.Column="1"
@@ -273,12 +303,13 @@
         <StackPanel
           Orientation="Horizontal">
           <Viewbox
-            Margin="0,0,20,0"
-            Height="64"
-            Width="64"
+            Margin="0,0,5,0"
+            Height="26"
+            Width="26"
             Child="{StaticResource WindowsLogo}" />
           <Viewbox
-            Height="48">
+            Margin="0,0,5,0"
+            Height="20">
             <TextBlock
               Style="{StaticResource ToolTextBlock}"
               Text="{Binding ButtonAddToStart}" />
@@ -287,10 +318,25 @@
       </Button>
       <Button
         x:Name="buttonGenrate"
-        Content="{Binding ButtonGenerate}"
         IsEnabled="{Binding IsBusy, Converter={StaticResource notConverter}}"
         Style="{StaticResource ToolButton}"
-        Command="{Binding GenerateCommand}" />
+        Command="{Binding GenerateCommand}">
+        <StackPanel
+          Orientation="Horizontal">
+          <Viewbox
+            Margin="0,0,15,0"
+            Height="26"
+            Width="26"
+            Child="{StaticResource Generate}" />
+          <Viewbox
+            Margin="0,0,15,0"
+            Height="20">
+            <TextBlock
+              Style="{StaticResource ToolTextBlock}"
+              Text="{Binding ButtonGenerate}" />
+          </Viewbox>
+        </StackPanel>
+      </Button>
 
     </Grid>
 

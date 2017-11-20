@@ -5,18 +5,85 @@
     Height="1024"
     Width="1024"
     x:Key="WindowsLogo">
+    <Canvas.RenderTransform>
+      <TranslateTransform
+        X="1024" />
+    </Canvas.RenderTransform>
     <Polygon
       Fill="White"
-      Points="472,497.5 932,497.5 932,97.5 472,157.7 " />
+      Points="-92,469 -92,97 -529,154.2 -529,469" />
     <Polygon
       Fill="White"
-      Points="92,207.5 92,497.5 442,497.5 442,161.7 " />
+      Points="-529,549 -529,869.8 -92,927 -92,549" />
     <Polygon
       Fill="White"
-      Points="472,527.5 472,867.3 932,927.5 932,527.5 " />
+      Points="-932,549 -932,817 -609,859.3 -609,549" />
     <Polygon
       Fill="White"
-      Points="442,527.5 92,527.5 92,817.5 442,863.3 " />
+      Points="-609,469 -609,164.7 -932,207 -932,469" />
   </Canvas>
-    
+
+  <Canvas
+    Width="24"
+    Height="24"
+    x:Key="Generate">
+    <Path
+      Data="M12,2C6.48,2,2,6.48,2,12s4.48,10,10,10,10,-4.48,10,-10S17.52,2,12,2zm-2,15l-5,-5,1.41,-1.41L10,14.17l7.59,-7.59L19,8l-9,9z"
+      Fill="White" />
+  </Canvas>
+
+  <Canvas
+    Width="24"
+    Height="24"
+    x:Key="Import">
+    <Canvas
+      Clip="M0,0v17.1543l0.456,-0.4622c0.2818,-0.2856,0.6665,-0.4465,1.0678,-0.4465h0c0.3166,0,0.6227,0.1001,0.8762,0.2825V14.6c0,-0.8284,0.6716,-1.5,1.5,-1.5h2c0.8284,0,1.5,0.6716,1.5,1.5v1.9675c0.5866,-0.4635,1.4394,-0.4264,1.9834,0.1115l1.3969,1.3813c0.2841,0.281,0.4443,0.6636,0.4453,1.0632c0.0009,0.3995,-0.1576,0.7829,-0.4404,1.0651L6.9665,24H24V0H0z">
+      <Canvas>
+        <Canvas.RenderTransform>
+          <TransformGroup>
+            <TranslateTransform
+              X="1"
+              Y="0" />
+          </TransformGroup>
+        </Canvas.RenderTransform>
+        <Path
+          Data="M6,2c-1.1,0,-1.99,0.9,-1.99,2L4,20c0,1.1,0.89,2,1.99,2H18c1.1,0,2,-0.9,2,-2V8l-6,-6H6zm7,7V3.5L18.5,9H13z"
+          Fill="White" />
+      </Canvas>
+    </Canvas>
+    <Canvas>
+      <Polygon
+        Points="9.7256,19.1269 8.3787,17.7456 6,20.1544 6,14.5 4,14.5 4,20.1544 1.5738,17.7456 0.1859,19.1269 4.9557,23.9"
+        Fill="White"
+        StrokeLineJoin="Miter" />
+    </Canvas>
+  </Canvas>
+
+  <Canvas
+    Height="24"
+    Width="24"
+    x:Key="Export">
+    <Canvas
+      Clip="M0,0v17.3684l3.8836,-3.8761c0.5855,-0.5844,1.5337,-0.5844,2.1192,0l4.7823,4.773c0.2828,0.2822,0.4413,0.6656,0.4404,1.0651s-0.1612,0.7822,-0.4453,1.0631L9.3834,21.775c-0.5439,0.5383,-1.3968,0.5751,-1.9834,0.1116V24h16.6V0H0z">
+      <Canvas>
+        <Canvas.RenderTransform>
+          <TransformGroup>
+            <TranslateTransform
+              X="1"
+              Y="0" />
+          </TransformGroup>
+        </Canvas.RenderTransform>
+        <Path
+          Data="M6,2c-1.1,0,-1.99,0.9,-1.99,2L4,20c0,1.1,0.89,2,1.99,2H18c1.1,0,2,-0.9,2,-2V8l-6,-6H6zm7,7V3.5L18.5,9H13z"
+          Fill="White" />
+      </Canvas>
+    </Canvas>
+    <Canvas>
+      <Polygon
+        Points="9.7256,19.3271 8.3787,20.7084 6,18.2997 6,24 4,24 4,18.2997 1.5738,20.7084 0.1859,19.3271 4.9557,14.554"
+        Fill="White"
+        StrokeLineJoin="Miter" />
+    </Canvas>
+  </Canvas>
+  
 </ResourceDictionary>

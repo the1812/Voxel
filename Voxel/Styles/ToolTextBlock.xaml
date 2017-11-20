@@ -5,7 +5,7 @@
     x:Key="ToolTextBlock" TargetType="TextBlock">
     <Setter
       Property="FontSize"
-      Value="36" />
+      Value="16" />
     <Setter
       Property="VerticalAlignment"
       Value="Center" />
