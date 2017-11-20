@@ -23,6 +23,10 @@
           Source="Styles/OptionRadioButton.xaml" />
         <ResourceDictionary
           Source="Styles/ImageSpliter.xaml" />
+        <ResourceDictionary
+          Source="Styles/Icons.xaml" />
+        <ResourceDictionary
+          Source="Styles/ToolTextBlock.xaml" />
       </ResourceDictionary.MergedDictionaries>
       <SolidColorBrush
         x:Key="HighlightColor"

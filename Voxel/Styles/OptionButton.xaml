@@ -111,7 +111,7 @@
               Value="False">
               <Setter
                 Property="Opacity"
-                Value="0.3" />
+                Value="0.4" />
             </Trigger>
           </ControlTemplate.Triggers>
         </ControlTemplate>

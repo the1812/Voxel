@@ -5,6 +5,9 @@ using System.Text;
 using System.Threading.Tasks;
 using Ace.Files.Json;
 using Ace.Files;
+using Ace;
+using System.IO;
+using Voxel.ViewModel;
 
 namespace Voxel.Model
 {
@@ -28,16 +31,30 @@ namespace Voxel.Model
             {
                 Content = data,
             };
-            file.Flush();
+            file.Save();
         }
         public virtual void LoadData()
         {
             JsonFile file = new JsonFile(Path);
-            file.Read();
+            file.Load();
             data = file.Content;
         }
         public abstract void AddToStart();
         public abstract void Generate();
+        public void RefreshShortcut()
+        {
+            var filter = new Func<FileInfo, bool>((file) =>
+            {
+                if (file.Extension != ".lnk")
+                {
+                    return false;
+                }
+                ShortcutFile shortcutFile = new ShortcutFile(file.FullName);
+                shortcutFile.Load();
+                return Path.GetFileName().ToLower() == shortcutFile.TargetPath.GetFileName().ToLower();
+            });
+            MainViewModel.ClearTileCache(filter);
+        }
 
         protected const string TypeKey = "Type";
         public const string DarkThemeString = "dark";

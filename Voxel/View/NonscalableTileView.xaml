@@ -6,6 +6,7 @@
   xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
   xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
   xmlns:local="clr-namespace:Voxel.View"
+  xmlns:root="clr-namespace:Voxel"
   xmlns:m="clr-namespace:Voxel.Model"
   mc:Ignorable="d"
   ResizeMode="CanMinimize"
@@ -18,7 +19,9 @@
   Icon="/Voxel;component/Voxel.ico">
   <Window.Resources>
     <BooleanToVisibilityConverter
-      x:Key="converter" />
+      x:Key="visibilityConverter" />
+    <root:BooleanNotConverter
+      x:Key="notConverter" />
   </Window.Resources>
   <Grid
     x:Name="gridMain"
@@ -52,6 +55,7 @@
       Style="{StaticResource DarkButton}"
       Content="{Binding ButtonReset}"
       Command="{Binding ResetCommand}"
+      IsEnabled="{Binding IsBusy, Converter={StaticResource notConverter}}"
       Grid.Column="1"
       Width="70"
       Height="25"
@@ -127,7 +131,7 @@
       </Border>
       <TextBlock
         x:Name="textName"
-        Visibility="{Binding ShowName, Converter={StaticResource converter}}"
+        Visibility="{Binding ShowName, Converter={StaticResource visibilityConverter}}"
         HorizontalAlignment="Left"
         TextWrapping="Wrap"
         Text="{Binding TargetName}"
@@ -139,7 +143,7 @@
         Foreground="{Binding NameForeground}"
         x:Name="textLongNameMark"
         Text="..."
-        Visibility="{Binding ShowLongNameMark, Converter={StaticResource converter}}"
+        Visibility="{Binding ShowLongNameMark, Converter={StaticResource visibilityConverter}}"
         HorizontalAlignment="Right"
         VerticalAlignment="Bottom"
         Margin="0,0,10,5"
@@ -168,6 +172,7 @@
         x:Name="buttonTarget"
         Content="{Binding ButtonTarget}"
         Grid.Row="0"
+        IsEnabled="{Binding IsBusy, Converter={StaticResource notConverter}}"
         Command="{Binding SelectFileCommand}"
         ToolTip="{Binding ButtonTargetTip}">
         <Button.InputBindings>
@@ -181,6 +186,7 @@
         x:Name="buttonBackImage"
         Content="{Binding ButtonBackImage}"
         Grid.Row="1"
+        IsEnabled="{Binding IsBusy, Converter={StaticResource notConverter}}"
         ToolTip="{Binding ButtonBackImageTip}"
         Command="{Binding SelectBackImageCommand}">
         <Button.InputBindings>
@@ -194,6 +200,7 @@
         x:Name="buttonBackColor"
         Content="{Binding ButtonBackColor}"
         Grid.Row="2"
+        IsEnabled="{Binding IsBusy, Converter={StaticResource notConverter}}"
         ToolTip="{Binding ButtonBackColorTip}"
         Command="{Binding SelectColorCommand}"
         CommandParameter="{Binding ElementName=gridPreview}">
@@ -215,6 +222,7 @@
         Style="{StaticResource OptionCheckBox}"
         BorderThickness="0,0,4,0"
         x:Name="checkBoxShowName"
+        IsEnabled="{Binding IsBusy, Converter={StaticResource notConverter}}"
         Content="{Binding CheckBoxShowName}"
         Grid.Row="4"
         IsChecked="{Binding ShowName, Mode=TwoWay}" />
@@ -246,23 +254,41 @@
         x:Name="buttonExport"
         Content="{Binding ButtonExport}"
         Grid.Column="3"
+        IsEnabled="{Binding IsBusy, Converter={StaticResource notConverter}}"
         Style="{StaticResource ToolButton}"
         Command="{Binding ExportCommand}" />
       <Button
         x:Name="buttonImport"
         Content="{Binding ButtonImport}"
         Grid.Column="2"
+        IsEnabled="{Binding IsBusy, Converter={StaticResource notConverter}}"
         Style="{StaticResource ToolButton}"
         Command="{Binding ImportCommand}" />
       <Button
         x:Name="buttonAddToStart"
-        Content="{Binding ButtonAddToStart}"
         Grid.Column="1"
+        IsEnabled="{Binding IsBusy, Converter={StaticResource notConverter}}"
         Style="{StaticResource ToolButton}"
-        Command="{Binding AddToStartCommand}" />
+        Command="{Binding AddToStartCommand}">
+        <StackPanel
+          Orientation="Horizontal">
+          <Viewbox
+            Margin="0,0,20,0"
+            Height="64"
+            Width="64"
+            Child="{StaticResource WindowsLogo}" />
+          <Viewbox
+            Height="48">
+            <TextBlock
+              Style="{StaticResource ToolTextBlock}"
+              Text="{Binding ButtonAddToStart}" />
+          </Viewbox>
+        </StackPanel>
+      </Button>
       <Button
         x:Name="buttonGenrate"
         Content="{Binding ButtonGenerate}"
+        IsEnabled="{Binding IsBusy, Converter={StaticResource notConverter}}"
         Style="{StaticResource ToolButton}"
         Command="{Binding GenerateCommand}" />
 

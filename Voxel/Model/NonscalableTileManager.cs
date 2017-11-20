@@ -39,7 +39,7 @@ namespace Voxel.Model
             {
                 TargetPath = tile.TargetPath,
             };
-            file.Flush();
+            file.Save();
         }
 
         public override void Generate()
@@ -66,6 +66,12 @@ namespace Voxel.Model
                 }
             }
             xml.Save(tile.XmlPath);
+
+            bool clearCache = Settings.Json[nameof(NonscalableTile)].ObjectValue["ClearTileCacheOnGenerate"].BooleanValue ?? false;
+            if (clearCache)
+            {
+                RefreshShortcut();
+            }
         }
 
         public override void LoadData()

@@ -30,7 +30,7 @@ namespace Voxel.ViewModel
         public string ButtonClearTileCache => language[nameof(ButtonClearTileCache)];
 
         
-        public static void ClearTileCache()
+        public static void ClearTileCache(Func<FileInfo, bool> fileFilter = null)
         {
             void clearTileCacheInFolder(DirectoryInfo directoryInfo)
             {
@@ -47,7 +47,14 @@ namespace Voxel.ViewModel
                 {
                     try
                     {
-                        file.LastWriteTime = DateTime.Now;
+                        if (fileFilter?.Invoke(file) ?? true)
+                        {
+                            file.LastWriteTime = DateTime.Now;
+                        }
+                    }
+                    catch (IOException)
+                    {
+                        continue;
                     }
                     catch (UnauthorizedAccessException)
                     {

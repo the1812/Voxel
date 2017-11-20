@@ -1,0 +1,22 @@
+<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    >
+  <Canvas
+    Height="1024"
+    Width="1024"
+    x:Key="WindowsLogo">
+    <Polygon
+      Fill="White"
+      Points="472,497.5 932,497.5 932,97.5 472,157.7 " />
+    <Polygon
+      Fill="White"
+      Points="92,207.5 92,497.5 442,497.5 442,161.7 " />
+    <Polygon
+      Fill="White"
+      Points="472,527.5 472,867.3 932,927.5 932,527.5 " />
+    <Polygon
+      Fill="White"
+      Points="442,527.5 92,527.5 92,817.5 442,863.3 " />
+  </Canvas>
+    
+</ResourceDictionary>

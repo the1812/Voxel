@@ -21,7 +21,7 @@ namespace Voxel.Model
             }
             else
             {
-                file.Read();
+                file.Load();
                 Json = file.Content;
             }
         }
@@ -31,7 +31,7 @@ namespace Voxel.Model
             {
                 Content = Json
             };
-            file.Flush();
+            file.Save();
         }
         public static void CreateDefault()
         {
@@ -46,7 +46,8 @@ namespace Voxel.Model
                 new JsonProperty(nameof(NonscalableTile), new JsonObject
                 {
                     new JsonProperty("AutoLoadXml", true),
-                    new JsonProperty("AutoLoadVoxelFile", true),
+                    new JsonProperty("AutoLoadVoxelFile", false),
+                    new JsonProperty("ClearTileCacheOnGenerate", true),
                     new JsonProperty(nameof(ColorPickerView), new JsonObject
                     {
                         new JsonProperty("PreviewOnTile", true),

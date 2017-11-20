@@ -201,7 +201,7 @@ namespace Voxel.ViewModel
         private bool showName = true;
         public bool ShowName
         {
-            get => showName;
+            get => !isBusy && showName;
             set
             {
                 showName = value;
@@ -383,6 +383,20 @@ namespace Voxel.ViewModel
             Icon = null;
             reset();
         }
+
+
+        private bool isBusy;
+        public bool IsBusy
+        {
+            get => isBusy;
+            set
+            {
+                isBusy = value;
+                OnPropertyChanged(nameof(IsBusy));
+                OnPropertyChanged(nameof(ShowName));
+            }
+        }
+
         #endregion
         #region Commands
 
@@ -391,6 +405,7 @@ namespace Voxel.ViewModel
             {
                 ExcuteAction = (o) =>
                 {
+                    IsBusy = true;
                     var dialog = new OpenFileDialog
                     {
                         Title = language["OpenFileDialogTitle"],
@@ -414,6 +429,7 @@ namespace Voxel.ViewModel
 
                         if (tryLoadVoxel(targetPath) || tryLoadXml())
                         {
+                            IsBusy = false;
                             return;
                         }
 
@@ -421,6 +437,7 @@ namespace Voxel.ViewModel
                         
                         OnPropertyChanged(nameof(TargetName));
                     }
+                    IsBusy = false;
                 },
             };
         public Command SelectFolderCommand
@@ -428,6 +445,7 @@ namespace Voxel.ViewModel
             {
                 ExcuteAction = (o) =>
                 {
+                    IsBusy = true;
                     var dialog = new System.Windows.Forms.FolderBrowserDialog
                     {
                         Description = language["OpenFolderDialogTitle"],
@@ -446,6 +464,7 @@ namespace Voxel.ViewModel
 
                         if (tryLoadVoxel(targetPath) || tryLoadXml())
                         {
+                            IsBusy = false;
                             return;
                         }
 
@@ -453,6 +472,7 @@ namespace Voxel.ViewModel
 
                         OnPropertyChanged(nameof(TargetName));
                     }
+                    IsBusy = false;
                 },
             };
         public Command SelectColorCommand
@@ -512,6 +532,7 @@ namespace Voxel.ViewModel
             {
                 ExcuteAction = (o) =>
                 {
+                    IsBusy = true;
                     bool verifyImage(string imagePath)
                     {
                         FileInfo info = new FileInfo(imagePath);
@@ -578,6 +599,7 @@ namespace Voxel.ViewModel
                             BackImageSmall = new BitmapImage(new Uri(imagePath));
                         }
                     }
+                    IsBusy = false;
                 },
             };
         public Command ClearBackImageCommand
@@ -600,6 +622,7 @@ namespace Voxel.ViewModel
             {
                 ExcuteAction = (o) =>
                 {
+                    IsBusy = true;
                     try
                     {
                         if (!tileManager.Tile.TargetExists)
@@ -623,6 +646,10 @@ namespace Voxel.ViewModel
                         View.ShowMessage(ex.Message, language["GenerateFailedTitle"], false);
                     }
 #endif
+                    finally
+                    {
+                        IsBusy = false;
+                    }
                 },
             };
         public Command AddToStartCommand
@@ -630,6 +657,7 @@ namespace Voxel.ViewModel
             {
                 ExcuteAction = (o) =>
                 {
+                    IsBusy = true;
                     try
                     {
                         if (!tileManager.Tile.TargetExists)
@@ -659,6 +687,10 @@ namespace Voxel.ViewModel
                             View.ShowMessage(ex.Message, language["AddToStartFailedTitle"], false);
                         }
 #endif
+                    finally
+                    {
+                        IsBusy = false;
+                    }
                 },
             };
         public Command ExportCommand
@@ -666,6 +698,7 @@ namespace Voxel.ViewModel
             {
                 ExcuteAction = (o) =>
                 {
+                    IsBusy = true;
                     if (!tileManager.Tile.TargetExists)
                     {
                         View.ShowMessage(language["TargetMissing"], language["TargetMissingTitle"], false);
@@ -708,6 +741,14 @@ namespace Voxel.ViewModel
                             View.ShowMessage(ex.Message, language["ExportFailedTitle"], false);
                         }
 #endif
+                        finally
+                        {
+                            IsBusy = false;
+                        }
+                    }
+                    else
+                    {
+                        IsBusy = false;
                     }
                 },
             };
@@ -716,6 +757,7 @@ namespace Voxel.ViewModel
             {
                 ExcuteAction = (o) =>
                 {
+                    IsBusy = true;
                     var dialog = new OpenFileDialog
                     {
                         Title = language["ImportDialogTitle"],
@@ -745,6 +787,14 @@ namespace Voxel.ViewModel
                             View.ShowMessage(ex.Message, language["ImportFailedTitle"], false);
                         }
 #endif
+                        finally
+                        {
+                            IsBusy = true;
+                        }
+                    }
+                    else
+                    {
+                        IsBusy = false;
                     }
                 },
             };

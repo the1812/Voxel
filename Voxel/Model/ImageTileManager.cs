@@ -52,7 +52,7 @@ namespace Voxel.Model
                     new JsonProperty(nameof(ImageTile.Action), action),
                 }
             };
-            settings.Flush();
+            settings.Save();
         }
 
         public override void Generate()
@@ -73,7 +73,6 @@ namespace Voxel.Model
                 xml.Save(tile.XmlPath);
             }
         }
-
         public override void AddToStart()
         {
             foreach (var tile in list)
@@ -84,7 +83,7 @@ namespace Voxel.Model
                     {
                         TargetPath = tile.TargetPath,
                     };
-                    file.Flush();
+                    file.Save();
                 }
             }
         }

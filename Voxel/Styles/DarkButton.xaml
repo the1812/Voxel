@@ -39,7 +39,7 @@
                   VerticalAlignment="Center" />
               </Border>
             </Border>
-            <ProgressBar
+            <!--<ProgressBar
               x:Name="progress"
               Height="4"
               Margin="0,0"
@@ -50,7 +50,7 @@
               IsIndeterminate="False"
               Value="0"
               Background="Transparent"
-              Visibility="Collapsed"/>
+              Visibility="Collapsed"/>-->
           </Grid>
 
           <ControlTemplate.Triggers>
@@ -76,14 +76,17 @@
             <Trigger
               Property="IsEnabled"
               Value="False">
-              <Setter
+              <!--<Setter
                 Property="Visibility"
                 TargetName="progress"
                 Value="Visible" />
               <Setter
                 Property="IsIndeterminate"
                 TargetName="progress"
-                Value="true" />
+                Value="true" />-->
+              <Setter
+                Property="Opacity"
+                Value="0.4" />
             </Trigger>
 
           </ControlTemplate.Triggers>

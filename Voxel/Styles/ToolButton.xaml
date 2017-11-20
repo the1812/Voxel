@@ -45,7 +45,7 @@
             <Border
               x:Name="mask"
               Background="#0000">
-              <Grid>
+              <!--<Grid>
                 <Grid.RowDefinitions>
                   <RowDefinition
                     Height="1*" />
@@ -64,7 +64,11 @@
                     HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
                     VerticalAlignment="{TemplateBinding VerticalContentAlignment}"/>
                 </Viewbox>
-              </Grid>
+                
+              </Grid>-->
+              <ContentPresenter
+                HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
+                VerticalAlignment="{TemplateBinding VerticalContentAlignment}" />
             </Border>
           </Border>
 
@@ -84,6 +88,13 @@
                 Property="Background"
                 TargetName="mask"
                 Value="#2000" />
+            </Trigger>
+            <Trigger
+              Property="IsEnabled"
+              Value="false">
+              <Setter
+                Property="Opacity"
+                Value="0.4" />
             </Trigger>
           </ControlTemplate.Triggers>
           
