@@ -109,8 +109,8 @@ namespace Voxel.ViewModel
         {
             ExcuteAction = (o) =>
             {
-                View.ImageTileView.Owner = View;
-                View.ImageTileView.ShowDialog();
+                //View.ImageTileView.Owner = View;
+                //View.ImageTileView.ShowDialog();
             },
         };
         public BindingCommand ClearTileCacheCommand => new BindingCommand
@@ -139,11 +139,11 @@ namespace Voxel.ViewModel
         {
             ExcuteAction = (o) =>
             {
-                var window = new AboutView
-                {
-                    Owner = View
-                };
-                window.ShowDialog();
+                //var window = new AboutView
+                //{
+                //    Owner = View
+                //};
+                //window.ShowDialog();
             },
         };
     }
