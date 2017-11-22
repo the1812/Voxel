@@ -37,7 +37,7 @@ namespace Voxel.Model
         {
             Json = new JsonObject
             {
-                new JsonProperty("ShowSplashScreen", false),
+                new JsonProperty("ShowSplashScreen", true),
                 new JsonProperty("StartMenu", new JsonObject
                 {
                     new JsonProperty(nameof(TileSize.Fullscreen), false),
