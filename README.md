@@ -13,10 +13,10 @@ The settings file is saved in the same directory and named `Voxel.settings.json`
 If the app couldn't start, delete the settings file may solve the problem.
 >App will crash if the content of settings file is not complete, in the future versions it will overwrite that bad file using default settings.
 
-Here is default settings:
+Here is default settings: (You can also find it in `Voxel\Model\Settings.cs`)
 ```json
 {
-	"ShowSplashScreen" : false,
+	"ShowSplashScreen" : true,
 	"StartMenu" : {
 		"Fullscreen" : false,
 		"ShowMoreTiles" : false
@@ -45,10 +45,13 @@ Here is default settings:
         - `ShowSampleText`: Show sample text to check the readablity.
 
 ## Contribution
-### Leave your name
+### Build
+1. Install Visual Studio 2017 (with .NET Desktop)
+3. Clone `beta` branch and open in Visual Studio
+4. Add reference assembly `Ace.dll` in `Voxel\Ace.dll` (Remove the old one)
+5. You can build project now
+### Leave your name please
 - Add your name to `names` in `Voxel/Contributors.cs`.
 >Contributor names will be sorted alphabetically and shown on the `About` window (in future versions).
-### Branch
-- Commit to the `beta` branch.
-### Coding Style
+### Coding Style (Recommended)
 - See `Coding Style.md`.
