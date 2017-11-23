@@ -87,6 +87,10 @@ namespace Voxel.Model
                 }
             }
         }
+        public override void RefreshShortcut()
+        {
+            throw new NotImplementedException();
+        }
 
         public override void LoadData()
         {
