@@ -9,6 +9,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Media;
 using System.Xml.Linq;
+using static Voxel.Model.Settings;
 
 namespace Voxel.Model
 {
@@ -67,7 +68,7 @@ namespace Voxel.Model
             }
             xml.Save(tile.XmlPath);
 
-            bool clearCache = Settings.Json[nameof(NonscalableTile)].ObjectValue["ClearTileCacheOnGenerate"].BooleanValue ?? false;
+            bool clearCache = GetBoolean(MakeKey(nameof(NonscalableTile), ClearTileCacheOnGenerateKey));
             if (clearCache)
             {
                 RefreshShortcut();

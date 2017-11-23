@@ -14,6 +14,7 @@ using System.Windows.Controls;
 using System.Windows.Data;
 using System.Windows.Media.Imaging;
 using System.IO;
+using static Voxel.Model.Settings;
 
 namespace Voxel.ViewModel
 {
@@ -327,7 +328,7 @@ namespace Voxel.ViewModel
         }
         private bool tryLoadXml()
         {
-            bool loadXml = Settings.Json[nameof(NonscalableTile)].ObjectValue["AutoLoadXml"].BooleanValue ?? false;
+            bool loadXml = GetBoolean(MakeKey(nameof(NonscalableTile), AutoLoadXmlKey));
             if (loadXml && File.Exists(tileManager.Tile.XmlPath))
             {
                 tileManager.LoadFromXml();
@@ -338,7 +339,7 @@ namespace Voxel.ViewModel
         }
         private bool tryLoadVoxel(string targetPath)
         {
-            bool loadVoxel = Settings.Json[nameof(NonscalableTile)].ObjectValue["AutoLoadVoxelFile"].BooleanValue ?? false;
+            bool loadVoxel = GetBoolean(MakeKey(nameof(NonscalableTile), AutoLoadVoxelFileKey));
             if (loadVoxel)
             {
                 string voxelFileName = getVoxelFileName(targetPath);
@@ -495,7 +496,7 @@ namespace Voxel.ViewModel
                             }
                         }
 
-                        bool previewOnTile = Settings.Json[nameof(NonscalableTile)].ObjectValue[nameof(ColorPickerView)].ObjectValue["PreviewOnTile"].BooleanValue ?? false;
+                        bool previewOnTile = GetBoolean(MakeKey(nameof(NonscalableTile), nameof(ColorPickerView), PreviewOnTileKey));
                         if (previewOnTile)
                         {
                             var colorPickerViewModel = colorPicker.DataContext as ColorPickerViewModel;
