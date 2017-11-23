@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Configuration;
 using System.Data;
 using System.Linq;
-using System.Reflection;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
@@ -13,6 +12,7 @@ using Voxel.Model;
 using Voxel.Model.Languages;
 using Voxel.View;
 using Voxel.ViewModel;
+using static Voxel.Model.Settings;
 
 namespace Voxel
 {
@@ -22,6 +22,10 @@ namespace Voxel
     public partial class App : Application
     {
         public static Dictionary<string, string> GeneralLanguage { get; private set; }
+        static App()
+        {
+            GeneralLanguage = new GeneralLanguage().Dictionary;
+        }
 
         protected override void OnExit(ExitEventArgs e)
         {
@@ -30,24 +34,6 @@ namespace Voxel
         }
         protected override void OnStartup(StartupEventArgs e)
         {
-            AppDomain.CurrentDomain.AssemblyResolve += (sender, eventArgs) =>
-            {
-                string dllName = new AssemblyName(eventArgs.Name).Name + ".dll";
-                var assembly = Assembly.GetExecutingAssembly();
-                string resourceName = assembly.GetManifestResourceNames().FirstOrDefault(name => name.EndsWith(dllName));
-                if (resourceName == null)
-                {
-                    return null;
-                }
-                using (var stream = assembly.GetManifestResourceStream(resourceName))
-                {
-                    byte[] assemblyData = new byte[stream.Length];
-                    stream.Read(assemblyData, 0, assemblyData.Length);
-                    return Assembly.Load(assemblyData);
-                }
-            };
-
-            GeneralLanguage = new GeneralLanguage().Dictionary;
             Settings.Load();
 
             // Select the text in a TextBox when it receives focus.
@@ -60,7 +46,32 @@ namespace Voxel
                 new RoutedEventHandler(selectAllText));
             base.OnStartup(e);
 
-            AppLoader.Load(e);
+            if (e.Args != null && e.Args.Length > 0)
+            {
+                if (e.Args[0].ToLower() == "--clear")
+                {
+                    MainViewModel.ClearTileCache();
+                    var language = new MainLanguage().Dictionary;
+                    var dialog = new MessageView()
+                    {
+                        WindowStartupLocation = WindowStartupLocation.CenterScreen,
+                    };
+                    var viewModel = dialog.DataContext as MessageViewModel;
+                    viewModel.Content = "";
+                    viewModel.Title = language["ClearSuccessTitle"];
+                    viewModel.ShowCancelButton = false;
+                    dialog.ShowDialog();
+                }
+            }
+            else
+            {
+                bool fullScreen = GetBoolean(MakeKey(StartMenuKey, nameof(TileSize.Fullscreen)));
+                TileSize.Fullscreen = fullScreen;
+                bool showMoreTiles = GetBoolean(MakeKey(StartMenuKey, nameof(TileSize.ShowMoreTiles)));
+                TileSize.ShowMoreTiles = showMoreTiles;
+
+                new MainView().ShowDialog();
+            }
             Shutdown();
         }
 

@@ -14,6 +14,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 using Voxel.Model;
 using Voxel.ViewModel;
+using static Voxel.Model.Settings;
 
 namespace Voxel.View
 {
@@ -24,7 +25,7 @@ namespace Voxel.View
     {
         public MainView()
         {
-            bool showSplashScreen = Settings.Json["ShowSplashScreen"].BooleanValue ?? false;
+            bool showSplashScreen = GetBoolean(ShowSplashScreenKey);
             if (showSplashScreen)
             {
                 this.showSplashScreen();

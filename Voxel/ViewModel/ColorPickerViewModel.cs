@@ -141,7 +141,12 @@ namespace Voxel.ViewModel
                 OnPropertyChanged(nameof(SelectedBrush));
             }
         }
-        private static JsonProperty showSampleTextValue = Settings.Json[nameof(NonscalableTile)].ObjectValue[nameof(ColorPickerView)].ObjectValue.Where(p => p.Name == "ShowSampleText").FirstOrDefault();
+        private static JsonProperty showSampleTextValue = 
+            Settings.Json[nameof(NonscalableTile)]
+            .ObjectValue[nameof(ColorPickerView)]
+            .ObjectValue
+            .Where(p => p.Name == Settings.ShowSampleTextKey)
+            .FirstOrDefault();
         private bool showSampleText = showSampleTextValue.Value.BooleanValue ?? false;
         public bool ShowSampleText
         {

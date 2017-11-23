@@ -60,14 +60,14 @@ namespace Voxel
             viewModel.ShowCancelButton = showCancelButton;
             return dialog.ShowDialog() ?? false;
         }
-        public static string ToJsonPath(this string path)
-        {
-            return path.Replace("\\", "\\\\");
-        }
-        public static string FromJsonPath(this string path)
-        {
-            return path.Replace("\\\\", "\\");
-        }
+        //public static string ToJsonPath(this string path)
+        //{
+        //    return path.Replace("\\", "\\\\");
+        //}
+        //public static string FromJsonPath(this string path)
+        //{
+        //    return path.Replace("\\\\", "\\");
+        //}
         public static Size MeasureString(this string str)
         {
             if (str == null) return new Size(0, 0);

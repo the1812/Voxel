@@ -37,8 +37,8 @@ namespace Voxel.Model.Languages
         }
         public Language()
         {
-            //Culture = new CultureInfo("en-US");
-            Culture = CultureInfo.CurrentUICulture;
+            Culture = new CultureInfo("en-US");
+            //Culture = CultureInfo.CurrentUICulture;
             Load();
         }
         protected abstract void Load();
