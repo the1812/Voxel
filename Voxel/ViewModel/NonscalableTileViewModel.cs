@@ -622,7 +622,7 @@ namespace Voxel.ViewModel
         public BindingCommand GenerateCommand
             => new BindingCommand
             {
-                ExcuteAction = (o) =>
+                ExcuteAction = async (o) =>
                 {
                     using (var busyController = new BusyStateController(this))
                     {
@@ -635,7 +635,10 @@ namespace Voxel.ViewModel
                             else
                             {
                                 fillImagePath();
-                                tileManager.Generate();
+                                await Task.Run(() =>
+                                {
+                                    tileManager.Generate();
+                                });
                                 View.ShowMessage("", language["GenerateSuccessTitle"], false);
                             }
                         }
