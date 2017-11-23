@@ -84,11 +84,19 @@ namespace Voxel.Model
             }
             try
             {
-                tile.SmallImagePath = data[nameof(tile.SmallImagePath)].StringValue?.FromJsonPath();
-                tile.LargeImagePath = data[nameof(tile.LargeImagePath)].StringValue?.FromJsonPath();
+                tile.SmallImagePath = data[nameof(tile.SmallImagePath)].StringValue;
+                tile.LargeImagePath = data[nameof(tile.LargeImagePath)].StringValue;
                 tile.ShowName = data[nameof(tile.ShowName)].BooleanValue.Value;
-                tile.Background = ((int) data[nameof(tile.Background)].NumberValue).ToColor();
-                tile.TargetPath = data[nameof(tile.TargetPath)].StringValue.FromJsonPath();
+                var background = data[nameof(tile.Background)];
+                if (background.Type == JsonValue.DataType.Number) // Compatibility for old versions
+                {
+                    tile.Background = ((int) data[nameof(tile.Background)].NumberValue.Value).ToColor();
+                }
+                else
+                {
+                    tile.Background = data[nameof(tile.Background)].StringValue.FromHexString();
+                }
+                tile.TargetPath = data[nameof(tile.TargetPath)].StringValue;
                 string themeString = data[nameof(tile.Theme)].StringValue;
                 tile.Theme = themeString == DarkThemeString ? TextTheme.Dark : TextTheme.Light;
                 string targetTypeString = data[nameof(tile.TargetType)].StringValue;
@@ -110,11 +118,11 @@ namespace Voxel.Model
             data = new JsonObject
             {
                 [TypeKey] = nameof(NonscalableTile),
-                [nameof(tile.SmallImagePath)] = tile.SmallImagePath?.ToJsonPath() ?? new JsonValue(),
-                [nameof(tile.LargeImagePath)] = tile.LargeImagePath?.ToJsonPath() ?? new JsonValue(),
+                [nameof(tile.SmallImagePath)] = tile.SmallImagePath ?? new JsonValue(),
+                [nameof(tile.LargeImagePath)] = tile.LargeImagePath ?? new JsonValue(),
                 [nameof(tile.ShowName)] = tile.ShowName,
-                [nameof(tile.Background)] = tile.Background.ToInt32(),
-                [nameof(tile.TargetPath)] = tile.TargetPath.ToJsonPath(),
+                [nameof(tile.Background)] = tile.Background.ToHexString(),
+                [nameof(tile.TargetPath)] = tile.TargetPath,
                 [nameof(tile.Theme)] = tile.Theme == TextTheme.Dark ? DarkThemeString : LightThemeString,
                 [nameof(tile.TargetType)] = tile.TargetType == TargetType.File ? FileTargetString : FolderTargetString,
             };
