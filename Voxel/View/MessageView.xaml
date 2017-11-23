@@ -38,7 +38,7 @@
     <TextBlock
       x:Name="textContent"
       Text="{Binding Content}"
-      Margin="20"
+      Margin="60,30"
       HorizontalAlignment="Stretch"
       VerticalAlignment="Stretch"
       TextWrapping="Wrap"
@@ -49,6 +49,12 @@
       HorizontalAlignment="Center"
       VerticalAlignment="Stretch"
       Margin="0">
+      <StackPanel.Effect>
+        <DropShadowEffect
+          BlurRadius="20"
+          ShadowDepth="0"
+          Opacity="0.5" />
+      </StackPanel.Effect>
       <Button
         x:Name="buttonOK"
         Style="{StaticResource ToolButton}"
@@ -64,12 +70,13 @@
           StrokeThickness="2" />
       </Button>
       <Button
+        Margin="70,0,0,0"
         Visibility="{Binding ShowCancelButton,Converter={StaticResource converter}}"
         x:Name="buttonCancel"
         Style="{StaticResource ToolButton}"
         VerticalAlignment="Stretch"
         Width="120"
-        Background="Transparent">
+        Background="#444">
         <Path
           Data="M -2,-2 L 2,2 M 2,-2 L -2,2"
           Height="20"
