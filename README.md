@@ -10,9 +10,6 @@ Tile generator for Windows 10
 ## App Settings
 The settings file is saved in the same directory and named `Voxel.settings.json`.
 
-If the app couldn't start, delete the settings file may solve the problem.
->App will crash if the content of settings file is not complete, in the future versions it will overwrite that bad file using default settings.
-
 Here is default settings: (You can also find it in `Voxel\Model\Settings.cs`)
 ```json
 {
