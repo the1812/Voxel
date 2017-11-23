@@ -22,6 +22,121 @@
       x:Key="visibilityConverter" />
     <root:BooleanNotConverter
       x:Key="notConverter" />
+    <Storyboard
+      SpeedRatio="3"
+      x:Key="startWaiting">
+      <DoubleAnimation
+        Storyboard.TargetName="rectColor"
+        Storyboard.TargetProperty="Opacity"
+        Duration="0:0:0.3"
+        To="1">
+        <DoubleAnimation.EasingFunction>
+          <CircleEase
+            EasingMode="EaseOut" />
+        </DoubleAnimation.EasingFunction>
+      </DoubleAnimation>
+      <DoubleAnimationUsingKeyFrames
+        RepeatBehavior="Forever"
+        Storyboard.TargetName="circleLeft"
+        Storyboard.TargetProperty="Width">
+        <LinearDoubleKeyFrame
+          KeyTime="0:0:0"
+          Value="18" />
+        <LinearDoubleKeyFrame
+          KeyTime="0:0:1"
+          Value="30" />
+        <LinearDoubleKeyFrame
+          KeyTime="0:0:2"
+          Value="18" />
+      </DoubleAnimationUsingKeyFrames>
+      <DoubleAnimationUsingKeyFrames
+        RepeatBehavior="Forever"
+        Storyboard.TargetName="circleLeft"
+        Storyboard.TargetProperty="Height">
+        <LinearDoubleKeyFrame
+          KeyTime="0:0:0"
+          Value="18" />
+        <LinearDoubleKeyFrame
+          KeyTime="0:0:1"
+          Value="30" />
+        <LinearDoubleKeyFrame
+          KeyTime="0:0:2"
+          Value="18" />
+      </DoubleAnimationUsingKeyFrames>
+      <DoubleAnimationUsingKeyFrames
+        RepeatBehavior="Forever"
+        BeginTime="0:0:0.5"
+        Storyboard.TargetName="circleCenter"
+        Storyboard.TargetProperty="Width">
+        <LinearDoubleKeyFrame
+          KeyTime="0:0:0"
+          Value="18" />
+        <LinearDoubleKeyFrame
+          KeyTime="0:0:1"
+          Value="30" />
+        <LinearDoubleKeyFrame
+          KeyTime="0:0:2"
+          Value="18" />
+      </DoubleAnimationUsingKeyFrames>
+      <DoubleAnimationUsingKeyFrames
+        RepeatBehavior="Forever"
+        BeginTime="0:0:0.5"
+        Storyboard.TargetName="circleCenter"
+        Storyboard.TargetProperty="Height">
+        <LinearDoubleKeyFrame
+          KeyTime="0:0:0"
+          Value="18" />
+        <LinearDoubleKeyFrame
+          KeyTime="0:0:1"
+          Value="30" />
+        <LinearDoubleKeyFrame
+          KeyTime="0:0:2"
+          Value="18" />
+      </DoubleAnimationUsingKeyFrames>
+      <DoubleAnimationUsingKeyFrames
+        RepeatBehavior="Forever"
+        BeginTime="0:0:1"
+        Storyboard.TargetName="circleRight"
+        Storyboard.TargetProperty="Width">
+        <LinearDoubleKeyFrame
+          KeyTime="0:0:0"
+          Value="18" />
+        <LinearDoubleKeyFrame
+          KeyTime="0:0:1"
+          Value="30" />
+        <LinearDoubleKeyFrame
+          KeyTime="0:0:2"
+          Value="18" />
+      </DoubleAnimationUsingKeyFrames>
+      <DoubleAnimationUsingKeyFrames
+        RepeatBehavior="Forever"
+        BeginTime="0:0:1"
+        Storyboard.TargetName="circleRight"
+        Storyboard.TargetProperty="Height">
+        <LinearDoubleKeyFrame
+          KeyTime="0:0:0"
+          Value="18" />
+        <LinearDoubleKeyFrame
+          KeyTime="0:0:1"
+          Value="30" />
+        <LinearDoubleKeyFrame
+          KeyTime="0:0:2"
+          Value="18" />
+      </DoubleAnimationUsingKeyFrames>
+    </Storyboard>
+    <Storyboard
+      x:Key="stopWaiting">
+      <DoubleAnimation
+        Storyboard.TargetName="rectColor"
+        Storyboard.TargetProperty="Opacity"
+        Duration="0:0:0.3"
+        To="0">
+        <DoubleAnimation.EasingFunction>
+          <CircleEase
+            EasingMode="EaseOut" />
+        </DoubleAnimation.EasingFunction>
+      </DoubleAnimation>
+    </Storyboard>
   </Window.Resources>
   <Grid
     x:Name="gridMain"
@@ -339,6 +454,55 @@
       </Button>
 
     </Grid>
-
+    <Rectangle
+      Visibility="{Binding IsWaiting, Converter={StaticResource visibilityConverter}}"
+      Grid.RowSpan="3"
+      Grid.ColumnSpan="2"
+      Margin="0">
+      <Rectangle.Fill>
+        <SolidColorBrush
+          x:Name="rectColor"
+          Color="#A333"
+          Opacity="1" />
+      </Rectangle.Fill>
+    </Rectangle>
+    <Grid
+      Visibility="{Binding IsWaiting, Converter={StaticResource visibilityConverter}}"
+      Grid.RowSpan="3"
+      Grid.ColumnSpan="2"
+      Width="150"
+      Height="50"
+      HorizontalAlignment="Center"
+      VerticalAlignment="Center">
+      <Grid.ColumnDefinitions>
+        <ColumnDefinition />
+        <ColumnDefinition />
+        <ColumnDefinition />
+      </Grid.ColumnDefinitions>
+      <Ellipse
+        Grid.Column="0"
+        HorizontalAlignment="Center"
+        VerticalAlignment="Center"
+        x:Name="circleLeft"
+        Fill="White"
+        Width="18"
+        Height="18" />
+      <Ellipse
+        Grid.Column="1"
+        HorizontalAlignment="Center"
+        VerticalAlignment="Center"
+        x:Name="circleCenter"
+        Fill="White"
+        Width="18"
+        Height="18" />
+      <Ellipse
+        Grid.Column="2"
+        HorizontalAlignment="Center"
+        VerticalAlignment="Center"
+        x:Name="circleRight"
+        Fill="White"
+        Width="18"
+        Height="18" />
+    </Grid>
   </Grid>
 </Window>

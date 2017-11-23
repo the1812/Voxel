@@ -15,10 +15,11 @@ using System.Windows.Data;
 using System.Windows.Media.Imaging;
 using System.IO;
 using static Voxel.Model.Settings;
+using System.Windows.Media.Animation;
 
 namespace Voxel.ViewModel
 {
-    sealed class NonscalableTileViewModel : ViewModel, IBusyState
+    sealed class NonscalableTileViewModel : ViewModel, IBusyState, IWaitingState
     {
         public NonscalableTileViewModel(NonscalableTileView view) : base(new NonscalableTileLanguage())
         {
@@ -398,6 +399,18 @@ namespace Voxel.ViewModel
             }
         }
 
+        private bool isWaiting;
+        public bool IsWaiting
+        {
+            get => isWaiting;
+            set
+            {
+                isWaiting = value;
+                OnPropertyChanged(nameof(IsWaiting));
+            }
+        }
+
+
         #endregion
         #region Commands
 
@@ -624,6 +637,18 @@ namespace Voxel.ViewModel
             {
                 ExcuteAction = async (o) =>
                 {
+                    var startAnimation = View.TryFindResource("startWaiting") as Storyboard;
+                    var stopAnimation = View.TryFindResource("stopWaiting") as Storyboard;
+
+                    using (var waitingController = new WaitingStateController(this, ()=>
+                    {
+                        startAnimation.Begin();
+                    },
+                    ()=> 
+                    {
+                        startAnimation.Stop();
+                        stopAnimation.Begin();
+                    }))
                     using (var busyController = new BusyStateController(this))
                     {
                         try
@@ -639,6 +664,7 @@ namespace Voxel.ViewModel
                                 {
                                     tileManager.Generate();
                                 });
+                                //await Task.Delay(2000);
                                 View.ShowMessage("", language["GenerateSuccessTitle"], false);
                             }
                         }
