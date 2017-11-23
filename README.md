@@ -44,14 +44,22 @@ Here is default settings: (You can also find it in `Voxel\Model\Settings.cs`)
         - `PreviewOnTile`: Preview new color on editor.
         - `ShowSampleText`: Show sample text to check the readablity.
 
-## Contribution
-### Build
-1. Install Visual Studio 2017 (with .NET Desktop)
-3. Clone `beta` branch and open in Visual Studio
-4. Add reference assembly `Ace.dll` in `Voxel\Ace.dll` (Remove the old one)
-5. You can build project now
-### Leave your name please
-- Add your name to `names` in `Voxel/Contributors.cs`.
->Contributor names will be sorted alphabetically and shown on the `About` window (in future versions).
-### Coding Style (Recommended)
-- See `Coding Style.md`.
+## Help
+- Main Window:
+	- `Non-scalable Tile`:
+		- `Select Target`: Select the target file (`.exe` only), or right-click to select folder.
+		>In the future versions the `.exe` limit will be removed.
+		- `Select Image`: Select the image that shows on your tile, or right-click to use no image (show the icon of target).
+		- `Set Backcolor`: Set backcolor of tile, or right-click to use default color.
+		- `Use Dark Theme`: If checked, the tile name will be black (useful when background image is bright).
+		- `Show Name`: If checked, your tile will show target name.
+		- `Medium/Small`: Toggle this to see what your tile looks like on different sizes.
+		- `Reset`: Reset all tile settings above except the target.
+		- `Generate`: Generate all necessary files for your tile, and clear tile cache if it's enabled in settings.
+		- `Add to Start`: Create a shortcut file on Start Menu folder so that you can pin it later.
+		- `Import`: Import tile data from `.voxel` file.
+		- `Export`: Export tile data to `.voxel` file.
+	- `Scalable Tile`: Coming soon.
+	- `Image Tile`: Coming soon.
+	- `Clear Tile Cache`: Clear cache for all tiles on start menu.
+	>You can qucikly make it by using the command-line argument `--clear`.
