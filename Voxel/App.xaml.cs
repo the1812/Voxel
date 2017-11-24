@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Configuration;
 using System.Data;
 using System.Linq;
+using System.Reflection;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
@@ -30,6 +31,22 @@ namespace Voxel
         }
         protected override void OnStartup(StartupEventArgs e)
         {
+            AppDomain.CurrentDomain.AssemblyResolve += (sender, eventArgs) =>
+            {
+                string dllName = new AssemblyName(eventArgs.Name).Name + ".dll";
+                var assembly = Assembly.GetExecutingAssembly();
+                string resourceName = assembly.GetManifestResourceNames().FirstOrDefault(name => name.EndsWith(dllName));
+                if (resourceName == null)
+                {
+                    return null;
+                }
+                using (var stream = assembly.GetManifestResourceStream(resourceName))
+                {
+                    byte[] assemblyData = new byte[stream.Length];
+                    stream.Read(assemblyData, 0, assemblyData.Length);
+                    return Assembly.Load(assemblyData);
+                }
+            };
             // Select the text in a TextBox when it receives focus.
             // See https://stackoverflow.com/questions/660554/how-to-automatically-select-all-text-on-focus-in-wpf-textbox
             EventManager.RegisterClassHandler(typeof(TextBox), UIElement.PreviewMouseLeftButtonDownEvent,
@@ -39,6 +56,7 @@ namespace Voxel
             EventManager.RegisterClassHandler(typeof(TextBox), Control.MouseDoubleClickEvent,
                 new RoutedEventHandler(selectAllText));
             base.OnStartup(e);
+            Load();
             GeneralLanguage = new GeneralLanguage().Dictionary;
 
             AppLoader.Load(e);
