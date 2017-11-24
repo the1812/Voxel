@@ -640,15 +640,6 @@ namespace Voxel.ViewModel
                     var startAnimation = View.TryFindResource("startWaiting") as Storyboard;
                     var stopAnimation = View.TryFindResource("stopWaiting") as Storyboard;
 
-                    using (var waitingController = new WaitingStateController(this, ()=>
-                    {
-                        startAnimation.Begin();
-                    },
-                    ()=> 
-                    {
-                        startAnimation.Stop();
-                        stopAnimation.Begin();
-                    }))
                     using (var busyController = new BusyStateController(this))
                     {
                         try
@@ -659,13 +650,24 @@ namespace Voxel.ViewModel
                             }
                             else
                             {
-                                fillImagePath();
-                                await Task.Run(() =>
+                                using (var waitingController = new WaitingStateController(this, () =>
                                 {
-                                    tileManager.Generate();
-                                });
-                                //await Task.Delay(2000);
-                                View.ShowMessage("", language["GenerateSuccessTitle"], false);
+                                    startAnimation.Begin();
+                                },
+                                () =>
+                                {
+                                    startAnimation.Stop();
+                                    stopAnimation.Begin();
+                                }))
+                                {
+                                    fillImagePath();
+                                    await Task.Run(() =>
+                                    {
+                                        tileManager.Generate();
+                                    });
+                                    //await Task.Delay(2000);
+                                    View.ShowMessage("", language["GenerateSuccessTitle"], false);
+                                }
                             }
                         }
                         catch (UnauthorizedAccessException)
