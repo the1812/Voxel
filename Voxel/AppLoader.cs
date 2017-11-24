@@ -16,6 +16,7 @@ namespace Voxel
     {
         public static void Load(StartupEventArgs e)
         {
+            Settings.Load();
             if (e.Args != null && e.Args.Length > 0)
             {
                 if (e.Args[0].ToLower() == "--clear")

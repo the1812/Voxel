@@ -16,6 +16,7 @@ namespace Voxel.Model
             this.state = state;
             state.IsWaiting = true;
             startAction?.Invoke();
+            end = endAction;
         }
 
         public void Dispose()
