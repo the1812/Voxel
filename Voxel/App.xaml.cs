@@ -22,19 +22,15 @@ namespace Voxel
     public partial class App : Application
     {
         public static Dictionary<string, string> GeneralLanguage { get; private set; }
-        static App()
-        {
-            GeneralLanguage = new GeneralLanguage().Dictionary;
-        }
 
         protected override void OnExit(ExitEventArgs e)
         {
-            Settings.Save();
+            Save();
             base.OnExit(e);
         }
         protected override void OnStartup(StartupEventArgs e)
         {
-            Settings.Load();
+            Load();
 
             // Select the text in a TextBox when it receives focus.
             // See https://stackoverflow.com/questions/660554/how-to-automatically-select-all-text-on-focus-in-wpf-textbox
@@ -45,33 +41,9 @@ namespace Voxel
             EventManager.RegisterClassHandler(typeof(TextBox), Control.MouseDoubleClickEvent,
                 new RoutedEventHandler(selectAllText));
             base.OnStartup(e);
+            GeneralLanguage = new GeneralLanguage().Dictionary;
 
-            if (e.Args != null && e.Args.Length > 0)
-            {
-                if (e.Args[0].ToLower() == "--clear")
-                {
-                    MainViewModel.ClearTileCache();
-                    var language = new MainLanguage().Dictionary;
-                    var dialog = new MessageView()
-                    {
-                        WindowStartupLocation = WindowStartupLocation.CenterScreen,
-                    };
-                    var viewModel = dialog.DataContext as MessageViewModel;
-                    viewModel.Content = "";
-                    viewModel.Title = language["ClearSuccessTitle"];
-                    viewModel.ShowCancelButton = false;
-                    dialog.ShowDialog();
-                }
-            }
-            else
-            {
-                bool fullScreen = GetBoolean(MakeKey(StartMenuKey, nameof(TileSize.Fullscreen)));
-                TileSize.Fullscreen = fullScreen;
-                bool showMoreTiles = GetBoolean(MakeKey(StartMenuKey, nameof(TileSize.ShowMoreTiles)));
-                TileSize.ShowMoreTiles = showMoreTiles;
-
-                new MainView().ShowDialog();
-            }
+            AppLoader.Load(e);
             Shutdown();
         }
 

@@ -15,10 +15,11 @@ using System.Windows.Data;
 using System.Windows.Media.Imaging;
 using System.IO;
 using static Voxel.Model.Settings;
+using System.Windows.Media.Animation;
 
 namespace Voxel.ViewModel
 {
-    sealed class NonscalableTileViewModel : ViewModel, IBusyState
+    sealed class NonscalableTileViewModel : ViewModel, IBusyState, IWaitingState
     {
         public NonscalableTileViewModel(NonscalableTileView view) : base(new NonscalableTileLanguage())
         {
@@ -398,6 +399,18 @@ namespace Voxel.ViewModel
             }
         }
 
+        private bool isWaiting;
+        public bool IsWaiting
+        {
+            get => isWaiting;
+            set
+            {
+                isWaiting = value;
+                OnPropertyChanged(nameof(IsWaiting));
+            }
+        }
+
+
         #endregion
         #region Commands
 
@@ -622,8 +635,11 @@ namespace Voxel.ViewModel
         public BindingCommand GenerateCommand
             => new BindingCommand
             {
-                ExcuteAction = (o) =>
+                ExcuteAction = async (o) =>
                 {
+                    var startAnimation = View.TryFindResource("startWaiting") as Storyboard;
+                    var stopAnimation = View.TryFindResource("stopWaiting") as Storyboard;
+
                     using (var busyController = new BusyStateController(this))
                     {
                         try
@@ -634,9 +650,24 @@ namespace Voxel.ViewModel
                             }
                             else
                             {
-                                fillImagePath();
-                                tileManager.Generate();
-                                View.ShowMessage("", language["GenerateSuccessTitle"], false);
+                                using (var waitingController = new WaitingStateController(this, () =>
+                                {
+                                    startAnimation.Begin();
+                                },
+                                () =>
+                                {
+                                    startAnimation.Stop();
+                                    stopAnimation.Begin();
+                                }))
+                                {
+                                    fillImagePath();
+                                    await Task.Run(() =>
+                                    {
+                                        tileManager.Generate();
+                                    });
+                                    //await Task.Delay(2000);
+                                    View.ShowMessage("", language["GenerateSuccessTitle"], false);
+                                }
                             }
                         }
                         catch (UnauthorizedAccessException)

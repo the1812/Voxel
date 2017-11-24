@@ -85,6 +85,7 @@
     <Compile Include="Model\BusyStateController.cs" />
     <Compile Include="Model\ImageTile.cs" />
     <Compile Include="Model\ImageTileManager.cs" />
+    <Compile Include="ViewModel\IWaitingState.cs" />
     <Compile Include="Model\Languages\AboutLanguage.cs" />
     <Compile Include="Model\Languages\ColorPickerLanguage.cs" />
     <Compile Include="Model\Languages\GeneralLanguage.cs" />
@@ -100,6 +101,7 @@
     <Compile Include="Model\Tile.cs" />
     <Compile Include="Model\TileManager.cs" />
     <Compile Include="Model\TileSize.cs" />
+    <Compile Include="Model\WaitingStateController.cs" />
     <Compile Include="Model\XmlManager.cs" />
     <Compile Include="NotificationObject.cs" />
     <Compile Include="TileTypeNotMatchException.cs" />

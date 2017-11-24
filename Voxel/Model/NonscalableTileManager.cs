@@ -74,6 +74,20 @@ namespace Voxel.Model
                 RefreshShortcut();
             }
         }
+        public override void RefreshShortcut()
+        {
+            var filter = new Func<FileInfo, bool>(file =>
+            {
+                if (file.Extension != ".lnk")
+                {
+                    return false;
+                }
+                ShortcutFile shortcutFile = new ShortcutFile(file.FullName);
+                shortcutFile.Load();
+                return tile.TargetPath.GetFileName().ToLower() == shortcutFile.TargetPath.GetFileName().ToLower();
+            });
+            ViewModel.MainViewModel.ClearTileCache(filter);
+        }
 
         public override void LoadData()
         {

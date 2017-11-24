@@ -9,8 +9,7 @@ Tile generator for Windows 10
 
 ## App Settings
 The settings file is saved in the same directory and named `Voxel.settings.json`.
-
-Here is default settings: (You can also find it in `Voxel\Model\Settings.cs`)
+Here is default settings:
 ```json
 {
 	"ShowSplashScreen" : true,
@@ -41,7 +40,7 @@ Here is default settings: (You can also find it in `Voxel\Model\Settings.cs`)
         - `PreviewOnTile`: Preview new color on editor.
         - `ShowSampleText`: Show sample text to check the readablity.
 
-## Help
+## A Brief Help
 - Main Window:
 	- `Non-scalable Tile`:
 		- `Select Target`: Select the target file (`.exe` only), or right-click to select folder.

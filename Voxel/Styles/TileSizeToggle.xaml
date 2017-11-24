@@ -24,12 +24,10 @@
 
             <Border
               x:Name="leftBorder"
-              Width="100"
-              BorderThickness="0,0,0,2"
-              BorderBrush="{DynamicResource HighlightColor}">
+              Width="100">
               <TextBlock
                 x:Name="leftText"
-                Foreground="{DynamicResource HighlightColor}"
+                Foreground="#60B7D6"
                 Text="{TemplateBinding Content}"
                 HorizontalAlignment="Center"
                 VerticalAlignment="Center" />
@@ -37,9 +35,7 @@
             <Border
               Width="{Binding ElementName=leftBorder,Path=Width}"
               Grid.Column="1"
-              x:Name="rightBorder"
-              BorderThickness="0,0,0,2"
-              BorderBrush="Transparent">
+              x:Name="rightBorder">
               <TextBlock
                 x:Name="rightText"
                 Foreground="White"
@@ -47,6 +43,15 @@
                 HorizontalAlignment="Center"
                 VerticalAlignment="Center" />
             </Border>
+            <Rectangle
+              x:Name="rect"
+              Height="2"
+              Width="100"
+              Grid.ColumnSpan="2"
+              VerticalAlignment="Bottom"
+              HorizontalAlignment="Left"
+              Margin="0,0,0,0"
+              Fill="#60B7D6" />
           </Grid>
 
 
@@ -70,7 +75,7 @@
             <Trigger
               Property="IsChecked"
               Value="true">
-              <Setter
+              <!--<Setter
                 Property="BorderBrush"
                 TargetName="leftBorder"
                 Value="Transparent" />
@@ -85,7 +90,87 @@
               <Setter
                 Property="Foreground"
                 TargetName="rightText"
-                Value="{DynamicResource HighlightColor}" />
+                Value="{DynamicResource HighlightColor}" />-->
+              <Setter
+                Property="Foreground"
+                TargetName="leftText"
+                Value="White" />
+              <Setter
+                Property="Foreground"
+                TargetName="rightText"
+                Value="#60B7D6" />
+              <Trigger.EnterActions>
+                <BeginStoryboard>
+                  <Storyboard>
+                    <ThicknessAnimation
+                      Storyboard.TargetName="rect"
+                      Storyboard.TargetProperty="Margin"
+                      Duration="0:0:0.2"
+                      To="100,0,0,0">
+                      <ThicknessAnimation.EasingFunction>
+                        <CircleEase
+                          EasingMode="EaseOut" />
+                      </ThicknessAnimation.EasingFunction>
+                    </ThicknessAnimation>
+                    <!--<ColorAnimation
+                      Storyboard.TargetName="leftText"
+                      Storyboard.TargetProperty="(TextBlock.Foreground).(SolidColorBrush.Color)"
+                      Duration="0:0:0.2"
+                      To="White">
+                      <ColorAnimation.EasingFunction>
+                        <CircleEase
+                          EasingMode="EaseOut" />
+                      </ColorAnimation.EasingFunction>
+                    </ColorAnimation>
+                    <ColorAnimation
+                      Storyboard.TargetName="rightText"
+                      Storyboard.TargetProperty="(TextBlock.Foreground).(SolidColorBrush.Color)"
+                      Duration="0:0:0.2"
+                      To="#60B7D6">
+                      <ColorAnimation.EasingFunction>
+                        <CircleEase
+                          EasingMode="EaseOut" />
+                      </ColorAnimation.EasingFunction>
+                    </ColorAnimation>-->
+                  </Storyboard>
+                </BeginStoryboard>
+              </Trigger.EnterActions>
+              <Trigger.ExitActions>
+                <BeginStoryboard>
+                  <Storyboard>
+                    <ThicknessAnimation
+                      Storyboard.TargetName="rect"
+                      Storyboard.TargetProperty="Margin"
+                      Duration="0:0:0.2"
+                      To="0,0,0,0">
+                      <ThicknessAnimation.EasingFunction>
+                        <CircleEase
+                          EasingMode="EaseOut" />
+                      </ThicknessAnimation.EasingFunction>
+                    </ThicknessAnimation>
+                    <!--<ColorAnimation
+                      Storyboard.TargetName="leftText"
+                      Storyboard.TargetProperty="(TextBlock.Foreground).(SolidColorBrush.Color)"
+                      Duration="0:0:0.2"
+                      To="#60B7D6">
+                      <ColorAnimation.EasingFunction>
+                        <CircleEase
+                          EasingMode="EaseOut" />
+                      </ColorAnimation.EasingFunction>
+                    </ColorAnimation>
+                    <ColorAnimation
+                      Storyboard.TargetName="rightText"
+                      Storyboard.TargetProperty="(TextBlock.Foreground).(SolidColorBrush.Color)"
+                      Duration="0:0:0.2"
+                      To="White">
+                      <ColorAnimation.EasingFunction>
+                        <CircleEase
+                          EasingMode="EaseOut" />
+                      </ColorAnimation.EasingFunction>
+                    </ColorAnimation>-->
+                  </Storyboard>
+                </BeginStoryboard>
+              </Trigger.ExitActions>
             </Trigger>
           </ControlTemplate.Triggers>
         </ControlTemplate>

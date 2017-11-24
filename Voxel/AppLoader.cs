@@ -8,6 +8,7 @@ using Voxel.Model;
 using Voxel.Model.Languages;
 using Voxel.View;
 using Voxel.ViewModel;
+using static Voxel.Model.Settings;
 
 namespace Voxel
 {
@@ -34,9 +35,9 @@ namespace Voxel
             }
             else
             {
-                bool fullScreen = Settings.Json["StartMenu"].ObjectValue[nameof(TileSize.Fullscreen)].BooleanValue ?? false;
+                bool fullScreen = GetBoolean(MakeKey(StartMenuKey, nameof(TileSize.Fullscreen)));
                 TileSize.Fullscreen = fullScreen;
-                bool showMoreTiles = Settings.Json["StartMenu"].ObjectValue[nameof(TileSize.ShowMoreTiles)].BooleanValue ?? false;
+                bool showMoreTiles = GetBoolean(MakeKey(StartMenuKey, nameof(TileSize.ShowMoreTiles)));
                 TileSize.ShowMoreTiles = showMoreTiles;
 
                 new MainView().ShowDialog();
