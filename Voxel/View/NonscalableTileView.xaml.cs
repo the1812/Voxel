@@ -13,6 +13,9 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 using Voxel.ViewModel;
+using Ace;
+using Ace.Win32;
+using Ace.Wpf;
 
 namespace Voxel.View
 {
@@ -21,17 +24,31 @@ namespace Voxel.View
     /// </summary>
     public partial class NonscalableTileView : Window
     {
+        private NonscalableTileViewModel dataContext;
         public NonscalableTileView()
         {
             InitializeComponent();
-            DataContext = new NonscalableTileViewModel(this);
+            DataContext = dataContext = new NonscalableTileViewModel(this);
+            Loaded += (s, e) =>
+            {
+                this.ReceiveMessage((IntPtr handle, int messgae, IntPtr wParam, IntPtr lParam, ref bool handled) =>
+                {
+                    if (messgae == 0x0320) // WindowsMessage.DwmColorizationColorChanged 
+                    {
+                        long colorValue = (long) wParam;
+                        dataContext.DwmColorChanged(colorValue.ToColor());
+                    }
+                    return IntPtr.Zero;
+                });
+            };
         }
         protected override void OnClosing(CancelEventArgs e)
         {
             Hide();
-            (DataContext as NonscalableTileViewModel).ClearData();
+            dataContext.ClearData();
             e.Cancel = true;
             base.OnClosing(e);
         }
+        
     }
 }

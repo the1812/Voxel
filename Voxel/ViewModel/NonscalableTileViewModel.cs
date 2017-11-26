@@ -111,7 +111,15 @@ namespace Voxel.ViewModel
             }
         }
 
-
+        public void DwmColorChanged(Color newColor)
+        {
+            dwmColor = newColor;
+            if (isLinkedToDwmColor)
+            {
+                BackColor = newColor;
+            }
+        }
+        private bool isLinkedToDwmColor = true;
         private static Color dwmColor = Ace.Wpf.DwmEffect.ColorizationColor;
         private Color backColor = dwmColor;
         public Brush Background
@@ -372,7 +380,7 @@ namespace Voxel.ViewModel
             tileManager = new NonscalableTileManager();
             BackImage = null;
             BackImageSmall = null;
-            BackColor = dwmColor;
+            DefaultColorCommand.Execute(null);
             IsDarkTheme = false;
             ShowName = true;
             IsTileSizeToggleChecked = false;
@@ -505,7 +513,12 @@ namespace Voxel.ViewModel
                         {
                             if (colorPicker.ShowDialog() ?? false)
                             {
-                                BackColor = colorPicker.SelectedColor;
+                                var color = colorPicker.SelectedColor;
+                                if (color != dwmColor)
+                                {
+                                    isLinkedToDwmColor = false;
+                                }
+                                BackColor = color;
                             }
                         }
 
@@ -539,6 +552,7 @@ namespace Voxel.ViewModel
                 ExcuteAction = (o) =>
                 {
                     BackColor = dwmColor;
+                    isLinkedToDwmColor = true;
                 },
             };
         public BindingCommand SelectBackImageCommand
