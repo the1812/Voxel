@@ -434,8 +434,6 @@ namespace Voxel.ViewModel
                             Title = language["OpenFileDialogTitle"],
                             Multiselect = false,
                             DereferenceLinks = true,
-                            AddExtension = true,
-                            DefaultExt = ".exe",
                             CheckFileExists = true,
                             Filter = language["OpenFileDialogFilter"],
                         };

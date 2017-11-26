@@ -71,14 +71,15 @@ namespace Voxel.Model
             {
                 if (TargetType == TargetType.File)
                 {
-                    return TargetPath.RemoveExtension() + ".VisualElementsManifest.xml";
+                    return TargetPath.RemoveExtension() + XmlName;
                 }
                 else
                 {
-                    return TargetPath.NoBackslash() + ".VisualElementsManifest.xml";
+                    return TargetPath.NoBackslash() + XmlName;
                 }
             }
         }
+        public const string XmlName = ".VisualElementsManifest.xml";
 
         private string targetPath;
         public string TargetPath
