@@ -82,6 +82,7 @@
     <Compile Include="Extensions.cs" />
     <Compile Include="Model\Action.cs" />
     <Compile Include="Model\BusyStateController.cs" />
+    <Compile Include="Model\HsbColor.cs" />
     <Compile Include="Model\ImageTile.cs" />
     <Compile Include="Model\ImageTileManager.cs" />
     <Compile Include="ViewModel\IWaitingState.cs" />

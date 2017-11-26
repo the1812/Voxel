@@ -39,7 +39,7 @@
       <ColumnDefinition
         Width="1*" />
     </Grid.ColumnDefinitions>
-    <Viewbox
+    <!--<Viewbox
       x:Name="viewbox"
       Grid.Column="0"
       HorizontalAlignment="Stretch"
@@ -95,7 +95,7 @@
             FontSize="12" />
         </Viewbox>
       </Grid>
-    </Viewbox>
+    </Viewbox>-->
     <Grid
       x:Name="gridBottom"
       Background="{StaticResource HighlightColor}"
@@ -223,7 +223,7 @@
       Foreground="White"
       Text="#"
       FontSize="16" />
-    <CheckBox
+    <!--<CheckBox
       x:Name="checkBoxShowSample"
       Style="{StaticResource OptionCheckBox}"
       Content="{Binding CheckBoxShowSample}"
@@ -233,6 +233,6 @@
       Width="220"
       Grid.Row="1"
       Height="40"
-      IsChecked="{Binding ShowSampleText, Mode=TwoWay}" />
+      IsChecked="{Binding ShowSampleText, Mode=TwoWay}" />-->
   </Grid>
 </Window>
