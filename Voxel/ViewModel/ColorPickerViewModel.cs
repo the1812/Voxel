@@ -55,6 +55,8 @@ namespace Voxel.ViewModel
         {
             get => new SolidColorBrush(SelectedColor);
         }
+        public Color OldColor { get; set; }
+        public Brush OldBrush => new SolidColorBrush(OldColor);
         public string HexColor
         {
             get

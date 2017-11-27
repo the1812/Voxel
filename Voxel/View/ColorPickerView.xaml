@@ -106,6 +106,29 @@
       </Grid>
     </Viewbox>-->
     <Grid
+      Margin="0,15,30,15"
+      Grid.Column="0"
+      Grid.RowSpan="4">
+      <Grid.Effect>
+        <DropShadowEffect
+          ShadowDepth="0"
+          BlurRadius="15"
+          Opacity="0.4" />
+      </Grid.Effect>
+      <Grid.RowDefinitions>
+        <RowDefinition
+          Height="1*" />
+        <RowDefinition
+          Height="1*" />
+      </Grid.RowDefinitions>
+      <Rectangle
+        Grid.Row="0"
+        Fill="{Binding SelectedBrush}" />
+      <Rectangle
+        Grid.Row="1"
+        Fill="{Binding OldBrush}" />
+    </Grid>
+    <Grid
       x:Name="gridBottom"
       Background="{StaticResource HighlightColor}"
       Grid.ColumnSpan="3"
@@ -325,7 +348,7 @@
         HorizontalAlignment="Left"
         TextWrapping="Wrap"
         VerticalAlignment="Center"
-        Margin="10,0"
+        Margin="5,0"
         Foreground="LightGray"
         Text="#"
         FontSize="16" />
@@ -334,7 +357,7 @@
         x:Name="textHexColor"
         TextWrapping="NoWrap"
         Text="{Binding HexColor, UpdateSourceTrigger=LostFocus}"
-        Width="80"
+        Width="70"
         HorizontalAlignment="Center"
         VerticalContentAlignment="Center"
         VerticalAlignment="Center"
