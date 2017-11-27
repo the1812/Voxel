@@ -4,12 +4,12 @@ using System.Globalization;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
 using System.Windows.Data;
-using System.Windows.Media;
 
-namespace Voxel
+namespace Voxel.Converters
 {
-    sealed class BooleanStretchConverter : IValueConverter
+    sealed class VisibilityNotConverter : IValueConverter
     {
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
@@ -17,25 +17,25 @@ namespace Voxel
             {
                 if (b)
                 {
-                    return Stretch.Uniform;
+                    return Visibility.Collapsed;
                 }
                 else
                 {
-                    return Stretch.Fill;
+                    return Visibility.Visible;
                 }
             }
-            return Stretch.Uniform;
+            return Visibility.Collapsed;
         }
 
         public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
         {
-            if (value is Stretch stretch)
+            if (value is Visibility v)
             {
-                if (stretch == Stretch.Uniform)
+                if (v == Visibility.Collapsed)
                 {
                     return true;
                 }
-                else if (stretch == Stretch.Fill)
+                else
                 {
                     return false;
                 }

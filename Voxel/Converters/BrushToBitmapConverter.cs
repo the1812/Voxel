@@ -8,7 +8,7 @@ using System.Windows.Data;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 
-namespace Voxel
+namespace Voxel.Converters
 {
     class BrushToBitmapConverter : IValueConverter
     {

@@ -74,11 +74,12 @@
     </Compile>
     <Compile Include="AppLoader.cs" />
     <Compile Include="BadVoxelFileException.cs" />
-    <Compile Include="BooleanNotConverter.cs" />
-    <Compile Include="BooleanStretchConverter.cs" />
-    <Compile Include="BrushToBitmapConverter.cs" />
+    <Compile Include="Converters\BooleanNotConverter.cs" />
+    <Compile Include="Converters\BooleanStretchConverter.cs" />
+    <Compile Include="Converters\BrushToBitmapConverter.cs" />
     <Compile Include="Contributors.cs" />
     <Compile Include="Controls\ImageSpliter.cs" />
+    <Compile Include="Converters\VisibilityNotConverter.cs" />
     <Compile Include="Extensions.cs" />
     <Compile Include="Model\Action.cs" />
     <Compile Include="Model\BusyStateController.cs" />

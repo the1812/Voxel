@@ -197,6 +197,19 @@ namespace Voxel.ViewModel
 
             }
         }
+
+
+        private bool isHsbMode;
+        public bool IsHsbMode
+        {
+            get => isHsbMode;
+            set
+            {
+                isHsbMode = value;
+                OnPropertyChanged(nameof(IsHsbMode));
+            }
+        }
+
         //private static JsonProperty showSampleTextValue = 
         //    Settings.Json[nameof(NonscalableTile)]
         //    .ObjectValue[nameof(ColorPickerView)]

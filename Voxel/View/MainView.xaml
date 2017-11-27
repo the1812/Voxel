@@ -6,7 +6,7 @@
   xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
   xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
   xmlns:local="clr-namespace:Voxel.View"
-  xmlns:g="clr-namespace:Voxel"
+  xmlns:converters="clr-namespace:Voxel.Converters"
   mc:Ignorable="d"
   Title="{Binding WindowTitle}"
   FontSize="16"
@@ -16,7 +16,7 @@
   ResizeMode="CanMinimize"
   Icon="/Voxel;component/Voxel.ico">
   <Window.Resources>
-    <g:BooleanNotConverter
+    <converters:BooleanNotConverter
       x:Key="boolConverter" />
   </Window.Resources>
   <Window.Background>

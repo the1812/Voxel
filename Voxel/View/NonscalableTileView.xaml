@@ -6,7 +6,7 @@
   xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
   xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
   xmlns:local="clr-namespace:Voxel.View"
-  xmlns:root="clr-namespace:Voxel"
+  xmlns:converters="clr-namespace:Voxel.Converters"
   xmlns:m="clr-namespace:Voxel.Model"
   mc:Ignorable="d"
   ResizeMode="CanMinimize"
@@ -20,7 +20,7 @@
   <Window.Resources>
     <BooleanToVisibilityConverter
       x:Key="visibilityConverter" />
-    <root:BooleanNotConverter
+    <converters:BooleanNotConverter
       x:Key="notConverter" />
     <Storyboard
       SpeedRatio="3"
