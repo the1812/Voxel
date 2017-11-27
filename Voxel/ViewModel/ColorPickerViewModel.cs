@@ -112,6 +112,7 @@ namespace Voxel.ViewModel
                     && Convert.ToInt32(value) <= 255)
                 {
                     selectedColor.B = Convert.ToByte(value);
+                    hsb = new HsbColor(selectedColor);
                 }
                 updatePriperties();
             }
@@ -128,6 +129,7 @@ namespace Voxel.ViewModel
                     && Convert.ToInt32(value) <= 255)
                 {
                     selectedColor.G = Convert.ToByte(value);
+                    hsb = new HsbColor(selectedColor);
                 }
                 updatePriperties();
             }
