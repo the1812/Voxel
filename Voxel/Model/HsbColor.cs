@@ -10,6 +10,7 @@ namespace Voxel.Model
     struct HsbColor //Color convertion: https://zh.wikipedia.org/wiki/HSL和HSV色彩空间
     {
         private decimal hue, saturation, brightness;
+        private const decimal RgbMax = 255M;
 
         public decimal Hue { get => hue; set => hue = value; }
         public decimal Saturation { get => saturation; set => saturation = value; }
@@ -23,29 +24,29 @@ namespace Voxel.Model
         }
         public HsbColor(Color rgbColor)
         {
-            const decimal RgbMax = 255M;
             decimal r = rgbColor.R / RgbMax;
             decimal g = rgbColor.G / RgbMax;
             decimal b = rgbColor.B / RgbMax;
 
             decimal max = Math.Max(Math.Max(r, g), b);
             decimal min = Math.Min(Math.Min(r, g), b);
+            decimal delta = max - min;
 
-            if (max == min)
+            if (delta == 0M)
             {
                 hue = 0M;
             }
             else if (max == r)
             {
-                hue = 60M * ((g - b) / (max - min));
+                hue = 60M * (((g - b) / delta) % 6M);
             }
             else if (max == g)
             {
-                hue = 60M * ((b - r) / (max - min)) + 120M;
+                hue = 60M * (((b - r) / delta) + 2M);
             }
             else // max == b
             {
-                hue = 60M * ((r - g) / (max - min)) + 240M;
+                hue = 60M * (((r - g) / delta) + 4M);
             }
 
             if (max == 0M)
@@ -54,7 +55,7 @@ namespace Voxel.Model
             }
             else
             {
-                saturation = 1M - min / max;
+                saturation = delta / max;
             }
 
             brightness = max;
@@ -62,48 +63,57 @@ namespace Voxel.Model
 
         public Color ToRgbColor()
         {
-            decimal h = hue % 6M;
-            decimal f = hue / 60M - h;
-            decimal p = brightness * (1M - saturation);
-            decimal q = brightness * (1M - f * saturation);
-            decimal t = brightness * (1M - (1M - f) * saturation);
+            decimal c = brightness * saturation;
+            decimal h = hue / 60M;
+            decimal x = c * (1M - Math.Abs((h % 2M) - 1M));
 
-            byte r, g, b;
-            switch (h)
+            decimal r, g, b;
+            if (0M <= h && h <= 1M)
             {
-                default:
-                case 0M:
-                    r = decimal.ToByte(brightness);
-                    g = decimal.ToByte(t);
-                    b = decimal.ToByte(p);
-                    break;
-                case 1M:
-                    r = decimal.ToByte(q);
-                    g = decimal.ToByte(brightness);
-                    b = decimal.ToByte(p);
-                    break;
-                case 2M:
-                    r = decimal.ToByte(p);
-                    g = decimal.ToByte(brightness);
-                    b = decimal.ToByte(t);
-                    break;
-                case 3M:
-                    r = decimal.ToByte(brightness);
-                    g = decimal.ToByte(t);
-                    b = decimal.ToByte(p);
-                    break;
-                case 4M:
-                    r = decimal.ToByte(p);
-                    g = decimal.ToByte(q);
-                    b = decimal.ToByte(brightness);
-                    break;
-                case 5M:
-                    r = decimal.ToByte(brightness);
-                    g = decimal.ToByte(p);
-                    b = decimal.ToByte(q);
-                    break;
+                r = c;
+                g = x;
+                b = 0M;
             }
-            return Color.FromRgb(r, g, b);
+            else if (h <= 2M)
+            {
+                r = x;
+                g = c;
+                b = 0M;
+            }
+            else if (h <= 3M)
+            {
+                r = 0M;
+                g = c;
+                b = x;
+            }
+            else if (h <= 4M)
+            {
+                r = 0M;
+                g = x;
+                b = c;
+            }
+            else if (h <= 5M)
+            {
+                r = x;
+                g = 0M;
+                b = c;
+            }
+            else if (h < 6M)
+            {
+                r = c;
+                g = 0M;
+                b = x;
+            }
+            else
+            {
+                r = g = b = 0M;
+            }
+            decimal m = brightness - c;
+            r += m;
+            g += m;
+            b += m;
+
+            return Color.FromRgb(Convert.ToByte(r * RgbMax), Convert.ToByte(g * RgbMax), Convert.ToByte(b * RgbMax));
         }
 
         public static implicit operator Color(HsbColor hsbColor)

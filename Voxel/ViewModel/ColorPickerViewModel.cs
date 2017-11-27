@@ -26,6 +26,19 @@ namespace Voxel.ViewModel
         public string CheckBoxShowSample => language[nameof(CheckBoxShowSample)];
         #endregion
         #region Vars and properties
+        private void updatePriperties()
+        {
+            OnPropertyChanged(nameof(SelectedColor));
+            OnPropertyChanged(nameof(HexColor));
+            OnPropertyChanged(nameof(RedColor));
+            OnPropertyChanged(nameof(GreenColor));
+            OnPropertyChanged(nameof(BlueColor));
+            OnPropertyChanged(nameof(Hue));
+            OnPropertyChanged(nameof(Saturation));
+            OnPropertyChanged(nameof(Brightness));
+            OnPropertyChanged(nameof(SelectedBrush));
+        }
+
         private static Color dwmColor = Ace.Wpf.DwmEffect.ColorizationColor;
         private Color selectedColor = dwmColor;
         public Color SelectedColor
@@ -34,12 +47,8 @@ namespace Voxel.ViewModel
             set
             {
                 selectedColor = value;
-                OnPropertyChanged(nameof(SelectedColor));
-                OnPropertyChanged(nameof(HexColor));
-                OnPropertyChanged(nameof(RedColor));
-                OnPropertyChanged(nameof(GreenColor));
-                OnPropertyChanged(nameof(BlueColor));
-                OnPropertyChanged(nameof(SelectedBrush));
+                hsb = new HsbColor(value);
+                updatePriperties();
             }
         }
         public Brush SelectedBrush
@@ -69,13 +78,9 @@ namespace Voxel.ViewModel
                         Convert.ToByte(hex.Substring(4, 2), 16)
                         );
                     selectedColor = color;
+                    hsb = new HsbColor(color);
                 }
-                OnPropertyChanged(nameof(SelectedColor));
-                OnPropertyChanged(nameof(HexColor));
-                OnPropertyChanged(nameof(RedColor));
-                OnPropertyChanged(nameof(GreenColor));
-                OnPropertyChanged(nameof(BlueColor));
-                OnPropertyChanged(nameof(SelectedBrush));
+                updatePriperties();
             }
         }
         public string RedColor
@@ -90,13 +95,9 @@ namespace Voxel.ViewModel
                     && Convert.ToInt32(value) <= 255)
                 {
                     selectedColor.R = Convert.ToByte(value);
+                    hsb = new HsbColor(selectedColor);
                 }
-                OnPropertyChanged(nameof(SelectedColor));
-                OnPropertyChanged(nameof(HexColor));
-                OnPropertyChanged(nameof(RedColor));
-                OnPropertyChanged(nameof(GreenColor));
-                OnPropertyChanged(nameof(BlueColor));
-                OnPropertyChanged(nameof(SelectedBrush));
+                updatePriperties();
             }
         }
         public string BlueColor
@@ -112,12 +113,7 @@ namespace Voxel.ViewModel
                 {
                     selectedColor.B = Convert.ToByte(value);
                 }
-                OnPropertyChanged(nameof(SelectedColor));
-                OnPropertyChanged(nameof(HexColor));
-                OnPropertyChanged(nameof(RedColor));
-                OnPropertyChanged(nameof(GreenColor));
-                OnPropertyChanged(nameof(BlueColor));
-                OnPropertyChanged(nameof(SelectedBrush));
+                updatePriperties();
             }
         }
         public string GreenColor
@@ -133,12 +129,72 @@ namespace Voxel.ViewModel
                 {
                     selectedColor.G = Convert.ToByte(value);
                 }
-                OnPropertyChanged(nameof(SelectedColor));
-                OnPropertyChanged(nameof(HexColor));
-                OnPropertyChanged(nameof(RedColor));
-                OnPropertyChanged(nameof(GreenColor));
-                OnPropertyChanged(nameof(BlueColor));
-                OnPropertyChanged(nameof(SelectedBrush));
+                updatePriperties();
+            }
+        }
+
+        private HsbColor hsb;
+        public string Hue
+        {
+            get
+            {
+                return $"{hsb.Hue:0}";
+            }
+            set
+            {
+                if (value.IsMatch(@"[\d]{1,3}"))
+                {
+                    decimal h = value.ToDecimal();
+                    if (h <= 360M)
+                    {
+                        hsb.Hue = h;
+                        selectedColor = hsb.ToRgbColor();
+                    }
+                }
+                updatePriperties();
+
+            }
+        }
+        public string Saturation
+        {
+            get
+            {
+                return $"{hsb.Saturation*100M:0}";
+            }
+            set
+            {
+                if (value.IsMatch(@"[\d]{1,3}"))
+                {
+                    decimal s = value.ToDecimal() / 100M;
+                    if (s <= 1M)
+                    {
+                        hsb.Saturation = s;
+                        selectedColor = hsb.ToRgbColor();
+                    }
+                }
+                updatePriperties();
+
+            }
+        }
+        public string Brightness
+        {
+            get
+            {
+                return $"{hsb.Brightness*100M:0}";
+            }
+            set
+            {
+                if (value.IsMatch(@"[\d]{1,3}"))
+                {
+                    decimal b = value.ToDecimal() / 100M;
+                    if (b <= 1M)
+                    {
+                        hsb.Brightness = b;
+                        selectedColor = hsb.ToRgbColor();
+                    }
+                }
+                updatePriperties();
+
             }
         }
         //private static JsonProperty showSampleTextValue = 
@@ -201,6 +257,39 @@ namespace Voxel.ViewModel
                     if (o is TextBox textBox)
                     {
                         BlueColor = textBox.Text;
+                    }
+                },
+            };
+        public BindingCommand HueEnterCommand
+            => new BindingCommand
+            {
+                ExcuteAction = (o) =>
+                {
+                    if (o is TextBox textBox)
+                    {
+                        Hue = textBox.Text;
+                    }
+                },
+            };
+        public BindingCommand SaturationEnterCommand
+            => new BindingCommand
+            {
+                ExcuteAction = (o) =>
+                {
+                    if (o is TextBox textBox)
+                    {
+                        Saturation = textBox.Text;
+                    }
+                },
+            };
+        public BindingCommand BrightnessEnterCommand
+            => new BindingCommand
+            {
+                ExcuteAction = (o) =>
+                {
+                    if (o is TextBox textBox)
+                    {
+                        Brightness = textBox.Text;
                     }
                 },
             };

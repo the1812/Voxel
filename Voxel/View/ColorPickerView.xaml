@@ -134,8 +134,9 @@
         VerticalAlignment="Center"
         Margin="5"
         Text="R"
-        Foreground="#FFCA6868" />
+        Foreground="White" />
       <TextBox
+        Margin="4,0,0,0"
         Text="{Binding RedColor, UpdateSourceTrigger=LostFocus}"
         MaxLength="3"
         x:Name="textR"
@@ -154,8 +155,9 @@
         VerticalAlignment="Center"
         Margin="5"
         Text="G"
-        Foreground="#FF6DA874" />
+        Foreground="White" />
       <TextBox
+        Margin="4,0,0,0"
         Text="{Binding GreenColor, UpdateSourceTrigger=LostFocus}"
         MaxLength="3"
         x:Name="textG"
@@ -174,8 +176,9 @@
         VerticalAlignment="Center"
         Margin="5"
         Text="B"
-        Foreground="#FF6C9FEA" />
+        Foreground="White" />
       <TextBox
+        Margin="4,0,0,0"
         Text="{Binding BlueColor, UpdateSourceTrigger=LostFocus}"
         MaxLength="3"
         x:Name="textB"
@@ -187,6 +190,76 @@
           <KeyBinding
             Command="{Binding Path=BlueEnterCommand}"
             CommandParameter="{Binding ElementName=textB}"
+            Key="Enter" />
+        </TextBox.InputBindings>
+      </TextBox>
+    </StackPanel>
+    <StackPanel
+      Grid.Row="1"
+      Grid.Column="1"
+      HorizontalAlignment="Center"
+      VerticalAlignment="Center"
+      Orientation="Horizontal">
+      <TextBlock
+        VerticalAlignment="Center"
+        Margin="5"
+        Text="H(°)"
+        Foreground="White" />
+      <TextBox
+        x:Name="textHue"
+        Margin="4,0,0,0"
+        Text="{Binding Hue, UpdateSourceTrigger=LostFocus}"
+        MaxLength="3"
+        Height="30"
+        Width="40"
+        Style="{StaticResource DarkTextBox}"
+        TextWrapping="NoWrap">
+        <TextBox.InputBindings>
+          <KeyBinding
+            Command="{Binding Path=HueEnterCommand}"
+            CommandParameter="{Binding ElementName=textHue}"
+            Key="Enter" />
+        </TextBox.InputBindings>
+      </TextBox>
+      <TextBlock
+        VerticalAlignment="Center"
+        Margin="5"
+        Text="S(%)"
+        Foreground="White" />
+      <TextBox
+        x:Name="textSaturation"
+        Margin="4,0,0,0"
+        Text="{Binding Saturation, UpdateSourceTrigger=LostFocus}"
+        MaxLength="3"
+        Height="30"
+        Width="40"
+        Style="{StaticResource DarkTextBox}"
+        TextWrapping="NoWrap">
+        <TextBox.InputBindings>
+          <KeyBinding
+            Command="{Binding Path=SaturationEnterCommand}"
+            CommandParameter="{Binding ElementName=textSaturation}"
+            Key="Enter" />
+        </TextBox.InputBindings>
+      </TextBox>
+      <TextBlock
+        VerticalAlignment="Center"
+        Margin="5"
+        Text="B(%)"
+        Foreground="White" />
+      <TextBox
+        x:Name="textBrightness"
+        Margin="4,0,0,0"
+        Text="{Binding Brightness, UpdateSourceTrigger=LostFocus}"
+        MaxLength="3"
+        Height="30"
+        Width="40"
+        Style="{StaticResource DarkTextBox}"
+        TextWrapping="NoWrap">
+        <TextBox.InputBindings>
+          <KeyBinding
+            Command="{Binding Path=BrightnessEnterCommand}"
+            CommandParameter="{Binding ElementName=textBrightness}"
             Key="Enter" />
         </TextBox.InputBindings>
       </TextBox>
