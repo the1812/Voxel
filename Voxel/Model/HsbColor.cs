@@ -48,7 +48,7 @@ namespace Voxel.Model
             {
                 hue = 60M * (((r - g) / delta) + 4M);
             }
-            while (hue > 360M)
+            while (hue >= 360M)
             {
                 hue -= 360M;
             }
@@ -120,7 +120,7 @@ namespace Voxel.Model
             r += m;
             g += m;
             b += m;
-
+            
             return Color.FromRgb(Convert.ToByte(r * RgbMax), Convert.ToByte(g * RgbMax), Convert.ToByte(b * RgbMax));
         }
 

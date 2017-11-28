@@ -40,6 +40,9 @@ namespace Voxel.ViewModel
             OnPropertyChanged(nameof(RedValue));
             OnPropertyChanged(nameof(GreenValue));
             OnPropertyChanged(nameof(BlueValue));
+            OnPropertyChanged(nameof(HueValue));
+            OnPropertyChanged(nameof(SaturationValue));
+            OnPropertyChanged(nameof(BrightnessValue));
         }
         private void updateHsbColor()
         {
@@ -190,7 +193,7 @@ namespace Voxel.ViewModel
                 if (value.IsMatch(@"[\d]{1,3}.[\d]{1}|[\d]{1,3}"))
                 {
                     decimal h = value.ToDecimal();
-                    while (h > 360M)
+                    while (h >= 360M)
                     {
                         h -= 360M;
                     }
@@ -247,7 +250,36 @@ namespace Voxel.ViewModel
 
             }
         }
-        
+        public double HueValue
+        {
+            get => (double) hsb.Hue;
+            set
+            {
+                hsb.Hue = (decimal) value;
+                updateRgbColor();
+                updateProperties();
+            }
+        }
+        public double SaturationValue
+        {
+            get => (double) (hsb.Saturation * 100M);
+            set
+            {
+                hsb.Saturation = (decimal) (value / 100.0);
+                updateRgbColor();
+                updateProperties();
+            }
+        }
+        public double BrightnessValue
+        {
+            get => (double) (hsb.Brightness * 100M);
+            set
+            {
+                hsb.Brightness = (decimal) (value / 100.0);
+                updateRgbColor();
+                updateProperties();
+            }
+        }
 
 
         private bool isHsbMode;

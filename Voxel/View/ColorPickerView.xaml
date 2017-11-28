@@ -403,6 +403,36 @@
         Width="200"
         Height="30" />
     </StackPanel>
+    <StackPanel
+      Visibility="{Binding IsHsbMode, Converter={StaticResource visibilityNotConverter}}"
+      x:Name="hsbSliders"
+      HorizontalAlignment="Center"
+      VerticalAlignment="Center"
+      Orientation="Vertical"
+      Grid.RowSpan="3"
+      Grid.Column="1">
+      <Slider
+        Margin="0,10"
+        Maximum="359.9"
+        Minimum="0.0"
+        Value="{Binding HueValue, Mode=TwoWay}"
+        Width="200"
+        Height="30" />
+      <Slider
+        Margin="0,10"
+        Maximum="100.0"
+        Minimum="0.0"
+        Value="{Binding SaturationValue, Mode=TwoWay}"
+        Width="200"
+        Height="30" />
+      <Slider
+        Margin="0,10"
+        Maximum="100.0"
+        Minimum="0.0"
+        Value="{Binding BrightnessValue, Mode=TwoWay}"
+        Width="200"
+        Height="30" />
+    </StackPanel>
     <ToggleButton
       Style="{StaticResource TileSizeToggle}"
       Content="HSB"
