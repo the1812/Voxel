@@ -23,7 +23,7 @@ Here is default settings:
 		"ClearTileCacheOnGenerate" : true,
 		"ColorPickerView" : {
 			"PreviewOnTile" : true,
-			"ShowSampleText" : true
+			"RgbMode" : false
 		}
 	}
 }
@@ -38,13 +38,13 @@ Here is default settings:
     - `ClearTileCacheOnGenerate`: When generating, scan all shortcut files on start menu that match the current target, and refresh them.
     - `ColorPickerView`: Settings for color picker.
         - `PreviewOnTile`: Preview new color on editor.
-        - `ShowSampleText`: Show sample text to check the readablity.
+        - `ShowSampleText`: **Obsoleted since 4th release.** Show sample text to check the readablity.
+		- `RgbMode`: If true, color picker will use RGB color model when it starts (default is HSB). Voxel will update it after you close a color picker.
 
 ## A Brief Help
 - Main Window:
 	- `Non-scalable Tile`:
-		- `Select Target`: Select the target file (`.exe` only), or right-click to select folder.
-		>In the future versions the `.exe` limit will be removed.
+		- `Select Target`: Select the target file, or right-click to select folder.
 		- `Select Image`: Select the image that shows on your tile, or right-click to use no image (show the icon of target).
 		- `Set Backcolor`: Set backcolor of tile, or right-click to use default color.
 		- `Use Dark Theme`: If checked, the tile name will be black (useful when background image is bright).
