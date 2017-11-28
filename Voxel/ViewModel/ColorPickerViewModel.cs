@@ -11,6 +11,7 @@ using System.Windows.Media;
 using Voxel.Model;
 using Voxel.Model.Languages;
 using Voxel.View;
+using static Voxel.Model.Settings;
 
 namespace Voxel.ViewModel
 {
@@ -26,6 +27,43 @@ namespace Voxel.ViewModel
         public string CheckBoxShowSample => language[nameof(CheckBoxShowSample)];
         #endregion
         #region Vars and properties
+        private void updateProperties()
+        {
+            OnPropertyChanged(nameof(SelectedColor));
+            OnPropertyChanged(nameof(Hex));
+            OnPropertyChanged(nameof(Red));
+            OnPropertyChanged(nameof(Green));
+            OnPropertyChanged(nameof(Blue));
+            OnPropertyChanged(nameof(Hue));
+            OnPropertyChanged(nameof(Saturation));
+            OnPropertyChanged(nameof(Brightness));
+            OnPropertyChanged(nameof(SelectedBrush));
+            OnPropertyChanged(nameof(RedValue));
+            OnPropertyChanged(nameof(GreenValue));
+            OnPropertyChanged(nameof(BlueValue));
+            OnPropertyChanged(nameof(HueValue));
+            OnPropertyChanged(nameof(SaturationValue));
+            OnPropertyChanged(nameof(BrightnessValue));
+            OnPropertyChanged(nameof(SaturationStartColor));
+            OnPropertyChanged(nameof(SaturationEndColor));
+            OnPropertyChanged(nameof(BrightnessStartColor));
+            OnPropertyChanged(nameof(BrightnessEndColor));
+            OnPropertyChanged(nameof(RedStartColor));
+            OnPropertyChanged(nameof(RedEndColor));
+            OnPropertyChanged(nameof(GreenStartColor));
+            OnPropertyChanged(nameof(GreenEndColor));
+            OnPropertyChanged(nameof(BlueStartColor));
+            OnPropertyChanged(nameof(BlueEndColor));
+        }
+        private void updateHsbColor()
+        {
+            hsb = new HsbColor(selectedColor);
+        }
+        private void updateRgbColor()
+        {
+            selectedColor = hsb.ToRgbColor();
+        }
+
         private static Color dwmColor = Ace.Wpf.DwmEffect.ColorizationColor;
         private Color selectedColor = dwmColor;
         public Color SelectedColor
@@ -34,19 +72,17 @@ namespace Voxel.ViewModel
             set
             {
                 selectedColor = value;
-                OnPropertyChanged(nameof(SelectedColor));
-                OnPropertyChanged(nameof(HexColor));
-                OnPropertyChanged(nameof(RedColor));
-                OnPropertyChanged(nameof(GreenColor));
-                OnPropertyChanged(nameof(BlueColor));
-                OnPropertyChanged(nameof(SelectedBrush));
+                hsb = new HsbColor(value);
+                updateProperties();
             }
         }
         public Brush SelectedBrush
         {
             get => new SolidColorBrush(SelectedColor);
         }
-        public string HexColor
+        public Color OldColor { get; set; }
+        public Brush OldBrush => new SolidColorBrush(OldColor);
+        public string Hex
         {
             get
             {
@@ -69,16 +105,12 @@ namespace Voxel.ViewModel
                         Convert.ToByte(hex.Substring(4, 2), 16)
                         );
                     selectedColor = color;
+                    hsb = new HsbColor(color);
                 }
-                OnPropertyChanged(nameof(SelectedColor));
-                OnPropertyChanged(nameof(HexColor));
-                OnPropertyChanged(nameof(RedColor));
-                OnPropertyChanged(nameof(GreenColor));
-                OnPropertyChanged(nameof(BlueColor));
-                OnPropertyChanged(nameof(SelectedBrush));
+                updateProperties();
             }
         }
-        public string RedColor
+        public string Red
         {
             get
             {
@@ -90,16 +122,12 @@ namespace Voxel.ViewModel
                     && Convert.ToInt32(value) <= 255)
                 {
                     selectedColor.R = Convert.ToByte(value);
+                    updateHsbColor();
                 }
-                OnPropertyChanged(nameof(SelectedColor));
-                OnPropertyChanged(nameof(HexColor));
-                OnPropertyChanged(nameof(RedColor));
-                OnPropertyChanged(nameof(GreenColor));
-                OnPropertyChanged(nameof(BlueColor));
-                OnPropertyChanged(nameof(SelectedBrush));
+                updateProperties();
             }
         }
-        public string BlueColor
+        public string Blue
         {
             get
             {
@@ -111,16 +139,12 @@ namespace Voxel.ViewModel
                     && Convert.ToInt32(value) <= 255)
                 {
                     selectedColor.B = Convert.ToByte(value);
+                    updateHsbColor();
                 }
-                OnPropertyChanged(nameof(SelectedColor));
-                OnPropertyChanged(nameof(HexColor));
-                OnPropertyChanged(nameof(RedColor));
-                OnPropertyChanged(nameof(GreenColor));
-                OnPropertyChanged(nameof(BlueColor));
-                OnPropertyChanged(nameof(SelectedBrush));
+                updateProperties();
             }
         }
-        public string GreenColor
+        public string Green
         {
             get
             {
@@ -132,32 +156,265 @@ namespace Voxel.ViewModel
                     && Convert.ToInt32(value) <= 255)
                 {
                     selectedColor.G = Convert.ToByte(value);
+                    updateHsbColor();
                 }
-                OnPropertyChanged(nameof(SelectedColor));
-                OnPropertyChanged(nameof(HexColor));
-                OnPropertyChanged(nameof(RedColor));
-                OnPropertyChanged(nameof(GreenColor));
-                OnPropertyChanged(nameof(BlueColor));
-                OnPropertyChanged(nameof(SelectedBrush));
+                updateProperties();
             }
         }
-        private static JsonProperty showSampleTextValue = 
-            Settings.Json[nameof(NonscalableTile)]
-            .ObjectValue[nameof(ColorPickerView)]
-            .ObjectValue
-            .Where(p => p.Name == Settings.ShowSampleTextKey)
-            .FirstOrDefault();
-        private bool showSampleText = showSampleTextValue.Value.BooleanValue ?? false;
-        public bool ShowSampleText
+        public byte RedValue
         {
-            get => showSampleText;
+            get => selectedColor.R;
             set
             {
-                showSampleText = value;
-                showSampleTextValue.Value = value;
-                OnPropertyChanged(nameof(ShowSampleText));
+                selectedColor.R = value;
+                updateHsbColor();
+                updateProperties();
             }
         }
+        public byte GreenValue
+        {
+            get => selectedColor.G;
+            set
+            {
+                selectedColor.G = value;
+                updateHsbColor();
+                updateProperties();
+            }
+        }
+        public byte BlueValue
+        {
+            get => selectedColor.B;
+            set
+            {
+                selectedColor.B = value;
+                updateHsbColor();
+                updateProperties();
+            }
+        }
+        public Color RedStartColor
+        {
+            get
+            {
+                var color = selectedColor;
+                color.R = 0;
+                return color;
+            }
+        }
+        public Color RedEndColor
+        {
+            get
+            {
+                var color = selectedColor;
+                color.R = 255;
+                return color;
+            }
+        }
+        public Color GreenStartColor
+        {
+            get
+            {
+                var color = selectedColor;
+                color.G = 0;
+                return color;
+            }
+        }
+        public Color GreenEndColor
+        {
+            get
+            {
+                var color = selectedColor;
+                color.G = 255;
+                return color;
+            }
+        }
+        public Color BlueStartColor
+        {
+            get
+            {
+                var color = selectedColor;
+                color.B = 0;
+                return color;
+            }
+        }
+        public Color BlueEndColor
+        {
+            get
+            {
+                var color = selectedColor;
+                color.B = 255;
+                return color;
+            }
+        }
+
+        private HsbColor hsb;
+        public string Hue
+        {
+            get
+            {
+                return $"{hsb.Hue:0.0}";
+            }
+            set
+            {
+                if (value.IsMatch(@"[\d]{1,3}.[\d]{1}|[\d]{1,3}"))
+                {
+                    decimal h = value.ToDecimal();
+                    while (h > 360M)
+                    {
+                        h -= 360M;
+                    }
+                    while (h < 0M)
+                    {
+                        h += 360M;
+                    }
+                    hsb.Hue = h;
+                    updateRgbColor();
+                }
+                updateProperties();
+
+            }
+        }
+        public string Saturation
+        {
+            get
+            {
+                return $"{hsb.Saturation*100M:0.0}";
+            }
+            set
+            {
+                if (value.IsMatch(@"[\d]{1,3}.[\d]{1}|[\d]{1,3}"))
+                {
+                    decimal s = value.ToDecimal() / 100M;
+                    if (s >= 0M && s <= 1M)
+                    {
+                        hsb.Saturation = s;
+                        updateRgbColor();
+                    }
+                }
+                updateProperties();
+
+            }
+        }
+        public string Brightness
+        {
+            get
+            {
+                return $"{hsb.Brightness*100M:0.0}";
+            }
+            set
+            {
+                if (value.IsMatch(@"[\d]{1,3}.[\d]{1}|[\d]{1,3}"))
+                {
+                    decimal b = value.ToDecimal() / 100M;
+                    if (b >= 0M && b <= 1M)
+                    {
+                        hsb.Brightness = b;
+                        updateRgbColor();
+                    }
+                }
+                updateProperties();
+
+            }
+        }
+        public double HueValue
+        {
+            get => (double) hsb.Hue;
+            set
+            {
+                //if (value == 360.0)
+                //{
+                //    value -= 360.0;
+                //}
+                hsb.Hue = (decimal) value;
+                updateRgbColor();
+                updateProperties();
+            }
+        }
+        public double SaturationValue
+        {
+            get => (double) (hsb.Saturation * 100M);
+            set
+            {
+                hsb.Saturation = (decimal) (value / 100.0);
+                updateRgbColor();
+                updateProperties();
+            }
+        }
+        public double BrightnessValue
+        {
+            get => (double) (hsb.Brightness * 100M);
+            set
+            {
+                hsb.Brightness = (decimal) (value / 100.0);
+                updateRgbColor();
+                updateProperties();
+            }
+        }
+        public Color SaturationStartColor
+        {
+            get
+            {
+                var color = hsb;
+                color.Saturation = 0M;
+                return color;
+            }
+        }
+        public Color SaturationEndColor
+        {
+            get
+            {
+                var color = hsb;
+                color.Saturation = 1M;
+                return color;
+            }
+        }
+        public Color BrightnessStartColor
+        {
+            get
+            {
+                var color = hsb;
+                color.Brightness = 0M;
+                return color;
+            }
+        }
+        public Color BrightnessEndColor
+        {
+            get
+            {
+                var color = hsb;
+                color.Brightness = 1M;
+                return color;
+            }
+        }
+
+
+        private bool isHsbMode = true;
+        public bool IsHsbMode
+        {
+            get => isHsbMode;
+            set
+            {
+                isHsbMode = value;
+                OnPropertyChanged(nameof(IsHsbMode));
+            }
+        }
+
+        //private static JsonProperty showSampleTextValue = 
+        //    Settings.Json[nameof(NonscalableTile)]
+        //    .ObjectValue[nameof(ColorPickerView)]
+        //    .ObjectValue
+        //    .Where(p => p.Name == Settings.ShowSampleTextKey)
+        //    .FirstOrDefault();
+        //private bool showSampleText = showSampleTextValue.Value.BooleanValue ?? false;
+        //public bool ShowSampleText
+        //{
+        //    get => showSampleText;
+        //    set
+        //    {
+        //        showSampleText = value;
+        //        showSampleTextValue.Value = value;
+        //        OnPropertyChanged(nameof(ShowSampleText));
+        //    }
+        //}
         #endregion
         #region Commands
         public BindingCommand HexEnterCommand
@@ -167,7 +424,7 @@ namespace Voxel.ViewModel
                 {
                     if (o is TextBox textBox)
                     {
-                        HexColor = textBox.Text;
+                        Hex = textBox.Text;
                     }
                 },
             };
@@ -178,7 +435,7 @@ namespace Voxel.ViewModel
                 {
                     if (o is TextBox textBox)
                     {
-                        RedColor = textBox.Text;
+                        Red = textBox.Text;
                     }
                 },
             };
@@ -189,7 +446,7 @@ namespace Voxel.ViewModel
                 {
                     if (o is TextBox textBox)
                     {
-                        GreenColor = textBox.Text;
+                        Green = textBox.Text;
                     }
                 },
             };
@@ -200,8 +457,49 @@ namespace Voxel.ViewModel
                 {
                     if (o is TextBox textBox)
                     {
-                        BlueColor = textBox.Text;
+                        Blue = textBox.Text;
                     }
+                },
+            };
+        public BindingCommand HueEnterCommand
+            => new BindingCommand
+            {
+                ExcuteAction = (o) =>
+                {
+                    if (o is TextBox textBox)
+                    {
+                        Hue = textBox.Text;
+                    }
+                },
+            };
+        public BindingCommand SaturationEnterCommand
+            => new BindingCommand
+            {
+                ExcuteAction = (o) =>
+                {
+                    if (o is TextBox textBox)
+                    {
+                        Saturation = textBox.Text;
+                    }
+                },
+            };
+        public BindingCommand BrightnessEnterCommand
+            => new BindingCommand
+            {
+                ExcuteAction = (o) =>
+                {
+                    if (o is TextBox textBox)
+                    {
+                        Brightness = textBox.Text;
+                    }
+                },
+            };
+        public BindingCommand RestoreOldColorCommand
+            => new BindingCommand
+            {
+                ExcuteAction = (o) =>
+                {
+                    SelectedColor = OldColor;
                 },
             };
         #endregion

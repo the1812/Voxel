@@ -40,7 +40,7 @@ namespace Voxel.Model
             };
             file.Save();
         }
-        private static object getValue(string keyPath)
+        private static JsonValue getValue(string keyPath)
         {
             var path = keyPath.Split('.');
             var lastIndex = path.Length - 1;
@@ -54,18 +54,18 @@ namespace Voxel.Model
                 }
                 else
                 {
-                    setValue(keyPath, defaultValues[keyPath]);
+                    SetValue(keyPath, defaultValues[keyPath]);
                     return defaultValues[keyPath];
                 }
             }
             var lastName = path[lastIndex];
             if (jsonObject.ContainsName(lastName))
             {
-                return jsonObject[path[lastIndex]].Value;
+                return jsonObject[path[lastIndex]];
             }
             else
             {
-                setValue(keyPath, defaultValues[keyPath]);
+                SetValue(keyPath, defaultValues[keyPath]);
                 return defaultValues[keyPath];
             }
         }
@@ -81,7 +81,7 @@ namespace Voxel.Model
         {
             return (decimal) getValue(keyPath);
         }
-        private static void setValue(string keyPath, JsonValue jsonValue)
+        public static void SetValue(string keyPath, JsonValue jsonValue)
         {
             var path = keyPath.Split('.');
             var lastIndex = path.Length - 1;
@@ -111,7 +111,7 @@ namespace Voxel.Model
             {MakeKey(nameof(NonscalableTile), AutoLoadVoxelFileKey), false },
             {MakeKey(nameof(NonscalableTile), ClearTileCacheOnGenerateKey), true },
             {MakeKey(nameof(NonscalableTile), nameof(ColorPickerView), PreviewOnTileKey), true },
-            {MakeKey(nameof(NonscalableTile), nameof(ColorPickerView), ShowSampleTextKey), true },
+            {MakeKey(nameof(NonscalableTile), nameof(ColorPickerView), RgbModeKey), false },
         };
         public static string MakeKey(params string[] keys)
         {
@@ -122,7 +122,7 @@ namespace Voxel.Model
             Json = new JsonObject();
             foreach (var pair in defaultValues)
             {
-                setValue(pair.Key, pair.Value);
+                SetValue(pair.Key, pair.Value);
             }
             Save();
         }
@@ -132,6 +132,7 @@ namespace Voxel.Model
         public const string AutoLoadVoxelFileKey = "AutoLoadVoxelFile";
         public const string ClearTileCacheOnGenerateKey = "ClearTileCacheOnGenerate";
         public const string PreviewOnTileKey = "PreviewOnTile";
-        public const string ShowSampleTextKey = "ShowSampleText";
+        //public const string ShowSampleTextKey = "ShowSampleText";
+        public const string RgbModeKey = "RgbMode";
     }
 }

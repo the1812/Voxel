@@ -64,7 +64,7 @@ namespace Voxel.Model.Languages
                 "File",
                 "Folder",
                 "Url",
-                "Set Back Color",
+                "Set Backcolor",
                 "Select Image",
                 "Image File (*.jpg;*.png;*.bmp;*.tif;*.jpeg;*.tiff)|*.jpg;*.png;*.bmp;*.tif;*.jpeg;*.tiff",
             };

@@ -21,11 +21,15 @@ namespace Voxel.View
     /// </summary>
     public partial class ColorPickerView : Window
     {
+        private ColorPickerViewModel dataContext;
         public ColorPickerView(Color oldColor)
         {
             InitializeComponent();
-            this.oldColor = oldColor;
-            DataContext = new ColorPickerViewModel();
+            dataContext = new ColorPickerViewModel
+            {
+                OldColor = oldColor
+            };
+            DataContext = dataContext;
             buttonOK.Click += (s, e) =>
             {
                 DialogResult = true;
@@ -39,15 +43,14 @@ namespace Voxel.View
         {
             if (DialogResult == false)
             {
-                SelectedColor = oldColor;
+                SelectedColor = dataContext.OldColor;
             }
             base.OnClosing(e);
         }
-        private Color oldColor;
         public Color SelectedColor
         {
-            get => (DataContext as ColorPickerViewModel).SelectedColor;
-            set => (DataContext as ColorPickerViewModel).SelectedColor = value;
+            get => dataContext.SelectedColor;
+            set => dataContext.SelectedColor = value;
         }
     }
 

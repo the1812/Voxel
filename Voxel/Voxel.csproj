@@ -75,14 +75,19 @@
     </Compile>
     <Compile Include="AppLoader.cs" />
     <Compile Include="BadVoxelFileException.cs" />
-    <Compile Include="BooleanNotConverter.cs" />
-    <Compile Include="BooleanStretchConverter.cs" />
-    <Compile Include="BrushToBitmapConverter.cs" />
+    <Compile Include="Controls\ColorPickerHorizontalSlider.cs" />
+    <Compile Include="Controls\ColorPickerHueSlider.cs" />
+    <Compile Include="Converters\BooleanNotConverter.cs" />
+    <Compile Include="Converters\BooleanStretchConverter.cs" />
+    <Compile Include="Converters\BrushToBitmapConverter.cs" />
     <Compile Include="Contributors.cs" />
     <Compile Include="Controls\ImageSpliter.cs" />
+    <Compile Include="Converters\ColorToHueBrushConverter.cs" />
+    <Compile Include="Converters\VisibilityNotConverter.cs" />
     <Compile Include="Extensions.cs" />
     <Compile Include="Model\Action.cs" />
     <Compile Include="Model\BusyStateController.cs" />
+    <Compile Include="Model\HsbColor.cs" />
     <Compile Include="Model\ImageTile.cs" />
     <Compile Include="Model\ImageTileManager.cs" />
     <Compile Include="ViewModel\IWaitingState.cs" />
@@ -164,6 +169,18 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
+    <Page Include="Styles\ColorPickerHorizontalSlider.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Styles\ColorPickerHueSlider.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Styles\ColorPickerSlider.Common.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Styles\DarkButton.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -213,6 +230,10 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Include="Styles\ToolTextBlock.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Styles\UI.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

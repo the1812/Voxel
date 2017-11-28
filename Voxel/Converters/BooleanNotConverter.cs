@@ -6,7 +6,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Data;
 
-namespace Voxel
+namespace Voxel.Converters
 {
     sealed class BooleanNotConverter : IValueConverter
     {

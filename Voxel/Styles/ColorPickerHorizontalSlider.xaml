@@ -1,0 +1,105 @@
+<ResourceDictionary
+  xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+  xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+  xmlns:controls="clr-namespace:Voxel.Controls">
+  <ResourceDictionary.MergedDictionaries>
+    <ResourceDictionary
+      Source="ColorPickerSlider.Common.xaml" />
+  </ResourceDictionary.MergedDictionaries>
+  <Style
+    TargetType="{x:Type controls:ColorPickerHorizontalSlider}">
+    <Setter
+      Property="Background"
+      Value="#CCC" />
+    <Setter
+      Property="BorderBrush"
+      Value="#666" />
+    <Setter
+      Property="Margin"
+      Value="0,10" />
+    <Setter
+      Property="Width"
+      Value="250" />
+    <Setter
+      Property="Height"
+      Value="30" />
+    <Setter
+      Property="StartColor"
+      Value="#2E8CC6" />
+    <Setter
+      Property="EndColor"
+      Value="#E19C3E" />
+    <Setter
+      Property="Template">
+      <Setter.Value>
+        <ControlTemplate
+          TargetType="{x:Type controls:ColorPickerHorizontalSlider}">
+          <Border
+            x:Name="border"
+            Background="Transparent"
+            SnapsToDevicePixels="True">
+            <Grid
+              VerticalAlignment="{TemplateBinding VerticalContentAlignment}">
+              <!--<Grid.RowDefinitions>
+                <RowDefinition
+                  Height="Auto" />
+                <RowDefinition
+                  Height="Auto"
+                  MinHeight="{TemplateBinding MinHeight}" />
+                <RowDefinition
+                  Height="Auto" />
+              </Grid.RowDefinitions>-->
+
+              <Border
+                x:Name="TrackBackground"
+                BorderBrush="{TemplateBinding BorderBrush}"
+                BorderThickness="1"
+                Height="15"
+                Margin="7.5,0"
+                VerticalAlignment="center">
+                <Border.Background>
+                  <LinearGradientBrush
+                    StartPoint="0,0"
+                    EndPoint="1,0">
+                    <GradientStop
+                      Color="{Binding StartColor, RelativeSource={RelativeSource TemplatedParent}}"
+                      Offset="0" />
+                    <GradientStop
+                      Color="{Binding EndColor, RelativeSource={RelativeSource TemplatedParent}}"
+                      Offset="1" />
+                  </LinearGradientBrush>
+                </Border.Background>
+              </Border>
+              <Track
+                x:Name="PART_Track">
+                <Track.DecreaseRepeatButton>
+                  <RepeatButton
+                    Command="{x:Static Slider.DecreaseLarge}"
+                    Style="{DynamicResource RepeatButtonTransparent}" />
+                </Track.DecreaseRepeatButton>
+                <Track.IncreaseRepeatButton>
+                  <RepeatButton
+                    Command="{x:Static Slider.IncreaseLarge}"
+                    Style="{DynamicResource RepeatButtonTransparent}" />
+                </Track.IncreaseRepeatButton>
+                <Track.Thumb>
+                  <Thumb
+                    x:Name="Thumb"
+                    Focusable="False"
+                    Height="30"
+                    OverridesDefaultStyle="True"
+                    BorderBrush="{TemplateBinding BorderBrush}"
+                    Background="{TemplateBinding Background}"
+                    Template="{DynamicResource SliderThumbHorizontalDefault}"
+                    VerticalAlignment="Center"
+                    Width="15" />
+                </Track.Thumb>
+              </Track>
+            </Grid>
+          </Border>
+
+        </ControlTemplate>
+      </Setter.Value>
+    </Setter>
+  </Style>
+</ResourceDictionary>

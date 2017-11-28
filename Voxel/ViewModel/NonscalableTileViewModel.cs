@@ -111,7 +111,15 @@ namespace Voxel.ViewModel
             }
         }
 
-
+        public void DwmColorChanged(Color newColor)
+        {
+            dwmColor = newColor;
+            if (isLinkedToDwmColor)
+            {
+                BackColor = newColor;
+            }
+        }
+        private bool isLinkedToDwmColor = true;
         private static Color dwmColor = Ace.Wpf.DwmEffect.ColorizationColor;
         private Color backColor = dwmColor;
         public Brush Background
@@ -372,7 +380,7 @@ namespace Voxel.ViewModel
             tileManager = new NonscalableTileManager();
             BackImage = null;
             BackImageSmall = null;
-            BackColor = dwmColor;
+            DefaultColorCommand.Execute(null);
             IsDarkTheme = false;
             ShowName = true;
             IsTileSizeToggleChecked = false;
@@ -426,8 +434,6 @@ namespace Voxel.ViewModel
                             Title = language["OpenFileDialogTitle"],
                             Multiselect = false,
                             DereferenceLinks = true,
-                            AddExtension = true,
-                            DefaultExt = ".exe",
                             CheckFileExists = true,
                             Filter = language["OpenFileDialogFilter"],
                         };
@@ -505,14 +511,22 @@ namespace Voxel.ViewModel
                         {
                             if (colorPicker.ShowDialog() ?? false)
                             {
-                                BackColor = colorPicker.SelectedColor;
+                                var color = colorPicker.SelectedColor;
+                                if (color != dwmColor)
+                                {
+                                    isLinkedToDwmColor = false;
+                                }
+                                BackColor = color;
                             }
                         }
 
+                        bool rgbMode = GetBoolean(MakeKey(nameof(NonscalableTile), nameof(ColorPickerView), RgbModeKey));
+                        var colorPickerViewModel = colorPicker.DataContext as ColorPickerViewModel;
+                        colorPickerViewModel.IsHsbMode = !rgbMode;
+                        
                         bool previewOnTile = GetBoolean(MakeKey(nameof(NonscalableTile), nameof(ColorPickerView), PreviewOnTileKey));
                         if (previewOnTile)
                         {
-                            var colorPickerViewModel = colorPicker.DataContext as ColorPickerViewModel;
                             var originalColorBinding = gridPreview.GetBindingExpression(Control.BackgroundProperty).ParentBinding;
                             var colorPickerBinding = new Binding
                             {
@@ -529,6 +543,10 @@ namespace Voxel.ViewModel
                         {
                             showDialog();
                         }
+
+                        SetValue(
+                            MakeKey(nameof(NonscalableTile), nameof(ColorPickerView), RgbModeKey),
+                            !colorPickerViewModel.IsHsbMode);
                     }
                     
                 },
@@ -539,6 +557,7 @@ namespace Voxel.ViewModel
                 ExcuteAction = (o) =>
                 {
                     BackColor = dwmColor;
+                    isLinkedToDwmColor = true;
                 },
             };
         public BindingCommand SelectBackImageCommand

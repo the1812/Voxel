@@ -21,6 +21,11 @@ namespace Voxel
             byte[] bytes = BitConverter.GetBytes(value);
             return Color.FromArgb(bytes[3], bytes[2], bytes[1], bytes[0]);
         }
+        public static Color ToColor(this long value)
+        {
+            byte[] bytes = BitConverter.GetBytes(value);
+            return Color.FromArgb(bytes[3], bytes[2], bytes[1], bytes[0]);
+        }
         public static int ToInt32(this Color color)
         {
             return (color.A << 24) | (color.R << 16) | (color.G << 8) | color.B;
