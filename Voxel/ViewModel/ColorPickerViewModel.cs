@@ -494,6 +494,14 @@ namespace Voxel.ViewModel
                     }
                 },
             };
+        public BindingCommand RestoreOldColorCommand
+            => new BindingCommand
+            {
+                ExcuteAction = (o) =>
+                {
+                    SelectedColor = OldColor;
+                },
+            };
         #endregion
 
     }

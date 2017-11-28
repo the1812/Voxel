@@ -127,7 +127,13 @@
         Fill="{Binding SelectedBrush}" />
       <Rectangle
         Grid.Row="1"
-        Fill="{Binding OldBrush}" />
+        Fill="{Binding OldBrush}">
+        <Rectangle.InputBindings>
+          <MouseBinding
+            Gesture="LeftClick"
+            Command="{Binding RestoreOldColorCommand}" />
+        </Rectangle.InputBindings>
+      </Rectangle>
     </Grid>
     <Grid
       x:Name="gridBottom"
