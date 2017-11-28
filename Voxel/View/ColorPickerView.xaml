@@ -159,7 +159,7 @@
     </Grid>
     <StackPanel
       x:Name="rgbPanel"
-      Visibility="{Binding IsHsbMode, Converter={StaticResource visibilityConverter}}"
+      Visibility="{Binding IsHsbMode, Converter={StaticResource visibilityNotConverter}}"
       Grid.RowSpan="3"
       Grid.Column="2"
       HorizontalAlignment="Center"
@@ -241,7 +241,7 @@
     </StackPanel>
     <StackPanel
       x:Name="hsbPanel"
-      Visibility="{Binding IsHsbMode, Converter={StaticResource visibilityNotConverter}}"
+      Visibility="{Binding IsHsbMode, Converter={StaticResource visibilityConverter}}"
       Grid.RowSpan="3"
       Grid.Column="2"
       HorizontalAlignment="Center"
@@ -375,7 +375,7 @@
       </TextBox>
     </StackPanel>
     <StackPanel
-      Visibility="{Binding IsHsbMode, Converter={StaticResource visibilityConverter}}"
+      Visibility="{Binding IsHsbMode, Converter={StaticResource visibilityNotConverter}}"
       x:Name="rgbSliders"
       HorizontalAlignment="Center"
       VerticalAlignment="Center"
@@ -403,7 +403,7 @@
         Value="{Binding BlueValue, Mode=TwoWay}"/>
     </StackPanel>
     <StackPanel
-      Visibility="{Binding IsHsbMode, Converter={StaticResource visibilityNotConverter}}"
+      Visibility="{Binding IsHsbMode, Converter={StaticResource visibilityConverter}}"
       x:Name="hsbSliders"
       HorizontalAlignment="Center"
       VerticalAlignment="Center"
@@ -440,7 +440,7 @@
       Width="200"
       VerticalAlignment="Center"
       HorizontalAlignment="Center"
-      IsChecked="{Binding IsHsbMode, Mode=TwoWay}"/>
+      IsChecked="{Binding IsHsbMode, Mode=TwoWay, Converter={StaticResource notConverter}}"/>
     <!--<CheckBox
       x:Name="checkBoxShowSample"
       Style="{StaticResource OptionCheckBox}"

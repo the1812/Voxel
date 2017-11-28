@@ -11,6 +11,7 @@ using System.Windows.Media;
 using Voxel.Model;
 using Voxel.Model.Languages;
 using Voxel.View;
+using static Voxel.Model.Settings;
 
 namespace Voxel.ViewModel
 {
@@ -386,7 +387,7 @@ namespace Voxel.ViewModel
         }
 
 
-        private bool isHsbMode;
+        private bool isHsbMode = true;
         public bool IsHsbMode
         {
             get => isHsbMode;

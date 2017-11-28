@@ -520,10 +520,13 @@ namespace Voxel.ViewModel
                             }
                         }
 
+                        bool rgbMode = GetBoolean(MakeKey(nameof(NonscalableTile), nameof(ColorPickerView), RgbModeKey));
+                        var colorPickerViewModel = colorPicker.DataContext as ColorPickerViewModel;
+                        colorPickerViewModel.IsHsbMode = !rgbMode;
+                        
                         bool previewOnTile = GetBoolean(MakeKey(nameof(NonscalableTile), nameof(ColorPickerView), PreviewOnTileKey));
                         if (previewOnTile)
                         {
-                            var colorPickerViewModel = colorPicker.DataContext as ColorPickerViewModel;
                             var originalColorBinding = gridPreview.GetBindingExpression(Control.BackgroundProperty).ParentBinding;
                             var colorPickerBinding = new Binding
                             {
