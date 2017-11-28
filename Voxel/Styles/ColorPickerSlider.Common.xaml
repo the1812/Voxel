@@ -39,7 +39,7 @@
         x:Name="grip"
         Data="M 0,0 L -2,2 L 2,2 z"
         Stroke="{TemplateBinding BorderBrush}"
-        StrokeThickness="1"
+        StrokeThickness="0"
         Fill="{TemplateBinding Background}"
         Width="15"
         Height="7.5"
