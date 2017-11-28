@@ -413,7 +413,7 @@
       Grid.Column="1">
       <Slider
         Margin="0,10"
-        Maximum="359.9"
+        Maximum="360.0"
         Minimum="0.0"
         Value="{Binding HueValue, Mode=TwoWay}"
         Width="200"

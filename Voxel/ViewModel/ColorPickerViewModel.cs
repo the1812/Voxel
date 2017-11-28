@@ -193,7 +193,7 @@ namespace Voxel.ViewModel
                 if (value.IsMatch(@"[\d]{1,3}.[\d]{1}|[\d]{1,3}"))
                 {
                     decimal h = value.ToDecimal();
-                    while (h >= 360M)
+                    while (h > 360M)
                     {
                         h -= 360M;
                     }
@@ -255,6 +255,10 @@ namespace Voxel.ViewModel
             get => (double) hsb.Hue;
             set
             {
+                //if (value == 360.0)
+                //{
+                //    value -= 360.0;
+                //}
                 hsb.Hue = (decimal) value;
                 updateRgbColor();
                 updateProperties();

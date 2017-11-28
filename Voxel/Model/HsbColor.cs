@@ -48,7 +48,7 @@ namespace Voxel.Model
             {
                 hue = 60M * (((r - g) / delta) + 4M);
             }
-            while (hue >= 360M)
+            while (hue > 360M)
             {
                 hue -= 360M;
             }
@@ -72,7 +72,7 @@ namespace Voxel.Model
         public Color ToRgbColor()
         {
             decimal c = brightness * saturation;
-            decimal h = hue / 60M;
+            decimal h = hue == 360M ? 0M : hue / 60M;
             decimal x = c * (1M - Math.Abs((h % 2M) - 1M));
 
             decimal r, g, b;
