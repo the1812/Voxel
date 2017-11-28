@@ -1,13 +1,16 @@
 <ResourceDictionary
   xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
   xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-  xmlns:controls="clr-namespace:Voxel.Controls">
+  xmlns:controls="clr-namespace:Voxel.Controls"
+  xmlns:converters="clr-namespace:Voxel.Converters">
   <ResourceDictionary.MergedDictionaries>
     <ResourceDictionary
       Source="ColorPickerSlider.Common.xaml" />
   </ResourceDictionary.MergedDictionaries>
+  <converters:ColorToHueBrushConverter
+    x:Key="brushConverter" />
   <Style
-    TargetType="{x:Type controls:ColorPickerHorizontalSlider}">
+    TargetType="{x:Type controls:ColorPickerHueSlider}">
     <Setter
       Property="Background"
       Value="#CCC" />
@@ -24,16 +27,13 @@
       Property="Height"
       Value="30" />
     <Setter
-      Property="StartColor"
+      Property="Color"
       Value="#2E8CC6" />
-    <Setter
-      Property="EndColor"
-      Value="#E19C3E" />
     <Setter
       Property="Template">
       <Setter.Value>
         <ControlTemplate
-          TargetType="{x:Type controls:ColorPickerHorizontalSlider}">
+          TargetType="{x:Type controls:ColorPickerHueSlider}">
           <Border
             x:Name="border"
             Background="Transparent"
@@ -56,19 +56,9 @@
                 BorderThickness="1"
                 Height="15"
                 Margin="7.5,0"
+                Background="{TemplateBinding Color, Converter={StaticResource brushConverter}}"
                 VerticalAlignment="center">
-                <Border.Background>
-                  <LinearGradientBrush
-                    StartPoint="0,0"
-                    EndPoint="1,0">
-                    <GradientStop
-                      Color="{Binding StartColor, RelativeSource={RelativeSource TemplatedParent}}"
-                      Offset="0" />
-                    <GradientStop
-                      Color="{Binding EndColor, RelativeSource={RelativeSource TemplatedParent}}"
-                      Offset="1" />
-                  </LinearGradientBrush>
-                </Border.Background>
+                
               </Border>
               <Track
                 x:Name="PART_Track">

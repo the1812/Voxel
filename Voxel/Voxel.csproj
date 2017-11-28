@@ -75,11 +75,13 @@
     <Compile Include="AppLoader.cs" />
     <Compile Include="BadVoxelFileException.cs" />
     <Compile Include="Controls\ColorPickerHorizontalSlider.cs" />
+    <Compile Include="Controls\ColorPickerHueSlider.cs" />
     <Compile Include="Converters\BooleanNotConverter.cs" />
     <Compile Include="Converters\BooleanStretchConverter.cs" />
     <Compile Include="Converters\BrushToBitmapConverter.cs" />
     <Compile Include="Contributors.cs" />
     <Compile Include="Controls\ImageSpliter.cs" />
+    <Compile Include="Converters\ColorToHueBrushConverter.cs" />
     <Compile Include="Converters\VisibilityNotConverter.cs" />
     <Compile Include="Extensions.cs" />
     <Compile Include="Model\Action.cs" />
@@ -167,6 +169,14 @@
   </ItemGroup>
   <ItemGroup>
     <Page Include="Styles\ColorPickerHorizontalSlider.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Styles\ColorPickerHueSlider.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Styles\ColorPickerSlider.Common.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

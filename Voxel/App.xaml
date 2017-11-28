@@ -31,6 +31,8 @@
           Source="Styles/MainViewButton.xaml" />
         <ResourceDictionary
           Source="Styles/ColorPickerHorizontalSlider.xaml" />
+        <ResourceDictionary
+          Source="Styles/ColorPickerHueSlider.xaml" />
       </ResourceDictionary.MergedDictionaries>
       <SolidColorBrush
         x:Key="HighlightColor"

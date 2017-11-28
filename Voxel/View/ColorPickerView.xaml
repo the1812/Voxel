@@ -410,7 +410,8 @@
       Orientation="Vertical"
       Grid.RowSpan="3"
       Grid.Column="1">
-      <controls:ColorPickerHorizontalSlider
+      <controls:ColorPickerHueSlider
+        Color="{Binding SelectedColor}"
         Maximum="360.0"
         Minimum="0.0"
         Value="{Binding HueValue, Mode=TwoWay}"
