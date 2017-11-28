@@ -375,12 +375,12 @@
           Orientation="Horizontal">
           <Viewbox
             Margin="0,0,15,0"
-            Height="26"
-            Width="26"
+            Height="{StaticResource IconSize}"
+            Width="{StaticResource IconSize}"
             Child="{StaticResource Export}" />
           <Viewbox
             Margin="0,0,15,0"
-            Height="20">
+            Height="{StaticResource ToolButtonTextSize}">
             <TextBlock
               Style="{StaticResource ToolTextBlock}"
               Text="{Binding ButtonExport}" />
@@ -397,12 +397,12 @@
           Orientation="Horizontal">
           <Viewbox
             Margin="0,0,15,0"
-            Height="26"
-            Width="26"
+            Height="{StaticResource IconSize}"
+            Width="{StaticResource IconSize}"
             Child="{StaticResource Import}" />
           <Viewbox
             Margin="0,0,15,0"
-            Height="20">
+            Height="{StaticResource ToolButtonTextSize}">
             <TextBlock
               Style="{StaticResource ToolTextBlock}"
               Text="{Binding ButtonImport}" />
@@ -419,12 +419,12 @@
           Orientation="Horizontal">
           <Viewbox
             Margin="0,0,15,0"
-            Height="26"
-            Width="26"
+            Height="{StaticResource IconSize}"
+            Width="{StaticResource IconSize}"
             Child="{StaticResource WindowsLogo}" />
           <Viewbox
             Margin="0,0,5,0"
-            Height="20">
+            Height="{StaticResource ToolButtonTextSize}">
             <TextBlock
               Style="{StaticResource ToolTextBlock}"
               Text="{Binding ButtonAddToStart}" />
@@ -440,12 +440,12 @@
           Orientation="Horizontal">
           <Viewbox
             Margin="0,0,15,0"
-            Height="26"
-            Width="26"
+            Height="{StaticResource IconSize}"
+            Width="{StaticResource IconSize}"
             Child="{StaticResource Generate}" />
           <Viewbox
             Margin="0,0,15,0"
-            Height="20">
+            Height="{StaticResource ToolButtonTextSize}">
             <TextBlock
               Style="{StaticResource ToolTextBlock}"
               Text="{Binding ButtonGenerate}" />

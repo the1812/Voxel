@@ -161,12 +161,12 @@
           Orientation="Horizontal">
           <Viewbox
             Margin="0,0,15,0"
-            Height="26"
-            Width="26"
+            Height="{StaticResource IconSize}"
+            Width="{StaticResource IconSize}"
             Child="{StaticResource Cancel}" />
           <Viewbox
             Margin="0,0,15,0"
-            Height="18">
+            Height="{StaticResource ToolButtonTextSize}">
             <TextBlock
               Style="{StaticResource ToolTextBlock}"
               Text="{Binding ButtonCancel}" />
@@ -180,12 +180,12 @@
           Orientation="Horizontal">
           <Viewbox
             Margin="0,0,15,0"
-            Height="26"
-            Width="26"
+            Height="{StaticResource IconSize}"
+            Width="{StaticResource IconSize}"
             Child="{StaticResource Generate}" />
           <Viewbox
             Margin="0,0,15,0"
-            Height="18">
+            Height="{StaticResource ToolButtonTextSize}">
             <TextBlock
               Style="{StaticResource ToolTextBlock}"
               Text="{Binding ButtonOK}" />
