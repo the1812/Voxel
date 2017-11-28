@@ -49,12 +49,12 @@
       HorizontalAlignment="Center"
       VerticalAlignment="Stretch"
       Margin="0">
-      <StackPanel.Effect>
+      <!--<StackPanel.Effect>
         <DropShadowEffect
           BlurRadius="20"
           ShadowDepth="0"
           Opacity="0.5" />
-      </StackPanel.Effect>
+      </StackPanel.Effect>-->
       <Button
         x:Name="buttonOK"
         Style="{StaticResource ToolButton}"

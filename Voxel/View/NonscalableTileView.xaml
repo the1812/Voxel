@@ -349,12 +349,12 @@
       Grid.Row="1"
       VerticalAlignment="Stretch"
       Background="{StaticResource HighlightColor}">
-      <Grid.Effect>
+      <!--<Grid.Effect>
         <DropShadowEffect
           BlurRadius="20"
           ShadowDepth="0"
           Opacity="0.5" />
-      </Grid.Effect>
+      </Grid.Effect>-->
       <Grid.ColumnDefinitions>
         <ColumnDefinition
           Width="1*" />

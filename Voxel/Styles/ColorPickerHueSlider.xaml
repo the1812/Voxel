@@ -22,7 +22,7 @@
       Value="0,10" />
     <Setter
       Property="Width"
-      Value="200" />
+      Value="250" />
     <Setter
       Property="Height"
       Value="30" />
