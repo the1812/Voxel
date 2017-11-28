@@ -54,7 +54,7 @@ namespace Voxel.Model
                 }
                 else
                 {
-                    setValue(keyPath, defaultValues[keyPath]);
+                    SetValue(keyPath, defaultValues[keyPath]);
                     return defaultValues[keyPath];
                 }
             }
@@ -65,7 +65,7 @@ namespace Voxel.Model
             }
             else
             {
-                setValue(keyPath, defaultValues[keyPath]);
+                SetValue(keyPath, defaultValues[keyPath]);
                 return defaultValues[keyPath];
             }
         }
@@ -81,7 +81,7 @@ namespace Voxel.Model
         {
             return (decimal) getValue(keyPath);
         }
-        private static void setValue(string keyPath, JsonValue jsonValue)
+        public static void SetValue(string keyPath, JsonValue jsonValue)
         {
             var path = keyPath.Split('.');
             var lastIndex = path.Length - 1;
@@ -122,7 +122,7 @@ namespace Voxel.Model
             Json = new JsonObject();
             foreach (var pair in defaultValues)
             {
-                setValue(pair.Key, pair.Value);
+                SetValue(pair.Key, pair.Value);
             }
             Save();
         }

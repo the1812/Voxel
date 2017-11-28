@@ -543,6 +543,10 @@ namespace Voxel.ViewModel
                         {
                             showDialog();
                         }
+
+                        SetValue(
+                            MakeKey(nameof(NonscalableTile), nameof(ColorPickerView), RgbModeKey),
+                            !colorPickerViewModel.IsHsbMode);
                     }
                     
                 },

@@ -150,12 +150,42 @@
       <Button
         Style="{StaticResource ToolButton}"
         x:Name="buttonCancel"
-        Content="{Binding ButtonCancel}" 
-        Grid.Column="1"/>
+        Grid.Column="1">
+        <StackPanel
+          Orientation="Horizontal">
+          <Viewbox
+            Margin="0,0,15,0"
+            Height="26"
+            Width="26"
+            Child="{StaticResource Cancel}" />
+          <Viewbox
+            Margin="0,0,15,0"
+            Height="18">
+            <TextBlock
+              Style="{StaticResource ToolTextBlock}"
+              Text="{Binding ButtonCancel}" />
+          </Viewbox>
+        </StackPanel>
+      </Button>
       <Button
         Style="{StaticResource ToolButton}"
-        x:Name="buttonOK"
-        Content="{Binding ButtonOK}" />
+        x:Name="buttonOK">
+        <StackPanel
+          Orientation="Horizontal">
+          <Viewbox
+            Margin="0,0,15,0"
+            Height="26"
+            Width="26"
+            Child="{StaticResource Generate}" />
+          <Viewbox
+            Margin="0,0,15,0"
+            Height="18">
+            <TextBlock
+              Style="{StaticResource ToolTextBlock}"
+              Text="{Binding ButtonOK}" />
+          </Viewbox>
+        </StackPanel>
+      </Button>
     </Grid>
     <StackPanel
       x:Name="rgbPanel"
