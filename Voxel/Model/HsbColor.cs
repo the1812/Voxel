@@ -48,6 +48,14 @@ namespace Voxel.Model
             {
                 hue = 60M * (((r - g) / delta) + 4M);
             }
+            while (hue > 360M)
+            {
+                hue -= 360M;
+            }
+            while (hue < 0M)
+            {
+                hue += 360M;
+            }
 
             if (max == 0M)
             {

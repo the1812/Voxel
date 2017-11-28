@@ -26,17 +26,28 @@ namespace Voxel.ViewModel
         public string CheckBoxShowSample => language[nameof(CheckBoxShowSample)];
         #endregion
         #region Vars and properties
-        private void updatePriperties()
+        private void updateProperties()
         {
             OnPropertyChanged(nameof(SelectedColor));
-            OnPropertyChanged(nameof(HexColor));
-            OnPropertyChanged(nameof(RedColor));
-            OnPropertyChanged(nameof(GreenColor));
-            OnPropertyChanged(nameof(BlueColor));
+            OnPropertyChanged(nameof(Hex));
+            OnPropertyChanged(nameof(Red));
+            OnPropertyChanged(nameof(Green));
+            OnPropertyChanged(nameof(Blue));
             OnPropertyChanged(nameof(Hue));
             OnPropertyChanged(nameof(Saturation));
             OnPropertyChanged(nameof(Brightness));
             OnPropertyChanged(nameof(SelectedBrush));
+            OnPropertyChanged(nameof(RedValue));
+            OnPropertyChanged(nameof(GreenValue));
+            OnPropertyChanged(nameof(BlueValue));
+        }
+        private void updateHsbColor()
+        {
+            hsb = new HsbColor(selectedColor);
+        }
+        private void updateRgbColor()
+        {
+            selectedColor = hsb.ToRgbColor();
         }
 
         private static Color dwmColor = Ace.Wpf.DwmEffect.ColorizationColor;
@@ -48,7 +59,7 @@ namespace Voxel.ViewModel
             {
                 selectedColor = value;
                 hsb = new HsbColor(value);
-                updatePriperties();
+                updateProperties();
             }
         }
         public Brush SelectedBrush
@@ -57,7 +68,7 @@ namespace Voxel.ViewModel
         }
         public Color OldColor { get; set; }
         public Brush OldBrush => new SolidColorBrush(OldColor);
-        public string HexColor
+        public string Hex
         {
             get
             {
@@ -82,10 +93,10 @@ namespace Voxel.ViewModel
                     selectedColor = color;
                     hsb = new HsbColor(color);
                 }
-                updatePriperties();
+                updateProperties();
             }
         }
-        public string RedColor
+        public string Red
         {
             get
             {
@@ -97,12 +108,12 @@ namespace Voxel.ViewModel
                     && Convert.ToInt32(value) <= 255)
                 {
                     selectedColor.R = Convert.ToByte(value);
-                    hsb = new HsbColor(selectedColor);
+                    updateHsbColor();
                 }
-                updatePriperties();
+                updateProperties();
             }
         }
-        public string BlueColor
+        public string Blue
         {
             get
             {
@@ -114,12 +125,12 @@ namespace Voxel.ViewModel
                     && Convert.ToInt32(value) <= 255)
                 {
                     selectedColor.B = Convert.ToByte(value);
-                    hsb = new HsbColor(selectedColor);
+                    updateHsbColor();
                 }
-                updatePriperties();
+                updateProperties();
             }
         }
-        public string GreenColor
+        public string Green
         {
             get
             {
@@ -131,9 +142,39 @@ namespace Voxel.ViewModel
                     && Convert.ToInt32(value) <= 255)
                 {
                     selectedColor.G = Convert.ToByte(value);
-                    hsb = new HsbColor(selectedColor);
+                    updateHsbColor();
                 }
-                updatePriperties();
+                updateProperties();
+            }
+        }
+        public byte RedValue
+        {
+            get => selectedColor.R;
+            set
+            {
+                selectedColor.R = value;
+                updateHsbColor();
+                updateProperties();
+            }
+        }
+        public byte GreenValue
+        {
+            get => selectedColor.G;
+            set
+            {
+                selectedColor.G = value;
+                updateHsbColor();
+                updateProperties();
+            }
+        }
+        public byte BlueValue
+        {
+            get => selectedColor.B;
+            set
+            {
+                selectedColor.B = value;
+                updateHsbColor();
+                updateProperties();
             }
         }
 
@@ -142,20 +183,25 @@ namespace Voxel.ViewModel
         {
             get
             {
-                return $"{hsb.Hue:0}";
+                return $"{hsb.Hue:0.0}";
             }
             set
             {
-                if (value.IsMatch(@"[\d]{1,3}"))
+                if (value.IsMatch(@"[\d]{1,3}.[\d]{1}|[\d]{1,3}"))
                 {
                     decimal h = value.ToDecimal();
-                    if (h <= 360M)
+                    while (h > 360M)
                     {
-                        hsb.Hue = h;
-                        selectedColor = hsb.ToRgbColor();
+                        h -= 360M;
                     }
+                    while (h < 0M)
+                    {
+                        h += 360M;
+                    }
+                    hsb.Hue = h;
+                    updateRgbColor();
                 }
-                updatePriperties();
+                updateProperties();
 
             }
         }
@@ -163,20 +209,20 @@ namespace Voxel.ViewModel
         {
             get
             {
-                return $"{hsb.Saturation*100M:0}";
+                return $"{hsb.Saturation*100M:0.0}";
             }
             set
             {
-                if (value.IsMatch(@"[\d]{1,3}"))
+                if (value.IsMatch(@"[\d]{1,3}.[\d]{1}|[\d]{1,3}"))
                 {
                     decimal s = value.ToDecimal() / 100M;
-                    if (s <= 1M)
+                    if (s >= 0M && s <= 1M)
                     {
                         hsb.Saturation = s;
-                        selectedColor = hsb.ToRgbColor();
+                        updateRgbColor();
                     }
                 }
-                updatePriperties();
+                updateProperties();
 
             }
         }
@@ -184,23 +230,24 @@ namespace Voxel.ViewModel
         {
             get
             {
-                return $"{hsb.Brightness*100M:0}";
+                return $"{hsb.Brightness*100M:0.0}";
             }
             set
             {
-                if (value.IsMatch(@"[\d]{1,3}"))
+                if (value.IsMatch(@"[\d]{1,3}.[\d]{1}|[\d]{1,3}"))
                 {
                     decimal b = value.ToDecimal() / 100M;
-                    if (b <= 1M)
+                    if (b >= 0M && b <= 1M)
                     {
                         hsb.Brightness = b;
-                        selectedColor = hsb.ToRgbColor();
+                        updateRgbColor();
                     }
                 }
-                updatePriperties();
+                updateProperties();
 
             }
         }
+        
 
 
         private bool isHsbMode;
@@ -240,7 +287,7 @@ namespace Voxel.ViewModel
                 {
                     if (o is TextBox textBox)
                     {
-                        HexColor = textBox.Text;
+                        Hex = textBox.Text;
                     }
                 },
             };
@@ -251,7 +298,7 @@ namespace Voxel.ViewModel
                 {
                     if (o is TextBox textBox)
                     {
-                        RedColor = textBox.Text;
+                        Red = textBox.Text;
                     }
                 },
             };
@@ -262,7 +309,7 @@ namespace Voxel.ViewModel
                 {
                     if (o is TextBox textBox)
                     {
-                        GreenColor = textBox.Text;
+                        Green = textBox.Text;
                     }
                 },
             };
@@ -273,7 +320,7 @@ namespace Voxel.ViewModel
                 {
                     if (o is TextBox textBox)
                     {
-                        BlueColor = textBox.Text;
+                        Blue = textBox.Text;
                     }
                 },
             };

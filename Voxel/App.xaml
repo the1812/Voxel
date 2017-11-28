@@ -29,6 +29,8 @@
           Source="Styles/ToolTextBlock.xaml" />
         <ResourceDictionary
           Source="Styles/MainViewButton.xaml" />
+        <ResourceDictionary
+          Source="Styles/ColorPickerSlider.xaml" />
       </ResourceDictionary.MergedDictionaries>
       <SolidColorBrush
         x:Key="HighlightColor"
