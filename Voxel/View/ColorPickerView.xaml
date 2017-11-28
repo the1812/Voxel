@@ -6,6 +6,7 @@
   xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
   xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
   xmlns:local="clr-namespace:Voxel.View"
+  xmlns:controls="clr-namespace:Voxel.Controls"
   xmlns:converters="clr-namespace:Voxel.Converters"
   mc:Ignorable="d"
   Title="{Binding WindowTitle}"
@@ -380,28 +381,26 @@
       VerticalAlignment="Center"
       Orientation="Vertical"
       Grid.RowSpan="3"
-      Grid.Column="1">
-      <Slider
-        Margin="0,10"
+      Grid.Column="1"
+      d:IsHidden="True">
+      <controls:ColorPickerHorizontalSlider
+        StartColor="{Binding RedStartColor}"
+        EndColor="{Binding RedEndColor}"
         Maximum="255"
         Minimum="0"
-        Value="{Binding RedValue, Mode=TwoWay}"
-        Width="200"
-        Height="30" />
-      <Slider
-        Margin="0,10"
+        Value="{Binding RedValue, Mode=TwoWay}"/>
+      <controls:ColorPickerHorizontalSlider
+        StartColor="{Binding GreenStartColor}"
+        EndColor="{Binding GreenEndColor}"
         Maximum="255"
         Minimum="0"
-        Value="{Binding GreenValue, Mode=TwoWay}"
-        Width="200"
-        Height="30" />
-      <Slider
-        Margin="0,10"
+        Value="{Binding GreenValue, Mode=TwoWay}"/>
+      <controls:ColorPickerHorizontalSlider
+        StartColor="{Binding BlueStartColor}"
+        EndColor="{Binding BlueEndColor}"
         Maximum="255"
         Minimum="0"
-        Value="{Binding BlueValue, Mode=TwoWay}"
-        Width="200"
-        Height="30" />
+        Value="{Binding BlueValue, Mode=TwoWay}"/>
     </StackPanel>
     <StackPanel
       Visibility="{Binding IsHsbMode, Converter={StaticResource visibilityNotConverter}}"
@@ -411,27 +410,24 @@
       Orientation="Vertical"
       Grid.RowSpan="3"
       Grid.Column="1">
-      <Slider
-        Margin="0,10"
+      <controls:ColorPickerHorizontalSlider
         Maximum="360.0"
         Minimum="0.0"
         Value="{Binding HueValue, Mode=TwoWay}"
-        Width="200"
-        Height="30" />
-      <Slider
-        Margin="0,10"
+        VerticalContentAlignment="Center"
+        />
+      <controls:ColorPickerHorizontalSlider
+        StartColor="{Binding SaturationStartColor}"
+        EndColor="{Binding SaturationEndColor}"
         Maximum="100.0"
         Minimum="0.0"
-        Value="{Binding SaturationValue, Mode=TwoWay}"
-        Width="200"
-        Height="30" />
-      <Slider
-        Margin="0,10"
+        Value="{Binding SaturationValue, Mode=TwoWay}" />
+      <controls:ColorPickerHorizontalSlider
+        StartColor="{Binding BrightnessStartColor}"
+        EndColor="{Binding BrightnessEndColor}"
         Maximum="100.0"
         Minimum="0.0"
-        Value="{Binding BrightnessValue, Mode=TwoWay}"
-        Width="200"
-        Height="30" />
+        Value="{Binding BrightnessValue, Mode=TwoWay}"/>
     </StackPanel>
     <ToggleButton
       Style="{StaticResource TileSizeToggle}"

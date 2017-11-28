@@ -74,6 +74,7 @@
     </Compile>
     <Compile Include="AppLoader.cs" />
     <Compile Include="BadVoxelFileException.cs" />
+    <Compile Include="Controls\ColorPickerHorizontalSlider.cs" />
     <Compile Include="Converters\BooleanNotConverter.cs" />
     <Compile Include="Converters\BooleanStretchConverter.cs" />
     <Compile Include="Converters\BrushToBitmapConverter.cs" />
@@ -165,7 +166,7 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
-    <Page Include="Styles\ColorPickerSlider.xaml">
+    <Page Include="Styles\ColorPickerHorizontalSlider.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

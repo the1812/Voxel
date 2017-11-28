@@ -43,6 +43,16 @@ namespace Voxel.ViewModel
             OnPropertyChanged(nameof(HueValue));
             OnPropertyChanged(nameof(SaturationValue));
             OnPropertyChanged(nameof(BrightnessValue));
+            OnPropertyChanged(nameof(SaturationStartColor));
+            OnPropertyChanged(nameof(SaturationEndColor));
+            OnPropertyChanged(nameof(BrightnessStartColor));
+            OnPropertyChanged(nameof(BrightnessEndColor));
+            OnPropertyChanged(nameof(RedStartColor));
+            OnPropertyChanged(nameof(RedEndColor));
+            OnPropertyChanged(nameof(GreenStartColor));
+            OnPropertyChanged(nameof(GreenEndColor));
+            OnPropertyChanged(nameof(BlueStartColor));
+            OnPropertyChanged(nameof(BlueEndColor));
         }
         private void updateHsbColor()
         {
@@ -180,6 +190,60 @@ namespace Voxel.ViewModel
                 updateProperties();
             }
         }
+        public Color RedStartColor
+        {
+            get
+            {
+                var color = selectedColor;
+                color.R = 0;
+                return color;
+            }
+        }
+        public Color RedEndColor
+        {
+            get
+            {
+                var color = selectedColor;
+                color.R = 255;
+                return color;
+            }
+        }
+        public Color GreenStartColor
+        {
+            get
+            {
+                var color = selectedColor;
+                color.G = 0;
+                return color;
+            }
+        }
+        public Color GreenEndColor
+        {
+            get
+            {
+                var color = selectedColor;
+                color.G = 255;
+                return color;
+            }
+        }
+        public Color BlueStartColor
+        {
+            get
+            {
+                var color = selectedColor;
+                color.B = 0;
+                return color;
+            }
+        }
+        public Color BlueEndColor
+        {
+            get
+            {
+                var color = selectedColor;
+                color.B = 255;
+                return color;
+            }
+        }
 
         private HsbColor hsb;
         public string Hue
@@ -282,6 +346,42 @@ namespace Voxel.ViewModel
                 hsb.Brightness = (decimal) (value / 100.0);
                 updateRgbColor();
                 updateProperties();
+            }
+        }
+        public Color SaturationStartColor
+        {
+            get
+            {
+                var color = hsb;
+                color.Saturation = 0M;
+                return color;
+            }
+        }
+        public Color SaturationEndColor
+        {
+            get
+            {
+                var color = hsb;
+                color.Saturation = 1M;
+                return color;
+            }
+        }
+        public Color BrightnessStartColor
+        {
+            get
+            {
+                var color = hsb;
+                color.Brightness = 0M;
+                return color;
+            }
+        }
+        public Color BrightnessEndColor
+        {
+            get
+            {
+                var color = hsb;
+                color.Brightness = 1M;
+                return color;
             }
         }
 
