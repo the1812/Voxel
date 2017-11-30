@@ -16,6 +16,8 @@ using System.Windows.Media.Imaging;
 using System.IO;
 using static Voxel.Model.Settings;
 using System.Windows.Media.Animation;
+using Ace.Files.Icons;
+using AceIcon = Ace.Files.Icons.Icon;
 
 namespace Voxel.ViewModel
 {
@@ -270,8 +272,7 @@ namespace Voxel.ViewModel
             {
                 if (tileManager.Tile.TargetExists)
                 {
-                    var image = Ace.Win32.Api.GetIcon(tileManager.Tile.TargetPath);
-                    Icon = image.ImageSource;
+                    loadIcon(tileManager.Tile.TargetPath);
                 }
                 OnPropertyChanged(nameof(TargetName));
 
@@ -371,8 +372,43 @@ namespace Voxel.ViewModel
         }
         private void loadIcon(string targetPath)
         {
-            var image = Ace.Win32.Api.GetIcon(targetPath);
-            Icon = image.ImageSource;
+            AceIcon icon;
+            if (tileManager.Tile.TargetType == TargetType.File)
+            {
+                icon = new IconFile(targetPath).Load().Icon;
+            }
+            else
+            {
+                icon = AceIcon.GetFolderIcon(targetPath);
+            }
+            var size = TileSize.IconSize;
+            size.Width *= MainView.Dpi.X;
+            size.Height *= MainView.Dpi.Y;
+            var images = from image in icon
+                         where image.Width >= size.Width && image.Height >= size.Height
+                         orderby image.Width
+                         select image;
+            var suitableImage = images.FirstOrDefault();
+            if (suitableImage == null)
+            {
+                try
+                {
+                    Icon = icon[size.Width, false];
+                }
+                catch (BadIconFileException)
+                {
+                    var iconSize = Ace.Win32.Enumerations.IconSize.Large;
+                    if (MainView.Dpi.X > 1)
+                    {
+                        iconSize = Ace.Win32.Enumerations.IconSize.Maximum;
+                    }
+                    Icon = Ace.Win32.Api.GetIcon(targetPath, iconSize);
+                }
+            }
+            else
+            {
+                Icon = suitableImage;
+            }
         }
 
         private void reset()

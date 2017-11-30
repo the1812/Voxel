@@ -200,9 +200,9 @@
         RenderTransformOrigin="0.5,0.5" />
       <Border
         HorizontalAlignment="Center"
-        Height="32"
+        Height="{x:Static m:TileSize.SmallIconWidthAndHeight}"
         VerticalAlignment="Center"
-        Width="32">
+        Width="{x:Static m:TileSize.SmallIconWidthAndHeight}">
         <Image
           Stretch="Uniform"
           x:Name="imageIconSmall"
@@ -234,9 +234,9 @@
         RenderTransformOrigin="0.5,0.5" />
       <Border
         HorizontalAlignment="Center"
-        Height="40"
+        Height="{x:Static m:TileSize.IconWidthAndHeight}"
         VerticalAlignment="Center"
-        Width="40">
+        Width="{x:Static m:TileSize.IconWidthAndHeight}">
         <Image
           Stretch="Uniform"
           x:Name="imageIcon"

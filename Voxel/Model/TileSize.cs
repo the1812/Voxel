@@ -69,5 +69,9 @@ namespace Voxel.Model
         public static double LargeWidthAndHeight => largeSize.Width;
         public static Size SmallSize => smallSize;
         public static double SmallWidthAndHeight => smallSize.Width;
+        public static Size IconSize => new Size(40, 40);
+        public static double IconWidthAndHeight => IconSize.Width;
+        public static Size SmallIconSize => new Size(32, 32);
+        public static double SmallIconWidthAndHeight => SmallIconSize.Width;
     }
 }
