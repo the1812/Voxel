@@ -372,14 +372,21 @@ namespace Voxel.ViewModel
         }
         private void loadIcon(string targetPath)
         {
-            AceIcon icon;
-            if (tileManager.Tile.TargetType == TargetType.File)
+            AceIcon icon = null;
+            try
             {
-                icon = new IconFile(targetPath).Load().Icon;
+                if (tileManager.Tile.TargetType == TargetType.File)
+                {
+                    icon = new IconFile(targetPath).Load().Icon;
+                }
+                else
+                {
+                    icon = AceIcon.GetFolderIcon(targetPath);
+                }
             }
-            else
+            catch
             {
-                icon = AceIcon.GetFolderIcon(targetPath);
+                return;
             }
             var size = TileSize.IconSize;
             size.Width *= MainView.Dpi.X;
