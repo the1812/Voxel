@@ -372,6 +372,15 @@ namespace Voxel.ViewModel
         }
         private void loadIcon(string targetPath)
         {
+            void loadByShellImageList()
+            {
+                var iconSize = Ace.Win32.Enumerations.IconSize.Large;
+                if (MainView.Dpi.X > 1)
+                {
+                    iconSize = Ace.Win32.Enumerations.IconSize.Maximum;
+                }
+                Icon = Ace.Win32.Api.GetIcon(targetPath, iconSize);
+            }
             AceIcon icon = null;
             try
             {
@@ -386,8 +395,11 @@ namespace Voxel.ViewModel
             }
             catch
             {
+                loadByShellImageList();
+                //View.ShowMessage(language["IconLoadFailed"], language["IconLoadFailedTitle"], false);
                 return;
             }
+
             var size = TileSize.IconSize;
             size.Width *= MainView.Dpi.X;
             size.Height *= MainView.Dpi.Y;
@@ -404,12 +416,7 @@ namespace Voxel.ViewModel
                 }
                 catch (BadIconFileException)
                 {
-                    var iconSize = Ace.Win32.Enumerations.IconSize.Large;
-                    if (MainView.Dpi.X > 1)
-                    {
-                        iconSize = Ace.Win32.Enumerations.IconSize.Maximum;
-                    }
-                    Icon = Ace.Win32.Api.GetIcon(targetPath, iconSize);
+                    loadByShellImageList();
                 }
             }
             else
