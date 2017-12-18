@@ -20,7 +20,7 @@ namespace Voxel.ActionExecutor
             JsonFile file = new JsonFile(FileName);
             if (file.Exists)
             {
-                file.Read();
+                file.Load();
                 Action = file.Content[ActionKey].StringValue;
             }
             else
@@ -39,7 +39,7 @@ namespace Voxel.ActionExecutor
                     new JsonProperty(ActionKey, DefaultAction),
                 },
             };
-            file.Flush();
+            file.Save();
             Action = DefaultAction;
         }
     }
