@@ -1,8 +1,12 @@
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
+using System.IO;
 using System.Linq;
+using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
+using Ace;
 using Ace.Files.Json;
 
 namespace Voxel.ActionExecutor
@@ -10,6 +14,30 @@ namespace Voxel.ActionExecutor
     sealed class Settings
     {
         public const string FileName = "settings.json", ActionKey = "Action", DefaultAction = "none";
+        public bool IsSelfExecuteCommand
+        {
+            get
+            {
+                if (Action.StartsWith("start "))
+                {
+                    var fileName = Action.Remove(0, "start ".Length).NoQuotes();
+                    var file = new FileInfo(fileName);
+                    var selfPath = Process.GetCurrentProcess().MainModule.FileName.NoQuotes();
+                    if (file.FullName.ToLower() == selfPath.ToLower())
+                    {
+                        return true;
+                    }
+                    else
+                    {
+                        return false;
+                    }
+                }
+                else
+                {
+                    return false;
+                }
+            }
+        }
         public Settings()
         {
             load();

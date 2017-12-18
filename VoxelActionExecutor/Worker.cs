@@ -13,7 +13,8 @@ namespace Voxel.ActionExecutor
         {
             Settings settings = new Settings();
             if (string.IsNullOrWhiteSpace(settings.Action) ||
-                settings.Action == Settings.DefaultAction)
+                settings.Action == Settings.DefaultAction  ||
+                settings.IsSelfExecuteCommand)
             {
                 return;
             }
