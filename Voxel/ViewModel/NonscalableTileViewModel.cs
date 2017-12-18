@@ -421,8 +421,7 @@ namespace Voxel.ViewModel
         private void reset()
         {
             tileManager = new NonscalableTileManager();
-            BackImage = null;
-            BackImageSmall = null;
+            ClearBackImageCommand.Execute(null);
             DefaultColorCommand.Execute(null);
             IsDarkTheme = false;
             ShowName = true;
@@ -684,14 +683,16 @@ namespace Voxel.ViewModel
             {
                 ExcuteAction = (o) =>
                 {
-                    if (IsTileSizeToggleChecked)
-                    {
-                        BackImageSmall = null;
-                    }
-                    else
-                    {
-                        BackImage = null;
-                    }
+                    //if (IsTileSizeToggleChecked)
+                    //{
+                    //    BackImageSmall = null;
+                    //}
+                    //else
+                    //{
+                    //    BackImage = null;
+                    //}
+                    BackImage = null;
+                    BackImageSmall = null;
                 },
             };
         public BindingCommand GenerateCommand
