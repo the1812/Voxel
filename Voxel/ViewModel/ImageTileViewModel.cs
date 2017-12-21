@@ -1,11 +1,14 @@
 using Microsoft.Win32;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Data;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using Voxel.Controls;
@@ -17,10 +20,7 @@ namespace Voxel.ViewModel
 {
     sealed class ImageTileViewModel : ViewModel
     {
-        public ImageTileViewModel(ImageTileView view) : base(new ImageTileLanguage())
-        {
-            View = view;
-        }
+        public ImageTileViewModel(ImageTileView view) : base(new ImageTileLanguage()) => View = view;
         #region Language
         public string WindowTitle => language[nameof(WindowTitle)];
         public string ButtonGenerate => language[nameof(ButtonGenerate)];
@@ -85,17 +85,30 @@ namespace Voxel.ViewModel
             }
         }
 
-        private UIElementCollection spliters;
-        public UIElementCollection Spliters
+        private ObservableCollection<ImageSpliter> spliters = new ObservableCollection<ImageSpliter>();
+        public ObservableCollection<ImageSpliter> Spliters => spliters;
+
+        private double previewWidth = 0.0;
+        public double PreviewWidth
         {
-            get => spliters;
+            get => previewWidth;
             set
             {
-                spliters = value;
-                OnPropertyChanged(nameof(Spliters));
+                previewWidth = value;
+                OnPropertyChanged(nameof(PreviewWidth));
             }
         }
 
+        private double previewHeight = 0.0;
+        public double PreviewHeight
+        {
+            get => previewHeight;
+            set
+            {
+                previewHeight = value;
+                OnPropertyChanged(nameof(PreviewHeight));
+            }
+        }
 
 
         #endregion
@@ -148,10 +161,41 @@ namespace Voxel.ViewModel
                     backImagePath = dialog.FileName;
                     BitmapSource image = new BitmapImage(new Uri(backImagePath));
 #warning "Test data: Size(3,3)"
-                    var size = new System.Windows.Size(3, 3);
+                    var size = new Size(3, 3);
                     var images = ImageSpliter.Split(image, size);
-                    var point = new System.Windows.Point(0, 0);
-                    BackImage = image;
+                    Spliters.Clear();
+                    PreviewWidth = size.Width * (TileSize.LargeWidthAndHeight + TileSize.Gap) - TileSize.Gap;
+                    PreviewHeight = size.Height * (TileSize.LargeWidthAndHeight + TileSize.Gap) - TileSize.Gap;
+                    for (var row = 0; row < size.Height; row++)
+                    {
+                        for (var column = 0; column < size.Width; column++)
+                        {
+                            var spliter = new ImageSpliter
+                            {
+                                IsSplit = true,
+                                BitmapSource = images[size.ToPoint()],
+                                HorizontalAlignment = HorizontalAlignment.Left,
+                                VerticalAlignment = VerticalAlignment.Top,
+                                Width = TileSize.LargeWidthAndHeight,
+                                Height = TileSize.LargeWidthAndHeight,
+                                Margin = new Thickness
+                                {
+                                    Top = row * (TileSize.LargeWidthAndHeight + TileSize.Gap),
+                                    Left = column * (TileSize.LargeWidthAndHeight + TileSize.Gap),
+                                    Bottom = 0,
+                                    Right = 0
+                                },
+                            };
+                            var stretchBinding = new Binding
+                            {
+                                Source = this,
+                                Path = new PropertyPath(nameof(ImageStretch)),
+                            };
+                            spliter.SetBinding(ImageSpliter.StretchProperty, stretchBinding);
+                            Spliters.Add(spliter);
+                        }
+                    }
+
                 }
             },
         };

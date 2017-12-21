@@ -23,10 +23,7 @@ namespace Voxel.ViewModel
 {
     sealed class NonscalableTileViewModel : ViewModel, IBusyState, IWaitingState
     {
-        public NonscalableTileViewModel(NonscalableTileView view) : base(new NonscalableTileLanguage())
-        {
-            View = view;
-        }
+        public NonscalableTileViewModel(NonscalableTileView view) : base(new NonscalableTileLanguage()) => View = view;
 
         #region Language
         public string WindowTitle => language[nameof(WindowTitle)];
@@ -225,10 +222,7 @@ namespace Voxel.ViewModel
         private ImageSource backImageSmall = null;
         public ImageSource BackImageSmall
         {
-            get
-            {
-                return backImageSmall ?? backImage;
-            }
+            get => backImageSmall ?? backImage;
             set
             {
                 backImageSmall = value;
@@ -252,19 +246,9 @@ namespace Voxel.ViewModel
         }
 
         public Visibility LargePreviewVisibility
-        {
-            get
-            {
-                return IsTileSizeToggleChecked ? Visibility.Collapsed : Visibility.Visible;
-            }
-        }
-        public Visibility SmallPreviewVisibility
-        {
-            get
-            {
-                return IsTileSizeToggleChecked ? Visibility.Visible : Visibility.Collapsed;
-            }
-        }
+            => IsTileSizeToggleChecked ? Visibility.Collapsed : Visibility.Visible;
+        public Visibility SmallPreviewVisibility 
+            => IsTileSizeToggleChecked ? Visibility.Visible : Visibility.Collapsed;
 
         private void updateFromTileManager()
         {
@@ -331,14 +315,14 @@ namespace Voxel.ViewModel
         }
         private string getVoxelFileName(string targetPath)
         {
-            string voxelFileName = tileManager.Tile.TargetType == TargetType.File ?
+            var voxelFileName = tileManager.Tile.TargetType == TargetType.File ?
                                 targetPath.RemoveExtension() + ".voxel" :
                                 targetPath.NoBackslash() + ".voxel";
             return voxelFileName;
         }
         private bool tryLoadXml()
         {
-            bool loadXml = GetBoolean(MakeKey(nameof(NonscalableTile), AutoLoadXmlKey));
+            var loadXml = GetBoolean(MakeKey(nameof(NonscalableTile), AutoLoadXmlKey));
             if (loadXml && File.Exists(tileManager.Tile.XmlPath))
             {
                 tileManager.LoadFromXml();
@@ -349,10 +333,10 @@ namespace Voxel.ViewModel
         }
         private bool tryLoadVoxel(string targetPath)
         {
-            bool loadVoxel = GetBoolean(MakeKey(nameof(NonscalableTile), AutoLoadVoxelFileKey));
+            var loadVoxel = GetBoolean(MakeKey(nameof(NonscalableTile), AutoLoadVoxelFileKey));
             if (loadVoxel)
             {
-                string voxelFileName = getVoxelFileName(targetPath);
+                var voxelFileName = getVoxelFileName(targetPath);
                 if (File.Exists(voxelFileName))
                 {
                     try
@@ -493,7 +477,7 @@ namespace Voxel.ViewModel
                         }
                         if (dialog.ShowDialog() ?? false)
                         {
-                            string targetPath = dialog.FileName;
+                            var targetPath = dialog.FileName;
                             tileManager.Tile.TargetPath = targetPath;
                             tileManager.Tile.TargetType = TargetType.File;
 
@@ -528,7 +512,7 @@ namespace Voxel.ViewModel
                         }
                         if (dialog.ShowDialog() == System.Windows.Forms.DialogResult.OK)
                         {
-                            string targetPath = dialog.SelectedPath;
+                            var targetPath = dialog.SelectedPath;
                             tileManager.Tile.TargetPath = targetPath;
                             tileManager.Tile.TargetType = TargetType.Folder;
 
@@ -569,11 +553,11 @@ namespace Voxel.ViewModel
                             }
                         }
 
-                        bool rgbMode = GetBoolean(MakeKey(nameof(NonscalableTile), nameof(ColorPickerView), RgbModeKey));
+                        var rgbMode = GetBoolean(MakeKey(nameof(NonscalableTile), nameof(ColorPickerView), RgbModeKey));
                         var colorPickerViewModel = colorPicker.DataContext as ColorPickerViewModel;
                         colorPickerViewModel.IsHsbMode = !rgbMode;
                         
-                        bool previewOnTile = GetBoolean(MakeKey(nameof(NonscalableTile), nameof(ColorPickerView), PreviewOnTileKey));
+                        var previewOnTile = GetBoolean(MakeKey(nameof(NonscalableTile), nameof(ColorPickerView), PreviewOnTileKey));
                         if (previewOnTile)
                         {
                             var originalColorBinding = gridPreview.GetBindingExpression(Control.BackgroundProperty).ParentBinding;
@@ -618,7 +602,7 @@ namespace Voxel.ViewModel
                     {
                         bool verifyImage(string imagePath)
                         {
-                            FileInfo info = new FileInfo(imagePath);
+                            var info = new FileInfo(imagePath);
                             if (info.Length > Tile.MaxImageSize)
                             {
                                 View.ShowMessage(language["ImageSizeTooBigContent"], language["ImageSizeTooBigTitle"], false);
@@ -652,7 +636,7 @@ namespace Voxel.ViewModel
                             }
                             if (dialog.ShowDialog() ?? false)
                             {
-                                string imagePath = dialog.FileName;
+                                var imagePath = dialog.FileName;
 
                                 if (!verifyImage(imagePath))
                                 {
@@ -671,7 +655,7 @@ namespace Voxel.ViewModel
                             }
                             if (dialog.ShowDialog() ?? false)
                             {
-                                string imagePath = dialog.FileName;
+                                var imagePath = dialog.FileName;
 
                                 if (!verifyImage(imagePath))
                                 {

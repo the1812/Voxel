@@ -20,10 +20,10 @@ namespace Voxel.Controls
 {
     public class ImageSpliter : Control, INotifyPropertyChanged
     {
-        static ImageSpliter()
-        {
-            DefaultStyleKeyProperty.OverrideMetadata(typeof(ImageSpliter), new FrameworkPropertyMetadata(typeof(ImageSpliter)));
-        }
+        static ImageSpliter() => 
+            DefaultStyleKeyProperty.OverrideMetadata(
+                typeof(ImageSpliter),
+                new FrameworkPropertyMetadata(typeof(ImageSpliter)));
         protected override void OnMouseDoubleClick(MouseButtonEventArgs e)
         {
             base.OnMouseDoubleClick(e);
@@ -51,9 +51,9 @@ namespace Voxel.Controls
 
             var dict = new Dictionary<Point, CroppedBitmap>();
             var dpi = MainView.Dpi;
-            for (int column = 0; column < width; column++)
+            for (var column = 0; column < width; column++)
             {
-                for (int row = 0; row < height; row++)
+                for (var row = 0; row < height; row++)
                 {
                     dict.Add(new Point(column, row), new CroppedBitmap(
                         bitmap, new Int32Rect
@@ -141,72 +141,49 @@ namespace Voxel.Controls
 
         public bool IsSplit
         {
-            get
-            {
-                return (bool) GetValue(IsSplitProperty);
-            }
-            set
-            {
-                SetValue(IsSplitProperty, value);
-            }
+            get => (bool) GetValue(IsSplitProperty);
+            set => SetValue(IsSplitProperty, value);
         }
         public BitmapSource BitmapSource
         {
-            get
-            {
-                return GetValue(BitmapSourceProperty) as BitmapSource;
-            }
-            set
-            {
-                SetValue(BitmapSourceProperty, value);
-            }
+            get => GetValue(BitmapSourceProperty) as BitmapSource;
+            set => SetValue(BitmapSourceProperty, value);
         }
         public BitmapSource TopLeft
         {
-            get
-            {
-                return GetValue(TopLeftProperty) as BitmapSource;
-            }
-            protected set
-            {
-                SetValue(TopLeftPropertyKey, value);
-            }
+            get => GetValue(TopLeftProperty) as BitmapSource;
+            protected set => SetValue(TopLeftPropertyKey, value);
         }
         public BitmapSource TopRight
         {
-            get { return GetValue(TopRightProperty) as BitmapSource; }
-            protected set
-            {
-                SetValue(TopRightPropertyKey, value);
-            }
+            get => GetValue(TopRightProperty) as BitmapSource;
+            protected set => SetValue(TopRightPropertyKey, value);
         }
 
 
         public BitmapSource BottomLeft
         {
-            get { return (BitmapSource) GetValue(BottomLeftProperty); }
-            protected set { SetValue(BottomLeftPropertyKey, value); }
+            get => (BitmapSource) GetValue(BottomLeftProperty);
+            protected set => SetValue(BottomLeftPropertyKey, value);
         }
         public BitmapSource BottomRight
         {
-            get { return (BitmapSource) GetValue(BottomRightProperty); }
-            protected set { SetValue(BottomRightPropertyKey, value); }
+            get => (BitmapSource) GetValue(BottomRightProperty);
+            protected set => SetValue(BottomRightPropertyKey, value);
         }
 
 
         public event PropertyChangedEventHandler PropertyChanged;
-        protected void OnPropertyChanged(string propertyName)
-        {
-            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
-        }
+        protected void OnPropertyChanged(string propertyName) 
+            => PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
 
 
 
 
         public Stretch Stretch
         {
-            get { return (Stretch) GetValue(StretchProperty); }
-            set { SetValue(StretchProperty, value); }
+            get => (Stretch) GetValue(StretchProperty);
+            set => SetValue(StretchProperty, value);
         }
         public static readonly DependencyProperty StretchProperty =
             DependencyProperty.Register("Stretch", typeof(Stretch), typeof(ImageSpliter), new PropertyMetadata(Stretch.Fill));

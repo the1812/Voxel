@@ -6,7 +6,7 @@
   xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
   xmlns:converters="clr-namespace:Voxel.Converters"
   xmlns:m="clr-namespace:Voxel.Model"
-  xmlns:ctl="clr-namespace:Voxel.Controls"
+  xmlns:controls="clr-namespace:Voxel.Controls"
   xmlns:sys="clr-namespace:System;assembly=mscorlib"
   mc:Ignorable="d"
   Title="{Binding WindowTitle}"
@@ -35,11 +35,11 @@
         Height="45" />
     </Grid.RowDefinitions>
 
-    <Grid
+    <!--<Grid
       Grid.Column="1"
       x:Name="gridPreview">
 
-      <ctl:ImageSpliter
+      <controls:ImageSpliter
         Stretch="{Binding KeepAspectRatio, Converter={StaticResource bsConverter}, Mode=TwoWay}"
         IsSplit="True"
         BitmapSource="{Binding BackImage}"
@@ -48,8 +48,22 @@
         Width="{x:Static m:TileSize.LargeWidthAndHeight}"
         Height="{x:Static m:TileSize.LargeWidthAndHeight}"/>
 
-    </Grid>
-    
+    </Grid>-->
+    <ItemsControl
+      Width="{Binding PreviewWidth}"
+      Height="{Binding PreviewHeight}"
+      Grid.Column="1"
+      VerticalAlignment="Center"
+      HorizontalAlignment="Center"
+      x:Name="spliterControls"
+      ItemsSource="{Binding Spliters}">
+      <ItemsControl.ItemsPanel>
+        <ItemsPanelTemplate>
+          <Grid />
+        </ItemsPanelTemplate>
+      </ItemsControl.ItemsPanel>
+    </ItemsControl>
+
     <Grid
       VerticalAlignment="Center"
       HorizontalAlignment="Stretch"
