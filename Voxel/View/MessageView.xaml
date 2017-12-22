@@ -22,30 +22,37 @@
     Background="#323232">
     <Grid.RowDefinitions>
       <RowDefinition
-        Height="60" />
+        Height="80" />
       <RowDefinition
         Height="1*" />
       <RowDefinition
         Height="45" />
     </Grid.RowDefinitions>
+    <Rectangle
+      Opacity="{Binding TitleBackgroundOpacity}"
+      x:Name="titleBackground"
+      Fill="#404040"
+      Margin="30,0,30,0" />
     <TextBlock
       x:Name="textTitle"
       Text="{Binding Title}"
       FontSize="36"
-      Margin="0" 
+      Margin="0"
       HorizontalAlignment="Center"
-      VerticalAlignment="Bottom"/>
+      VerticalAlignment="Center" />
     <Border
+      Visibility="{Binding IsContentVisible, Converter={StaticResource converter}}"
       Grid.Row="1"
       Grid.RowSpan="2"
-      Margin="30,20,30,0"
-      Background="#444">
+      Margin="30,0,30,0"
+      Background="#404040">
       <TextBlock
         x:Name="textContent"
         Text="{Binding Content}"
-        Margin="0,10,0,0"
-        HorizontalAlignment="Center"
-        VerticalAlignment="Top"
+        Margin="10,10,10,45"
+        HorizontalAlignment="Stretch"
+        VerticalAlignment="Stretch"
+        FontSize="16"
         TextWrapping="Wrap"/>
     </Border>
     <StackPanel
@@ -64,7 +71,7 @@
         x:Name="buttonOK"
         Style="{StaticResource ToolButton}"
         VerticalAlignment="Stretch"
-        Width="216"
+        Width="210"
         Background="{StaticResource HighlightColor}">
         <Viewbox
           Width="{StaticResource IconSize}"
@@ -77,7 +84,7 @@
         x:Name="buttonCancel"
         Style="{StaticResource ToolButton}"
         VerticalAlignment="Stretch"
-        Width="216"
+        Width="210"
         Background="#444">
         <Viewbox
           Width="{StaticResource IconSize}"

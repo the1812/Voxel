@@ -57,19 +57,17 @@ namespace Voxel
                 Owner = parent
             };
             var viewModel = dialog.DataContext as MessageViewModel;
+            if (string.IsNullOrWhiteSpace(content))
+            {
+                dialog.Height = 250.0;
+                viewModel.TitleBackgroundOpacity = 1.0;
+                viewModel.IsContentVisible = false;
+            }
             viewModel.Content = content;
             viewModel.Title = title;
             viewModel.ShowCancelButton = showCancelButton;
             return dialog.ShowDialog() ?? false;
         }
-        //public static string ToJsonPath(this string path)
-        //{
-        //    return path.Replace("\\", "\\\\");
-        //}
-        //public static string FromJsonPath(this string path)
-        //{
-        //    return path.Replace("\\\\", "\\");
-        //}
         public static Size MeasureString(this string str)
         {
             if (str == null)
