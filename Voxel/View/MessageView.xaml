@@ -10,8 +10,8 @@
   WindowStartupLocation="CenterOwner"
   ResizeMode="NoResize"
   Title="{Binding WindowTitle}"
-  Height="320"
-  Width="518"
+  Height="650"
+  Width="432"
   Foreground="White">
   <Window.Resources>
     <BooleanToVisibilityConverter
@@ -35,14 +35,19 @@
       Margin="0" 
       HorizontalAlignment="Center"
       VerticalAlignment="Bottom"/>
-    <TextBlock
-      x:Name="textContent"
-      Text="{Binding Content}"
-      Margin="60,30"
-      HorizontalAlignment="Stretch"
-      VerticalAlignment="Stretch"
-      TextWrapping="Wrap"
-      Grid.Row="1" />
+    <Border
+      Grid.Row="1"
+      Grid.RowSpan="2"
+      Margin="30,20,30,0"
+      Background="#444">
+      <TextBlock
+        x:Name="textContent"
+        Text="{Binding Content}"
+        Margin="0,10,0,0"
+        HorizontalAlignment="Center"
+        VerticalAlignment="Top"
+        TextWrapping="Wrap"/>
+    </Border>
     <StackPanel
       Orientation="Horizontal"
       Grid.Row="2"
@@ -59,7 +64,7 @@
         x:Name="buttonOK"
         Style="{StaticResource ToolButton}"
         VerticalAlignment="Stretch"
-        Width="120"
+        Width="216"
         Background="{StaticResource HighlightColor}">
         <Viewbox
           Width="{StaticResource IconSize}"
@@ -67,12 +72,12 @@
           Child="{StaticResource Generate}" />
       </Button>
       <Button
-        Margin="70,0,0,0"
+        Margin="0,0,0,0"
         Visibility="{Binding ShowCancelButton,Converter={StaticResource converter}}"
         x:Name="buttonCancel"
         Style="{StaticResource ToolButton}"
         VerticalAlignment="Stretch"
-        Width="120"
+        Width="216"
         Background="#444">
         <Viewbox
           Width="{StaticResource IconSize}"
