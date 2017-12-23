@@ -121,13 +121,8 @@ namespace Voxel.ViewModel
             }
         }
 
-        private BitmapSource fitGridSize(BitmapSource image, Size gridSize)
+        private BitmapSource fitGridSize(BitmapSource image, Size panelSize)
         {
-            var panelSize = new Size(
-                gridSize.Width * TileSize.LargeWidthAndHeight * MainView.Dpi.X, 
-                gridSize.Height * TileSize.LargeWidthAndHeight * MainView.Dpi.Y);
-            panelSize.Width += (gridSize.Width - 1) * TileSize.Gap * MainView.Dpi.X;
-            panelSize.Height += (gridSize.Height - 1) * TileSize.Gap * MainView.Dpi.Y;
             var panelRatio = panelSize.Ratio();
             var imageRatio = image.Width / image.Height;
             if (panelRatio >= imageRatio) //height equals
@@ -192,7 +187,13 @@ namespace Voxel.ViewModel
                     BitmapSource image = new BitmapImage(new Uri(backImagePath));
 #warning "Test data: Size(3,3)"
                     var gridSize = new Size(3, 3);
-                    image = fitGridSize(image, gridSize);
+                    var desiredSize = new Size(
+                        gridSize.Width * TileSize.LargeWidthAndHeight * MainView.Dpi.X,
+                        gridSize.Height * TileSize.LargeWidthAndHeight * MainView.Dpi.Y);
+                    desiredSize.Width += (gridSize.Width - 1) * TileSize.Gap * MainView.Dpi.X;
+                    desiredSize.Height += (gridSize.Height - 1) * TileSize.Gap * MainView.Dpi.Y;
+
+                    image = fitGridSize(image, desiredSize).Extend(desiredSize);
                     TestImage = image;
                 }
             },

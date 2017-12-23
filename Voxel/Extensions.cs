@@ -87,14 +87,31 @@ namespace Voxel
 
             return new Size(formattedText.Width, formattedText.Height);
         }
-        public static BitmapSource Resize(this BitmapSource source, Size size, Point dpi) => source.Resize(size.Width, size.Height, dpi);
-        public static BitmapSource Resize(this BitmapSource source, double width, double height, Point dpi)
+        public static BitmapSource Resize(this BitmapSource source, Size size) => source.Resize(size.Width, size.Height);
+        public static BitmapSource Resize(this BitmapSource source, double width, double height)
         {
-            var bitmap = new TransformedBitmap(source,
-                new ScaleTransform(
-                    dpi.X * width / source.PixelWidth,
-                    dpi.Y * height / source.PixelHeight));
-            return bitmap;
+            //https://stackoverflow.com/questions/15779564/resize-image-in-wpf
+
+            var rect = new Rect(0, 0, width, height);
+
+            var group = new DrawingGroup();
+            RenderOptions.SetBitmapScalingMode(group, BitmapScalingMode.HighQuality);
+            group.Children.Add(new ImageDrawing(source, rect));
+
+            var drawingVisual = new DrawingVisual();
+            using (var drawingContext = drawingVisual.RenderOpen())
+            {
+                drawingContext.DrawDrawing(group);
+            }
+
+            var resizedImage = new RenderTargetBitmap(
+                (int) width, (int) height,
+                96 /** MainView.Dpi.X*/, 96 /** MainView.Dpi.Y*/,
+                PixelFormats.Default);
+            resizedImage.Render(drawingVisual);
+
+            return BitmapFrame.Create(resizedImage);
+
         }
         public static Point GetDpi(this Visual visual)
         {
@@ -111,7 +128,11 @@ namespace Voxel
 
         public static BitmapSource Extend(this BitmapSource image, Size newSize)
         {
-            var newImage = new GdiPlus.Bitmap((int) newSize.Width, (int)newSize.Height);
+            //newSize.Width *= MainView.Dpi.X;
+            //newSize.Height *= MainView.Dpi.Y;
+            var newImage = new GdiPlus.Bitmap(
+                (int) (newSize.Width),
+                (int) (newSize.Height));
             var gdiNewImage = GdiPlus.Graphics.FromImage(newImage);
             gdiNewImage.FillRectangle(new GdiPlus.SolidBrush(GdiPlus.Color.Transparent),
                 0, 0, newImage.Width, newImage.Height);
@@ -119,11 +140,11 @@ namespace Voxel
             x -= image.Width / 2;
             var y = newSize.Height / 2;
             y -= image.Height / 2;
-            gdiNewImage.DrawImage(image.ToImage(), (float) x, (float) y);
+            gdiNewImage.DrawImage(image.ToImage(), (float) x, (float) y, (float) image.Width, (float) image.Height);
             return newImage.ToImageSource() as BitmapSource;
         }
         public static BitmapSource Zoom(this BitmapSource image, double ratio)
-            => image.Resize(image.Width * ratio, image.Height * ratio, MainView.Dpi);
+            => image.Resize(image.Width * ratio, image.Height * ratio);
         public static Point ToPoint(this Size size) => new Point(size.Width, size.Height);
         public static double Ratio(this Size size) => size.Width / size.Height;
         

@@ -72,6 +72,10 @@
       BorderBrush="White"
       BorderThickness="1">
       <Image
+        HorizontalAlignment="Stretch"
+        VerticalAlignment="Stretch"
+        Margin="0"
+        Stretch="Uniform"
         Source="{Binding TestImage}" />
     </Border>
     <Grid
