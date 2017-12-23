@@ -109,33 +109,23 @@ namespace Voxel
             return new Point(dpiX, dpiY);
         }
 
-        public static BitmapSource Resize(this BitmapSource source, Size imageSize, Size totalSize)
+        public static BitmapSource Extend(this BitmapSource image, Size newSize)
         {
-            var image = new UniversalImage(source);
-            var result = new GdiPlus.Bitmap((int) totalSize.Width, (int) totalSize.Height);
-            using (var graphics = GdiPlus.Graphics.FromImage(image.Image))
-            {
-                graphics.SmoothingMode = GdiPlus.Drawing2D.SmoothingMode.HighQuality;
-                graphics.InterpolationMode = GdiPlus.Drawing2D.InterpolationMode.HighQualityBicubic;
-                graphics.PixelOffsetMode = GdiPlus.Drawing2D.PixelOffsetMode.HighQuality;
-                graphics.Clear(GdiPlus.Color.Transparent);
-
-                var startPoint = new GdiPlus.PointF(0F, 0F);
-                var imageRatio = imageSize.Width / imageSize.Height;
-                var totalRatio = totalSize.Width / totalSize.Height;
-                if (imageRatio >= totalRatio)
-                {
-                    startPoint.Y = (float) totalSize.Height / 2F - (float) imageSize.Height / 2F;
-                }
-                else
-                {
-                    startPoint.X = (float) totalSize.Width / 2F - (float) imageSize.Width / 2F;
-                }
-
-                graphics.DrawImage(result, startPoint.X, startPoint.Y, (float) imageSize.Width, (float) imageSize.Height);
-            }
-            return new UniversalImage(result).ImageSource as BitmapSource;
+            var newImage = new GdiPlus.Bitmap((int) newSize.Width, (int)newSize.Height);
+            var gdiNewImage = GdiPlus.Graphics.FromImage(newImage);
+            gdiNewImage.FillRectangle(new GdiPlus.SolidBrush(GdiPlus.Color.Transparent),
+                0, 0, newImage.Width, newImage.Height);
+            var x = newSize.Width / 2;
+            x -= image.Width / 2;
+            var y = newSize.Height / 2;
+            y -= image.Height / 2;
+            gdiNewImage.DrawImage(image.ToImage(), (float) x, (float) y);
+            return newImage.ToImageSource() as BitmapSource;
         }
+        public static BitmapSource Zoom(this BitmapSource image, double ratio)
+            => image.Resize(image.Width * ratio, image.Height * ratio, MainView.Dpi);
         public static Point ToPoint(this Size size) => new Point(size.Width, size.Height);
+        public static double Ratio(this Size size) => size.Width / size.Height;
+        
     }
 }

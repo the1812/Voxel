@@ -63,7 +63,17 @@
         </ItemsPanelTemplate>
       </ItemsControl.ItemsPanel>
     </ItemsControl>
-
+    <Border
+      Grid.Column="1"
+      Width="300"
+      Height="300"
+      HorizontalAlignment="Center"
+      VerticalAlignment="Center"
+      BorderBrush="White"
+      BorderThickness="1">
+      <Image
+        Source="{Binding TestImage}" />
+    </Border>
     <Grid
       VerticalAlignment="Center"
       HorizontalAlignment="Stretch"
