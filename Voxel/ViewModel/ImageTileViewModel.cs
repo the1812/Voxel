@@ -194,7 +194,8 @@ namespace Voxel.ViewModel
                     desiredSize.Height += (gridSize.Height - 1) * TileSize.Gap * MainView.Dpi.Y;
 
                     image = fitGridSize(image, desiredSize).Extend(desiredSize);
-                    TestImage = image;
+                    var dictionary = image.Split(gridSize);
+                    TestImage = dictionary[new Point(1, 0)];
                 }
             },
         };

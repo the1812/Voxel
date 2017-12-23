@@ -8,6 +8,7 @@ using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
+using Voxel.Model;
 using Voxel.View;
 using Voxel.ViewModel;
 using GdiPlus = System.Drawing;
@@ -147,6 +148,37 @@ namespace Voxel
             => image.Resize(image.Width * ratio, image.Height * ratio);
         public static Point ToPoint(this Size size) => new Point(size.Width, size.Height);
         public static double Ratio(this Size size) => size.Width / size.Height;
-        
+
+
+        public static Dictionary<Point, CroppedBitmap> Split(this BitmapSource bitmap, Size gridSize)
+        {
+            var dpiX = MainView.Dpi.X;
+            var dpiY = MainView.Dpi.Y;
+            var dictionary = new Dictionary<Point, CroppedBitmap>();
+            int x = 0, y = 0;
+            for (var row = 0; row < gridSize.Height; row++)
+            {
+                for (var column = 0; column < gridSize.Width; column++)
+                {
+                    var croppintRect = new Int32Rect
+                    {
+                        X = x,
+                        Y = y,
+                        Width = (int) (TileSize.LargeWidthAndHeight * dpiX),
+                        Height = (int) (TileSize.LargeWidthAndHeight * dpiY),
+                    };
+                    dictionary.Add(new Point(column, row), new CroppedBitmap
+                    (
+                        bitmap,
+                        croppintRect
+                    ));
+                    x += (int) ((TileSize.LargeWidthAndHeight + TileSize.Gap) * dpiX);
+                }
+                x = 0;
+                y += (int) ((TileSize.LargeWidthAndHeight + TileSize.Gap) * dpiX);
+            }
+            return dictionary;
+        }
+
     }
 }
