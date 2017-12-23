@@ -64,6 +64,7 @@
       </ItemsControl.ItemsPanel>
     </ItemsControl>
     <Border
+      Visibility="Collapsed"
       Grid.Column="1"
       Width="300"
       Height="300"

@@ -185,8 +185,8 @@ namespace Voxel.ViewModel
                 {
                     backImagePath = dialog.FileName;
                     BitmapSource image = new BitmapImage(new Uri(backImagePath));
-#warning "Test data: Size(3,3)"
-                    var gridSize = new Size(3, 3);
+#warning "Test data: Size(3,2)"
+                    var gridSize = new Size(3, 2);
                     var desiredSize = new Size(
                         gridSize.Width * TileSize.LargeWidthAndHeight * MainView.Dpi.X,
                         gridSize.Height * TileSize.LargeWidthAndHeight * MainView.Dpi.Y);
@@ -195,8 +195,35 @@ namespace Voxel.ViewModel
 
                     image = fitGridSize(image, desiredSize).Extend(desiredSize);
                     var dictionary = image.Split(gridSize);
-                    TestImage = dictionary[new Point(1, 0)];
+                    Spliters.Clear();
+                    for (var row = 0; row < gridSize.Height; row++)
+                    {
+                        for (var column = 0; column < gridSize.Width; column++)
+                        {
+                            var spliter = new ImageSpliter
+                            {
+                                BitmapSource = dictionary[new Point(column, row)],
+                                Margin = new Thickness
+                                {
+                                    Left = column * (TileSize.LargeWidthAndHeight + TileSize.Gap),
+                                    Top = row * (TileSize.LargeWidthAndHeight + TileSize.Gap),
+                                    Right = 0,
+                                    Bottom = 0,
+                                },
+                                IsSplit = false,
+                                HorizontalAlignment = HorizontalAlignment.Left,
+                                VerticalAlignment = VerticalAlignment.Top,
+                                Width = TileSize.LargeWidthAndHeight,
+                                Height = TileSize.LargeWidthAndHeight,
+                            };
+                            Spliters.Add(spliter);
+                        }
+                    }
+                    PreviewWidth = desiredSize.Width / MainView.Dpi.X;
+                    PreviewHeight = desiredSize.Height / MainView.Dpi.Y;
+
                 }
+                //OnPropertyChanged(nameof(Spliters));
             },
         };
         #endregion
