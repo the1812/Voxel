@@ -30,10 +30,56 @@
     </Grid.ColumnDefinitions>
     <Grid.RowDefinitions>
       <RowDefinition
+        Height="45" />
+      <RowDefinition
         Height="1*" />
       <RowDefinition
         Height="45" />
     </Grid.RowDefinitions>
+
+    <Grid
+      Grid.ColumnSpan="2"
+      Grid.Row="0"
+      x:Name="gridHeader">
+      <Grid.ColumnDefinitions>
+        <ColumnDefinition
+          Width="1*" />
+        <ColumnDefinition
+          Width="1*" />
+        <ColumnDefinition
+          Width="1*" />
+        <ColumnDefinition
+          Width="1*" />
+      </Grid.ColumnDefinitions>
+
+      <TextBlock
+        Foreground="White"
+        Grid.Column="0"
+        Text="{Binding ImageMarginLabel}"
+        HorizontalAlignment="Right"
+        VerticalAlignment="Center"
+        Margin="0,0,5,0" />
+      <TextBox
+        x:Name="imageMarginText"
+        Style="{StaticResource DarkTextBox}"
+        TextWrapping="NoWrap"
+        Grid.Column="1"
+        VerticalAlignment="Center"
+        HorizontalAlignment="Stretch"
+        MaxWidth="400"
+        Height="30"
+        Margin="5,0,5,0"
+        VerticalContentAlignment="Center"
+        Padding="4,0,0,0"
+        Text="{Binding ImageMarginText, Mode=TwoWay, UpdateSourceTrigger=LostFocus}">
+        <TextBox.InputBindings>
+          <KeyBinding
+            Command="{Binding Path=ImageMarginEnterCommand}"
+            CommandParameter="{Binding ElementName=imageMarginText}"
+            Key="Enter" />
+        </TextBox.InputBindings>
+      </TextBox>
+    </Grid>
 
     <!--<Grid
       Grid.Column="1"
@@ -52,6 +98,7 @@
     <ItemsControl
       Width="{Binding PreviewWidth}"
       Height="{Binding PreviewHeight}"
+      Grid.Row="1"
       Grid.Column="1"
       VerticalAlignment="Center"
       HorizontalAlignment="Center"
@@ -72,6 +119,7 @@
     </ItemsControl>
     <Border
       Visibility="Collapsed"
+      Grid.Row="1"
       Grid.Column="1"
       Width="300"
       Height="300"
@@ -87,6 +135,7 @@
         Source="{Binding TestImage}" />
     </Border>
     <Grid
+      Grid.Row="1"
       VerticalAlignment="Center"
       HorizontalAlignment="Stretch"
       x:Name="gridOptions"
@@ -179,7 +228,7 @@
       x:Name="gridBottom"
       Grid.ColumnSpan="2"
       Margin="0"
-      Grid.Row="1"
+      Grid.Row="2"
       VerticalAlignment="Stretch"
       Background="{StaticResource HighlightColor}">
       <Grid.Effect>

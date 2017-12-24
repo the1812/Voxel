@@ -31,6 +31,10 @@ namespace Voxel.Model.Languages
                 "ButtonBackColor",
                 "OpenImageDialogTitle",
                 "OpenImageDialogFilter",
+                "ImageMarginLabel",
+                "ImageMarginTip",
+                "PreviewGridWidthText",
+                "PreviewGridHeightText",
             };
             simplifiedChinese = new List<string>
             {
@@ -49,6 +53,10 @@ namespace Voxel.Model.Languages
                 "设定背景色",
                 "选择图片",
                 "图片文件 (*.jpg;*.png;*.bmp;*.tif;*.jpeg;*.tiff)|*.jpg;*.png;*.bmp;*.tif;*.jpeg;*.tiff",
+                "图片边距",
+                "边距按照左、上、右、下的顺序",
+                "整体宽度",
+                "整体高度",
             };
             americanEnglish = new List<string>
             {
@@ -67,6 +75,10 @@ namespace Voxel.Model.Languages
                 "Set Backcolor",
                 "Select Image",
                 "Image File (*.jpg;*.png;*.bmp;*.tif;*.jpeg;*.tiff)|*.jpg;*.png;*.bmp;*.tif;*.jpeg;*.tiff",
+                "Image margin",
+                "Margin is in the order of left, top, right and bottom",
+                "Total width",
+                "Total height",
             };
         }
     }

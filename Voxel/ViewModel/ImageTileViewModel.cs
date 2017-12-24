@@ -39,6 +39,8 @@ namespace Voxel.ViewModel
         public string RadioButtonActionFolder => language[nameof(RadioButtonActionFolder)];
         public string RadioButtonActionUrl => language[nameof(RadioButtonActionUrl)];
         public string ButtonBackColor => language[nameof(ButtonBackColor)];
+        public string ImageMarginLabel => language[nameof(ImageMarginLabel)];
+
         #endregion
         #region Vars and properties
 
@@ -151,10 +153,9 @@ namespace Voxel.ViewModel
         }
 
 
-        private static string marginRegex = @"([\d\.]+),([\d\.]+),([\d\.]+),([\d\.]+)|([\d\.]+),([\d\.]+)|([\d\.]+)";
         private bool tryParseMargin(string text, out Thickness margin)
         {
-            var match = text.Match(@"([\d\.]+),([\d\.]+),([\d\.]+),([\d\.]+)");
+            var match = text.Match(@"([-\d\.]+),([-\d\.]+),([-\d\.]+),([-\d\.]+)");
             if (match.Success)
             {
                 var left = match.Groups[1].Value.ToDouble();
@@ -164,7 +165,7 @@ namespace Voxel.ViewModel
                 margin = new Thickness(left, top, right, bottom);
                 return true;
             }
-            match = text.Match(@"([\d\.]+),([\d\.]+)");
+            match = text.Match(@"([-\d\.]+),([-\d\.]+)");
             if (match.Success)
             {
                 var leftAndRight = match.Groups[1].Value.ToDouble();
@@ -172,7 +173,7 @@ namespace Voxel.ViewModel
                 margin = new Thickness(leftAndRight, topAndBottom, leftAndRight, topAndBottom);
                 return true;
             }
-            match = text.Match(@"([\d\.]+)");
+            match = text.Match(@"([-\d\.]+)");
             if (match.Success)
             {
                 var uniformLength = match.Groups[0].Value.ToDouble();
@@ -189,6 +190,7 @@ namespace Voxel.ViewModel
             set
             {
                 imageMargin = value;
+                createPreview();
                 OnPropertyChanged(nameof(ImageMargin));
             }
         }
@@ -383,12 +385,21 @@ namespace Voxel.ViewModel
                     originalImagePath = dialog.FileName;
                     OriginalImage = new BitmapImage(new Uri(originalImagePath));
 
-#warning "Test data: Size(3,2) Margin=0"
+#warning "Test data: Size(3,2)"
                     PreviewGridWidth = 3;
                     PreviewGridHeight = 2;
-                    ImageMargin = new Thickness(0);
                     
                     createPreview();
+                }
+            },
+        };
+        public BindingCommand ImageMarginEnterCommand => new BindingCommand
+        {
+            ExcuteAction = o =>
+            {
+                if (o is TextBox textBox)
+                {
+                    ImageMarginText = textBox.Text;
                 }
             },
         };
