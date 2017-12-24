@@ -67,5 +67,10 @@ namespace Voxel.Model
         public static double IconWidthAndHeight => IconSize.Width;
         public static Size SmallIconSize => new Size(32, 32);
         public static double SmallIconWidthAndHeight => SmallIconSize.Width;
+
+        public static int MinimumGridWidth => 1;
+        public static int MaximumGridWidth => ShowMoreTiles ? 4 : 3;
+        public static int MinimumGridHeight => 1;
+        public static int MaximumGridHeight => 25;
     }
 }

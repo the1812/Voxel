@@ -73,15 +73,15 @@ namespace Voxel.ViewModel
             }
         }
 
-        private string backImagePath = null;
-        private BitmapSource backImage = null;
-        public BitmapSource BackImage
+        private string originalImagePath = null;
+        private BitmapSource originalImage = null;
+        public BitmapSource OriginalImage
         {
-            get => backImage;
+            get => originalImage;
             set
             {
-                backImage = value;
-                OnPropertyChanged(nameof(BackImage));
+                originalImage = value;
+                OnPropertyChanged(nameof(OriginalImage));
             }
         }
 
@@ -120,21 +120,44 @@ namespace Voxel.ViewModel
                 OnPropertyChanged(nameof(TestImage));
             }
         }
-
-        private BitmapSource fitGridSize(BitmapSource image, Size panelSize)
+        private void createPreview(Size gridSize)
         {
-            var panelRatio = panelSize.Ratio();
-            var imageRatio = image.Width / image.Height;
-            if (panelRatio >= imageRatio) //height equals
+            //Calculate preview size
+            var previewSize = new Size(
+                gridSize.Width * TileSize.LargeWidthAndHeight,
+                gridSize.Height * TileSize.LargeWidthAndHeight);
+            previewSize.Width += (gridSize.Width - 1) * TileSize.Gap;
+            previewSize.Height += (gridSize.Height - 1) * TileSize.Gap;
+            PreviewWidth = previewSize.Width;
+            PreviewHeight = previewSize.Height;
+
+            //Create ImageSpliters
+            var dictionary = OriginalImage.SmartSplit(gridSize);
+            Spliters.Clear();
+            for (var row = 0; row < gridSize.Height; row++)
             {
-                return image.Zoom(panelSize.Height / image.Height);
-            }
-            else //width equals
-            {
-                return image.Zoom(panelSize.Width / image.Width);
+                for (var column = 0; column < gridSize.Width; column++)
+                {
+                    var spliter = new ImageSpliter
+                    {
+                        BitmapSource = dictionary[new Point(column, row)],
+                        Margin = new Thickness
+                        {
+                            Left = column * (TileSize.LargeWidthAndHeight + TileSize.Gap),
+                            Top = row * (TileSize.LargeWidthAndHeight + TileSize.Gap),
+                            Right = 0,
+                            Bottom = 0,
+                        },
+                        IsSplit = false,
+                        HorizontalAlignment = HorizontalAlignment.Left,
+                        VerticalAlignment = VerticalAlignment.Top,
+                        Width = TileSize.LargeWidthAndHeight,
+                        Height = TileSize.LargeWidthAndHeight,
+                    };
+                    Spliters.Add(spliter);
+                }
             }
         }
-
 
         #endregion
         #region Commands
@@ -177,53 +200,18 @@ namespace Voxel.ViewModel
                     CheckFileExists = true,
                     Filter = language["OpenImageDialogFilter"],
                 };
-                if (File.Exists(backImagePath))
+                if (File.Exists(originalImagePath))
                 {
-                    dialog.FileName = backImagePath;
+                    dialog.FileName = originalImagePath;
                 }
                 if (dialog.ShowDialog() ?? false)
                 {
-                    backImagePath = dialog.FileName;
-                    BitmapSource image = new BitmapImage(new Uri(backImagePath));
+                    originalImagePath = dialog.FileName;
+                    OriginalImage = new BitmapImage(new Uri(originalImagePath));
 #warning "Test data: Size(3,2)"
                     var gridSize = new Size(3, 2);
-                    var desiredSize = new Size(
-                        gridSize.Width * TileSize.LargeWidthAndHeight * MainView.Dpi.X,
-                        gridSize.Height * TileSize.LargeWidthAndHeight * MainView.Dpi.Y);
-                    desiredSize.Width += (gridSize.Width - 1) * TileSize.Gap * MainView.Dpi.X;
-                    desiredSize.Height += (gridSize.Height - 1) * TileSize.Gap * MainView.Dpi.Y;
-
-                    image = fitGridSize(image, desiredSize).Extend(desiredSize);
-                    var dictionary = image.Split(gridSize);
-                    Spliters.Clear();
-                    for (var row = 0; row < gridSize.Height; row++)
-                    {
-                        for (var column = 0; column < gridSize.Width; column++)
-                        {
-                            var spliter = new ImageSpliter
-                            {
-                                BitmapSource = dictionary[new Point(column, row)],
-                                Margin = new Thickness
-                                {
-                                    Left = column * (TileSize.LargeWidthAndHeight + TileSize.Gap),
-                                    Top = row * (TileSize.LargeWidthAndHeight + TileSize.Gap),
-                                    Right = 0,
-                                    Bottom = 0,
-                                },
-                                IsSplit = false,
-                                HorizontalAlignment = HorizontalAlignment.Left,
-                                VerticalAlignment = VerticalAlignment.Top,
-                                Width = TileSize.LargeWidthAndHeight,
-                                Height = TileSize.LargeWidthAndHeight,
-                            };
-                            Spliters.Add(spliter);
-                        }
-                    }
-                    PreviewWidth = desiredSize.Width / MainView.Dpi.X;
-                    PreviewHeight = desiredSize.Height / MainView.Dpi.Y;
-
+                    createPreview(gridSize);
                 }
-                //OnPropertyChanged(nameof(Spliters));
             },
         };
         #endregion

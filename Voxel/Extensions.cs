@@ -17,6 +17,7 @@ namespace Voxel
 {
     static class Extensions
     {
+        #region For Color
         public static Color ToColor(this int value)
         {
             var bytes = BitConverter.GetBytes(value);
@@ -51,6 +52,8 @@ namespace Voxel
             var b = Convert.ToByte(str.Substring(4, 2), 16);
             return Color.FromRgb(r, g, b);
         }
+        #endregion
+
         public static bool ShowMessage(this Window parent, string content, string title, bool showCancelButton)
         {
             var dialog = new MessageView()
@@ -88,6 +91,24 @@ namespace Voxel
 
             return new Size(formattedText.Width, formattedText.Height);
         }
+        public static Point GetDpi(this Visual visual)
+        {
+            var source = PresentationSource.FromVisual(visual);
+
+            double dpiX = 0.0, dpiY = 0.0;
+            if (source != null)
+            {
+                dpiX = /*96.0 * */source.CompositionTarget.TransformToDevice.M11;
+                dpiY = /*96.0 * */source.CompositionTarget.TransformToDevice.M22;
+            }
+            return new Point(dpiX, dpiY);
+        }
+        public static Point ToPoint(this Size size) => new Point(size.Width, size.Height);
+        public static double Ratio(this Size size) => size.Width / size.Height;
+
+
+        #region For ImageTile
+
         public static BitmapSource Resize(this BitmapSource source, Size size) => source.Resize(size.Width, size.Height);
         public static BitmapSource Resize(this BitmapSource source, double width, double height)
         {
@@ -114,19 +135,19 @@ namespace Voxel
             return BitmapFrame.Create(resizedImage);
 
         }
-        public static Point GetDpi(this Visual visual)
+        public static  BitmapSource FitGridSize(this BitmapSource image, Size panelSize)
         {
-            var source = PresentationSource.FromVisual(visual);
-
-            double dpiX = 0.0, dpiY = 0.0;
-            if (source != null)
+            var panelRatio = panelSize.Ratio();
+            var imageRatio = image.Width / image.Height;
+            if (panelRatio >= imageRatio) //height equals
             {
-                dpiX = /*96.0 * */source.CompositionTarget.TransformToDevice.M11;
-                dpiY = /*96.0 * */source.CompositionTarget.TransformToDevice.M22;
+                return image.Zoom(panelSize.Height / image.Height);
             }
-            return new Point(dpiX, dpiY);
+            else //width equals
+            {
+                return image.Zoom(panelSize.Width / image.Width);
+            }
         }
-
         public static BitmapSource Extend(this BitmapSource image, Size newSize)
         {
             //newSize.Width *= MainView.Dpi.X;
@@ -146,8 +167,6 @@ namespace Voxel
         }
         public static BitmapSource Zoom(this BitmapSource image, double ratio)
             => image.Resize(image.Width * ratio, image.Height * ratio);
-        public static Point ToPoint(this Size size) => new Point(size.Width, size.Height);
-        public static double Ratio(this Size size) => size.Width / size.Height;
 
 
         public static Dictionary<Point, CroppedBitmap> Split(this BitmapSource bitmap, Size gridSize)
@@ -179,6 +198,18 @@ namespace Voxel
             }
             return dictionary;
         }
+        public static Dictionary<Point, CroppedBitmap> SmartSplit(this BitmapSource image, Size gridSize)
+        {
+            var desiredSize = new Size(
+                        gridSize.Width * TileSize.LargeWidthAndHeight * MainView.Dpi.X,
+                        gridSize.Height * TileSize.LargeWidthAndHeight * MainView.Dpi.Y);
+            desiredSize.Width += (gridSize.Width - 1) * TileSize.Gap * MainView.Dpi.X;
+            desiredSize.Height += (gridSize.Height - 1) * TileSize.Gap * MainView.Dpi.Y;
 
+            image = image.FitGridSize(desiredSize).Extend(desiredSize);
+            return image.Split(gridSize);
+        }
+
+        #endregion
     }
 }
