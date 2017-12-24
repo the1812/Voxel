@@ -10,6 +10,7 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Data;
 using System.Windows.Media;
+using System.Windows.Media.Effects;
 using System.Windows.Media.Imaging;
 using Voxel.Controls;
 using Voxel.Model;
@@ -161,6 +162,12 @@ namespace Voxel.ViewModel
             //Create ImageSpliters
             var dictionary = OriginalImage.SmartSplit(gridSize);
             Spliters.Clear();
+            var shadow = new DropShadowEffect
+            {
+                ShadowDepth = 0,
+                BlurRadius = 15,
+                Opacity = 0.4,
+            };
             for (var row = 0; row < gridSize.Height; row++)
             {
                 for (var column = 0; column < gridSize.Width; column++)
@@ -180,6 +187,8 @@ namespace Voxel.ViewModel
                         VerticalAlignment = VerticalAlignment.Top,
                         Width = TileSize.LargeWidthAndHeight,
                         Height = TileSize.LargeWidthAndHeight,
+                        Effect = shadow,
+                        Background = new SolidColorBrush(Ace.Wpf.DwmEffect.ColorizationColor),
                     };
                     Spliters.Add(spliter);
                 }

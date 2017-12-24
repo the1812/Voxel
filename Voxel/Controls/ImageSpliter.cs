@@ -29,7 +29,7 @@ namespace Voxel.Controls
             base.OnMouseDoubleClick(e);
             IsSplit = !IsSplit;
         }
-
+        
         public static readonly DependencyProperty IsSplitProperty = DependencyProperty.Register(
             nameof(IsSplit),
             typeof(bool),
@@ -39,7 +39,7 @@ namespace Voxel.Controls
             nameof(BitmapSource), 
             typeof(BitmapSource), 
             typeof(ImageSpliter), 
-            new PropertyMetadata(null, (s, e)=>
+            new PropertyMetadata(null, (s, e) =>
             {
                 if (s is ImageSpliter spliter)
                 {

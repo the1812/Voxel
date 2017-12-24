@@ -17,8 +17,10 @@
       Property="Template">
       <Setter.Value>
         <ControlTemplate TargetType="RadioButton">
-          
+
           <Grid>
+            <Rectangle
+              Fill="{TemplateBinding Background}" />
             <ContentPresenter
               x:Name="content" />
             <Border

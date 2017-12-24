@@ -45,6 +45,7 @@
               </Grid.RowDefinitions>
 
               <RadioButton
+                Background="{TemplateBinding Background}"
                 GroupName="ImageSpliterRadio"
                 Style="{StaticResource TileRadioButton}"
                 x:Name="topLeft">
@@ -53,6 +54,7 @@
               </RadioButton>
 
               <RadioButton
+                Background="{TemplateBinding Background}"
                 GroupName="ImageSpliterRadio"
                 Style="{StaticResource TileRadioButton}"
                 x:Name="topRight"
@@ -62,6 +64,7 @@
               </RadioButton>
 
               <RadioButton
+                Background="{TemplateBinding Background}"
                 GroupName="ImageSpliterRadio"
                 Style="{StaticResource TileRadioButton}"
                 x:Name="bottomLeft"
@@ -72,6 +75,7 @@
               </RadioButton>
               
               <RadioButton
+                Background="{TemplateBinding Background}"
                 GroupName="ImageSpliterRadio"
                 Style="{StaticResource TileRadioButton}"
                 x:Name="bottomRight"
@@ -82,14 +86,17 @@
               </RadioButton>
             </Grid>
 
-            <RadioButton
-              GroupName="ImageSpliterRadio"
+            <Border
               x:Name="fullImage"
-              Style="{StaticResource TileRadioButton}">
-              <Image
-                Stretch="{TemplateBinding Stretch}"
-                Source="{TemplateBinding BitmapSource}" />
-            </RadioButton>
+              Background="{TemplateBinding Background}">
+              <RadioButton
+                GroupName="ImageSpliterRadio"
+                Style="{StaticResource TileRadioButton}">
+                <Image
+                  Stretch="{TemplateBinding Stretch}"
+                  Source="{TemplateBinding BitmapSource}" />
+              </RadioButton>
+            </Border>
 
           </Grid>
           <ControlTemplate.Triggers>
