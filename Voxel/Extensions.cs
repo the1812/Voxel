@@ -11,7 +11,6 @@ using System.Windows.Media.Imaging;
 using Voxel.Model;
 using Voxel.View;
 using Voxel.ViewModel;
-using GdiPlus = System.Drawing;
 
 namespace Voxel
 {
@@ -107,8 +106,6 @@ namespace Voxel
         public static double Ratio(this Size size) => size.Width / size.Height;
 
 
-        #region For ImageTile
-
         public static BitmapSource Resize(this BitmapSource source, Size size) => source.Resize(size.Width, size.Height);
         public static BitmapSource Resize(this BitmapSource source, double width, double height)
         {
@@ -135,81 +132,8 @@ namespace Voxel
             return BitmapFrame.Create(resizedImage);
 
         }
-        public static  BitmapSource FitGridSize(this BitmapSource image, Size panelSize)
-        {
-            var panelRatio = panelSize.Ratio();
-            var imageRatio = image.Width / image.Height;
-            if (panelRatio >= imageRatio) //height equals
-            {
-                return image.Zoom(panelSize.Height / image.Height);
-            }
-            else //width equals
-            {
-                return image.Zoom(panelSize.Width / image.Width);
-            }
-        }
-        public static BitmapSource Extend(this BitmapSource image, Size newSize)
-        {
-            //newSize.Width *= MainView.Dpi.X;
-            //newSize.Height *= MainView.Dpi.Y;
-            var newImage = new GdiPlus.Bitmap(
-                (int) (newSize.Width),
-                (int) (newSize.Height));
-            var gdiNewImage = GdiPlus.Graphics.FromImage(newImage);
-            gdiNewImage.FillRectangle(new GdiPlus.SolidBrush(GdiPlus.Color.Transparent),
-                0, 0, newImage.Width, newImage.Height);
-            var x = newSize.Width / 2;
-            x -= image.Width / 2;
-            var y = newSize.Height / 2;
-            y -= image.Height / 2;
-            gdiNewImage.DrawImage(image.ToImage(), (float) x, (float) y, (float) image.Width, (float) image.Height);
-            return newImage.ToImageSource() as BitmapSource;
-        }
         public static BitmapSource Zoom(this BitmapSource image, double ratio)
             => image.Resize(image.Width * ratio, image.Height * ratio);
 
-
-        public static Dictionary<Point, CroppedBitmap> Split(this BitmapSource bitmap, Size gridSize)
-        {
-            var dpiX = MainView.Dpi.X;
-            var dpiY = MainView.Dpi.Y;
-            var dictionary = new Dictionary<Point, CroppedBitmap>();
-            int x = 0, y = 0;
-            for (var row = 0; row < gridSize.Height; row++)
-            {
-                for (var column = 0; column < gridSize.Width; column++)
-                {
-                    var croppintRect = new Int32Rect
-                    {
-                        X = x,
-                        Y = y,
-                        Width = (int) (TileSize.LargeWidthAndHeight * dpiX),
-                        Height = (int) (TileSize.LargeWidthAndHeight * dpiY),
-                    };
-                    dictionary.Add(new Point(column, row), new CroppedBitmap
-                    (
-                        bitmap,
-                        croppintRect
-                    ));
-                    x += (int) ((TileSize.LargeWidthAndHeight + TileSize.Gap) * dpiX);
-                }
-                x = 0;
-                y += (int) ((TileSize.LargeWidthAndHeight + TileSize.Gap) * dpiX);
-            }
-            return dictionary;
-        }
-        public static Dictionary<Point, CroppedBitmap> SmartSplit(this BitmapSource image, Size gridSize)
-        {
-            var desiredSize = new Size(
-                        gridSize.Width * TileSize.LargeWidthAndHeight * MainView.Dpi.X,
-                        gridSize.Height * TileSize.LargeWidthAndHeight * MainView.Dpi.Y);
-            desiredSize.Width += (gridSize.Width - 1) * TileSize.Gap * MainView.Dpi.X;
-            desiredSize.Height += (gridSize.Height - 1) * TileSize.Gap * MainView.Dpi.Y;
-
-            image = image.FitGridSize(desiredSize).Extend(desiredSize);
-            return image.Split(gridSize);
-        }
-
-        #endregion
     }
 }
