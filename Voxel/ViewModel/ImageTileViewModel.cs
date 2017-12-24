@@ -110,6 +110,31 @@ namespace Voxel.ViewModel
             }
         }
 
+        private int previewGridWidth;
+        public int PreviewGridWidth
+        {
+            get => previewGridWidth;
+            set
+            {
+                previewGridWidth = value;
+                OnPropertyChanged(nameof(PreviewGridWidth));
+                OnPropertyChanged(nameof(PreviewGridSize));
+            }
+        }
+
+        private int previewGridHeight;
+        public int PreviewGridHeight
+        {
+            get => previewGridHeight;
+            set
+            {
+                previewGridHeight = value;
+                OnPropertyChanged(nameof(PreviewGridHeight));
+                OnPropertyChanged(nameof(PreviewGridSize));
+            }
+        }
+        public Size PreviewGridSize => new Size(PreviewGridWidth, PreviewGridHeight);
+
         private BitmapSource testImage;
         public BitmapSource TestImage
         {
@@ -120,8 +145,10 @@ namespace Voxel.ViewModel
                 OnPropertyChanged(nameof(TestImage));
             }
         }
-        private void createPreview(Size gridSize)
+
+        private void createPreview()
         {
+            var gridSize = PreviewGridSize;
             //Calculate preview size
             var previewSize = new Size(
                 gridSize.Width * TileSize.LargeWidthAndHeight,
@@ -208,9 +235,12 @@ namespace Voxel.ViewModel
                 {
                     originalImagePath = dialog.FileName;
                     OriginalImage = new BitmapImage(new Uri(originalImagePath));
+
 #warning "Test data: Size(3,2)"
-                    var gridSize = new Size(3, 2);
-                    createPreview(gridSize);
+                    PreviewGridWidth = 3;
+                    PreviewGridHeight = 2;
+
+                    createPreview();
                 }
             },
         };
