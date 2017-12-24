@@ -59,7 +59,14 @@
       ItemsSource="{Binding Spliters}">
       <ItemsControl.ItemsPanel>
         <ItemsPanelTemplate>
-          <Grid />
+          <Grid>
+            <Grid.Effect>
+              <DropShadowEffect
+                ShadowDepth="0"
+                BlurRadius="15"
+                Opacity="0.4" />
+            </Grid.Effect>
+          </Grid>
         </ItemsPanelTemplate>
       </ItemsControl.ItemsPanel>
     </ItemsControl>

@@ -300,12 +300,12 @@ namespace Voxel.ViewModel
             //Create ImageSpliters
             var dictionary = smartSplit(gridSize);
             Spliters.Clear();
-            var shadow = new DropShadowEffect
-            {
-                ShadowDepth = 0,
-                BlurRadius = 15,
-                Opacity = 0.4,
-            };
+            //var shadow = new DropShadowEffect
+            //{
+            //    ShadowDepth = 0,
+            //    BlurRadius = 15,
+            //    Opacity = 0.4,
+            //};
             for (var row = 0; row < gridSize.Height; row++)
             {
                 for (var column = 0; column < gridSize.Width; column++)
@@ -325,7 +325,7 @@ namespace Voxel.ViewModel
                         VerticalAlignment = VerticalAlignment.Top,
                         Width = TileSize.LargeWidthAndHeight,
                         Height = TileSize.LargeWidthAndHeight,
-                        Effect = shadow,
+                        //Effect = shadow,
                         Background = new SolidColorBrush(Ace.Wpf.DwmEffect.ColorizationColor),
                     };
                     Spliters.Add(spliter);
