@@ -223,6 +223,10 @@ namespace Voxel.ViewModel
         }
         private BitmapSource extend(BitmapSource image, Size newSize)
         {
+            if (image == null)
+            {
+                return null;
+            }
             //newSize.Width *= MainView.Dpi.X;
             //newSize.Height *= MainView.Dpi.Y;
             var newImage = new GdiPlus.Bitmap(
@@ -245,8 +249,12 @@ namespace Voxel.ViewModel
         }
 
 
-        private Dictionary<Point, CroppedBitmap> split(BitmapSource bitmap, Size gridSize)
+        private Dictionary<Point, CroppedBitmap> split(BitmapSource image, Size gridSize)
         {
+            if (image == null)
+            {
+                return new Dictionary<Point, CroppedBitmap>();
+            }
             var dpiX = MainView.Dpi.X;
             var dpiY = MainView.Dpi.Y;
             var dictionary = new Dictionary<Point, CroppedBitmap>();
@@ -264,7 +272,7 @@ namespace Voxel.ViewModel
                     };
                     dictionary.Add(new Point(column, row), new CroppedBitmap
                     (
-                        bitmap,
+                        image,
                         croppintRect
                     ));
                     x += (int) ((TileSize.LargeWidthAndHeight + TileSize.Gap) * dpiX);
@@ -312,9 +320,15 @@ namespace Voxel.ViewModel
             {
                 for (var column = 0; column < gridSize.Width; column++)
                 {
+                    var point = new Point(column, row);
+                    BitmapSource image = null;
+                    if (dictionary.ContainsKey(point))
+                    {
+                        image = dictionary[point];
+                    }
                     var spliter = new ImageSpliter
                     {
-                        BitmapSource = dictionary[new Point(column, row)],
+                        BitmapSource = image,
                         Margin = new Thickness
                         {
                             Left = column * (TileSize.LargeWidthAndHeight + TileSize.Gap),

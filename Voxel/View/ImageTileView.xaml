@@ -38,6 +38,7 @@
     </Grid.RowDefinitions>
 
     <Grid
+      Background="{StaticResource HighlightColor}"
       Grid.ColumnSpan="2"
       Grid.Row="0"
       x:Name="gridHeader">
@@ -50,9 +51,12 @@
           Width="1*" />
         <ColumnDefinition
           Width="1*" />
+        <ColumnDefinition
+          Width="1*" />
       </Grid.ColumnDefinitions>
 
       <TextBlock
+        Style="{StaticResource ToolTextBlock}"
         Foreground="White"
         Grid.Column="0"
         Text="{Binding ImageMarginLabel}"
@@ -67,6 +71,7 @@
         VerticalAlignment="Center"
         HorizontalAlignment="Stretch"
         MaxWidth="400"
+        FontSize="14"
         Height="30"
         Margin="5,0,5,0"
         VerticalContentAlignment="Center"

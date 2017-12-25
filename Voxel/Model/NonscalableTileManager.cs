@@ -24,19 +24,11 @@ namespace Voxel.Model
             Theme = Ace.Wpf.DwmEffect.ForegroundColor == Colors.Black ? TextTheme.Dark : TextTheme.Light,
             ShowName = true,
         };
-        public NonscalableTile Tile
-        {
-            get => tile;
-            //set
-            //{
-            //    tile = value;
-            //    OnPropertyChanged(nameof(Tile));
-            //}
-        }
+        public NonscalableTile Tile => tile;
 
         public override void AddToStart()
         {
-            ShortcutFile file = new ShortcutFile(Tile.StartMenuTargetPath)
+            var file = new ShortcutFile(Tile.StartMenuTargetPath)
             {
                 TargetPath = tile.TargetPath,
             };
@@ -49,11 +41,11 @@ namespace Voxel.Model
             {
                 return;
             }
-            XmlManager xml = new XmlManager();
+            var xml = new XmlManager();
             xml.FillFrom(tile);
             if (File.Exists(tile.LargeImagePath))
             {
-                string targetFolder = tile.TargetType == TargetType.File ?
+                var targetFolder = tile.TargetType == TargetType.File ?
                     tile.TargetPath.RemoveFileName().ToLower() :
                     tile.TargetPath.GetParentFolder().ToLower();
                 if (targetFolder != tile.LargeImagePath.RemoveFileName().ToLower())
@@ -68,7 +60,7 @@ namespace Voxel.Model
             }
             xml.Save(tile.XmlPath);
 
-            bool clearCache = GetBoolean(MakeKey(nameof(NonscalableTile), ClearTileCacheOnGenerateKey));
+            var clearCache = GetBoolean(MakeKey(nameof(NonscalableTile), ClearTileCacheOnGenerateKey));
             if (clearCache)
             {
                 RefreshShortcut();
@@ -82,7 +74,7 @@ namespace Voxel.Model
                 {
                     return false;
                 }
-                ShortcutFile shortcutFile = new ShortcutFile(file.FullName);
+                var shortcutFile = new ShortcutFile(file.FullName);
                 shortcutFile.Load();
                 return tile.TargetPath.GetFileName().ToLower() == shortcutFile.TargetPath.GetFileName().ToLower();
             });
@@ -111,9 +103,9 @@ namespace Voxel.Model
                     tile.Background = data[nameof(tile.Background)].StringValue.FromHexString();
                 }
                 tile.TargetPath = data[nameof(tile.TargetPath)].StringValue;
-                string themeString = data[nameof(tile.Theme)].StringValue;
+                var themeString = data[nameof(tile.Theme)].StringValue;
                 tile.Theme = themeString == DarkThemeString ? TextTheme.Dark : TextTheme.Light;
-                string targetTypeString = data[nameof(tile.TargetType)].StringValue;
+                var targetTypeString = data[nameof(tile.TargetType)].StringValue;
                 tile.TargetType = targetTypeString == FolderTargetString ? TargetType.Folder : TargetType.File;
             }
             catch (KeyNotFoundException)
@@ -123,7 +115,7 @@ namespace Voxel.Model
         }
         public void LoadFromXml()
         {
-            XmlManager xml = new XmlManager();
+            var xml = new XmlManager();
             xml.Load(tile.XmlPath);
             xml.FillTo(ref tile);
         }

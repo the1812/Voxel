@@ -110,6 +110,10 @@ namespace Voxel
         public static BitmapSource Resize(this BitmapSource source, double width, double height)
         {
             //https://stackoverflow.com/questions/15779564/resize-image-in-wpf
+            if (width < 0 || height < 0)
+            {
+                return null;
+            }
 
             var rect = new Rect(0, 0, width, height);
 
