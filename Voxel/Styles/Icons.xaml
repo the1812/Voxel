@@ -2,6 +2,7 @@
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
                     >
   <Canvas
+    x:Shared="false"
     Height="1024"
     Width="1024"
     x:Key="WindowsLogo">

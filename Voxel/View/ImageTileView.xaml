@@ -19,6 +19,10 @@
   <Window.Resources>
     <converters:BooleanStretchConverter
       x:Key="bsConverter" />
+    <BooleanToVisibilityConverter
+      x:Key="visibilityConverter" />
+    <converters:BooleanNotConverter
+      x:Key="notConverter" />
   </Window.Resources>
   <Grid
     x:Name="gridMain"
@@ -319,12 +323,6 @@
       Grid.Row="2"
       VerticalAlignment="Stretch"
       Background="{StaticResource HighlightColor}">
-      <Grid.Effect>
-        <DropShadowEffect
-          BlurRadius="20"
-          ShadowDepth="0"
-          Opacity="0.5" />
-      </Grid.Effect>
       <Grid.ColumnDefinitions>
         <ColumnDefinition
           Width="1*" />
@@ -337,23 +335,91 @@
       </Grid.ColumnDefinitions>
       <Button
         x:Name="buttonExport"
-        Content="{Binding ButtonExport}"
         Grid.Column="3"
-        Style="{StaticResource ToolButton}" />
+        IsEnabled="{Binding IsBusy, Converter={StaticResource notConverter}}"
+        Style="{StaticResource ToolButton}"
+        Command="{Binding ExportCommand}">
+        <StackPanel
+          Orientation="Horizontal">
+          <Viewbox
+            Margin="0,0,15,0"
+            Height="{StaticResource IconSize}"
+            Width="{StaticResource IconSize}"
+            Child="{StaticResource Export}" />
+          <Viewbox
+            Margin="0,0,15,0"
+            Height="{StaticResource ToolButtonTextSize}">
+            <TextBlock
+              Style="{StaticResource ToolTextBlock}"
+              Text="{Binding ButtonExport}" />
+          </Viewbox>
+        </StackPanel>
+      </Button>
       <Button
         x:Name="buttonImport"
-        Content="{Binding ButtonImport}"
         Grid.Column="2"
-        Style="{StaticResource ToolButton}" />
+        IsEnabled="{Binding IsBusy, Converter={StaticResource notConverter}}"
+        Style="{StaticResource ToolButton}"
+        Command="{Binding ImportCommand}">
+        <StackPanel
+          Orientation="Horizontal">
+          <Viewbox
+            Margin="0,0,15,0"
+            Height="{StaticResource IconSize}"
+            Width="{StaticResource IconSize}"
+            Child="{StaticResource Import}" />
+          <Viewbox
+            Margin="0,0,15,0"
+            Height="{StaticResource ToolButtonTextSize}">
+            <TextBlock
+              Style="{StaticResource ToolTextBlock}"
+              Text="{Binding ButtonImport}" />
+          </Viewbox>
+        </StackPanel>
+      </Button>
       <Button
         x:Name="buttonAddToStart"
-        Content="{Binding ButtonAddToStart}"
         Grid.Column="1"
-        Style="{StaticResource ToolButton}" />
+        IsEnabled="{Binding IsBusy, Converter={StaticResource notConverter}}"
+        Style="{StaticResource ToolButton}"
+        Command="{Binding AddToStartCommand}">
+        <StackPanel
+          Orientation="Horizontal">
+          <Viewbox
+            Margin="0,0,15,0"
+            Height="{StaticResource IconSize}"
+            Width="{StaticResource IconSize}"
+            Child="{StaticResource WindowsLogo}" />
+          <Viewbox
+            Margin="0,0,5,0"
+            Height="{StaticResource ToolButtonTextSize}">
+            <TextBlock
+              Style="{StaticResource ToolTextBlock}"
+              Text="{Binding ButtonAddToStart}" />
+          </Viewbox>
+        </StackPanel>
+      </Button>
       <Button
         x:Name="buttonGenrate"
-        Content="{Binding ButtonGenerate}"
-        Style="{StaticResource ToolButton}"/>
+        IsEnabled="{Binding IsBusy, Converter={StaticResource notConverter}}"
+        Style="{StaticResource ToolButton}"
+        Command="{Binding GenerateCommand}">
+        <StackPanel
+          Orientation="Horizontal">
+          <Viewbox
+            Margin="0,0,15,0"
+            Height="{StaticResource IconSize}"
+            Width="{StaticResource IconSize}"
+            Child="{StaticResource Generate}" />
+          <Viewbox
+            Margin="0,0,15,0"
+            Height="{StaticResource ToolButtonTextSize}">
+            <TextBlock
+              Style="{StaticResource ToolTextBlock}"
+              Text="{Binding ButtonGenerate}" />
+          </Viewbox>
+        </StackPanel>
+      </Button>
 
     </Grid>
   </Grid>
