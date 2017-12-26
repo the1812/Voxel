@@ -21,7 +21,7 @@
       Value="White" />
     <Setter
       Property="Background"
-      Value="Transparent" />
+      Value="#401D1D1D" />
     <Setter
       Property="BorderBrush"
       Value="{DynamicResource HighlightColor}" />
