@@ -40,6 +40,8 @@ namespace Voxel.ViewModel
         public string RadioButtonActionUrl => language[nameof(RadioButtonActionUrl)];
         public string ButtonBackColor => language[nameof(ButtonBackColor)];
         public string ImageMarginLabel => language[nameof(ImageMarginLabel)];
+        public string PreviewGridWidthLabel => language[nameof(PreviewGridWidthLabel)];
+        public string PreviewGridHeightLabel => language[nameof(PreviewGridHeightLabel)];
 
         #endregion
         #region Vars and properties
@@ -116,30 +118,62 @@ namespace Voxel.ViewModel
             }
         }
 
-        private int previewGridWidth;
+        private int previewGridWidth = TileSize.MaximumGridWidth;
         public int PreviewGridWidth
         {
             get => previewGridWidth;
             set
             {
                 previewGridWidth = value;
+                createPreview();
                 OnPropertyChanged(nameof(PreviewGridWidth));
                 OnPropertyChanged(nameof(PreviewGridSize));
             }
         }
 
-        private int previewGridHeight;
+        //MaximumGridWidth is also suitable for default height
+        private int previewGridHeight = TileSize.MaximumGridWidth; 
         public int PreviewGridHeight
         {
             get => previewGridHeight;
             set
             {
                 previewGridHeight = value;
+                createPreview();
                 OnPropertyChanged(nameof(PreviewGridHeight));
                 OnPropertyChanged(nameof(PreviewGridSize));
             }
         }
         public Size PreviewGridSize => new Size(PreviewGridWidth, PreviewGridHeight);
+        public string PreviewGridWidthText
+        {
+            get => PreviewGridWidth.ToString();
+            set
+            {
+                var intValue = value.ToInt32();
+                if (intValue >= TileSize.MinimumGridWidth &&
+                    intValue <= TileSize.MaximumGridWidth)
+                {
+                    PreviewGridWidth = intValue;
+                }
+                OnPropertyChanged(nameof(PreviewGridWidthText));
+            }
+        }
+        public string PreviewGridHeightText
+        {
+            get => PreviewGridHeight.ToString();
+            set
+            {
+                var intValue = value.ToInt32();
+                if (intValue >= TileSize.MinimumGridHeight &&
+                    intValue <= TileSize.MaximumGridHeight)
+                {
+                    PreviewGridHeight = intValue;
+                }
+                OnPropertyChanged(nameof(PreviewGridHeightText));
+            }
+        }
+
 
         private BitmapSource testImage;
         public BitmapSource TestImage
@@ -206,7 +240,6 @@ namespace Voxel.ViewModel
                 OnPropertyChanged(nameof(ImageMarginText));
             }
         }
-
 
         private BitmapSource fitGridSize(Size panelSize)
         {
@@ -398,11 +431,6 @@ namespace Voxel.ViewModel
                 {
                     originalImagePath = dialog.FileName;
                     OriginalImage = new BitmapImage(new Uri(originalImagePath));
-
-#warning "Test data: Size(3,2)"
-                    PreviewGridWidth = 3;
-                    PreviewGridHeight = 2;
-                    
                     createPreview();
                 }
             },
@@ -416,6 +444,26 @@ namespace Voxel.ViewModel
                     ImageMarginText = textBox.Text;
                 }
             },
+        };
+        public BindingCommand PreviewGridWidthEnterCommand => new BindingCommand
+        {
+            ExcuteAction = o =>
+            {
+                if (o is TextBox textBox)
+                {
+                    PreviewGridWidthText = textBox.Text;
+                }
+            }
+        };
+        public BindingCommand PreviewGridHeightEnterCommand => new BindingCommand
+        {
+            ExcuteAction = o =>
+            {
+                if (o is TextBox textBox)
+                {
+                    PreviewGridHeightText = textBox.Text;
+                }
+            }
         };
         #endregion
     }

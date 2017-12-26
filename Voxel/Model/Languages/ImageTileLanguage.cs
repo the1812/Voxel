@@ -33,8 +33,8 @@ namespace Voxel.Model.Languages
                 "OpenImageDialogFilter",
                 "ImageMarginLabel",
                 "ImageMarginTip",
-                "PreviewGridWidthText",
-                "PreviewGridHeightText",
+                "PreviewGridWidthLabel",
+                "PreviewGridHeightLabel",
             };
             simplifiedChinese = new List<string>
             {
