@@ -91,6 +91,7 @@
     <Compile Include="Converters\ColorToHueBrushConverter.cs" />
     <Compile Include="Converters\VisibilityNotConverter.cs" />
     <Compile Include="Extensions.cs" />
+    <Compile Include="ImageScaler.cs" />
     <Compile Include="Model\Action.cs" />
     <Compile Include="Model\BusyStateController.cs" />
     <Compile Include="Model\HsbColor.cs" />

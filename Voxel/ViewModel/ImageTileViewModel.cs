@@ -240,50 +240,6 @@ namespace Voxel.ViewModel
                 OnPropertyChanged(nameof(ImageMarginText));
             }
         }
-
-        private BitmapSource fitGridSize(Size panelSize)
-        {
-            panelSize.Height -= ImageMargin.Top + ImageMargin.Bottom;
-            panelSize.Width -= ImageMargin.Left + ImageMargin.Right;
-            var panelRatio = panelSize.Ratio();
-            var imageRatio = OriginalImage.Width / OriginalImage.Height;
-            if (panelRatio >= imageRatio) //height equals
-            {
-                return OriginalImage.Zoom((panelSize.Height/* - ImageMargin.Top - ImageMargin.Bottom*/) / OriginalImage.Height);
-            }
-            else //width equals
-            {
-                return OriginalImage.Zoom((panelSize.Width/* - ImageMargin.Left - ImageMargin.Right*/) / OriginalImage.Width);
-            }
-        }
-        private BitmapSource extend(BitmapSource image, Size newSize)
-        {
-            if (image == null)
-            {
-                return null;
-            }
-            //newSize.Width *= MainView.Dpi.X;
-            //newSize.Height *= MainView.Dpi.Y;
-            var newImage = new GdiPlus.Bitmap(
-                (int) (newSize.Width),
-                (int) (newSize.Height));
-            var gdiNewImage = GdiPlus.Graphics.FromImage(newImage);
-            gdiNewImage.FillRectangle(new GdiPlus.SolidBrush(GdiPlus.Color.Transparent),
-                0, 0, newImage.Width, newImage.Height);
-
-            var marginedWidth = newImage.Width - ImageMargin.Left - ImageMargin.Right;
-            var marginedHeight = newImage.Height - ImageMargin.Top - ImageMargin.Bottom;
-
-            var x = ImageMargin.Left + marginedWidth / 2;
-            x -= image.Width / 2;
-            var y = ImageMargin.Top + marginedHeight / 2;
-            y -= image.Height / 2;
-
-            gdiNewImage.DrawImage(image.ToImage(), (float) x, (float) y, (float) image.Width, (float) image.Height);
-            return newImage.ToImageSource() as BitmapSource;
-        }
-
-
         private Dictionary<Point, CroppedBitmap> split(BitmapSource image, Size gridSize)
         {
             if (image == null)
@@ -317,7 +273,7 @@ namespace Voxel.ViewModel
             }
             return dictionary;
         }
-        private Dictionary<Point, CroppedBitmap> smartSplit(Size gridSize)
+        private Dictionary<Point, CroppedBitmap> scaleAndSplit(Size gridSize)
         {
             var desiredSize = new Size(
                         gridSize.Width * TileSize.LargeWidthAndHeight * MainView.Dpi.X,
@@ -325,7 +281,12 @@ namespace Voxel.ViewModel
             desiredSize.Width += (gridSize.Width - 1) * TileSize.Gap * MainView.Dpi.X;
             desiredSize.Height += (gridSize.Height - 1) * TileSize.Gap * MainView.Dpi.Y;
 
-            var image = extend(fitGridSize(desiredSize), desiredSize);
+            var scaler = new ImageScaler(OriginalImage)
+            {
+                TargetSize = desiredSize,
+                Margin = ImageMargin,
+            };
+            var image = scaler.Scale();
             return split(image, gridSize);
         }
 
@@ -343,7 +304,7 @@ namespace Voxel.ViewModel
             PreviewHeight = previewSize.Height;
 
             //Create ImageSpliters
-            var dictionary = smartSplit(gridSize);
+            var dictionary = scaleAndSplit(gridSize);
             Spliters.Clear();
             //var shadow = new DropShadowEffect
             //{
