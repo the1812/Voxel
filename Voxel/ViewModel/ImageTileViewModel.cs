@@ -243,15 +243,17 @@ namespace Voxel.ViewModel
 
         private BitmapSource fitGridSize(Size panelSize)
         {
+            panelSize.Height -= ImageMargin.Top + ImageMargin.Bottom;
+            panelSize.Width -= ImageMargin.Left + ImageMargin.Right;
             var panelRatio = panelSize.Ratio();
             var imageRatio = OriginalImage.Width / OriginalImage.Height;
             if (panelRatio >= imageRatio) //height equals
             {
-                return OriginalImage.Zoom((panelSize.Height - ImageMargin.Top - ImageMargin.Bottom) / OriginalImage.Height);
+                return OriginalImage.Zoom((panelSize.Height/* - ImageMargin.Top - ImageMargin.Bottom*/) / OriginalImage.Height);
             }
             else //width equals
             {
-                return OriginalImage.Zoom((panelSize.Width - ImageMargin.Left - ImageMargin.Right) / OriginalImage.Width);
+                return OriginalImage.Zoom((panelSize.Width/* - ImageMargin.Left - ImageMargin.Right*/) / OriginalImage.Width);
             }
         }
         private BitmapSource extend(BitmapSource image, Size newSize)

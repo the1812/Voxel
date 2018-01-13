@@ -12,7 +12,7 @@ using System.Windows;
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("Ace Studio")]
 [assembly: AssemblyProduct("Voxel")]
-[assembly: AssemblyCopyright("Copyright © Ace Studio 2017")]
+[assembly: AssemblyCopyright("Copyright © Ace Studio 2018")]
 [assembly: AssemblyTrademark("Ace Studio")]
 [assembly: AssemblyCulture("")]
 

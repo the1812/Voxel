@@ -10,7 +10,7 @@ using System.Runtime.InteropServices;
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("Ace Studio")]
 [assembly: AssemblyProduct("Voxel Action Executor")]
-[assembly: AssemblyCopyright("Copyright © Ace Studio 2017")]
+[assembly: AssemblyCopyright("Copyright © Ace Studio 2018")]
 [assembly: AssemblyTrademark("Ace Studio")]
 [assembly: AssemblyCulture("")]
 

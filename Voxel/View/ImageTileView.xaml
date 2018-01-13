@@ -11,7 +11,7 @@
   mc:Ignorable="d"
   Title="{Binding WindowTitle}"
   WindowStartupLocation="CenterOwner"
-  Height="524"
+  Height="550"
   Width="1000"
   MinWidth="320"
   MinHeight="300"
