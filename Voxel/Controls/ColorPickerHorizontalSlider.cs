@@ -6,16 +6,15 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Input;
 using System.Windows.Media;
 
 namespace Voxel.Controls
 {
     sealed class ColorPickerHorizontalSlider : Slider, INotifyPropertyChanged
     {
-        static ColorPickerHorizontalSlider()
-        {
-            DefaultStyleKeyProperty.OverrideMetadata(typeof(ColorPickerHorizontalSlider), new FrameworkPropertyMetadata(typeof(ColorPickerHorizontalSlider)));
-        }
+        static ColorPickerHorizontalSlider() 
+            => DefaultStyleKeyProperty.OverrideMetadata(typeof(ColorPickerHorizontalSlider), new FrameworkPropertyMetadata(typeof(ColorPickerHorizontalSlider)));
 
         public static readonly DependencyProperty StartColorProperty =
             DependencyProperty.Register(
@@ -25,7 +24,7 @@ namespace Voxel.Controls
                 new PropertyMetadata(Colors.Transparent));
         public Color StartColor
         {
-            get { return (Color) GetValue(StartColorProperty); }
+            get => (Color) GetValue(StartColorProperty);
             set { SetValue(StartColorProperty, value); onPropertyChanged(nameof(EndColor)); }
         }
         public static readonly DependencyProperty EndColorProperty =
@@ -36,7 +35,7 @@ namespace Voxel.Controls
                 new PropertyMetadata(Colors.Transparent));
         public Color EndColor
         {
-            get { return (Color) GetValue(EndColorProperty); }
+            get => (Color) GetValue(EndColorProperty);
             set { SetValue(EndColorProperty, value); onPropertyChanged(nameof(EndColor)); }
         }
         //public static readonly DependencyProperty MiddleColorProperty =
@@ -53,9 +52,29 @@ namespace Voxel.Controls
 
         public event PropertyChangedEventHandler PropertyChanged;
         private void onPropertyChanged(string propertyName)
-        {
-            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
-        }
+            => PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
 
+        protected override void OnPreviewMouseLeftButtonDown(MouseButtonEventArgs e)
+        {
+            base.OnPreviewMouseLeftButtonDown(e);
+            var position = e.GetPosition(this);
+            position.X -= BorderThickness.Left + Padding.Left;
+            var width = ActualWidth - BorderThickness.Left - BorderThickness.Right
+                                    - Padding.Left - Padding.Right;
+            var value = Maximum * (position.X / width);
+            if (value > Maximum)
+            {
+                value = Maximum;
+            }
+            if (value < Minimum)
+            {
+                value = Minimum;
+            }
+            if (Math.Abs(Value - value) >= 100.0 * 15.0 / 2.0 / 233.0) // outside of thumb button
+            {
+                Value = value;
+                e.Handled = true;
+            }
+        }
     }
 }

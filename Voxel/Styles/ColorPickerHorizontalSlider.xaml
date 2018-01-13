@@ -30,6 +30,12 @@
       Property="EndColor"
       Value="#E19C3E" />
     <Setter
+      Property="BorderThickness"
+      Value="1" />
+    <Setter
+      Property="Padding"
+      Value="7.5,0" />
+    <Setter
       Property="Template">
       <Setter.Value>
         <ControlTemplate
@@ -53,9 +59,9 @@
               <Border
                 x:Name="TrackBackground"
                 BorderBrush="{TemplateBinding BorderBrush}"
-                BorderThickness="1"
+                BorderThickness="{TemplateBinding BorderThickness}"
                 Height="15"
-                Margin="7.5,0"
+                Margin="{TemplateBinding Padding}"
                 VerticalAlignment="center">
                 <Border.Background>
                   <LinearGradientBrush
