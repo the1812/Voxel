@@ -171,6 +171,7 @@
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
     </None>
+    <Compile Include="ViewModel\NonscalableTileViewModel.Commands.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />

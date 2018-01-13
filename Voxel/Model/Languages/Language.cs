@@ -10,24 +10,39 @@ namespace Voxel.Model.Languages
 {
     abstract class Language : NotificationObject
     {
-        protected static List<string> DefaultLanguage => americanEnglish;
-        protected static List<string> keys;
-        protected static List<string> simplifiedChinese;
-        protected static List<string> americanEnglish;
+        protected List<string> DefaultLanguage => americanEnglish;
+        protected List<string> keys;
+        protected List<string> simplifiedChinese;
+        protected List<string> americanEnglish;
+        protected Dictionary<string, string> cachedDictionary;
+
         public CultureInfo Culture { get; set; }
         public Dictionary<string, string> Dictionary
         {
             get
             {
-                switch (Culture?.Name)
+                if (cachedDictionary is null)
                 {
-                    case "zh-CN":
-                        return keys.MakeDictionary(simplifiedChinese);
-                    case "en-US":
-                        return keys.MakeDictionary(americanEnglish);
-                    default:
-                        return keys.MakeDictionary(DefaultLanguage);
+                    switch (Culture?.Name)
+                    {
+                        case "zh-CN":
+                        {
+                            cachedDictionary = keys.MakeDictionary(simplifiedChinese);
+                            break;
+                        }
+                        case "en-US":
+                        {
+                            cachedDictionary = keys.MakeDictionary(americanEnglish);
+                            break;
+                        }
+                        default:
+                        {
+                            cachedDictionary = keys.MakeDictionary(DefaultLanguage);
+                            break;
+                        }
+                    }
                 }
+                return cachedDictionary;
             }
         }
         public Language(CultureInfo cultureInfo)
@@ -42,5 +57,6 @@ namespace Voxel.Model.Languages
             Load();
         }
         protected abstract void Load();
+        public string this[string key] => Dictionary[key];
     }
 }

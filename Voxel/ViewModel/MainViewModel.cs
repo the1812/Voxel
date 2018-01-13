@@ -15,20 +15,10 @@ namespace Voxel.ViewModel
 {
     sealed class MainViewModel : ViewModel
     {
-        public MainViewModel(MainView mainView) : base(new MainLanguage())
-        {
-            View = mainView;
-        }
+        public MainViewModel(MainView mainView) : base(new MainLanguage()) => View = mainView;
 
         public MainView View { get; private set; }
-
-
-        public string WindowTitle => language[nameof(WindowTitle)];
-        public string ButtonNonscalableTile => language[nameof(ButtonNonscalableTile)];
-        public string ButtonScalableTile => language[nameof(ButtonScalableTile)];
-        public string ButtonImageTile => language[nameof(ButtonImageTile)];
-        public string ButtonClearTileCache => language[nameof(ButtonClearTileCache)];
-
+        
         
         public static void ClearTileCache(Func<FileInfo, bool> fileFilter = null)
         {

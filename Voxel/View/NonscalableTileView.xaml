@@ -10,7 +10,7 @@
   xmlns:m="clr-namespace:Voxel.Model"
   mc:Ignorable="d"
   ResizeMode="CanMinimize"
-  Title="{Binding WindowTitle}"
+  Title="{Binding [WindowTitle]}"
   Height="320"
   Width="600"
   WindowStartupLocation="CenterOwner"
@@ -158,8 +158,8 @@
       Style="{StaticResource TileSizeToggle}"
       Grid.Column="1"
       Height="30"
-      Content="{Binding ToggleTileSizeLeft}"
-      Tag="{Binding ToggleTileSizeRight}"
+      Content="{Binding [ToggleTileSizeLeft]}"
+      Tag="{Binding [ToggleTileSizeRight]}"
       Margin="0,0,0,10"
       HorizontalAlignment="Center"
       VerticalAlignment="Bottom" />
@@ -168,7 +168,7 @@
       Background="Transparent"
       Foreground="White"
       Style="{StaticResource DarkButton}"
-      Content="{Binding ButtonReset}"
+      Content="{Binding [ButtonReset]}"
       Command="{Binding ResetCommand}"
       IsEnabled="{Binding IsBusy, Converter={StaticResource notConverter}}"
       Grid.Column="1"
@@ -285,7 +285,7 @@
       <Button
         Style="{StaticResource OptionButton}"
         x:Name="buttonTarget"
-        Content="{Binding ButtonTarget}"
+        Content="{Binding [ButtonTarget]}"
         Grid.Row="0"
         IsEnabled="{Binding IsBusy, Converter={StaticResource notConverter}}"
         Command="{Binding SelectFileCommand}"
@@ -299,7 +299,7 @@
       <Button
         Style="{StaticResource OptionButton}"
         x:Name="buttonBackImage"
-        Content="{Binding ButtonBackImage}"
+        Content="{Binding [ButtonBackImage]}"
         Grid.Row="1"
         IsEnabled="{Binding IsBusy, Converter={StaticResource notConverter}}"
         ToolTip="{Binding ButtonBackImageTip}"
@@ -313,7 +313,7 @@
       <Button
         Style="{StaticResource OptionButton}"
         x:Name="buttonBackColor"
-        Content="{Binding ButtonBackColor}"
+        Content="{Binding [ButtonBackColor]}"
         Grid.Row="2"
         IsEnabled="{Binding IsBusy, Converter={StaticResource notConverter}}"
         ToolTip="{Binding ButtonBackColorTip}"
@@ -329,7 +329,7 @@
         Style="{StaticResource OptionCheckBox}"
         BorderThickness="0,0,4,0"
         x:Name="checkBoxDarkTheme"
-        Content="{Binding CheckBoxDarkTheme}"
+        Content="{Binding [CheckBoxDarkTheme]}"
         Grid.Row="3"
         IsEnabled="{Binding ShowName}"
         IsChecked="{Binding IsDarkTheme, Mode=TwoWay}" />
@@ -338,7 +338,7 @@
         BorderThickness="0,0,4,0"
         x:Name="checkBoxShowName"
         IsEnabled="{Binding IsBusy, Converter={StaticResource notConverter}}"
-        Content="{Binding CheckBoxShowName}"
+        Content="{Binding [CheckBoxShowName]}"
         Grid.Row="4"
         IsChecked="{Binding ShowName, Mode=TwoWay}" />
     </Grid>
@@ -383,7 +383,7 @@
             Height="{StaticResource ToolButtonTextSize}">
             <TextBlock
               Style="{StaticResource ToolTextBlock}"
-              Text="{Binding ButtonExport}" />
+              Text="{Binding [ButtonExport]}" />
           </Viewbox>
         </StackPanel>
       </Button>
@@ -405,7 +405,7 @@
             Height="{StaticResource ToolButtonTextSize}">
             <TextBlock
               Style="{StaticResource ToolTextBlock}"
-              Text="{Binding ButtonImport}" />
+              Text="{Binding [ButtonImport]}" />
           </Viewbox>
         </StackPanel>
       </Button>
@@ -427,7 +427,7 @@
             Height="{StaticResource ToolButtonTextSize}">
             <TextBlock
               Style="{StaticResource ToolTextBlock}"
-              Text="{Binding ButtonAddToStart}" />
+              Text="{Binding [ButtonAddToStart]}" />
           </Viewbox>
         </StackPanel>
       </Button>
@@ -448,7 +448,7 @@
             Height="{StaticResource ToolButtonTextSize}">
             <TextBlock
               Style="{StaticResource ToolTextBlock}"
-              Text="{Binding ButtonGenerate}" />
+              Text="{Binding [ButtonGenerate]}" />
           </Viewbox>
         </StackPanel>
       </Button>

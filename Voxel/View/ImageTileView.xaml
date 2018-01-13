@@ -9,7 +9,7 @@
   xmlns:controls="clr-namespace:Voxel.Controls"
   xmlns:sys="clr-namespace:System;assembly=mscorlib"
   mc:Ignorable="d"
-  Title="{Binding WindowTitle}"
+  Title="{Binding Path=[WindowTitle]}"
   WindowStartupLocation="CenterOwner"
   Height="550"
   Width="1000"
@@ -117,7 +117,7 @@
       <TextBlock
         Style="{StaticResource LabelStyle}"
         Grid.Column="0"
-        Text="{Binding ImageMarginLabel}"/>
+        Text="{Binding Path=[ImageMarginLabel]}"/>
       <TextBox
         x:Name="imageMarginText"
         Style="{StaticResource InputBox}"
@@ -134,7 +134,7 @@
       <TextBlock
         Grid.Column="2"
         Style="{StaticResource LabelStyle}"
-        Text="{Binding PreviewGridWidthLabel}"/>
+        Text="{Binding Path=[PreviewGridWidthLabel]}"/>
       <TextBox
         Grid.Column="3"
         x:Name="previewGridWidthText"
@@ -151,7 +151,7 @@
       <TextBlock
         Grid.Column="4"
         Style="{StaticResource LabelStyle}"
-        Text="{Binding PreviewGridHeightLabel}" />
+        Text="{Binding Path=[PreviewGridHeightLabel]}" />
       <TextBox
         Grid.Column="5"
         x:Name="previewGridHeightText"
@@ -247,25 +247,25 @@
       <Button
         Style="{StaticResource OptionButton}"
         x:Name="buttonTarget"
-        Content="{Binding ButtonSelectImage}"
+        Content="{Binding Path=[ButtonSelectImage]}"
         Command="{Binding SelectImageCommand}"
         Grid.Row="0" />
       <CheckBox
         Style="{StaticResource OptionCheckBox}"
         x:Name="checkBoxKeepRatio"
-        Content="{Binding CheckBoxKeepRatio}"
+        Content="{Binding Path=[CheckBoxKeepRatio]}"
         BorderThickness="0,0,4,0"
         IsChecked="{Binding KeepAspectRatio,Mode=TwoWay}"
         Grid.Row="1" />
       <Button
         Style="{StaticResource OptionButton}"
         x:Name="buttonBackColor"
-        Content="{Binding ButtonBackColor}"
+        Content="{Binding Path=[ButtonBackColor]}"
         Grid.Row="2" />
       <Button
         Style="{StaticResource OptionButton}"
         x:Name="buttonSetAction"
-        Content="{Binding ButtonSetAction}"
+        Content="{Binding Path=[ButtonSetAction]}"
         Grid.Row="3" />
       <Grid
         Grid.Row="4">
@@ -285,7 +285,7 @@
           GroupName="RadioAction"
           Command="{Binding ChangeActionCommand}"
           CommandParameter="{Binding RelativeSource={RelativeSource Self}}"
-          Content="{Binding RadioButtonActionNone}"
+          Content="{Binding Path=[RadioButtonActionNone]}"
           Style="{StaticResource OptionRadioButton}"
           Grid.Column="0" />
         <RadioButton
@@ -293,7 +293,7 @@
           GroupName="RadioAction"
           Command="{Binding ChangeActionCommand}"
           CommandParameter="{Binding RelativeSource={RelativeSource Self}}"
-          Content="{Binding RadioButtonActionFile}"
+          Content="{Binding Path=[RadioButtonActionFile]}"
           Style="{StaticResource OptionRadioButton}"
           Grid.Column="1" />
         <RadioButton
@@ -301,7 +301,7 @@
           GroupName="RadioAction"
           Command="{Binding ChangeActionCommand}"
           CommandParameter="{Binding RelativeSource={RelativeSource Self}}"
-          Content="{Binding RadioButtonActionFolder}"
+          Content="{Binding Path=[RadioButtonActionFolder]}"
           Style="{StaticResource OptionRadioButton}"
           Grid.Column="2" />
         <RadioButton
@@ -309,7 +309,7 @@
           GroupName="RadioAction"
           Command="{Binding ChangeActionCommand}"
           CommandParameter="{Binding RelativeSource={RelativeSource Self}}"
-          Content="{Binding RadioButtonActionUrl}"
+          Content="{Binding Path=[RadioButtonActionUrl]}"
           Style="{StaticResource OptionRadioButton}"
           Grid.Column="3" />
       </Grid>
@@ -351,7 +351,7 @@
             Height="{StaticResource ToolButtonTextSize}">
             <TextBlock
               Style="{StaticResource ToolTextBlock}"
-              Text="{Binding ButtonExport}" />
+              Text="{Binding Path=[ButtonExport]}" />
           </Viewbox>
         </StackPanel>
       </Button>
@@ -373,7 +373,7 @@
             Height="{StaticResource ToolButtonTextSize}">
             <TextBlock
               Style="{StaticResource ToolTextBlock}"
-              Text="{Binding ButtonImport}" />
+              Text="{Binding Path=[ButtonImport]}" />
           </Viewbox>
         </StackPanel>
       </Button>
@@ -395,7 +395,7 @@
             Height="{StaticResource ToolButtonTextSize}">
             <TextBlock
               Style="{StaticResource ToolTextBlock}"
-              Text="{Binding ButtonAddToStart}" />
+              Text="{Binding Path=[ButtonAddToStart]}" />
           </Viewbox>
         </StackPanel>
       </Button>
@@ -416,7 +416,7 @@
             Height="{StaticResource ToolButtonTextSize}">
             <TextBlock
               Style="{StaticResource ToolTextBlock}"
-              Text="{Binding ButtonGenerate}" />
+              Text="{Binding Path=[ButtonGenerate]}" />
           </Viewbox>
         </StackPanel>
       </Button>

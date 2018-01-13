@@ -9,10 +9,8 @@ namespace Voxel.ViewModel
 {
     abstract class ViewModel : NotificationObject
     {
-        public ViewModel(Language languageSource)
-        {
-            language = languageSource.Dictionary;
-        }
+        public ViewModel(Language languageSource) => language = languageSource.Dictionary;
         protected Dictionary<string, string> language;
+        public string this[string key] => language[key];
     }
 }

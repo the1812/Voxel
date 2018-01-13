@@ -9,7 +9,7 @@
   xmlns:controls="clr-namespace:Voxel.Controls"
   xmlns:converters="clr-namespace:Voxel.Converters"
   mc:Ignorable="d"
-  Title="{Binding WindowTitle}"
+  Title="{Binding [WindowTitle]}"
   FontSize="16"
   Height="320"
   Width="500"
@@ -49,63 +49,6 @@
       <ColumnDefinition
         Width="3*" />
     </Grid.ColumnDefinitions>
-    <!--<Viewbox
-      x:Name="viewbox"
-      Grid.Column="0"
-      HorizontalAlignment="Stretch"
-      VerticalAlignment="Stretch"
-      Margin="10,10,9.5,10.5"
-      Stretch="Uniform"
-      Grid.RowSpan="3">
-      <Grid
-        Height="30"
-        Width="30">
-        <Grid.RowDefinitions>
-          <RowDefinition
-            Height="1*" />
-          <RowDefinition
-            Height="1*" />
-        </Grid.RowDefinitions>
-        <Ellipse
-          Grid.RowSpan="2"
-          HorizontalAlignment="Stretch"
-          VerticalAlignment="Stretch"
-          Margin="0">
-          <Ellipse.Fill>
-            <SolidColorBrush
-              Color="{Binding SelectedColor}" />
-          </Ellipse.Fill>
-          <Ellipse.Effect>
-            <DropShadowEffect
-              BlurRadius="15"
-              Opacity="0.4"
-              ShadowDepth="0" />
-          </Ellipse.Effect>
-        </Ellipse>
-        <Viewbox
-          Grid.Row="0"
-          VerticalAlignment="Bottom"
-          Margin="5,5,5,2">
-          <TextBlock
-            Visibility="{Binding ElementName=checkBoxShowSample,Path=IsChecked,Converter={StaticResource converter}}"
-            Text="{Binding TextSample}"
-            Foreground="White"
-            Height="16"
-            FontSize="12" />
-        </Viewbox>
-        <Viewbox
-          Grid.Row="1"
-          VerticalAlignment="Top"
-          Margin="5,2,5,5">
-          <TextBlock
-            Visibility="{Binding ElementName=checkBoxShowSample,Path=IsChecked,Converter={StaticResource converter}}"
-            Text="{Binding TextSample}"
-            Foreground="Black"
-            Height="16"
-            FontSize="12" />
-        </Viewbox>
-      </Grid>
-    </Viewbox>-->
     <Grid
       Margin="0,15,30,15"
       Grid.Column="0"
@@ -169,7 +112,7 @@
             Height="{StaticResource ToolButtonTextSize}">
             <TextBlock
               Style="{StaticResource ToolTextBlock}"
-              Text="{Binding ButtonCancel}" />
+              Text="{Binding [ButtonCancel]}" />
           </Viewbox>
         </StackPanel>
       </Button>
@@ -188,7 +131,7 @@
             Height="{StaticResource ToolButtonTextSize}">
             <TextBlock
               Style="{StaticResource ToolTextBlock}"
-              Text="{Binding ButtonOK}" />
+              Text="{Binding [ButtonOK]}" />
           </Viewbox>
         </StackPanel>
       </Button>

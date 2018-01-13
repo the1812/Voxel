@@ -25,25 +25,7 @@ namespace Voxel.ViewModel
     sealed class ImageTileViewModel : ViewModel
     {
         public ImageTileViewModel(ImageTileView view) : base(new ImageTileLanguage()) => View = view;
-        #region Language
-        public string WindowTitle => language[nameof(WindowTitle)];
-        public string ButtonGenerate => language[nameof(ButtonGenerate)];
-        public string ButtonAddToStart => language[nameof(ButtonAddToStart)];
-        public string ButtonExport => language[nameof(ButtonExport)];
-        public string ButtonImport => language[nameof(ButtonImport)];
-        public string ButtonSelectImage => language[nameof(ButtonSelectImage)];
-        public string CheckBoxKeepRatio => language[nameof(CheckBoxKeepRatio)];
-        public string ButtonSetAction => language[nameof(ButtonSetAction)];
-        public string RadioButtonActionNone => language[nameof(RadioButtonActionNone)];
-        public string RadioButtonActionFile => language[nameof(RadioButtonActionFile)];
-        public string RadioButtonActionFolder => language[nameof(RadioButtonActionFolder)];
-        public string RadioButtonActionUrl => language[nameof(RadioButtonActionUrl)];
-        public string ButtonBackColor => language[nameof(ButtonBackColor)];
-        public string ImageMarginLabel => language[nameof(ImageMarginLabel)];
-        public string PreviewGridWidthLabel => language[nameof(PreviewGridWidthLabel)];
-        public string PreviewGridHeightLabel => language[nameof(PreviewGridHeightLabel)];
-
-        #endregion
+        
         #region Vars and properties
 
         private ImageTileAction action = new ImageTileAction(ActionType.None);

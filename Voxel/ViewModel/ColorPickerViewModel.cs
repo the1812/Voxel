@@ -18,14 +18,7 @@ namespace Voxel.ViewModel
     sealed class ColorPickerViewModel : ViewModel
     {
         public ColorPickerViewModel() : base(new ColorPickerLanguage()) { }
-
-        #region Lanugage
-        public string WindowTitle => language[nameof(WindowTitle)];
-        public string ButtonOK => language[nameof(ButtonOK)];
-        public string ButtonCancel => language[nameof(ButtonCancel)];
-        public string TextSample => language[nameof(TextSample)];
-        public string CheckBoxShowSample => language[nameof(CheckBoxShowSample)];
-        #endregion
+        
         #region Vars and properties
         private void updateProperties()
         {
@@ -55,14 +48,8 @@ namespace Voxel.ViewModel
             OnPropertyChanged(nameof(BlueStartColor));
             OnPropertyChanged(nameof(BlueEndColor));
         }
-        private void updateHsbColor()
-        {
-            hsb = new HsbColor(selectedColor);
-        }
-        private void updateRgbColor()
-        {
-            selectedColor = hsb.ToRgbColor();
-        }
+        private void updateHsbColor() => hsb = new HsbColor(selectedColor);
+        private void updateRgbColor() => selectedColor = hsb.ToRgbColor();
 
         private static Color dwmColor = Ace.Wpf.DwmEffect.ColorizationColor;
         private Color selectedColor = dwmColor;
@@ -76,21 +63,15 @@ namespace Voxel.ViewModel
                 updateProperties();
             }
         }
-        public Brush SelectedBrush
-        {
-            get => new SolidColorBrush(SelectedColor);
-        }
+        public Brush SelectedBrush => new SolidColorBrush(SelectedColor);
         public Color OldColor { get; set; }
         public Brush OldBrush => new SolidColorBrush(OldColor);
         public string Hex
         {
-            get
-            {
-                return $"{selectedColor.R:X2}{selectedColor.G:X2}{selectedColor.B:X2}";
-            }
+            get => $"{selectedColor.R:X2}{selectedColor.G:X2}{selectedColor.B:X2}";
             set
             {
-                string hex = value;
+                var hex = value;
                 if (hex.Length == 3)
                 {
                     hex = $"{hex[0]}{hex[0]}{hex[1]}{hex[1]}{hex[2]}{hex[2]}";
@@ -112,10 +93,7 @@ namespace Voxel.ViewModel
         }
         public string Red
         {
-            get
-            {
-                return selectedColor.R.ToString();
-            }
+            get => selectedColor.R.ToString();
             set
             {
                 if (value.IsMatch("[0-9]{1,3}")
@@ -129,10 +107,7 @@ namespace Voxel.ViewModel
         }
         public string Blue
         {
-            get
-            {
-                return selectedColor.B.ToString();
-            }
+            get => selectedColor.B.ToString();
             set
             {
                 if (value.IsMatch("[0-9]{1,3}")
@@ -146,10 +121,7 @@ namespace Voxel.ViewModel
         }
         public string Green
         {
-            get
-            {
-                return selectedColor.G.ToString();
-            }
+            get => selectedColor.G.ToString();
             set
             {
                 if (value.IsMatch("[0-9]{1,3}")
@@ -249,15 +221,12 @@ namespace Voxel.ViewModel
         private HsbColor hsb;
         public string Hue
         {
-            get
-            {
-                return $"{hsb.Hue:0.0}";
-            }
+            get => $"{hsb.Hue:0.0}";
             set
             {
                 if (value.IsMatch(@"[\d]{1,3}.[\d]{1}|[\d]{1,3}"))
                 {
-                    decimal h = value.ToDecimal();
+                    var h = value.ToDecimal();
                     while (h > 360M)
                     {
                         h -= 360M;
@@ -275,15 +244,12 @@ namespace Voxel.ViewModel
         }
         public string Saturation
         {
-            get
-            {
-                return $"{hsb.Saturation*100M:0.0}";
-            }
+            get => $"{hsb.Saturation * 100M:0.0}";
             set
             {
                 if (value.IsMatch(@"[\d]{1,3}.[\d]{1}|[\d]{1,3}"))
                 {
-                    decimal s = value.ToDecimal() / 100M;
+                    var s = value.ToDecimal() / 100M;
                     if (s >= 0M && s <= 1M)
                     {
                         hsb.Saturation = s;
@@ -296,15 +262,12 @@ namespace Voxel.ViewModel
         }
         public string Brightness
         {
-            get
-            {
-                return $"{hsb.Brightness*100M:0.0}";
-            }
+            get => $"{hsb.Brightness * 100M:0.0}";
             set
             {
                 if (value.IsMatch(@"[\d]{1,3}.[\d]{1}|[\d]{1,3}"))
                 {
-                    decimal b = value.ToDecimal() / 100M;
+                    var b = value.ToDecimal() / 100M;
                     if (b >= 0M && b <= 1M)
                     {
                         hsb.Brightness = b;

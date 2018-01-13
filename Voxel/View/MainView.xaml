@@ -8,7 +8,7 @@
   xmlns:local="clr-namespace:Voxel.View"
   xmlns:converters="clr-namespace:Voxel.Converters"
   mc:Ignorable="d"
-  Title="{Binding WindowTitle}"
+  Title="{Binding Path=[WindowTitle]}"
   FontSize="16"
   Height="524"
   Width="600"
@@ -63,7 +63,7 @@
     </Grid.RowDefinitions>
     <Button
       x:Name="buttonNonscalableTileNew"
-      Content="{Binding ButtonNonscalableTile}"
+      Content="{Binding Path=[ButtonNonscalableTile]}"
       VerticalAlignment="Center"
       HorizontalAlignment="Stretch"
       Margin="0"
@@ -74,7 +74,7 @@
       Background="SteelBlue" />
     <Button
       x:Name="buttonScalableTile"
-      Content="{Binding ButtonScalableTile}"
+      Content="{Binding Path=[ButtonScalableTile]}"
       Style="{StaticResource MainViewButton}"
       HorizontalAlignment="Stretch"
       VerticalAlignment="Center"
@@ -84,7 +84,7 @@
       Background="#448D54" />
     <Button
       x:Name="buttonImageTile"
-      Content="{Binding ButtonImageTile}"
+      Content="{Binding [ButtonImageTile]}"
       Style="{StaticResource MainViewButton}"
       HorizontalAlignment="Stretch"
       VerticalAlignment="Center"
@@ -95,7 +95,7 @@
       Command="{Binding ImageTileCommand}"/>
     <Button
       x:Name="buttonClearTileCache"
-      Content="{Binding ButtonClearTileCache}"
+      Content="{Binding [ButtonClearTileCache]}"
       Style="{StaticResource MainViewButton}"
       HorizontalAlignment="Stretch"
       VerticalAlignment="Center"
