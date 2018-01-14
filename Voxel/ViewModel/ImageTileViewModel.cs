@@ -17,16 +17,14 @@ using Voxel.Controls;
 using Voxel.Model;
 using Voxel.Model.Languages;
 using Voxel.View;
-using GdiPlus = System.Drawing;
 
 
 namespace Voxel.ViewModel
 {
-    sealed class ImageTileViewModel : ViewModel
+    sealed partial class ImageTileViewModel : ViewModel
     {
         public ImageTileViewModel(ImageTileView view) : base(new ImageTileLanguage()) => View = view;
         
-        #region Vars and properties
 
         private ImageTileAction action = new ImageTileAction(ActionType.None);
         private ImageTileManager manager = new ImageTileManager();
@@ -35,33 +33,42 @@ namespace Voxel.ViewModel
         public ImageTileView View { get; private set; }
         public void ClearData()
         {
-            
+            OriginalImage = null;
+            Spliters.Clear();
+            previewGridWidth = TileSize.MaximumGridWidth;
+            previewGridHeight = TileSize.MaximumGridWidth;
+            imageMargin = new Thickness(0);
+            OnPropertyChanged(nameof(PreviewGridWidth));
+            OnPropertyChanged(nameof(PreviewGridHeight));
+            OnPropertyChanged(nameof(PreviewGridWidthText));
+            OnPropertyChanged(nameof(PreviewGridHeightText));
+            OnPropertyChanged(nameof(ImageMargin));
         }
-        public Stretch ImageStretch
-        {
-            get
-            {
-                if (KeepAspectRatio)
-                {
-                    return Stretch.Fill;
-                }
-                else
-                {
-                    return Stretch.Uniform;
-                }
-            }
-        }
+        //public Stretch ImageStretch
+        //{
+        //    get
+        //    {
+        //        if (KeepAspectRatio)
+        //        {
+        //            return Stretch.Fill;
+        //        }
+        //        else
+        //        {
+        //            return Stretch.Uniform;
+        //        }
+        //    }
+        //}
 
-        private bool keepAspectRatio = true;
-        public bool KeepAspectRatio
-        {
-            get => keepAspectRatio;
-            set
-            {
-                keepAspectRatio = value;
-                OnPropertyChanged(nameof(KeepAspectRatio));
-            }
-        }
+        //private bool keepAspectRatio = true;
+        //public bool KeepAspectRatio
+        //{
+        //    get => keepAspectRatio;
+        //    set
+        //    {
+        //        keepAspectRatio = value;
+        //        OnPropertyChanged(nameof(KeepAspectRatio));
+        //    }
+        //}
 
         private string originalImagePath = null;
         private BitmapSource originalImage = null;
@@ -113,7 +120,7 @@ namespace Voxel.ViewModel
             }
         }
 
-        //MaximumGridWidth is also suitable for default height
+        //MaximumGridWidth is suitable for default height as well
         private int previewGridHeight = TileSize.MaximumGridWidth; 
         public int PreviewGridHeight
         {
@@ -269,7 +276,27 @@ namespace Voxel.ViewModel
                 Margin = ImageMargin,
             };
             var image = scaler.Scale();
-            return split(image, gridSize);
+            if (image != null)
+            {
+                return split(image, gridSize);
+            }
+            return new Dictionary<Point, CroppedBitmap>();
+        }
+
+
+        private Color defaultColor = Ace.Wpf.DwmEffect.ColorizationColor;
+        public Color DefaultColor
+        {
+            get => defaultColor;
+            set
+            {
+                defaultColor = value;
+                OnPropertyChanged(nameof(DefaultColor));
+                foreach (var spliter in Spliters)
+                {
+                    spliter.Background = new SolidColorBrush(value);
+                }
+            }
         }
 
 
@@ -288,12 +315,10 @@ namespace Voxel.ViewModel
             //Create ImageSpliters
             var dictionary = scaleAndSplit(gridSize);
             Spliters.Clear();
-            //var shadow = new DropShadowEffect
-            //{
-            //    ShadowDepth = 0,
-            //    BlurRadius = 15,
-            //    Opacity = 0.4,
-            //};
+            if (dictionary.Count != gridSize.Width * gridSize.Height)
+            {
+                return;
+            }
             for (var row = 0; row < gridSize.Height; row++)
             {
                 for (var column = 0; column < gridSize.Width; column++)
@@ -320,96 +345,11 @@ namespace Voxel.ViewModel
                         Width = TileSize.LargeWidthAndHeight,
                         Height = TileSize.LargeWidthAndHeight,
                         //Effect = shadow,
-                        Background = new SolidColorBrush(Ace.Wpf.DwmEffect.ColorizationColor),
+                        Background = new SolidColorBrush(DefaultColor),
                     };
                     Spliters.Add(spliter);
                 }
             }
         }
-
-        #endregion
-        #region Commands
-
-        public BindingCommand ChangeActionCommand => new BindingCommand
-        {
-            ExcuteAction = (o) =>
-            {
-                if (o is RadioButton radioButton)
-                {
-                    switch (radioButton.Content as string)
-                    {
-                        case nameof(ActionType.None):
-                            action.Type = ActionType.None;
-                            break;
-                        case nameof(ActionType.File):
-                            action.Type = ActionType.File;
-                            break;
-                        case nameof(ActionType.Folder):
-                            action.Type = ActionType.Folder;
-                            break;
-                        case nameof(ActionType.Url):
-                            action.Type = ActionType.Url;
-                            break;
-                        default:
-                            break;
-                    }
-                }
-            },
-        };
-        public BindingCommand SelectImageCommand => new BindingCommand
-        {
-            ExcuteAction = (o) =>
-            {
-                var dialog = new OpenFileDialog
-                {
-                    Title = language["OpenImageDialogTitle"],
-                    Multiselect = false,
-                    DereferenceLinks = true,
-                    CheckFileExists = true,
-                    Filter = language["OpenImageDialogFilter"],
-                };
-                if (File.Exists(originalImagePath))
-                {
-                    dialog.FileName = originalImagePath;
-                }
-                if (dialog.ShowDialog() ?? false)
-                {
-                    originalImagePath = dialog.FileName;
-                    OriginalImage = new BitmapImage(new Uri(originalImagePath));
-                    createPreview();
-                }
-            },
-        };
-        public BindingCommand ImageMarginEnterCommand => new BindingCommand
-        {
-            ExcuteAction = o =>
-            {
-                if (o is TextBox textBox)
-                {
-                    ImageMarginText = textBox.Text;
-                }
-            },
-        };
-        public BindingCommand PreviewGridWidthEnterCommand => new BindingCommand
-        {
-            ExcuteAction = o =>
-            {
-                if (o is TextBox textBox)
-                {
-                    PreviewGridWidthText = textBox.Text;
-                }
-            }
-        };
-        public BindingCommand PreviewGridHeightEnterCommand => new BindingCommand
-        {
-            ExcuteAction = o =>
-            {
-                if (o is TextBox textBox)
-                {
-                    PreviewGridHeightText = textBox.Text;
-                }
-            }
-        };
-        #endregion
     }
 }

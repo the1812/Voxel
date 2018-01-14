@@ -45,6 +45,8 @@
               </Grid.RowDefinitions>
 
               <RadioButton
+                Command="{TemplateBinding CheckChangedCommand}"
+                CommandParameter="{Binding ElementName=topLeft}"
                 Background="{TemplateBinding Background}"
                 GroupName="ImageSpliterRadio"
                 Style="{StaticResource TileRadioButton}"
@@ -54,6 +56,8 @@
               </RadioButton>
 
               <RadioButton
+                Command="{TemplateBinding CheckChangedCommand}"
+                CommandParameter="{Binding ElementName=topRight}"
                 Background="{TemplateBinding Background}"
                 GroupName="ImageSpliterRadio"
                 Style="{StaticResource TileRadioButton}"
@@ -64,6 +68,8 @@
               </RadioButton>
 
               <RadioButton
+                Command="{TemplateBinding CheckChangedCommand}"
+                CommandParameter="{Binding ElementName=bottomLeft}"
                 Background="{TemplateBinding Background}"
                 GroupName="ImageSpliterRadio"
                 Style="{StaticResource TileRadioButton}"
@@ -75,6 +81,8 @@
               </RadioButton>
               
               <RadioButton
+                Command="{TemplateBinding CheckChangedCommand}"
+                CommandParameter="{Binding ElementName=bottomRight}"
                 Background="{TemplateBinding Background}"
                 GroupName="ImageSpliterRadio"
                 Style="{StaticResource TileRadioButton}"
@@ -90,10 +98,12 @@
               x:Name="fullImage"
               Background="{TemplateBinding Background}">
               <RadioButton
+                Command="{TemplateBinding CheckChangedCommand}"
+                CommandParameter="{Binding ElementName=full}"
                 GroupName="ImageSpliterRadio"
-                Style="{StaticResource TileRadioButton}">
+                Style="{StaticResource TileRadioButton}"
+                x:Name="full">
                 <Image
-                  Stretch="{TemplateBinding Stretch}"
                   Source="{TemplateBinding BitmapSource}" />
               </RadioButton>
             </Border>

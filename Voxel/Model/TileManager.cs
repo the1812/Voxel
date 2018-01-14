@@ -27,7 +27,7 @@ namespace Voxel.Model
         protected JsonObject data;
         public virtual void SaveData()
         {
-            JsonFile file = new JsonFile(Path)
+            var file = new JsonFile(Path)
             {
                 Content = data,
             };
@@ -35,9 +35,9 @@ namespace Voxel.Model
         }
         public virtual void LoadData()
         {
-            JsonFile file = new JsonFile(Path);
+            var file = new JsonFile(Path);
             file.Load();
-            data = file.Content;
+            data = file.ObjectContent;
         }
         public abstract void AddToStart();
         public abstract void Generate();

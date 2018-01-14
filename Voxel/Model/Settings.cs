@@ -14,7 +14,7 @@ namespace Voxel.Model
         private const string fileName = "Voxel.settings.json";
         public static void Load()
         {
-            JsonFile file = new JsonFile(fileName);
+            var file = new JsonFile(fileName);
             if (!file.Exists)
             {
                 CreateDefault();
@@ -24,7 +24,7 @@ namespace Voxel.Model
                 try
                 {
                     file.Load();
-                    Json = file.Content;
+                    Json = file.ObjectContent;
                 }
                 catch (JsonParseException)
                 {
@@ -34,7 +34,7 @@ namespace Voxel.Model
         }
         public static void Save()
         {
-            JsonFile file = new JsonFile(fileName)
+            var file = new JsonFile(fileName)
             {
                 Content = Json
             };
@@ -45,7 +45,7 @@ namespace Voxel.Model
             var path = keyPath.Split('.');
             var lastIndex = path.Length - 1;
             var jsonObject = Json;
-            for (int index = 0; index < path.Length - 1/* ignore last index */; index++)
+            for (var index = 0; index < path.Length - 1/* ignore last index */; index++)
             {
                 var name = path[index];
                 if (jsonObject.ContainsName(name))
@@ -69,24 +69,15 @@ namespace Voxel.Model
                 return defaultValues[keyPath];
             }
         }
-        public static bool GetBoolean(string keyPath)
-        {
-            return (bool) getValue(keyPath);
-        }
-        public static string GetString(string keyPath)
-        {
-            return (string) getValue(keyPath);
-        }
-        public static decimal GetNumber(string keyPath)
-        {
-            return (decimal) getValue(keyPath);
-        }
+        public static bool GetBoolean(string keyPath) => (bool) getValue(keyPath);
+        public static string GetString(string keyPath) => (string) getValue(keyPath);
+        public static decimal GetNumber(string keyPath) => (decimal) getValue(keyPath);
         public static void SetValue(string keyPath, JsonValue jsonValue)
         {
             var path = keyPath.Split('.');
             var lastIndex = path.Length - 1;
             var jsonObject = Json;
-            for (int index = 0; index < path.Length - 1/* ignore last index */; index++)
+            for (var index = 0; index < path.Length - 1/* ignore last index */; index++)
             {
                 var name = path[index];
                 if (jsonObject.ContainsName(name))
@@ -113,10 +104,7 @@ namespace Voxel.Model
             {MakeKey(nameof(NonscalableTile), nameof(ColorPickerView), PreviewOnTileKey), true },
             {MakeKey(nameof(NonscalableTile), nameof(ColorPickerView), RgbModeKey), false },
         };
-        public static string MakeKey(params string[] keys)
-        {
-            return string.Join(".", keys);
-        }
+        public static string MakeKey(params string[] keys) => string.Join(".", keys);
         public static void CreateDefault()
         {
             Json = new JsonObject();

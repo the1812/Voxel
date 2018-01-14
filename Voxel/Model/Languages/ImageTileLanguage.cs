@@ -28,7 +28,7 @@ namespace Voxel.Model.Languages
                 "RadioButtonActionFile",
                 "RadioButtonActionFolder",
                 "RadioButtonActionUrl",
-                "ButtonBackColor",
+                "ButtonBackcolor",
                 "OpenImageDialogTitle",
                 "OpenImageDialogFilter",
                 "ImageMarginLabel",

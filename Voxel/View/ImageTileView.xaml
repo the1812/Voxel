@@ -250,19 +250,20 @@
         Content="{Binding Path=[ButtonSelectImage]}"
         Command="{Binding SelectImageCommand}"
         Grid.Row="0" />
-      <CheckBox
+      <!--<CheckBox
         Style="{StaticResource OptionCheckBox}"
         x:Name="checkBoxKeepRatio"
         Content="{Binding Path=[CheckBoxKeepRatio]}"
         BorderThickness="0,0,4,0"
         IsChecked="{Binding KeepAspectRatio,Mode=TwoWay}"
-        Grid.Row="1" />
+        Grid.Row="1" />-->
       <Button
         Style="{StaticResource OptionButton}"
-        x:Name="buttonBackColor"
-        Content="{Binding Path=[ButtonBackColor]}"
+        x:Name="buttonBackcolor"
+        Content="{Binding Path=[ButtonBackcolor]}"
+        Command="{Binding SelectBackcolorCommand}"
         Grid.Row="2" />
-      <Button
+      <!--<Button
         Style="{StaticResource OptionButton}"
         x:Name="buttonSetAction"
         Content="{Binding Path=[ButtonSetAction]}"
@@ -312,7 +313,7 @@
           Content="{Binding Path=[RadioButtonActionUrl]}"
           Style="{StaticResource OptionRadioButton}"
           Grid.Column="3" />
-      </Grid>
+      </Grid>-->
       
     </Grid>
 

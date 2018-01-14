@@ -64,7 +64,7 @@ namespace Voxel
             }
             if (OriginalImage == null)
             {
-                throw new NullReferenceException();
+                return null;
             }
             return extend(fitGridSize(TargetSize), TargetSize);
         }

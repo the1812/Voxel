@@ -97,6 +97,7 @@
     <Compile Include="Model\HsbColor.cs" />
     <Compile Include="Model\ImageTile.cs" />
     <Compile Include="Model\ImageTileManager.cs" />
+    <Compile Include="ViewModel\ImageTileViewModel.Commands.cs" />
     <Compile Include="ViewModel\IWaitingState.cs" />
     <Compile Include="Model\Languages\AboutLanguage.cs" />
     <Compile Include="Model\Languages\ColorPickerLanguage.cs" />

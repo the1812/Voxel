@@ -15,15 +15,38 @@ using System.Windows.Navigation;
 using System.Windows.Shapes;
 using Voxel.Model;
 using Voxel.View;
+using Voxel.ViewModel;
 
 namespace Voxel.Controls
 {
-    public class ImageSpliter : Control, INotifyPropertyChanged
+    internal class ImageSpliter : Control, INotifyPropertyChanged
     {
         static ImageSpliter() => 
             DefaultStyleKeyProperty.OverrideMetadata(
                 typeof(ImageSpliter),
                 new FrameworkPropertyMetadata(typeof(ImageSpliter)));
+
+        public ImageSpliter()
+        {
+            var command = new BindingCommand
+            {
+                ExcuteAction = o =>
+                {
+                    if (o is RadioButton radioButton)
+                    {
+                        if (radioButton.IsChecked ?? false)
+                        {
+                            SelectedRadioButton = radioButton;
+                        }
+                        else
+                        {
+                            SelectedRadioButton = null;
+                        }
+                    }
+                },
+            };
+            CheckChangedCommand = command;
+        }
         protected override void OnMouseDoubleClick(MouseButtonEventArgs e)
         {
             base.OnMouseDoubleClick(e);
@@ -141,15 +164,21 @@ namespace Voxel.Controls
 
 
 
-        public Stretch Stretch
+        //public Stretch Stretch
+        //{
+        //    get => (Stretch) GetValue(StretchProperty);
+        //    set => SetValue(StretchProperty, value);
+        //}
+        //public static readonly DependencyProperty StretchProperty =
+        //    DependencyProperty.Register("Stretch", typeof(Stretch), typeof(ImageSpliter), new PropertyMetadata(Stretch.Fill));
+        public static readonly DependencyProperty CheckChangedCommandProperty =
+            DependencyProperty.Register("CheckChangedCommand", typeof(BindingCommand), typeof(ImageSpliter), new PropertyMetadata(null));
+
+        public BindingCommand CheckChangedCommand
         {
-            get => (Stretch) GetValue(StretchProperty);
-            set => SetValue(StretchProperty, value);
+            get => (BindingCommand) GetValue(CheckChangedCommandProperty);
+            protected set => SetValue(CheckChangedCommandProperty, value);
         }
-        public static readonly DependencyProperty StretchProperty =
-            DependencyProperty.Register("Stretch", typeof(Stretch), typeof(ImageSpliter), new PropertyMetadata(Stretch.Fill));
-
-
-
+        public RadioButton SelectedRadioButton { get; private set; }
     }
 }
