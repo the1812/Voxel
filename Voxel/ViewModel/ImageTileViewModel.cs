@@ -309,8 +309,6 @@ namespace Voxel.ViewModel
                 gridSize.Height * TileSize.LargeWidthAndHeight);
             previewSize.Width += (gridSize.Width - 1) * TileSize.Gap;
             previewSize.Height += (gridSize.Height - 1) * TileSize.Gap;
-            PreviewWidth = previewSize.Width;
-            PreviewHeight = previewSize.Height;
 
             //Create ImageSpliters
             var dictionary = scaleAndSplit(gridSize);
@@ -319,6 +317,9 @@ namespace Voxel.ViewModel
             {
                 return;
             }
+
+            PreviewWidth = previewSize.Width;
+            PreviewHeight = previewSize.Height;
             for (var row = 0; row < gridSize.Height; row++)
             {
                 for (var column = 0; column < gridSize.Width; column++)
