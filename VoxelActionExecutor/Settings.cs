@@ -38,18 +38,15 @@ namespace Voxel.ActionExecutor
                 }
             }
         }
-        public Settings()
-        {
-            load();
-        }
+        public Settings() => load();
 
         private void load()
         {
-            JsonFile file = new JsonFile(FileName);
+            var file = new JsonFile(FileName);
             if (file.Exists)
             {
                 file.Load();
-                Action = file.Content[ActionKey].StringValue;
+                Action = file.ObjectContent[ActionKey].StringValue;
             }
             else
             {
@@ -60,7 +57,7 @@ namespace Voxel.ActionExecutor
         public string Action { get; internal set; }
         private void createDefault()
         {
-            JsonFile file = new JsonFile(FileName)
+            var file = new JsonFile(FileName)
             {
                 Content = new JsonObject
                 {

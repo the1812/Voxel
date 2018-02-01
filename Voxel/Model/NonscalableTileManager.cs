@@ -31,6 +31,7 @@ namespace Voxel.Model
             var file = new ShortcutFile(Tile.StartMenuTargetPath)
             {
                 TargetPath = tile.TargetPath,
+                WorkingDirectory = tile.TargetPath.GetParentFolder(),
             };
             file.Save();
         }

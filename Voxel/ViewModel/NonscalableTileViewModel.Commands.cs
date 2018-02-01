@@ -23,9 +23,6 @@ namespace Voxel.ViewModel
 {
     partial class NonscalableTileViewModel
     {
-
-        #region Commands
-
         public BindingCommand SelectFileCommand
             => new BindingCommand
             {
@@ -455,7 +452,6 @@ namespace Voxel.ViewModel
                     OnPropertyChanged(nameof(TargetFolderName));
                 },
             };
-        #endregion
-
+        
     }
 }
