@@ -52,6 +52,7 @@
   <ItemGroup>
     <Reference Include="Ace">
       <HintPath>..\..\Ace\Ace\bin\Release\Ace.dll</HintPath>
+      <Private>False</Private>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
@@ -293,6 +294,8 @@
   <ItemGroup>
     <Resource Include="action.exe" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <EmbeddedResource Include="Ace.dll" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
