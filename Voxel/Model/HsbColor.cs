@@ -24,13 +24,13 @@ namespace Voxel.Model
         }
         public HsbColor(Color rgbColor)
         {
-            decimal r = rgbColor.R / RgbMax;
-            decimal g = rgbColor.G / RgbMax;
-            decimal b = rgbColor.B / RgbMax;
+            var r = rgbColor.R / RgbMax;
+            var g = rgbColor.G / RgbMax;
+            var b = rgbColor.B / RgbMax;
 
-            decimal max = Math.Max(Math.Max(r, g), b);
-            decimal min = Math.Min(Math.Min(r, g), b);
-            decimal delta = max - min;
+            var max = Math.Max(Math.Max(r, g), b);
+            var min = Math.Min(Math.Min(r, g), b);
+            var delta = max - min;
 
             if (delta == 0M)
             {
@@ -71,9 +71,9 @@ namespace Voxel.Model
 
         public Color ToRgbColor()
         {
-            decimal c = brightness * saturation;
-            decimal h = hue == 360M ? 0M : hue / 60M;
-            decimal x = c * (1M - Math.Abs((h % 2M) - 1M));
+            var c = brightness * saturation;
+            var h = hue == 360M ? 0M : hue / 60M;
+            var x = c * (1M - Math.Abs((h % 2M) - 1M));
 
             decimal r, g, b;
             if (0M <= h && h <= 1M)
@@ -116,7 +116,7 @@ namespace Voxel.Model
             {
                 r = g = b = 0M;
             }
-            decimal m = brightness - c;
+            var m = brightness - c;
             r += m;
             g += m;
             b += m;

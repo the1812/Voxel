@@ -25,7 +25,7 @@ namespace Voxel.View
     {
         public MainView()
         {
-            bool showSplashScreen = GetBoolean(ShowSplashScreenKey);
+            var showSplashScreen = GetBoolean(ShowSplashScreenKey);
             if (showSplashScreen)
             {
                 this.showSplashScreen();
@@ -50,7 +50,7 @@ namespace Voxel.View
 
         private void showSplashScreen()
         {
-            SplashScreen splash = getSplashScreen();
+            var splash = getSplashScreen();
             splash.Show(false);
             loadAllView();
             //Thread.Sleep(500);
@@ -59,7 +59,7 @@ namespace Voxel.View
         private SplashScreen getSplashScreen()
         {
             var dpi = VisualTreeHelper.GetDpi(this);
-            string resourcePath = "Voxel Background";
+            var resourcePath = "Voxel Background";
             if (dpi.DpiScaleX <= 1.00)
             {
                 resourcePath += "@0,25x";

@@ -16,11 +16,11 @@ namespace Voxel.Model
             {
                 if (TargetType == TargetType.File)
                 {
-                    return StartMenu + TargetPath.GetFileName().RemoveExtension() + ".lnk";
+                    return StartMenu + TargetPath.GetParentFolder().RemoveExtension() + ".lnk";
                 }
                 else
                 {
-                    return StartMenu + TargetPath.GetFolderName().NoBackslash() + ".lnk";
+                    return StartMenu + TargetPath.GetParentFolder().NoBackslash() + ".lnk";
                 }
             }
         }

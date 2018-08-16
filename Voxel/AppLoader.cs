@@ -35,12 +35,13 @@ namespace Voxel
             }
             else
             {
-                bool fullScreen = GetBoolean(MakeKey(StartMenuKey, nameof(TileSize.Fullscreen)));
+                var fullScreen = GetBoolean(MakeKey(StartMenuKey, nameof(TileSize.Fullscreen)));
                 TileSize.Fullscreen = fullScreen;
-                bool showMoreTiles = GetBoolean(MakeKey(StartMenuKey, nameof(TileSize.ShowMoreTiles)));
+                var showMoreTiles = GetBoolean(MakeKey(StartMenuKey, nameof(TileSize.ShowMoreTiles)));
                 TileSize.ShowMoreTiles = showMoreTiles;
 
-                new MainView().ShowDialog();
+                // new MainView().ShowDialog();
+                new NonscalableTileView().ShowDialog();
             }
         }
     }

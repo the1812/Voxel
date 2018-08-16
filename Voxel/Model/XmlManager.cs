@@ -63,7 +63,7 @@ namespace Voxel.Model
                 {
                     relativePath = relativePath.Remove(0, 1);
                 }
-                string absolutePath = sourceTile.TargetPath.RemoveFileName().Backslash() + relativePath;
+                var absolutePath = sourceTile.TargetPath.RemoveFileName().Backslash() + relativePath;
                 return absolutePath;
             }
 
@@ -71,7 +71,7 @@ namespace Voxel.Model
             tile.Background = BackgroundColor;
             tile.ShowName = ShowNameOnSquare150x150Logo;
 
-            string largeImagePath = Square150x150Logo;
+            var largeImagePath = Square150x150Logo;
             if (File.Exists(largeImagePath))
             {
                 tile.LargeImagePath = largeImagePath;
@@ -81,7 +81,7 @@ namespace Voxel.Model
                 tile.LargeImagePath = getAbsolutePath(largeImagePath, tile);
             }
 
-            string smallImagePath = Square70x70Logo;
+            var smallImagePath = Square70x70Logo;
             if (File.Exists(smallImagePath))
             {
                 tile.SmallImagePath = smallImagePath;
@@ -96,7 +96,7 @@ namespace Voxel.Model
         {
             get
             {
-                string text = visualElements.Attribute(nameof(ForegroundText))?.Value;
+                var text = visualElements.Attribute(nameof(ForegroundText))?.Value;
                 return text == TileManager.DarkThemeString ? TextTheme.Dark : TextTheme.Light;
             }
             set

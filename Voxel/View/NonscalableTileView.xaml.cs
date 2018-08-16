@@ -35,7 +35,7 @@ namespace Voxel.View
                 {
                     if (messgae == 0x0320) // WindowsMessage.DwmColorizationColorChanged 
                     {
-                        long colorValue = (long) wParam;
+                        var colorValue = (long) wParam;
                         dataContext.DwmColorChanged(colorValue.ToColor());
                     }
                     return IntPtr.Zero;

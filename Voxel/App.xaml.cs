@@ -33,16 +33,16 @@ namespace Voxel
         {
             AppDomain.CurrentDomain.AssemblyResolve += (sender, eventArgs) =>
             {
-                string dllName = new AssemblyName(eventArgs.Name).Name + ".dll";
+                var dllName = new AssemblyName(eventArgs.Name).Name + ".dll";
                 var assembly = Assembly.GetExecutingAssembly();
-                string resourceName = assembly.GetManifestResourceNames().FirstOrDefault(name => name.EndsWith(dllName));
+                var resourceName = assembly.GetManifestResourceNames().FirstOrDefault(name => name.EndsWith(dllName));
                 if (resourceName == null)
                 {
                     return null;
                 }
                 using (var stream = assembly.GetManifestResourceStream(resourceName))
                 {
-                    byte[] assemblyData = new byte[stream.Length];
+                    var assemblyData = new byte[stream.Length];
                     stream.Read(assemblyData, 0, assemblyData.Length);
                     return Assembly.Load(assemblyData);
                 }
@@ -68,7 +68,9 @@ namespace Voxel
             // Find the TextBox
             DependencyObject parent = e.OriginalSource as UIElement;
             while (parent != null && !(parent is TextBox))
+            {
                 parent = VisualTreeHelper.GetParent(parent);
+            }
 
             if (parent != null)
             {
@@ -86,7 +88,9 @@ namespace Voxel
         void selectAllText(object sender, RoutedEventArgs e)
         {
             if (e.OriginalSource is TextBox textBox)
+            {
                 textBox.SelectAll();
+            }
         }
     }
 }

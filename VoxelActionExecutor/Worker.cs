@@ -11,7 +11,7 @@ namespace Voxel.ActionExecutor
     {
         public static void Run()
         {
-            Settings settings = new Settings();
+            var settings = new Settings();
             if (string.IsNullOrWhiteSpace(settings.Action) ||
                 settings.Action == Settings.DefaultAction  ||
                 settings.IsSelfExecuteCommand)

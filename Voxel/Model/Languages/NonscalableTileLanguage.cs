@@ -56,7 +56,7 @@ namespace Voxel.Model.Languages
             };
             simplifiedChinese = new List<string>
             {
-                "无缩放磁贴",
+                "VOXEL",
                 "选择目标",
                 "选择文件（右键点击\"选择目标\"以选择文件夹）",
                 "所有文件 (*.*)|*.*",
@@ -97,7 +97,7 @@ namespace Voxel.Model.Languages
             };
             americanEnglish = new List<string>
             {
-                "Non-scalable Tile",
+                "VOXEL",
                 "Select Target",
                 "Select File (Right click \"Select Target\" to select a folder)",
                 "All Files (*.*)|*.*",

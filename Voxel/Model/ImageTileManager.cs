@@ -40,12 +40,12 @@ namespace Voxel.Model
         {
             var uri = new Uri(ImageTile.ActionExecutorName, UriKind.Relative);
             var reader = new BinaryReader(Application.GetResourceStream(uri).Stream);
-            byte[] bytesData = reader.ReadBytes((int) reader.BaseStream.Length);
+            var bytesData = reader.ReadBytes((int) reader.BaseStream.Length);
             using (var writer = new BinaryWriter(new FileStream(path, FileMode.Create)))
             {
                 writer.Write(bytesData);
             }
-            JsonFile settings = new JsonFile(path)
+            var settings = new JsonFile(path)
             {
                 Content = new JsonObject
                 {
@@ -59,16 +59,16 @@ namespace Voxel.Model
         {
             foreach (var tile in list)
             {
-                string subFolder = GroupPath + tile.Name.Backslash();
+                var subFolder = GroupPath + tile.Name.Backslash();
 
-                string executorPath = subFolder + ImageTile.ActionExecutorName;
+                var executorPath = subFolder + ImageTile.ActionExecutorName;
                 copyExecutorTo(executorPath, tile.Action);
 
-                string imagePath = subFolder + tile.Name + ".png";
+                var imagePath = subFolder + tile.Name + ".png";
                 var image = new UniversalImage(tile.Image);
                 image.SaveImageSource(imagePath);
 
-                XmlManager xml = new XmlManager();
+                var xml = new XmlManager();
                 xml.FillFrom(tile);
                 xml.Save(tile.XmlPath);
             }
@@ -79,7 +79,7 @@ namespace Voxel.Model
             {
                 if (!tile.IsOnStartMenu)
                 {
-                    ShortcutFile file = new ShortcutFile(tile.StartMenuTargetPath)
+                    var file = new ShortcutFile(tile.StartMenuTargetPath)
                     {
                         TargetPath = tile.TargetPath,
                     };
@@ -141,7 +141,7 @@ namespace Voxel.Model
         {
             data[TypeKey] = nameof(ImageTile);
             data[nameof(GroupName)] = GroupName;
-            List<JsonValue> tiles = new List<JsonValue>();
+            var tiles = new List<JsonValue>();
             foreach (var tile in list)
             {
                 tiles.Add(new JsonObject

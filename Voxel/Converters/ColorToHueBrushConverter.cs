@@ -23,7 +23,7 @@ namespace Voxel.Converters
                     StartPoint = new Point(0, 0),
                     EndPoint = new Point(1, 0),
                 };
-                for (decimal hue = 0M; hue <= 360M; hue += 60M)
+                for (var hue = 0M; hue <= 360M; hue += 60M)
                 {
                     color.Hue = hue;
                     var stop = new GradientStop(color, (double) hue / 360.0);

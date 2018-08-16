@@ -13,16 +13,16 @@ namespace Voxel.ActionExecutor
         {
             AppDomain.CurrentDomain.AssemblyResolve += (sender, eventArgs) =>
             {
-                string dllName = new AssemblyName(eventArgs.Name).Name + ".dll";
+                var dllName = new AssemblyName(eventArgs.Name).Name + ".dll";
                 var assembly = Assembly.GetExecutingAssembly();
-                string resourceName = assembly.GetManifestResourceNames().FirstOrDefault(name => name.EndsWith(dllName));
+                var resourceName = assembly.GetManifestResourceNames().FirstOrDefault(name => name.EndsWith(dllName));
                 if (resourceName == null)
                 {
                     return null;
                 }
                 using (var stream = assembly.GetManifestResourceStream(resourceName))
                 {
-                    byte[] assemblyData = new byte[stream.Length];
+                    var assemblyData = new byte[stream.Length];
                     stream.Read(assemblyData, 0, assemblyData.Length);
                     return Assembly.Load(assemblyData);
                 }
