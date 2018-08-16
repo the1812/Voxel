@@ -13,7 +13,7 @@
   Title="{Binding [WindowTitle]}"
   Height="320"
   Width="600"
-  WindowStartupLocation="CenterOwner"
+  WindowStartupLocation="CenterScreen"
   MinWidth="500"
   MinHeight="273"
   Icon="/Voxel;component/Voxel.ico">
@@ -140,7 +140,7 @@
   </Window.Resources>
   <Grid
     x:Name="gridMain"
-    Background="#FF323232">
+    Background="#222">
     <Grid.ColumnDefinitions>
       <ColumnDefinition
         Width="330" />
